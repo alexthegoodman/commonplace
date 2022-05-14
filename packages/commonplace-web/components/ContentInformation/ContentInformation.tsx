@@ -17,7 +17,11 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
         <div className="contentAuthor">
           <div className="contentAuthorInner">
             <img className="authorProfileImage" />
-            <span className="authorAttribution">by {author.name}</span>
+            {author !== null ? (
+              <span className="authorAttribution">by {author.name}</span>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>

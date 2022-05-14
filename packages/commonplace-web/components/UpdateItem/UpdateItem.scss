@@ -1,0 +1,29 @@
+.updateItem {
+  margin-bottom: 35px;
+
+  .updateItemInner {
+    display: flex;
+    flex-direction: row;
+
+    img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: lightblue;
+    }
+    .itemInformation {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 25px;
+
+      .itemLabel {
+        font-size: 24px;
+        margin-bottom: 5px;
+      }
+      .itemAttribution {
+        font-size: 16px;
+      }
+    }
+  }
+}
