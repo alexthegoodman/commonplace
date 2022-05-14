@@ -1,3 +1,4 @@
+import { Link } from "framer";
 import type { NextPage } from "next";
 import ContentInformation from "../components/ContentInformation/ContentInformation";
 import ContentViewer from "../components/ContentViewer/ContentViewer";
@@ -9,9 +10,17 @@ const Home: NextPage = () => {
     <section className="queue">
       <div className="queueInner">
         <PrimaryHeader
-          leftIcon={<>x</>}
+          leftIcon={
+            <Link href="/profile">
+              <a>P</a>
+            </Link>
+          }
           titleComponent={<h1>Landscape Paintings</h1>}
-          rightIcon={<>x</>}
+          rightIcon={
+            <Link href="/updates">
+              <a>U</a>
+            </Link>
+          }
         />
         <div className="scrollContainer">
           <ContentViewer />
