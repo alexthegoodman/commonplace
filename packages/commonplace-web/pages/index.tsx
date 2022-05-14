@@ -1,5 +1,5 @@
-import { Link } from "framer";
 import type { NextPage } from "next";
+import Link from "next/link";
 import ContentInformation from "../components/ContentInformation/ContentInformation";
 import ContentViewer from "../components/ContentViewer/ContentViewer";
 import ImpressionWheel from "../components/ImpressionWheel/ImpressionWheel";
