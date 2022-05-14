@@ -9,15 +9,17 @@ const Home: NextPage = () => {
     <section className="queue">
       <div className="queueInner">
         <PrimaryHeader
-          leftIcon={<></>}
+          leftIcon={<>x</>}
           titleComponent={<h1>Landscape Paintings</h1>}
-          rightIcon={<></>}
+          rightIcon={<>x</>}
         />
-        <ContentViewer />
-        <ContentInformation
-          title="Post Title"
-          author={{ name: "Big Gigantic" }}
-        />
+        <div className="scrollContainer">
+          <ContentViewer />
+          <ContentInformation
+            title="Post Title"
+            author={{ name: "Big Gigantic" }}
+          />
+        </div>
         <ImpressionWheel />
       </div>
     </section>

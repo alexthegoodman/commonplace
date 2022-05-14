@@ -1,1 +1,18 @@
-/** Styles **/
+.contentInformation {
+  .contentInformationInner {
+    padding: 25px 25px;
+
+    .contentTitle {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+    .contentAuthor {
+      .contentAuthorInner {
+        .authorProfileImage {
+        }
+        .authorAttribution {
+        }
+      }
+    }
+  }
+}

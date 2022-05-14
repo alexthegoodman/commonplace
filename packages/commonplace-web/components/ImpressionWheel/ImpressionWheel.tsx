@@ -171,13 +171,13 @@ export default function WheelSpecComponent(props) {
     const completeRotations = Math.abs(Math.floor(wheelRotation / 360));
     const relativeRotation = wheelRotation % 360;
 
-    console.info(
-      "findSelection",
-      wheelRotation,
-      angle,
-      completeRotations,
-      relativeRotation
-    );
+    // console.info(
+    //   "findSelection",
+    //   wheelRotation,
+    //   angle,
+    //   completeRotations,
+    //   relativeRotation
+    // );
 
     let newPosition = Math.abs(
       (73 - Math.floor(relativeRotation / angle)) % itemCount
@@ -232,6 +232,7 @@ export default function WheelSpecComponent(props) {
   // Learn more: https://www.framer.com/docs/guides/auto-sizing
   return (
     <div
+      className="impressionWheelWrapper"
       style={{
         ...style,
         ...containerStyle,
@@ -393,6 +394,7 @@ export default function WheelSpecComponent(props) {
             if (option)
               return (
                 <motion.div
+                  key={i}
                   style={{
                     ...wheelOptionStyle,
                     ...optionStyle,
@@ -439,6 +441,8 @@ const containerStyle = {
   overflow: "hidden",
   backgroundColor: "transparent",
   touchAction: "none",
+  height: "400px",
+  paddingTop: "100px",
 };
 
 const basicWheelStyle = {
