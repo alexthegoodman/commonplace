@@ -2,6 +2,7 @@ import * as React from "react";
 import { addPropertyControls, ControlType } from "framer";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { adjectives } from "../../def/adjectives";
 
 // Radial Velocity Menu
 
@@ -11,14 +12,14 @@ const wheelOptions = Array.from({ length: 10 })
   .map((x, i) => {
     const parentOption = {
       id: `C00${i}`,
-      label: `Category ${i}`,
+      label: adjectives[i],
       level: 1,
     };
 
-    const childOptions = Array.from({ length: 10 }).map((x, i) => {
+    const childOptions = Array.from({ length: 9 }).map((x, n) => {
       return {
-        id: `T00${i}`,
-        label: `Option ${i}`,
+        id: `T00${i * n}`,
+        label: adjectives[i * 30 + n],
         level: 2,
       };
     });
@@ -36,6 +37,7 @@ export default function WheelSpecComponent(props) {
   const [wheelExpansion, setWheelExpansion] = useState(0.1);
   const [initialSlowTime, setInitialSlowTime] = useState(null); // start of slow movement
   const [position, setPosition] = useState(null);
+  const [selectedWheelOption, setSelectedWheelOption] = useState(null);
   const [speedRange, setSpeedRange] = useState(null);
   const [startingRotation, setStartingRotation] = useState(0);
 
@@ -51,12 +53,12 @@ export default function WheelSpecComponent(props) {
   const fullTranslation = deviceWidth / 2;
 
   const speedLevels = [
-    [0, 20], // no transition, collapsed
-    [20, 200], // real-time transition from collapsed to expanded
-    [200, 100000], // no transition, expanded
+    [0, 25], // no transition, collapsed
+    [25, 250], // real-time transition from collapsed to expanded
+    [250, 100000], // no transition, expanded
   ];
 
-  const displayLevels = [50, 50, 6];
+  const displayLevels = [50, 50, 20];
 
   const itemCount = 100;
   const itemSize = 20;
@@ -180,11 +182,12 @@ export default function WheelSpecComponent(props) {
     // );
 
     let newPosition = Math.abs(
-      (73 - Math.floor(relativeRotation / angle)) % itemCount
+      (72 - Math.floor(relativeRotation / angle)) % itemCount
     );
     // if (newPosition < 0) newPosition = 100 + relativeRotation
     // if (newPosition > 100) newPosition = relativeRotation - 100
     setPosition(newPosition);
+    setSelectedWheelOption(wheelOptions[newPosition - 1]);
   };
 
   // console.info("Render Wheel")
@@ -231,184 +234,269 @@ export default function WheelSpecComponent(props) {
   // "...style" enables switching between auto & fixed sizing
   // Learn more: https://www.framer.com/docs/guides/auto-sizing
   return (
-    <div
-      className="impressionWheelWrapper"
-      style={{
-        ...style,
-        ...containerStyle,
-      }}
-    >
-      <div style={backgroundContainer}>
-        <div style={tickContainer}>
-          {/*<h1>Position: {position}</h1>*/}
-
-          <div style={tickStyle}></div>
+    <>
+      <h1
+        style={{
+          position: "absolute",
+          display: "block",
+          zIndex: 15,
+          bottom: 250,
+          fontSize: 28,
+          backgroundColor: "white",
+        }}
+      >
+        Position: {position}{" "}
+        {selectedWheelOption !== null &&
+        typeof selectedWheelOption !== "undefined"
+          ? selectedWheelOption.label
+          : "N/A"}
+      </h1>
+      <div
+        onContextMenu={(e) => e.preventDefault()}
+        className="impressionWheelWrapper"
+        style={{
+          ...style,
+          ...containerStyle,
+        }}
+      >
+        <div style={backgroundContainer}>
+          <div style={tickContainer}>
+            <div style={tickStyle}></div>
+          </div>
         </div>
-      </div>
 
-      <motion.div style={wheelContainer} onPanStart={onPanStart} onPan={onPan}>
-        <div style={{ position: "absolute" }}>
-          <motion.div style={basicWheelStyle} />
-        </div>
+        <motion.div
+          style={wheelContainer}
+          onPanStart={onPanStart}
+          onPan={onPan}
+        >
+          <div style={{ position: "absolute" }}>
+            <motion.div style={basicWheelStyle} />
+          </div>
 
-        <div style={optionContainer}>
-          {wheelOptions.map((option, i) => {
-            const count = i + 1;
-            totalAngle = totalAngle + angle;
+          <div style={optionContainer}>
+            {wheelOptions.map((option, i) => {
+              // ****
+              // determines visibility of each wheel option one-by-one
+              // ****
 
-            const dynamicSize = itemSize + itemSize * wheelExpansion;
-            const optionsDisplayLengthBySpeed = displayLevels[speedRange];
+              const optionIndex = i + 1;
+              totalAngle = totalAngle + angle;
 
-            const selectionDisplayPosition = position;
-            let bottomLeftDisplayPosition =
-              selectionDisplayPosition - optionsDisplayLengthBySpeed;
+              const dynamicSize = itemSize + itemSize * wheelExpansion;
+              const optionsDisplayLengthBySpeed = displayLevels[speedRange];
 
-            let nextSideBottomLeftPosition = null;
-            if (bottomLeftDisplayPosition < 0) {
-              // if less than 0, should be in high 90s
-              nextSideBottomLeftPosition =
-                itemCount + bottomLeftDisplayPosition;
-            }
+              // ****
+              // Determine left, center, and right positions
+              // If left or right is over the edge (0 or 100)
+              // then determine the position on the other side
+              // ****
+              const selectionDisplayPosition = position;
+              let bottomLeftDisplayPosition =
+                selectionDisplayPosition - optionsDisplayLengthBySpeed;
 
-            const bottomRightDisplayPosition =
-              selectionDisplayPosition + optionsDisplayLengthBySpeed; // righthand
+              let nextSideBottomLeftPosition = null;
+              if (bottomLeftDisplayPosition < 0) {
+                // if less than 0, should be in high 90s
+                nextSideBottomLeftPosition =
+                  itemCount + bottomLeftDisplayPosition;
+              }
 
-            let nextSideBottomRightPosition = null;
-            if (bottomRightDisplayPosition > 100) {
-              // if more than 100, should be in low 10s
-              // this and 100 (if isNextSlide), 0 and center
-              nextSideBottomRightPosition = Math.abs(
-                bottomRightDisplayPosition % 100
-              );
-            }
+              const bottomRightDisplayPosition =
+                selectionDisplayPosition + optionsDisplayLengthBySpeed; // righthand
 
-            // if topDisplay is -1, reset topDisplay to 100?
-            // if bottomDisplay is under 0, check isDislayed between (100 + bottomDisplay) and 100
-            // if topDisplay is over 100, check isDisplayed 0 and (0 + topDisplay)
-            // 0 is 0, -1 matches 100, -2 matches 99
+              let nextSideBottomRightPosition = null;
+              if (bottomRightDisplayPosition > 100) {
+                // if more than 100, should be in low 10s
+                // this and 100 (if isNextSlide), 0 and center
+                nextSideBottomRightPosition = Math.abs(
+                  bottomRightDisplayPosition % 100
+                );
+              }
 
-            // console.info(
-            //     "speedRange",
-            //     displayLevels[speedRange],
-            //     speedRange,
-            //     bottomDisplay,
-            //     topDisplay
-            // )
+              const isSelection = optionIndex === position;
 
-            //const isTestCategoryOption = count % 10 === 0 // every 10 items is category option circle
-            const isSelection = count === position;
-            let isDisplayed =
-              count >= bottomLeftDisplayPosition &&
-              count <= bottomRightDisplayPosition;
+              // ****
+              // Determine isDisplayed by being within range of center
+              // Or if over the edge, then within range of edge
+              // (and center, depending on difference)
+              // ****
+              let isDisplayed =
+                optionIndex >= bottomLeftDisplayPosition &&
+                optionIndex <= bottomRightDisplayPosition;
 
-            // bottom left edge is negative, spinning right
-            // this goes from 1 to 100
-            if (nextSideBottomLeftPosition) {
-              const isNextSide =
-                count >= bottomLeftDisplayPosition && count >= 100;
-              const isCurrentSide =
-                count <= selectionDisplayPosition &&
-                count >= bottomLeftDisplayPosition;
-              isDisplayed = isNextSide || isCurrentSide;
-            }
+              let isNextSide = false;
+              let isCurrentSide = false;
 
-            // bottom right edge is over 100, spinning left
-            // this goes 100 to 1
-            if (nextSideBottomRightPosition) {
-              const isNextSide =
-                count <= bottomRightDisplayPosition && count >= 0;
-              const isCurrentSide =
-                count <= bottomRightDisplayPosition &&
-                count >= selectionDisplayPosition;
-              isDisplayed = isNextSide || isCurrentSide;
-            }
+              // bottom left edge is negative, spinning right
+              // this goes from 1 to 100
+              if (nextSideBottomLeftPosition) {
+                // nextSideBottomLeftPosition would be 97, 98...
+                isNextSide =
+                  optionIndex >= nextSideBottomLeftPosition &&
+                  optionIndex <= 100; // goes below 0
+                isCurrentSide =
+                  (optionIndex <= selectionDisplayPosition ||
+                    optionIndex <= optionsDisplayLengthBySpeed) &&
+                  optionIndex >= 1; // stays above 1
+                isDisplayed = isNextSide | isCurrentSide;
+              }
 
-            const relativePosition = count - selectionDisplayPosition; // positive is righthand, negative is lefthand
-            const displayAngle = totalAngle + relativePosition * 10;
+              // bottom right edge is over 100, spinning left
+              // this goes 100 to 1
+              if (nextSideBottomRightPosition) {
+                // nextSideBottomRightPosition would be 2, 3...
+                isNextSide =
+                  optionIndex <= nextSideBottomRightPosition &&
+                  optionIndex >= 1; // goes above 1
+                isCurrentSide =
+                  optionIndex <= 100 &&
+                  (optionIndex >= selectionDisplayPosition ||
+                    optionIndex >= 100 - optionsDisplayLengthBySpeed); // stays below 100
+                isDisplayed = isNextSide | isCurrentSide;
+              }
 
-            // adjust rotation based on position relative to selection
+              // console.info(
+              //   "isDisplayed",
+              //   isDisplayed,
+              //   optionsDisplayLengthBySpeed,
+              //   selectionDisplayPosition,
+              //   bottomLeftDisplayPosition,
+              //   nextSideBottomLeftPosition,
+              //   bottomRightDisplayPosition,
+              //   nextSideBottomRightPosition
+              // );
 
-            const defaultOptionStyle = {
-              // width: wheelThickness * wheelExpansion,
-              display: isDisplayed ? "block" : "none",
-              position: "absolute" as const,
-              top: "50%",
-              left: "50%",
-              width: dynamicSize,
-              height: dynamicSize,
-              backgroundColor: "white",
-              borderRadius: "50%",
-              transform: `rotate(${displayAngle}deg) translate(${
-                circleSize / 2
-              }px) rotate(-${displayAngle}deg) ${
-                isSelection ? `scale(1.8)` : `scale(1)`
-              }`,
-            };
+              // ****
+              // Determine radial placement by calculating angle
+              // ****
+              // TODO: what if 95 is like 15 due to wraparound? rather than selection being 98, it's 4, needs to display at -6
+              // if isNextSide and has nextSideBottomLeftPosition, then -bottomLeftDisplayPosition
+              // if isNextSide and has nextSideBottomRightPosition, then -bottomRightDisplayPosition
+              let relativePosition = optionIndex - selectionDisplayPosition; // positive is righthand, negative is lefthand
 
-            let optionStyle = { ...defaultOptionStyle };
+              // tentative...
+              if (isNextSide && nextSideBottomLeftPosition) {
+                // is on next when on right
+                relativePosition = optionIndex - bottomLeftDisplayPosition - 4;
+              }
 
-            if (option.level === 1) {
-              optionStyle = {
-                ...optionStyle,
-                zIndex: 5,
-                backgroundColor: "rbga(125, 45, 75, 1.0)",
-              };
-            }
+              if (isNextSide && nextSideBottomRightPosition) {
+                // is on next when on left
+                relativePosition = optionIndex + bottomRightDisplayPosition + 4;
+              }
 
-            if (isSelection) {
-              optionStyle = {
-                ...optionStyle,
-                zIndex: 10,
-                backgroundColor: "rgba(175, 145, 25, 1.0)",
-              };
-            }
+              const displayAngle = totalAngle + relativePosition * 10;
 
-            if (option.level === 2 && speedRange !== 2) {
-              // sub item and not moving slow
-              optionStyle = {
-                ...optionStyle,
-                opacity: 0,
-              };
-
-              // if (speedRange === 1) {
-              //     optionStyle = {
-              //         ...optionStyle,
-              //         opacity: 0.2,
-              //     }
-              // }
-            }
-
-            if (option.level === 1 && speedRange !== 2) {
-              const topDisplayAngle = totalAngle + relativePosition;
-
-              optionStyle = {
-                ...optionStyle,
-                transform: `rotate(${totalAngle}deg) translate(${
+              // ****
+              // Set isDisplayed and base styles
+              // ****
+              const defaultOptionStyle = {
+                display: isDisplayed ? "block" : "none",
+                position: "absolute" as const,
+                top: "50%",
+                left: "50%",
+                width: dynamicSize,
+                height: dynamicSize,
+                backgroundColor: "white",
+                borderRadius: "50%",
+                transform: `rotate(${displayAngle}deg) translate(${
                   circleSize / 2
-                }px) rotate(-${totalAngle}deg) ${
+                }px) rotate(-${displayAngle}deg) ${
                   isSelection ? `scale(1.8)` : `scale(1)`
                 }`,
+                backgroundColor: isSelection ? `rgb(94, 219, 101)` : `white`,
               };
-            }
 
-            if (option)
-              return (
-                <motion.div
-                  key={i}
-                  style={{
-                    ...wheelOptionStyle,
-                    ...optionStyle,
-                  }}
-                >
-                  <div>
-                    {count} {option.label}
-                  </div>
-                </motion.div>
-              );
-          })}
-        </div>
-      </motion.div>
-    </div>
+              let optionStyle = { ...defaultOptionStyle };
+
+              if (option.level === 1) {
+                optionStyle = {
+                  ...optionStyle,
+                  zIndex: 5,
+                  backgroundColor: "rgb(100, 208, 244)",
+                };
+              }
+
+              // if (isSelection) {
+              //   // TODO: color bug related to mutability
+              //   optionStyle = {
+              //     ...optionStyle,
+              //     zIndex: 10,
+              //     backgroundColor: "rgb(94, 219, 101)",
+              //   };
+              // }
+
+              // ****
+              // Show / Hide options based on speed
+              // The speedRange earlier will show extra options (relative to selection)
+              // While this will hide those sub-options when they should be hidden
+              // Level 1 is Category, Level 2 is Sub Option
+              // inTopRange speedRange = 0, inLowRange speedRange = 2,
+              // inTransitionalRange speedRange = 1;
+              // ****
+
+              // if sub-option and speed is not slow
+              if (option.level === 2 && speedRange !== 2) {
+                // sub item and not moving slow
+                optionStyle = {
+                  ...optionStyle,
+                  opacity: 0,
+                };
+
+                // TODO:
+                // speed becomes slow near edge,
+                // then thoes items on other side show
+
+                // if (speedRange === 0) {
+                //   optionStyle = {
+                //     ...optionStyle,
+                //     backgroundColor: "red",
+                //   };
+                // }
+
+                // if (speedRange === 1) {
+                //   optionStyle = {
+                //     ...optionStyle,
+                //     backgroundColor: "yellow",
+                //   };
+                // }
+              }
+
+              // if category option and speed is not slow
+              if (option.level === 1 && speedRange !== 2) {
+                const topDisplayAngle = totalAngle + relativePosition;
+
+                optionStyle = {
+                  ...optionStyle,
+                  transform: `rotate(${totalAngle}deg) translate(${
+                    circleSize / 2
+                  }px) rotate(-${totalAngle}deg) ${
+                    isSelection ? `scale(1.8)` : `scale(1)`
+                  }`,
+                };
+              }
+
+              if (option)
+                return (
+                  <motion.div
+                    key={i}
+                    style={{
+                      ...wheelOptionStyle,
+                      ...optionStyle,
+                    }}
+                  >
+                    <div>
+                      {/* {optionIndex} */}
+                      {option.label}
+                    </div>
+                  </motion.div>
+                );
+            })}
+          </div>
+        </motion.div>
+      </div>
+    </>
   );
 }
 
