@@ -1,0 +1,29 @@
+{
+  "name": "commonplace-utilities",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Alex Goodman <alexthegoodman@gmail.com>",
+  "homepage": "https://github.com/alexthegoodman/commonplace#readme",
+  "license": "ISC",
+  "main": "lib/commonplace-utilities.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexthegoodman/commonplace.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/alexthegoodman/commonplace/issues"
+  },
+  "dependencies": {
+    "pretty-console-logs": "^0.3.0"
+  }
+}
