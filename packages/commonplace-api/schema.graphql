@@ -3,5 +3,5 @@
 
 
 type Query {
-  ok: Boolean!
+  authenticate: String!
 }
