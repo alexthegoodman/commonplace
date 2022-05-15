@@ -1,15 +1,26 @@
-import { PrismaClient } from "@prisma/client";
-import { extendType, nonNull, stringArg } from "nexus";
+import { PrismaClient, User } from "@prisma/client";
+import { extendType, nonNull, objectType, stringArg } from "nexus";
 import bcrypt from "bcryptjs";
 import Utilities from "../../../commonplace-utilities";
 
 const prisma = new PrismaClient();
 
-export const PostQuery = extendType({
+export const UserType = objectType({
+  name: "User",
+  definition(t) {
+    t.string("id");
+    t.string("email");
+    t.string("name");
+    // t.field("updatedAt");
+    // t.string("createdAt");
+  },
+});
+
+export const AuthenticateQuery = extendType({
   type: "Query",
   definition(t) {
     t.nonNull.field("authenticate", {
-      type: "String",
+      type: "User",
       args: {
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
@@ -17,7 +28,7 @@ export const PostQuery = extendType({
       resolve: async (_, { email, password }) => {
         const utilities = new Utilities();
 
-        const user = await new Promise(async (resolve, reject) => {
+        const user: User = await new Promise(async (resolve, reject) => {
           utilities.logs.write([
             "Passport Strategy Incoming Request ",
             email,
@@ -54,7 +65,7 @@ export const PostQuery = extendType({
 
         console.info("Query user", user);
 
-        return "safe";
+        return user;
       },
     });
   },

@@ -22,6 +22,6 @@ export default async function clean() {
   // await prisma.raw("TRUNCATE AnnotationMeta;");
 
   await prisma.user.deleteMany({
-    where: { id: { not: 0 } },
+    where: { id: { not: "" } },
   });
 }

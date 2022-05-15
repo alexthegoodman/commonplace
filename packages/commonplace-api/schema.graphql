@@ -3,5 +3,11 @@
 
 
 type Query {
-  authenticate(email: String!, password: String!): String!
+  authenticate(email: String!, password: String!): User!
+}
+
+type User {
+  email: String
+  id: String
+  name: String
 }
