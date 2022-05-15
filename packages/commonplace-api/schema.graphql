@@ -3,5 +3,5 @@
 
 
 type Query {
-  authenticate: String!
+  authenticate(email: String!, password: String!): String!
 }

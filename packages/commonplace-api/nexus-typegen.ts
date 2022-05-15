@@ -54,6 +54,12 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Query: {
+    authenticate: { // args
+      email: string; // String!
+      password: string; // String!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
