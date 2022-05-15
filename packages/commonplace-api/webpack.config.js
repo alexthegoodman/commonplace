@@ -13,6 +13,9 @@ module.exports = {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
+    alias: {
+      graphql$: path.resolve(__dirname, "./node_modules/graphql/index.js"),
+    },
   },
   target: "node",
   mode: "development",

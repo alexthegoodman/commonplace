@@ -1,9 +1,10 @@
 import express from "express";
 import passport from "passport";
-import { LocalStrategy } from "passport-local";
-import bcrypt from "bcrypt";
+import LocalStrategy from "passport-local";
+import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
 import Utilities from "../commonplace-utilities";
+import { startApolloServer } from "./api";
 
 const prisma = new PrismaClient();
 
@@ -27,8 +28,13 @@ passport.use(
     async function (email: string, password: string, done) {
       const utilities = new Utilities();
 
-      utilities.logs.write(["Passport Strategy", email, password]);
+      utilities.logs.write([
+        "Passport Strategy Incoming Request ",
+        email,
+        password,
+      ]);
 
+      // find user match by email
       let user;
       try {
         user = await prisma.user.findUnique({
@@ -38,10 +44,13 @@ passport.use(
         utilities.logs.write(["ERROR User Not Found: ", error], "error");
       }
 
+      // if user is found, check for password match
       if (utilities.helpers.isDefinedWithContent(user)) {
         const match = await bcrypt.compare(password, user.password);
 
         if (match) {
+          utilities.logs.write("Passport Strategy Credentials Valid");
+
           return done(null, user, {
             message: "Success! Valid Login Credentials",
           });
@@ -61,5 +70,7 @@ app.use(passport.session());
 console.info("Start Server...");
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.info(`Express Server ready on port ${port}`);
 });
+
+startApolloServer();
