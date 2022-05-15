@@ -487,8 +487,8 @@ export default function WheelSpecComponent(props) {
                     }}
                   >
                     <div>
-                      {/* {optionIndex} */}
-                      {option.label}
+                      {optionIndex}
+                      {/* {option.label} */}
                     </div>
                   </motion.div>
                 );
