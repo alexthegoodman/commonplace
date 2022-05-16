@@ -1,0 +1,40 @@
+/** Variables **/
+$darkBlue: #2266ff;
+$midBlue: #3388ff;
+$lightBlue: #44ccff;
+
+/** Component Imports **/
+@import "../components/FormInput/FormInput";
+
+/** Page Styles **/
+.formWrapper {
+  width: 90%;
+  margin: 50px auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button {
+  outline: none;
+  background: none;
+  border: 1px grey solid;
+  width: 100%;
+}
+
+.circleButton {
+  outline: none;
+  background: none;
+  border: none;
+  width: 100px;
+  height: 100px;
+  background: $lightBlue;
+  border-radius: 50%;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  color: white;
+}

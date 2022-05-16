@@ -23,5 +23,6 @@ body {
   overflow: scroll;
 }
 
+@import "./Forms.module";
 @import "./Queue.module";
 @import "./Updates.module";

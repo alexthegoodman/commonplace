@@ -30,7 +30,7 @@ const wheelOptions = Array.from({ length: 10 })
 
 console.info("wheelOptions", wheelOptions);
 
-export default function WheelSpecComponent(props) {
+export default function ImpressionWheel(props) {
   const { text, onTap, style } = props;
 
   const [wheelRotation, setWheelRotation] = useState(0);
@@ -500,12 +500,12 @@ export default function WheelSpecComponent(props) {
   );
 }
 
-WheelSpecComponent.defaultProps = {
+ImpressionWheel.defaultProps = {
   // text: "Tap",
 };
 
 // Learn More: https://www.framer.com/docs/property-controls/
-addPropertyControls(WheelSpecComponent, {
+addPropertyControls(ImpressionWheel, {
   // text: {
   //     title: "Text",
   //     type: ControlType.String,

@@ -1,0 +1,18 @@
+.formInput {
+  input {
+    width: 100%;
+    height: 70px;
+    background-color: $midBlue;
+    color: white;
+    font-size: 22px;
+    border: none;
+    margin-bottom: 15px;
+    padding: 0 20px;
+
+    &::placeholder {
+      color: white;
+    }
+  }
+  span {
+  }
+}
