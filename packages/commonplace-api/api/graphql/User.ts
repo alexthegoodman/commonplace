@@ -29,11 +29,7 @@ export const AuthenticateQuery = extendType({
         const utilities = new Utilities();
 
         const user: User = await new Promise(async (resolve, reject) => {
-          utilities.logs.write([
-            "Passport Strategy Incoming Request ",
-            email,
-            password,
-          ]);
+          utilities.logs.write(["Authentication Request ", email]);
 
           // find user match by email
           let user;
@@ -42,7 +38,7 @@ export const AuthenticateQuery = extendType({
               where: { email },
             });
           } catch (error) {
-            utilities.logs.write(["ERROR User Not Found: ", error], "error");
+            reject(error);
           }
 
           // if user is found, check for password match
@@ -50,7 +46,7 @@ export const AuthenticateQuery = extendType({
             const match = await bcrypt.compare(password, user.password);
 
             if (match) {
-              utilities.logs.write("Passport Strategy Credentials Valid");
+              utilities.logs.write("Authentication Credentials Valid");
 
               resolve(user);
             } else {
@@ -63,9 +59,61 @@ export const AuthenticateQuery = extendType({
           }
         });
 
-        console.info("Query user", user);
+        utilities.logs.write(["Authenticate user", user]);
 
         // TODO: encrypt with JWT
+        // TODO: set secure cookie tied to origin
+
+        return user.id;
+      },
+    });
+  },
+});
+
+export const RegisterUserQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.field("registerUser", {
+      type: "String",
+      args: {
+        email: nonNull(stringArg()),
+        password: nonNull(stringArg()),
+      },
+      resolve: async (_, { email, password }) => {
+        const utilities = new Utilities();
+
+        const user: User = await new Promise(async (resolve, reject) => {
+          utilities.logs.write(["Register User Incoming Request ", email]);
+
+          bcrypt.hash(password, 12, async (err, hash) => {
+            if (utilities.helpers.isDefinedWithContent(hash)) {
+              let newUser;
+              try {
+                newUser = await prisma.user.create({
+                  data: {
+                    email,
+                    password: hash,
+                  },
+                });
+              } catch (error) {
+                reject(error);
+              }
+
+              // TODO: mandrill
+              // TODO: mailchimp list
+              // TODO: mixpanel
+
+              resolve(newUser);
+            } else {
+              reject(utilities.ERROR_CODES.C005);
+            }
+          });
+        });
+
+        utilities.logs.write(["Register user", user]);
+
+        // TODO: encrypt with JWT
+        // TODO: set secure cookie tied to origin
 
         return user.id;
       },

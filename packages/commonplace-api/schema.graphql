@@ -4,6 +4,7 @@
 
 type Query {
   authenticate(email: String!, password: String!): String!
+  registerUser(email: String!, password: String!): String!
 }
 
 type User {

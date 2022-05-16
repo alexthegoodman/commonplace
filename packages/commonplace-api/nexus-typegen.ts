@@ -48,6 +48,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 export interface NexusGenFieldTypes {
   Query: { // field return type
     authenticate: string; // String!
+    registerUser: string; // String!
   }
   User: { // field return type
     email: string | null; // String
@@ -58,6 +59,7 @@ export interface NexusGenFieldTypes {
 export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     authenticate: 'String'
+    registerUser: 'String'
   }
   User: { // field return type name
     email: 'String'
@@ -68,6 +70,10 @@ export interface NexusGenFieldTypeNames {
 export interface NexusGenArgTypes {
   Query: {
     authenticate: { // args
+      email: string; // String!
+      password: string; // String!
+    }
+    registerUser: { // args
       email: string; // String!
       password: string; // String!
     }
