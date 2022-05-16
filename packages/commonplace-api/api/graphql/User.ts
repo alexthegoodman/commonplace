@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 export const UserType = objectType({
   name: "User",
   definition(t) {
-    t.string("id");
+    // t.string("id"); // do not expose
     t.string("email");
     t.string("name");
     // t.field("updatedAt");
@@ -20,7 +20,7 @@ export const AuthenticateQuery = extendType({
   type: "Query",
   definition(t) {
     t.nonNull.field("authenticate", {
-      type: "User",
+      type: "String",
       args: {
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
@@ -65,7 +65,9 @@ export const AuthenticateQuery = extendType({
 
         console.info("Query user", user);
 
-        return user;
+        // TODO: encrypt with JWT
+
+        return user.id;
       },
     });
   },

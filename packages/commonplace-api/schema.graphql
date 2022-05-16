@@ -3,11 +3,10 @@
 
 
 type Query {
-  authenticate(email: String!, password: String!): User!
+  authenticate(email: String!, password: String!): String!
 }
 
 type User {
   email: String
-  id: String
   name: String
 }
