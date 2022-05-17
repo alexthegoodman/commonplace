@@ -4,6 +4,22 @@
   width: 100vw;
   z-index: 3;
 
+  &.whiteHeader {
+    .primaryHeaderInner {
+      .headerIcon {
+        a {
+          color: white;
+          text-decoration: none;
+        }
+      }
+      .headerTitleWrapper {
+        .title {
+          color: white;
+        }
+      }
+    }
+  }
+
   .primaryHeaderInner {
     display: flex;
     justify-content: space-between;
@@ -12,6 +28,10 @@
     .headerIcon {
     }
     .headerTitleWrapper {
+      .title {
+        font-size: 24px;
+        font-weight: 600;
+      }
     }
   }
 }

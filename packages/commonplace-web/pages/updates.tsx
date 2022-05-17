@@ -9,7 +9,7 @@ const Updates: NextPage = () => {
       <div className="updatesInner">
         <PrimaryHeader
           leftIcon={
-            <Link href="/">
+            <Link href="/queue">
               <a>Q</a>
             </Link>
           }
