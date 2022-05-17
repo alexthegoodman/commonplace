@@ -1,5 +1,9 @@
 @import "./reset";
 
+$darkBlue: #2266ff;
+$midBlue: #3388ff;
+$lightBlue: #44ccff;
+
 * {
   font-family: "Helvetica";
 }
@@ -26,3 +30,6 @@ body {
 @import "./Forms.module";
 @import "./Queue.module";
 @import "./Updates.module";
+@import "./Profile.module";
+@import "./Thread.module";
+@import "./Upload.module";

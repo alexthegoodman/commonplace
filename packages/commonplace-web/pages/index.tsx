@@ -1,15 +1,32 @@
 import type { NextPage } from "next";
+import Link from "next/link";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
-import SignInForm from "../components/SignInForm/SignInForm";
+import ProfileIntro from "../components/ProfileIntro/ProfileIntro";
+import ProfilePosts from "../components/ProfilePosts/ProfilePosts";
 
 const Home: NextPage = () => {
   return (
-    <>
-      <PrimaryHeader leftIcon={<></>} title="Sign In" rightIcon={<></>} />
-      <div className="formWrapper">
-        <SignInForm />
+    <section className="profile">
+      <div className="profileInner">
+        <PrimaryHeader
+          leftIcon={
+            <Link href="/">
+              <a>S</a>
+            </Link>
+          }
+          title="Alex Goodman"
+          rightIcon={
+            <Link href="/">
+              <a>Q</a>
+            </Link>
+          }
+        />
+        <div className="scrollContainer">
+          <ProfileIntro />
+          <ProfilePosts />
+        </div>
       </div>
-    </>
+    </section>
   );
 };
 

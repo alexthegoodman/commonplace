@@ -1,0 +1,10 @@
+.profilePosts {
+  padding: 0 30px;
+  margin-bottom: 35px;
+
+  .profilePostsInner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+  }
+}

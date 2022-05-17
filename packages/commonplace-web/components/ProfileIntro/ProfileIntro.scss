@@ -1,0 +1,26 @@
+.profileIntro {
+  .profileIntroInner {
+    margin-bottom: 275px;
+    position: relative;
+
+    .coverPhoto {
+      width: 100%;
+      height: 310px;
+      background: $darkBlue;
+
+      img {
+      }
+    }
+    .profilePhoto {
+      background: $midBlue;
+      width: 225px;
+      height: 375px;
+      position: absolute;
+      top: 122px;
+      left: calc(50% - 112.5px);
+
+      img {
+      }
+    }
+  }
+}
