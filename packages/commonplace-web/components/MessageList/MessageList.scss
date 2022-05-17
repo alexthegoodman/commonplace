@@ -1,0 +1,11 @@
+.messageList {
+  height: calc(100vh - 400px);
+  margin-bottom: 15px;
+
+  .messageListInner {
+    display: flex;
+    flex-flow: column-reverse;
+    align-items: center;
+    height: 100%;
+  }
+}

@@ -9,7 +9,6 @@
       .headerIcon {
         a {
           color: white;
-          text-decoration: none;
         }
       }
       .headerTitleWrapper {
@@ -26,6 +25,9 @@
     padding: 20px 25px;
 
     .headerIcon {
+      a {
+        text-decoration: none;
+      }
     }
     .headerTitleWrapper {
       .title {

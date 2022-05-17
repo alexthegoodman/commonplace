@@ -1,0 +1,33 @@
+.messageDictator {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .messageDictatorInner {
+    width: 90%;
+
+    .dictatorContentWrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: 100%;
+
+      .dictatorContent {
+        width: 100%;
+        height: 155px;
+        background: $midBlue;
+        margin: 25px 0;
+        padding: 25px;
+
+        span {
+          color: white;
+        }
+      }
+    }
+    .dictatorControls {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+}

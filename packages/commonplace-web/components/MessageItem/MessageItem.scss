@@ -1,0 +1,38 @@
+.messageItem {
+  margin-top: 25px;
+
+  .messageItemInner {
+    display: flex;
+    flex-direction: row;
+
+    .itemAuthor {
+      .authorPhoto {
+        width: 50px;
+        height: 50px;
+        background: $darkBlue;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+    }
+    .itemContent {
+      width: 200px;
+      min-height: 50px;
+      background: $darkBlue;
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+
+      &.left {
+        margin-left: 10px;
+      }
+
+      &.right {
+        margin-right: 10px;
+      }
+
+      span {
+        color: white;
+      }
+    }
+  }
+}
