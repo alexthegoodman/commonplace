@@ -3,7 +3,7 @@
     .postContent {
       width: 100%;
       aspect-ratio: 1;
-      background: $lightBlue;
+      background: $darkBlue;
 
       img {
       }
@@ -12,10 +12,13 @@
       height: 50px;
       display: flex;
       align-items: center;
-      background: #e5e5e5;
+      background: $lightBlue;
       padding: 0 15px;
 
       span {
+        color: $darkBlue;
+        font-weight: 600;
+        font-size: 18px;
       }
     }
   }

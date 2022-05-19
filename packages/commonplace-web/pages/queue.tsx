@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import ContentInformation from "../components/ContentInformation/ContentInformation";
 import ContentViewer from "../components/ContentViewer/ContentViewer";
+import ImpressionGrid from "../components/ImpressionGrid/ImpressionGrid";
 import ImpressionWheel from "../components/ImpressionWheel/ImpressionWheel";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
 
@@ -29,7 +30,8 @@ const Profile: NextPage = () => {
             author={{ name: "Big Gigantic" }}
           />
         </div>
-        <ImpressionWheel />
+        <ImpressionGrid />
+        {/* <ImpressionWheel /> */}
       </div>
     </section>
   );

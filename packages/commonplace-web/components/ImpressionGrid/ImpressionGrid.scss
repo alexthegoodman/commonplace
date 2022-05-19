@@ -1,0 +1,26 @@
+.impressionGrid {
+  width: 100vw;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  position: absolute;
+  bottom: 0;
+
+  .impressionGridInner {
+    .pillGrid {
+      display: flex;
+      flex-wrap: wrap;
+      width: 5000px;
+      height: 195px;
+      overflow-x: scroll;
+      overflow-y: hidden;
+
+      li {
+        display: block;
+        background: #f7f7f7;
+        padding: 10px 20px;
+        border-radius: 50px;
+        margin: 7px;
+      }
+    }
+  }
+}
