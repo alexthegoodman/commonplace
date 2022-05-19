@@ -13,7 +13,11 @@ const Profile: NextPage = () => {
       <div className="queueInner">
         <PrimaryHeader
           leftIcon={<span className="brandname">Co</span>}
-          titleComponent={<h1>Landscape Paintings</h1>}
+          titleComponent={
+            <Link href="/interests">
+              <a>Landscape Paintings</a>
+            </Link>
+          }
           rightIcon={<PrimaryNavigation />}
         />
         <div className="scrollContainer queueScrollContainer">
