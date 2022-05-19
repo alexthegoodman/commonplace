@@ -7,6 +7,7 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
   className = "",
   onClick = (e) => console.info("Click ContentInformation"),
   title = "",
+  description = "",
   author = null,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
@@ -24,6 +25,7 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
             )}
           </div>
         </div>
+        <p className="contentDescription">{description}</p>
       </div>
     </section>
   );

@@ -6,3 +6,11 @@
 @import "../components/ImpressionWheel/ImpressionWheel";
 @import "../components/ImpressionGrid/ImpressionGrid";
 @import "../components/PrimaryHeader/PrimaryHeader";
+@import "../components/PrimaryNavigation/PrimaryNavigation";
+
+/*** Page Styles ***/
+.brandname {
+  color: $darkBlue;
+  font-size: 20px;
+  font-weight: 600;
+}

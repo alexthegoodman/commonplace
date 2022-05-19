@@ -5,13 +5,22 @@
     .contentTitle {
       font-size: 32px;
       margin-bottom: 15px;
-      font-weight: 400;
+      font-weight: 600;
+    }
+    .contentDescription {
+      display: block;
+      font-size: 18px;
+      line-height: 24px;
+      color: #757575;
+      font-weight: 300;
+      margin: 20px 0;
     }
     .contentAuthor {
       .contentAuthorInner {
         .authorProfileImage {
         }
         .authorAttribution {
+          font-weight: 400;
         }
       }
     }

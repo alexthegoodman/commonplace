@@ -1,4 +1,10 @@
 .impressionGridWrapper {
+  background: white;
+  height: 255px;
+  width: 100vw;
+  position: absolute;
+  bottom: 0;
+
   .gridLabel {
     display: block;
     font-size: 18px;
@@ -9,6 +15,10 @@
     color: #737373;
     font-weight: 500;
   }
+}
+
+.queueScrollContainer {
+  height: calc(100vh - 255px);
 }
 
 .impressionGrid {

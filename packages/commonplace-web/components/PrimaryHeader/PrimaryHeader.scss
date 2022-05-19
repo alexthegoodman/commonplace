@@ -30,6 +30,12 @@
       }
     }
     .headerTitleWrapper {
+      .titleComponent {
+        h1 {
+          font-weight: 600;
+          font-size: 18px;
+        }
+      }
       .title {
         font-size: 24px;
         font-weight: 600;

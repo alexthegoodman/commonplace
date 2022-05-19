@@ -3,5 +3,6 @@ export interface ContentInformationProps {
   className?: string;
   onClick?: (e: MouseEvent) => void;
   title?: string;
+  description?: string;
   author?: any;
 }

@@ -10,19 +10,32 @@ $lightBlue: #44ccff;
   font-family: "Inter", "Helvetica";
 }
 
+/*** Fixed URL Address Bar ***/
+html {
+  overflow: hidden;
+  width: 100%;
+}
+
+body {
+  height: 100%;
+  position: fixed;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
 ul,
 ol {
   padding: 0;
 }
 
-body {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
+// body {
+//   width: 100vw;
+//   height: 100vh;
+//   overflow: hidden;
+// }
 
 .scrollContainer {
-  width: 100%;
+  width: 100vw;
   height: 100%;
   max-width: 100vw;
   max-height: 100vh;
