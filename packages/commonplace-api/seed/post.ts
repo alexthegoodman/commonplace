@@ -10,7 +10,7 @@ export default async function seedPosts(user1, user2) {
       description: "",
       contentType: "image",
       contentPreview: "",
-      content: faker.image.imageUrl(1234, 2345, "cat"),
+      content: faker.image.imageUrl(1234, 2345, "design"),
       interest: {
         create: {
           name: faker.lorem.words(),

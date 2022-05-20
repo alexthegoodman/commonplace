@@ -23,7 +23,7 @@ const Profile: NextPage = () => {
         <div className="scrollContainer queueScrollContainer">
           <ContentViewer />
           <ContentInformation
-            title="Post Title"
+            title="The Misty Night"
             description={`Here is a description regarding
                           the various things that we need to do. Also
                           we can do other things`}
