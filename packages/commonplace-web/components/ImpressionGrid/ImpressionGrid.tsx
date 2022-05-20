@@ -12,7 +12,7 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
 
   return (
     <section className="impressionGridWrapper">
-      <span className="gridLabel">What is your impression?</span>
+      <span className="gridLabel">What's your impression?</span>
       <div className="impressionGrid">
         <div className="impressionGridInner">
           <ul className="pillGrid">
