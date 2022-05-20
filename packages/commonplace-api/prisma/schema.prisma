@@ -16,8 +16,8 @@ model User {
   name      String?
   password  String
 
-  credit       Int
-  profileImage String
+  credit       Int    @default(0)
+  profileImage String @default("")
 
   posts        Post[]
   threads      Thread[]
