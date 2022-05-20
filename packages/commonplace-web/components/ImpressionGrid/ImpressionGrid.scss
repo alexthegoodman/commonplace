@@ -1,9 +1,10 @@
 .impressionGridWrapper {
   background: white;
-  height: 255px;
+  height: 265px;
   width: 100vw;
   position: absolute;
   bottom: 0;
+  box-shadow: 0px 4px 8px 5px rgba(0, 0, 0, 0.25);
 
   .gridLabel {
     display: block;
