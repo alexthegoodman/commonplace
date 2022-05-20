@@ -1,0 +1,47 @@
+/** Variables **/
+
+/** Component Imports **/
+@import "../components/InterestGrid/InterestGrid";
+@import "../components/InterestPreview/InterestPreview";
+
+/** Page Styles **/
+.interests {
+  width: 100vw;
+
+  .interestsInner {
+  }
+}
+
+.interestPicker {
+  padding: 30px 25px;
+
+  .interestPickerInner {
+    .pickerSearch {
+    }
+  }
+}
+
+.pickerSelector {
+  .pickerSelectorInner {
+    .selectorLevel {
+      margin-top: 20px;
+
+      .selectorLabel {
+        font-size: 20px;
+        color: $darkBlue;
+        font-weight: 600;
+      }
+      .selectorGridWrapper {
+      }
+    }
+  }
+}
+
+.pickerControls {
+  .pickerControlsInner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px 0;
+  }
+}

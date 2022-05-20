@@ -2,6 +2,7 @@
 
 /** Component Imports **/
 @import "../components/FormInput/FormInput";
+@import "../components/SearchInput/SearchInput";
 
 /** Page Styles **/
 .formWrapper {
@@ -18,8 +19,14 @@
 .button {
   outline: none;
   background: none;
-  border: 1px grey solid;
   width: 100%;
+  font-size: 24px;
+  background: $lightBlue;
+  width: 275px;
+  font-weight: 600;
+  display: block;
+  padding: 18px 0;
+  text-align: center;
 }
 
 .circleButton {

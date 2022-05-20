@@ -1,0 +1,14 @@
+.interestGrid {
+  @extend .grid;
+
+  .interestGridInner {
+    .pillGrid {
+      height: 145px;
+
+      li {
+        background: $lightBlue;
+        color: white;
+      }
+    }
+  }
+}

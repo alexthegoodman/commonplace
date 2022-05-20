@@ -21,14 +21,13 @@
   height: calc(100vh - 255px);
 }
 
-.impressionGrid {
+.grid {
   width: 100vw;
   overflow-x: scroll;
   overflow-y: hidden;
-  position: absolute;
-  bottom: 0;
 
-  .impressionGridInner {
+  .impressionGridInner,
+  .interestGridInner {
     .pillGrid {
       display: flex;
       flex-wrap: wrap;
@@ -49,4 +48,10 @@
       }
     }
   }
+}
+
+.impressionGrid {
+  @extend .grid;
+  position: absolute;
+  bottom: 0;
 }

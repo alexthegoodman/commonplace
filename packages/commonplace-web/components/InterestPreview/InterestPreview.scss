@@ -1,0 +1,20 @@
+.interestPreview {
+  height: 260px;
+  background: $lightBlue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .interestPreviewInner {
+    .previewLabel {
+      padding: 14px 14px;
+      background: rgba(white, 0.2);
+
+      span {
+        font-size: 24px;
+        font-weight: 600;
+        color: $darkBlue;
+      }
+    }
+  }
+}
