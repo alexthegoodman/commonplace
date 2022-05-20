@@ -84,9 +84,20 @@ model Interest {
   
   contentType String
 
-  posts     Post[]
-  modifiers Modifier[]
+  posts       Post[]
+  categories  Category[]
+  modifiers   Modifier[]
 
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Category {
+  id       String   @id @default(uuid())
+  name     String
+
+  interests Interest[]
+  
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }

@@ -4,16 +4,62 @@
  */
 
 
-
-
-
-
+import type { core } from "nexus"
+declare global {
+  interface NexusGenCustomInputMethods<TypeName extends string> {
+    /**
+     * The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+     */
+    json<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "JSONObject";
+    /**
+     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     */
+    date<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "DateTime";
+  }
+}
+declare global {
+  interface NexusGenCustomOutputMethods<TypeName extends string> {
+    /**
+     * The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+     */
+    json<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "JSONObject";
+    /**
+     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     */
+    date<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "DateTime";
+  }
+}
+declare global {
+  interface NexusGenCustomOutputProperties<TypeName extends string> {
+    crud: NexusPrisma<TypeName, 'crud'>
+    model: NexusPrisma<TypeName, 'model'>
+  }
+}
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
 }
 
 export interface NexusGenInputs {
+  CategoryWhereUniqueInput: { // input type
+    id?: string | null; // String
+  }
+  InterestWhereUniqueInput: { // input type
+    id?: string | null; // String
+  }
+  MessageWhereUniqueInput: { // input type
+    id?: string | null; // String
+  }
+  PostWhereUniqueInput: { // input type
+    id?: string | null; // String
+  }
+  ThreadWhereUniqueInput: { // input type
+    id?: string | null; // String
+  }
+  UserWhereUniqueInput: { // input type
+    email?: string | null; // String
+    id?: string | null; // String
+  }
 }
 
 export interface NexusGenEnums {
@@ -25,13 +71,45 @@ export interface NexusGenScalars {
   Float: number
   Boolean: boolean
   ID: string
+  DateTime: any
+  JSONObject: any
 }
 
 export interface NexusGenObjects {
+  Category: { // root type
+    name: string; // String!
+  }
+  Interest: { // root type
+    name: string; // String!
+  }
+  Message: { // root type
+    content: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    type: string; // String!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+  }
+  Post: { // root type
+    content: string; // String!
+    contentPreview: string; // String!
+    contentType: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    description: string; // String!
+    title: string; // String!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+  }
   Query: {};
+  Thread: { // root type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    repliesAllowed: boolean; // Boolean!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+  }
   User: { // root type
-    email?: string | null; // String
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    credit: number; // Int!
+    email: string; // String!
     name?: string | null; // String
+    profileImage: string; // String!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
 }
 
@@ -46,36 +124,211 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Category: { // field return type
+    interests: NexusGenRootTypes['Interest'][]; // [Interest!]!
+    name: string; // String!
+  }
+  Interest: { // field return type
+    categories: NexusGenRootTypes['Category'][]; // [Category!]!
+    name: string; // String!
+  }
+  Message: { // field return type
+    content: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    readBy: NexusGenRootTypes['User'][]; // [User!]!
+    type: string; // String!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+    user: NexusGenRootTypes['User']; // User!
+  }
+  Post: { // field return type
+    content: string; // String!
+    contentPreview: string; // String!
+    contentType: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    creator: NexusGenRootTypes['User']; // User!
+    description: string; // String!
+    interest: NexusGenRootTypes['Interest']; // Interest!
+    threads: NexusGenRootTypes['Thread'][]; // [Thread!]!
+    title: string; // String!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+  }
   Query: { // field return type
     authenticate: string; // String!
+    categories: NexusGenRootTypes['Category'][]; // [Category!]!
+    interests: NexusGenRootTypes['Interest'][]; // [Interest!]!
+    post: NexusGenRootTypes['Post'] | null; // Post
     registerUser: string; // String!
+    thread: NexusGenRootTypes['Thread'] | null; // Thread
+    user: NexusGenRootTypes['User'] | null; // User
+  }
+  Thread: { // field return type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    messages: NexusGenRootTypes['Message'][]; // [Message!]!
+    post: NexusGenRootTypes['Post'] | null; // Post
+    repliesAllowed: boolean; // Boolean!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+    users: NexusGenRootTypes['User'][]; // [User!]!
   }
   User: { // field return type
-    email: string | null; // String
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    credit: number; // Int!
+    email: string; // String!
     name: string | null; // String
+    posts: NexusGenRootTypes['Post'][]; // [Post!]!
+    profileImage: string; // String!
+    threads: NexusGenRootTypes['Thread'][]; // [Thread!]!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Category: { // field return type name
+    interests: 'Interest'
+    name: 'String'
+  }
+  Interest: { // field return type name
+    categories: 'Category'
+    name: 'String'
+  }
+  Message: { // field return type name
+    content: 'String'
+    createdAt: 'DateTime'
+    readBy: 'User'
+    type: 'String'
+    updatedAt: 'DateTime'
+    user: 'User'
+  }
+  Post: { // field return type name
+    content: 'String'
+    contentPreview: 'String'
+    contentType: 'String'
+    createdAt: 'DateTime'
+    creator: 'User'
+    description: 'String'
+    interest: 'Interest'
+    threads: 'Thread'
+    title: 'String'
+    updatedAt: 'DateTime'
+  }
   Query: { // field return type name
     authenticate: 'String'
+    categories: 'Category'
+    interests: 'Interest'
+    post: 'Post'
     registerUser: 'String'
+    thread: 'Thread'
+    user: 'User'
+  }
+  Thread: { // field return type name
+    createdAt: 'DateTime'
+    messages: 'Message'
+    post: 'Post'
+    repliesAllowed: 'Boolean'
+    updatedAt: 'DateTime'
+    users: 'User'
   }
   User: { // field return type name
+    createdAt: 'DateTime'
+    credit: 'Int'
     email: 'String'
     name: 'String'
+    posts: 'Post'
+    profileImage: 'String'
+    threads: 'Thread'
+    updatedAt: 'DateTime'
   }
 }
 
 export interface NexusGenArgTypes {
+  Category: {
+    interests: { // args
+      after?: NexusGenInputs['InterestWhereUniqueInput'] | null; // InterestWhereUniqueInput
+      before?: NexusGenInputs['InterestWhereUniqueInput'] | null; // InterestWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+  }
+  Interest: {
+    categories: { // args
+      after?: NexusGenInputs['CategoryWhereUniqueInput'] | null; // CategoryWhereUniqueInput
+      before?: NexusGenInputs['CategoryWhereUniqueInput'] | null; // CategoryWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+  }
+  Message: {
+    readBy: { // args
+      after?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+      before?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+  }
+  Post: {
+    threads: { // args
+      after?: NexusGenInputs['ThreadWhereUniqueInput'] | null; // ThreadWhereUniqueInput
+      before?: NexusGenInputs['ThreadWhereUniqueInput'] | null; // ThreadWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+  }
   Query: {
     authenticate: { // args
       email: string; // String!
       password: string; // String!
     }
+    categories: { // args
+      after?: NexusGenInputs['CategoryWhereUniqueInput'] | null; // CategoryWhereUniqueInput
+      before?: NexusGenInputs['CategoryWhereUniqueInput'] | null; // CategoryWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+    interests: { // args
+      after?: NexusGenInputs['InterestWhereUniqueInput'] | null; // InterestWhereUniqueInput
+      before?: NexusGenInputs['InterestWhereUniqueInput'] | null; // InterestWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+    post: { // args
+      where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
+    }
     registerUser: { // args
       email: string; // String!
       password: string; // String!
+    }
+    thread: { // args
+      where: NexusGenInputs['ThreadWhereUniqueInput']; // ThreadWhereUniqueInput!
+    }
+    user: { // args
+      where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+    }
+  }
+  Thread: {
+    messages: { // args
+      after?: NexusGenInputs['MessageWhereUniqueInput'] | null; // MessageWhereUniqueInput
+      before?: NexusGenInputs['MessageWhereUniqueInput'] | null; // MessageWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+    users: { // args
+      after?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+      before?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+  }
+  User: {
+    posts: { // args
+      after?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
+      before?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+    threads: { // args
+      after?: NexusGenInputs['ThreadWhereUniqueInput'] | null; // ThreadWhereUniqueInput
+      before?: NexusGenInputs['ThreadWhereUniqueInput'] | null; // ThreadWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
     }
   }
 }
@@ -88,7 +341,7 @@ export interface NexusGenTypeInterfaces {
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = never;
 

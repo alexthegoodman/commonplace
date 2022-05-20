@@ -9,10 +9,19 @@ export const UserType = objectType({
   name: "User",
   definition(t) {
     // t.string("id"); // do not expose
-    t.string("email");
-    t.string("name");
-    // t.field("updatedAt");
-    // t.string("createdAt");
+    t.model.email();
+    t.model.name();
+
+    t.model.credit();
+    t.model.profileImage();
+
+    t.model.posts();
+    t.model.threads();
+    // t.model.messages();
+    // t.model.readMessages();
+
+    t.model.updatedAt();
+    t.model.createdAt();
   },
 });
 
