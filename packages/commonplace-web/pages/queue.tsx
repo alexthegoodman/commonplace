@@ -15,7 +15,7 @@ const Profile: NextPage = () => {
           leftIcon={<span className="brandname">Co</span>}
           titleComponent={
             <Link href="/interests">
-              <a>Landscape Paintings</a>
+              <a className="pickerButton">Landscape Paintings</a>
             </Link>
           }
           rightIcon={<PrimaryNavigation />}

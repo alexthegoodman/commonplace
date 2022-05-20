@@ -31,9 +31,12 @@
     }
     .headerTitleWrapper {
       .titleComponent {
-        h1 {
+        h1,
+        .pickerButton {
           font-weight: 600;
           font-size: 18px;
+          text-decoration: none;
+          color: black;
         }
       }
       .title {
