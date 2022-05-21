@@ -12,7 +12,7 @@ import { userQuery } from "../graphql/queries/user";
 const getUserData = async () => {
   const userData = await request("http://localhost:4000/graphql", userQuery, {
     where: {
-      id: "ecfb15b5-70ad-4882-a986-a8aab832e1dc", // TODO: context.req.headers.cookie
+      id: "15029286-d77f-4952-a6bb-3000481369bb", // TODO: context.req.headers.cookie
     },
   });
 
@@ -25,7 +25,9 @@ const QueueContent = () => {
   console.info("QueueContent", data);
 
   const displayPost =
-    typeof data.user.posts !== "undefined" ? data.user.posts[0] : null;
+    data && data?.user && typeof data.user.posts !== "undefined"
+      ? data.user.posts[0]
+      : null;
 
   return (
     <section className="queue">

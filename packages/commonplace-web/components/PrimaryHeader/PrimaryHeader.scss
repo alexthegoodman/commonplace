@@ -48,8 +48,13 @@
       }
 
       &.headerLeftIcon {
-        background: $headerWhite;
+        background: $frenchRaspberry;
         border-radius: 50%;
+
+        a,
+        span {
+          color: white;
+        }
       }
     }
     .headerTitleWrapper {
@@ -63,6 +68,7 @@
           background: $headerWhite;
           padding: 5px 10px;
           display: block;
+          border-radius: 3px;
         }
       }
       .title {

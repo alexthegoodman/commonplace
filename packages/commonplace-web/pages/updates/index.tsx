@@ -12,7 +12,7 @@ const getUserThreadData = async () => {
     threadsQuery,
     {
       where: {
-        id: "ecfb15b5-70ad-4882-a986-a8aab832e1dc", // TODO: context.req.headers.cookie
+        id: "15029286-d77f-4952-a6bb-3000481369bb", // TODO: context.req.headers.cookie
       },
     }
   );
