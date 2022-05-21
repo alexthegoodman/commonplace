@@ -24,6 +24,9 @@ const QueueContent = () => {
 
   console.info("QueueContent", data);
 
+  const displayPost =
+    typeof data.user.posts !== "undefined" ? data.user.posts[0] : null;
+
   return (
     <section className="queue">
       <div className="queueInner">
@@ -37,17 +40,13 @@ const QueueContent = () => {
           rightIcon={<PrimaryNavigation />}
         />
         <div className="scrollContainer queueScrollContainer">
-          <ContentViewer
-            type=""
-            preview=""
-            content={data.user.posts[0].content}
-          />
+          <ContentViewer type="" preview="" content={displayPost?.content} />
           <ContentInformation
-            title={data.user.posts[0].title}
+            title={displayPost?.title}
             description={`Here is a description regarding
                           the various things that we need to do. Also
                           we can do other things`}
-            author={{ name: data.user.posts[0].creator.name }}
+            author={{ name: displayPost?.creator?.name }}
           />
         </div>
         <ImpressionGrid />

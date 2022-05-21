@@ -1,0 +1,17 @@
+.formTextarea {
+  textarea {
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    color: white;
+    font-size: 22px;
+    border: none;
+    padding: 0 20px;
+
+    &::placeholder {
+      color: white;
+    }
+  }
+  span {
+  }
+}

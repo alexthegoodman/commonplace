@@ -12,6 +12,10 @@
         background: $darkBlue;
         border-radius: 50%;
         overflow: hidden;
+
+        img {
+          max-height: 100%;
+        }
       }
     }
     .itemContent {

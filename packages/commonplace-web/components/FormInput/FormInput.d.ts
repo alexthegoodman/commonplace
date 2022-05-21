@@ -3,8 +3,8 @@ import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 export interface FormInputProps {
   name: string;
-  placeholder?: string;
   type?: string;
+  placeholder?: string;
   errors?: FieldErrors;
   validation?: ValidationMap;
   register: UseFormRegister;

@@ -100,6 +100,7 @@ export interface NexusGenObjects {
   Query: {};
   Thread: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
     repliesAllowed: boolean; // Boolean!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
@@ -164,6 +165,7 @@ export interface NexusGenFieldTypes {
   }
   Thread: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
     messages: NexusGenRootTypes['Message'][]; // [Message!]!
     post: NexusGenRootTypes['Post'] | null; // Post
     repliesAllowed: boolean; // Boolean!
@@ -223,6 +225,7 @@ export interface NexusGenFieldTypeNames {
   }
   Thread: { // field return type name
     createdAt: 'DateTime'
+    id: 'String'
     messages: 'Message'
     post: 'Post'
     repliesAllowed: 'Boolean'

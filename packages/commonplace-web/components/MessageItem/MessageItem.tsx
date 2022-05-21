@@ -7,12 +7,16 @@ const MessageItem: React.FC<MessageItemProps> = ({
   className = "",
   onClick = (e) => console.info("Click MessageItem"),
   authorSide = "left",
+  profileImage = "",
+  content = "",
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
 
   const authorAttribution = (
     <div className="itemAuthor">
-      <img className="authorPhoto" title="" alt="" src="" />
+      <div className="authorPhoto">
+        <img title="" alt="" src={profileImage} />
+      </div>
     </div>
   );
 
@@ -21,7 +25,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
       <div className="messageItemInner">
         {authorSide === "left" ? authorAttribution : <></>}
         <div className={`itemContent ${authorSide}`}>
-          <span>Spooky!</span>
+          <span>{content}</span>
         </div>
         {authorSide === "right" ? authorAttribution : <></>}
       </div>

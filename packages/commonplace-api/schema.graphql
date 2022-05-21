@@ -72,6 +72,7 @@ type Query {
 
 type Thread {
   createdAt: DateTime!
+  id: String!
   messages(after: MessageWhereUniqueInput, before: MessageWhereUniqueInput, first: Int, last: Int): [Message!]!
   post: Post
   repliesAllowed: Boolean!

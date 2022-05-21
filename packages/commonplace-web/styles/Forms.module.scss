@@ -3,6 +3,7 @@
 /** Component Imports **/
 @import "../components/FormInput/FormInput";
 @import "../components/SearchInput/SearchInput";
+@import "../components/FormTextarea/FormTextarea";
 
 /** Page Styles **/
 .formWrapper {
@@ -43,4 +44,15 @@
   justify-content: center;
   align-items: center;
   color: white;
+
+  .feather-icon {
+    font-size: 36px;
+  }
+
+  &:active {
+    background: $midBlue;
+  }
+  &:focus {
+    border: 2px $midBlue solid;
+  }
 }

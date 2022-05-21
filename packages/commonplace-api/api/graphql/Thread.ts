@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 export const ThreadType = objectType({
   name: "Thread",
   definition(t) {
+    t.model.id();
     t.model.repliesAllowed();
 
     t.model.post();

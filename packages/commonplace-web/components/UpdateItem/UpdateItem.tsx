@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import * as React from "react";
 
 // TODO: set ESLint ignore for `next build` type check
@@ -7,13 +8,20 @@ const UpdateItem: React.FC<UpdateItemProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click UpdateItem"),
+  id = "",
   image = null,
   label = "",
   author = null,
 }) => {
-  const clickHandler = (e: MouseEvent) => onClick(e);
+  const router = useRouter();
+  const goToThead = (e) => {
+    onClick(e);
+
+    router.push(`/updates/${id}`);
+  };
+
   return (
-    <div className="updateItem">
+    <div className="updateItem" onClick={goToThead}>
       <div className="updateItemInner">
         <img src={image} />
         <div className="itemInformation">
