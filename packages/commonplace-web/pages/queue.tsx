@@ -1,13 +1,60 @@
+import request, { gql } from "graphql-request";
 import type { NextPage } from "next";
 import Link from "next/link";
+import useSWR, { SWRConfig } from "swr";
 import ContentInformation from "../components/ContentInformation/ContentInformation";
 import ContentViewer from "../components/ContentViewer/ContentViewer";
 import ImpressionGrid from "../components/ImpressionGrid/ImpressionGrid";
-import ImpressionWheel from "../components/ImpressionWheel/ImpressionWheel";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
 import PrimaryNavigation from "../components/PrimaryNavigation/PrimaryNavigation";
 
-const Profile: NextPage = () => {
+const userQuery = gql`
+  query User($where: UserWhereUniqueInput!) {
+    user(where: $where) {
+      name
+      email
+      createdAt
+      updatedAt
+
+      posts {
+        title
+        description
+        contentType
+        contentPreview
+        content
+        interest {
+          name
+        }
+        threads {
+          repliesAllowed
+          messages {
+            user {
+              name
+            }
+            type
+            content
+          }
+        }
+      }
+    }
+  }
+`;
+
+const getUserData = async () => {
+  const userData = await request("http://localhost:4000/graphql", userQuery, {
+    where: {
+      id: "344b03ec-eedf-480e-af12-c69ed0350dfb", // TODO: context.req.headers.cookie
+    },
+  });
+
+  return userData;
+};
+
+const QueueContent = () => {
+  const { data } = useSWR("/graphql", getUserData);
+
+  console.info("QueueContent", data);
+
   return (
     <section className="queue">
       <div className="queueInner">
@@ -37,4 +84,26 @@ const Profile: NextPage = () => {
   );
 };
 
-export default Profile;
+const Queue: NextPage<{ fallback: any }> = ({ fallback }) => {
+  return (
+    <SWRConfig value={{ fallback }}>
+      <QueueContent />
+    </SWRConfig>
+  );
+};
+
+export default Queue;
+
+export async function getServerSideProps(context) {
+  const userData = await getUserData();
+
+  console.info("getServerSideProps", userData, context);
+
+  return {
+    props: {
+      fallback: {
+        "/graphql": userData,
+      },
+    },
+  };
+}
