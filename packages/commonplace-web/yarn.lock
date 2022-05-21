@@ -558,6 +558,11 @@ chardet@^0.7.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
+classnames@^2.2.5:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
+  integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
+
 clean-stack@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/clean-stack/-/clean-stack-2.2.0.tgz#ee8472dbb129e727b31e8a10a427dee9dfe4008b"
@@ -629,6 +634,11 @@ core-js-pure@^3.20.2:
   version "3.22.5"
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.22.5.tgz#bdee0ed2f9b78f2862cda4338a07b13a49b6c9a9"
   integrity sha512-8xo9R00iYD7TcV7OrC98GwxiUEAabVWO3dix+uyWjnYrx9fyASLlIX+f/3p5dW5qByaP2bcZ8X/T47s55et/tA==
+
+core-js@^3.1.3:
+  version "3.22.5"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.22.5.tgz#a5f5a58e663d5c0ebb4e680cd7be37536fb2a9cf"
+  integrity sha512-VP/xYuvJ0MJWRAobcmQ8F2H6Bsn+s7zqAAjFaHGBMc5AQm7zaelhD1LGduFn2EehEcQcU+br6t+fwbpQ5d1ZWA==
 
 cross-fetch@^3.1.5:
   version "3.1.5"
@@ -1081,6 +1091,21 @@ fastq@^1.6.0:
   integrity sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==
   dependencies:
     reusify "^1.0.4"
+
+feather-icons@^4.22.1:
+  version "4.29.0"
+  resolved "https://registry.yarnpkg.com/feather-icons/-/feather-icons-4.29.0.tgz#4e40e3cbb7bf359ffbbf700edbebdde4e4a74ab6"
+  integrity sha512-Y7VqN9FYb8KdaSF0qD1081HCkm0v4Eq/fpfQYQnubpqi0hXx14k+gF9iqtRys1SIcTEi97xDi/fmsPFZ8xo0GQ==
+  dependencies:
+    classnames "^2.2.5"
+    core-js "^3.1.3"
+
+feather-webfont@^4.22.3:
+  version "4.22.3"
+  resolved "https://registry.yarnpkg.com/feather-webfont/-/feather-webfont-4.22.3.tgz#5cdde94ffe3b6e7b035c9435313760b09645aeac"
+  integrity sha512-BKwf9CGbLSqtSANh3YhNbaodxTRmpCni0r+DdFKBQ16llyjQQ19nkfMZAlMdPzLqYBh9nKy1bxVfnOrzQAwzuA==
+  dependencies:
+    feather-icons "^4.22.1"
 
 figures@^3.0.0:
   version "3.2.0"

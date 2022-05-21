@@ -22,6 +22,9 @@ const userQuery = gql`
         contentType
         contentPreview
         content
+        creator {
+          name
+        }
         interest {
           name
         }
@@ -43,7 +46,7 @@ const userQuery = gql`
 const getUserData = async () => {
   const userData = await request("http://localhost:4000/graphql", userQuery, {
     where: {
-      id: "344b03ec-eedf-480e-af12-c69ed0350dfb", // TODO: context.req.headers.cookie
+      id: "70486779-03f3-42cd-ad35-40931bc0584a", // TODO: context.req.headers.cookie
     },
   });
 
@@ -68,13 +71,17 @@ const QueueContent = () => {
           rightIcon={<PrimaryNavigation />}
         />
         <div className="scrollContainer queueScrollContainer">
-          <ContentViewer />
+          <ContentViewer
+            type=""
+            preview=""
+            content={data.user.posts[0].content}
+          />
           <ContentInformation
-            title="The Misty Night"
+            title={data.user.posts[0].title}
             description={`Here is a description regarding
                           the various things that we need to do. Also
                           we can do other things`}
-            author={{ name: "Big Gigantic" }}
+            author={{ name: data.user.posts[0].creator.name }}
           />
         </div>
         <ImpressionGrid />

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { adjectives } from "../../def/adjectives";
+import impressions from "../../def/impressions";
 
 import { ImpressionGridProps } from "./ImpressionGrid.d";
 
@@ -16,8 +17,8 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
       <div className="impressionGrid">
         <div className="impressionGridInner">
           <ul className="pillGrid">
-            {adjectives.map((adjective, i) => {
-              return <li>{adjective}</li>;
+            {impressions.map((impression, i) => {
+              return <li>{impression}</li>;
             })}
           </ul>
         </div>

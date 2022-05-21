@@ -1,10 +1,16 @@
 @import "./reset";
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&family=Oswald:wght@300;400;600&family=Sora:wght@300;400;600&display=swap");
+@import "../node_modules/feather-webfont/dist/feather-icons.css";
 
 $darkBlue: #2266ff;
 $midBlue: #3388ff;
 $lightBlue: #44ccff;
+
+$frenchRaspberry: #c72946;
+$strawberry: #fa578a;
+
+$headerWhite: rgba(255, 255, 255, 0.8);
 
 * {
   font-family: "Sora", "Helvetica";

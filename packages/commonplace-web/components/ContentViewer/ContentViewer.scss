@@ -1,8 +1,17 @@
 .contentViewer {
-  height: calc(100vh - 450px);
+  // height: calc(100vh - 450px);
   width: 100vw;
-  background: $lightBlue;
+  background: #e5e5e5;
+  overflow: hidden;
 
   .contentViewerInner {
+    height: calc(100vh - 450px);
+    display: flex;
+    justify-content: center;
+
+    img {
+      display: block;
+      max-height: 100%;
+    }
   }
 }

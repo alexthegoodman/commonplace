@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "feather-webfont": "^4.22.3",
     "framer": "^2.1.2",
     "framer-motion": "^6.3.3",
     "graphql": "^16.5.0",
