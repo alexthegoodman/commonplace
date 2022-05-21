@@ -10,11 +10,19 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
   onClick = (e) => console.info("Click ImpressionGrid"),
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
+  const pillGridRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (pillGridRef.current) {
+      pillGridRef.current.scrollLeft = 700;
+      pillGridRef.current.setAttribute("class", "impressionGrid visibleGrid");
+    }
+  }, []);
 
   return (
     <section className="impressionGridWrapper">
       <span className="gridLabel">What's your impression?</span>
-      <div className="impressionGrid">
+      <div className="impressionGrid" ref={pillGridRef}>
         <div className="impressionGridInner">
           <ul className="pillGrid">
             {impressions.map((impression, i) => {
