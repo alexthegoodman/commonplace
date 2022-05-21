@@ -26,6 +26,7 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
           </div>
         </div>
         <p className="contentDescription">{description}</p>
+        {/* <span>{createdAt}</span> */}
       </div>
     </section>
   );

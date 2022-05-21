@@ -5,23 +5,24 @@
     padding: 25px 25px;
 
     .contentTitle {
-      font-size: 32px;
-      margin-bottom: 15px;
+      font-size: 24px;
+      margin-bottom: 10px;
       font-weight: 600;
     }
     .contentDescription {
       display: block;
-      font-size: 18px;
-      line-height: 24px;
+      font-size: 14px;
+      line-height: 22px;
       color: #757575;
       font-weight: 300;
-      margin: 20px 0;
+      margin: 15px 0;
     }
     .contentAuthor {
       .contentAuthorInner {
         .authorProfileImage {
         }
         .authorAttribution {
+          font-size: 14px;
           font-weight: 400;
         }
       }

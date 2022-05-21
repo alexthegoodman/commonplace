@@ -5,7 +5,9 @@
   overflow: hidden;
 
   .contentViewerInner {
-    height: calc(100vh - 450px);
+    // height: calc(100vh - 360px);
+    width: 100%;
+    aspect-ratio: 1;
     display: flex;
     justify-content: center;
 
