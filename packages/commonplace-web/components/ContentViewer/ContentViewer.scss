@@ -7,13 +7,16 @@
   .contentViewerInner {
     // height: calc(100vh - 360px);
     width: 100%;
-    aspect-ratio: 1;
+    // aspect-ratio: 1;
+    padding-bottom: 100%;
     display: flex;
     justify-content: center;
+    position: relative;
 
     img {
       display: block;
       max-height: 100%;
+      position: absolute;
     }
   }
 }
