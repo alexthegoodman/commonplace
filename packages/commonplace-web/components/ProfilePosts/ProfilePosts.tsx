@@ -7,15 +7,15 @@ const ProfilePosts: React.FC<ProfilePostsProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click ProfilePosts"),
+  posts = [],
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
   return (
     <section className="profilePosts">
       <div className="profilePostsInner">
-        <ProfilePost />
-        <ProfilePost />
-        <ProfilePost />
-        <ProfilePost />
+        {posts.map((post, i) => {
+          return <ProfilePost post={post} />;
+        })}
       </div>
     </section>
   );

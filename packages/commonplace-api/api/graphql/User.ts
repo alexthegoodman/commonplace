@@ -14,6 +14,7 @@ export const UserType = objectType({
 
     t.model.credit();
     t.model.profileImage();
+    t.model.coverImage();
 
     t.model.posts();
     t.model.threads();

@@ -104,6 +104,7 @@ export interface NexusGenObjects {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
   User: { // root type
+    coverImage: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     credit: number; // Int!
     email: string; // String!
@@ -170,6 +171,7 @@ export interface NexusGenFieldTypes {
     users: NexusGenRootTypes['User'][]; // [User!]!
   }
   User: { // field return type
+    coverImage: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     credit: number; // Int!
     email: string; // String!
@@ -228,6 +230,7 @@ export interface NexusGenFieldTypeNames {
     users: 'User'
   }
   User: { // field return type name
+    coverImage: 'String'
     createdAt: 'DateTime'
     credit: 'Int'
     email: 'String'

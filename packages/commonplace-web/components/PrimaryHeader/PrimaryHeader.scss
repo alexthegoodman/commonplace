@@ -7,13 +7,23 @@
   &.whiteHeader {
     .primaryHeaderInner {
       .headerIcon {
+        font-size: 24px;
+        top: -12px;
+
         a {
           color: white;
+        }
+
+        &.headerLeftIcon {
+          background: transparent;
         }
       }
       .headerTitleWrapper {
         .title {
           color: white;
+          text-align: center;
+          font-size: 24px;
+          line-height: 30px;
         }
       }
     }
@@ -25,6 +35,14 @@
     padding: 20px 15px;
 
     .headerIcon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      position: relative;
+      top: -7px;
+
       a {
         text-decoration: none;
       }
@@ -32,13 +50,6 @@
       &.headerLeftIcon {
         background: $headerWhite;
         border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 50px;
-        height: 50px;
-        position: relative;
-        top: -7px;
       }
     }
     .headerTitleWrapper {

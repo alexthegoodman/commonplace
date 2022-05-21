@@ -1,10 +1,27 @@
+import request from "graphql-request";
 import type { NextPage } from "next";
 import Link from "next/link";
+import useSWR, { SWRConfig } from "swr";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
 import ProfileIntro from "../components/ProfileIntro/ProfileIntro";
 import ProfilePosts from "../components/ProfilePosts/ProfilePosts";
+import { userQuery } from "../graphql/queries/user";
 
-const Profile: NextPage = () => {
+const getUserData = async () => {
+  const userData = await request("http://localhost:4000/graphql", userQuery, {
+    where: {
+      id: "ecfb15b5-70ad-4882-a986-a8aab832e1dc", // TODO: context.req.headers.cookie
+    },
+  });
+
+  return userData;
+};
+
+const ProfileContent = () => {
+  const { data } = useSWR("/graphql", getUserData);
+
+  console.info("ProfileContent", data);
+
   return (
     <section className="profile">
       <div className="profileInner">
@@ -12,23 +29,52 @@ const Profile: NextPage = () => {
           className="whiteHeader"
           leftIcon={
             <Link href="/settings">
-              <a>S</a>
+              <a>
+                <div className="feather-icon icon-settings"></div>
+              </a>
             </Link>
           }
-          title="Alex Goodman"
+          title={data.user.name}
           rightIcon={
             <Link href="/queue">
-              <a>Q</a>
+              <a>
+                <div className="feather-icon icon-list"></div>
+              </a>
             </Link>
           }
         />
         <div className="scrollContainer">
-          <ProfileIntro />
-          <ProfilePosts />
+          <ProfileIntro
+            profileImage={data.user.profileImage}
+            coverImage={data.user.coverImage}
+          />
+          <ProfilePosts posts={data.user.posts} />
         </div>
       </div>
     </section>
   );
 };
+
+const Profile: NextPage<{ fallback: any }> = ({ fallback }) => {
+  return (
+    <SWRConfig value={{ fallback }}>
+      <ProfileContent />
+    </SWRConfig>
+  );
+};
+
+export async function getServerSideProps(context) {
+  const userData = await getUserData();
+
+  console.info("getServerSideProps", userData, context);
+
+  return {
+    props: {
+      fallback: {
+        "/graphql": userData,
+      },
+    },
+  };
+}
 
 export default Profile;

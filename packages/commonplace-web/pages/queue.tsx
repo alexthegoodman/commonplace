@@ -7,46 +7,12 @@ import ContentViewer from "../components/ContentViewer/ContentViewer";
 import ImpressionGrid from "../components/ImpressionGrid/ImpressionGrid";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
 import PrimaryNavigation from "../components/PrimaryNavigation/PrimaryNavigation";
-
-const userQuery = gql`
-  query User($where: UserWhereUniqueInput!) {
-    user(where: $where) {
-      name
-      email
-      createdAt
-      updatedAt
-
-      posts {
-        title
-        description
-        contentType
-        contentPreview
-        content
-        creator {
-          name
-        }
-        interest {
-          name
-        }
-        threads {
-          repliesAllowed
-          messages {
-            user {
-              name
-            }
-            type
-            content
-          }
-        }
-      }
-    }
-  }
-`;
+import { userQuery } from "../graphql/queries/user";
 
 const getUserData = async () => {
   const userData = await request("http://localhost:4000/graphql", userQuery, {
     where: {
-      id: "70486779-03f3-42cd-ad35-40931bc0584a", // TODO: context.req.headers.cookie
+      id: "ecfb15b5-70ad-4882-a986-a8aab832e1dc", // TODO: context.req.headers.cookie
     },
   });
 
