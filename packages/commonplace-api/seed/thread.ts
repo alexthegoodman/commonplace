@@ -3,12 +3,12 @@ import faker from "@faker-js/faker";
 
 const prisma = new PrismaClient();
 
-export default async function seedThreads(user1, user2, post1, post2, post3) {
+export default async function seedThreads(users, posts) {
   const getDefaultThread = () => {
     return {
       repliesAllowed: true,
       users: {
-        connect: [{ id: user1.id }, { id: user2.id }],
+        connect: [{ id: users[0].id }, { id: users[0].id }],
       },
     };
   };
@@ -17,20 +17,20 @@ export default async function seedThreads(user1, user2, post1, post2, post3) {
     data: {
       ...getDefaultThread(),
       post: {
-        connect: { id: post1.id },
+        connect: { id: posts[0].id },
       },
       messages: {
         create: [
           {
             type: "impression",
             content: "Dazzling",
-            user: { connect: { id: user1.id } },
-            readBy: { connect: { id: user2.id } }, // include author?
+            user: { connect: { id: users[0].id } },
+            readBy: { connect: { id: users[1].id } }, // include author?
           },
           {
             type: "reply",
             content: "Thank you!!",
-            user: { connect: { id: user2.id } },
+            user: { connect: { id: users[1].id } },
           },
         ],
       },
@@ -41,20 +41,20 @@ export default async function seedThreads(user1, user2, post1, post2, post3) {
     data: {
       ...getDefaultThread(),
       post: {
-        connect: { id: post2.id },
+        connect: { id: posts[1].id },
       },
       messages: {
         create: [
           {
             type: "impression",
             content: "Original",
-            user: { connect: { id: user1.id } },
-            readBy: { connect: { id: user2.id } }, // include author?
+            user: { connect: { id: users[0].id } },
+            readBy: { connect: { id: users[1].id } }, // include author?
           },
           {
             type: "reply",
             content: "This will stick with me",
-            user: { connect: { id: user2.id } },
+            user: { connect: { id: users[1].id } },
           },
         ],
       },

@@ -159,6 +159,7 @@ export interface NexusGenFieldTypes {
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
     interests: NexusGenRootTypes['Interest'][]; // [Interest!]!
     post: NexusGenRootTypes['Post'] | null; // Post
+    posts: NexusGenRootTypes['Post'][]; // [Post!]!
     registerUser: string; // String!
     thread: NexusGenRootTypes['Thread'] | null; // Thread
     user: NexusGenRootTypes['User'] | null; // User
@@ -219,6 +220,7 @@ export interface NexusGenFieldTypeNames {
     categories: 'Category'
     interests: 'Interest'
     post: 'Post'
+    posts: 'Post'
     registerUser: 'String'
     thread: 'Thread'
     user: 'User'
@@ -297,6 +299,12 @@ export interface NexusGenArgTypes {
     }
     post: { // args
       where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
+    }
+    posts: { // args
+      after?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
+      before?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
     }
     registerUser: { // args
       email: string; // String!

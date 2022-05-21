@@ -1,32 +1,41 @@
 import request, { gql } from "graphql-request";
 import type { NextPage } from "next";
 import Link from "next/link";
+import { useContext, useReducer } from "react";
 import useSWR, { SWRConfig } from "swr";
 import ContentInformation from "../components/ContentInformation/ContentInformation";
 import ContentViewer from "../components/ContentViewer/ContentViewer";
 import ImpressionGrid from "../components/ImpressionGrid/ImpressionGrid";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
 import PrimaryNavigation from "../components/PrimaryNavigation/PrimaryNavigation";
-import { userQuery } from "../graphql/queries/user";
+import {
+  QueueContext,
+  QueueContextReducer,
+  QueueContextState,
+} from "../context/QueueContext/QueueContext";
+import { postsQuery } from "../graphql/queries/post";
 
-const getUserData = async () => {
-  const userData = await request("http://localhost:4000/graphql", userQuery, {
-    where: {
-      id: "15029286-d77f-4952-a6bb-3000481369bb", // TODO: context.req.headers.cookie
-    },
-  });
+const getPostsData = async () => {
+  const postsData = await request(
+    "http://localhost:4000/graphql",
+    postsQuery,
+    {}
+  );
 
-  return userData;
+  return postsData;
 };
 
 const QueueContent = () => {
-  const { data } = useSWR("/graphql", getUserData);
+  const { data } = useSWR("/graphql", getPostsData);
+  const { state, dispatch } = useContext(QueueContext);
 
-  console.info("QueueContent", data);
+  const { selectedInterest } = state;
+
+  console.info("QueueContent", data, state, dispatch);
 
   const displayPost =
-    data && data?.user && typeof data.user.posts !== "undefined"
-      ? data.user.posts[0]
+    data && data?.posts && typeof data.posts !== "undefined"
+      ? data.posts[0]
       : null;
 
   return (
@@ -36,7 +45,9 @@ const QueueContent = () => {
           leftIcon={<span className="brandname">Co</span>}
           titleComponent={
             <Link href="/interests">
-              <a className="pickerButton">Landscape Paintings</a>
+              <a className="pickerButton">
+                {selectedInterest === 0 ? "All Interests" : "..."}
+              </a>
             </Link>
           }
           rightIcon={<PrimaryNavigation />}
@@ -45,9 +56,7 @@ const QueueContent = () => {
           <ContentViewer type="" preview="" content={displayPost?.content} />
           <ContentInformation
             title={displayPost?.title}
-            description={`Here is a description regarding
-                          the various things that we need to do. Also
-                          we can do other things`}
+            description={displayPost?.description}
             author={{ name: displayPost?.creator?.name }}
           />
         </div>
@@ -59,24 +68,28 @@ const QueueContent = () => {
 };
 
 const Queue: NextPage<{ fallback: any }> = ({ fallback }) => {
+  const [state, dispatch] = useReducer(QueueContextReducer, QueueContextState);
+
   return (
-    <SWRConfig value={{ fallback }}>
-      <QueueContent />
-    </SWRConfig>
+    <QueueContext.Provider value={{ state, dispatch }}>
+      <SWRConfig value={{ fallback }}>
+        <QueueContent />
+      </SWRConfig>
+    </QueueContext.Provider>
   );
 };
 
 export default Queue;
 
 export async function getServerSideProps(context) {
-  const userData = await getUserData();
+  const postsData = await getPostsData();
 
-  console.info("getServerSideProps", userData, context);
+  console.info("getServerSideProps", postsData, context);
 
   return {
     props: {
       fallback: {
-        "/graphql": userData,
+        "/graphql": postsData,
       },
     },
   };

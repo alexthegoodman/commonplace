@@ -11,6 +11,8 @@ export const Query = queryType({
     t.crud.post();
     t.crud.thread();
 
+    t.crud.posts();
+
     t.crud.categories();
     t.crud.interests();
   },

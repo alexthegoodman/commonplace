@@ -14,20 +14,29 @@ export default async function seedUsers() {
     };
   };
 
-  const user1 = await prisma.user.create({
-    data: {
-      ...getDefaultUser(),
-      email: "alexthegoodman@gmail.com",
-    },
-  });
-  const user2 = await prisma.user.create({
-    data: {
-      ...getDefaultUser(),
-    },
+  await prisma.user.createMany({
+    data: [
+      {
+        ...getDefaultUser(),
+        email: "alexthegoodman@gmail.com",
+      },
+      getDefaultUser(),
+      getDefaultUser(),
+      getDefaultUser(),
+      getDefaultUser(),
+      getDefaultUser(),
+      getDefaultUser(),
+      getDefaultUser(),
+      getDefaultUser(),
+      getDefaultUser(),
+    ],
   });
 
+  const users = await prisma.user.findMany();
+
+  // console.info("users", users);
+
   return {
-    user1,
-    user2,
+    users,
   };
 }

@@ -4,19 +4,15 @@ import clean from "./clean";
 import { PrismaClient } from "@prisma/client";
 import seedPosts from "./post";
 import seedThreads from "./thread";
+import seedInterests from "./interest";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  const { user1, user2 } = await seedUsers();
-  const { post1, post2, post3 } = await seedPosts(user1, user2);
-  const { thread1, thread2 } = await seedThreads(
-    user1,
-    user2,
-    post1,
-    post2,
-    post3
-  );
+  const { users } = await seedUsers();
+  const { interests } = await seedInterests();
+  const { posts } = await seedPosts(users, interests);
+  const { thread1, thread2 } = await seedThreads(users, posts);
 }
 
 clean()

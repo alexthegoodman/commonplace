@@ -30,6 +30,9 @@ export default async function clean() {
   await prisma.post.deleteMany({
     where: { id: { not: "" } },
   });
+  await prisma.interest.deleteMany({
+    where: { id: { not: "" } },
+  });
   await prisma.user.deleteMany({
     where: { id: { not: "" } },
   });

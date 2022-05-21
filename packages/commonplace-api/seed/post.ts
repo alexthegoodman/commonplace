@@ -3,47 +3,40 @@ import faker from "@faker-js/faker";
 
 const prisma = new PrismaClient();
 
-export default async function seedPosts(user1, user2) {
-  const getDefaultPost = () => {
+export default async function seedPosts(users, interests) {
+  const getDefaultPost = (rep1 = -1, rep2 = -1) => {
+    const randomInt1 = rep1 !== -1 ? rep1 : faker.random.numeric();
+    const randomInt2 = rep2 !== -1 ? rep2 : faker.random.numeric();
+
     return {
       title: faker.lorem.words(),
-      description: "",
+      description: faker.lorem.lines(),
       contentType: "image",
       contentPreview: "",
       content: faker.image.imageUrl(800, 800, "landscape painting"),
-      interest: {
-        create: {
-          name: faker.lorem.words(),
-          contentType: "image",
-        },
-      },
-      creator: {
-        connect: {
-          id: user1.id,
-        },
-      },
+      interestId: interests[randomInt1].id,
+      creatorId: users[randomInt2].id,
     };
   };
 
-  const post1 = await prisma.post.create({
-    data: {
-      ...getDefaultPost(),
-    },
-  });
-  const post2 = await prisma.post.create({
-    data: {
-      ...getDefaultPost(),
-    },
-  });
-  const post3 = await prisma.post.create({
-    data: {
-      ...getDefaultPost(),
-    },
+  await prisma.post.createMany({
+    data: [
+      getDefaultPost(0, 0),
+      getDefaultPost(),
+      getDefaultPost(),
+      getDefaultPost(),
+      getDefaultPost(),
+      getDefaultPost(),
+      getDefaultPost(),
+      getDefaultPost(),
+      getDefaultPost(),
+      getDefaultPost(),
+    ],
   });
 
+  const posts = await prisma.post.findMany();
+
   return {
-    post1,
-    post2,
-    post3,
+    posts,
   };
 }
