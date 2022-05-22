@@ -34,7 +34,12 @@ const QueueContent = () => {
   console.info("QueueContent", data, state, dispatch);
 
   const [queueIndex, setQueueIndex] = useState(0);
-  const impressionClickHandler = () => setQueueIndex(queueIndex + 1);
+  const impressionClickHandler = () => {
+    setQueueIndex(queueIndex + 1);
+    // TODO: send impression message
+    // TODO: filter getPosts by those already with impression, limit to 10
+    // TODO: on index 10, refresh SWR 10 posts and reset index to 0
+  };
 
   const currentPost =
     data && data?.posts && typeof data.posts !== "undefined"
