@@ -7,7 +7,7 @@ export default async function seedPosts(users, interests) {
   const getDefaultPost = (rep1 = -1, rep2 = -1) => {
     const randomInt1 = rep1 !== -1 ? rep1 : faker.random.numeric();
     const randomInt2 = rep2 !== -1 ? rep2 : faker.random.numeric();
-    const contentSearch = faker.animal.bear();
+    const contentSearch = faker.vehicle.vehicle();
 
     return {
       title: faker.lorem.words(),
@@ -22,10 +22,32 @@ export default async function seedPosts(users, interests) {
 
   await prisma.post.createMany({
     data: [
-      getDefaultPost(0, 0),
-      getDefaultPost(),
-      getDefaultPost(),
-      getDefaultPost(),
+      {
+        ...getDefaultPost(0, 0),
+        contentType: "video",
+        contentPreview: "", // TODO: add for video?
+        content: "http://localhost:3000/test/cheetah.mp4",
+      },
+      {
+        ...getDefaultPost(1, 0),
+        contentType: "image",
+        contentPreview: "",
+        content: "http://localhost:3000/test/cheetahPoster.jpeg",
+      },
+      {
+        ...getDefaultPost(1, 0),
+        contentType: "audio",
+        contentPreview: "http://localhost:3000/test/cheetahPoster.jpeg",
+        content: "http://localhost:3000/test/cheetah.mp3",
+      },
+      {
+        ...getDefaultPost(),
+        contentType: "text",
+        contentPreview: "",
+        content: `greetings \n\n this is a poem \n 
+          with many words of kindness \n 
+          and good things \n\n thank you`,
+      },
       getDefaultPost(),
       getDefaultPost(),
       getDefaultPost(),
