@@ -1,7 +1,7 @@
 import request, { gql } from "graphql-request";
 import type { NextPage } from "next";
 import Link from "next/link";
-import { useContext, useReducer } from "react";
+import { useContext, useReducer, useState } from "react";
 import useSWR, { SWRConfig } from "swr";
 import ContentInformation from "../components/ContentInformation/ContentInformation";
 import ContentViewer from "../components/ContentViewer/ContentViewer";
@@ -33,9 +33,16 @@ const QueueContent = () => {
 
   console.info("QueueContent", data, state, dispatch);
 
-  const displayPost =
+  const [queueIndex, setQueueIndex] = useState(0);
+  const impressionClickHandler = () => setQueueIndex(queueIndex + 1);
+
+  const currentPost =
     data && data?.posts && typeof data.posts !== "undefined"
-      ? data.posts[0]
+      ? data.posts[queueIndex]
+      : null;
+  const preloadPost =
+    data && data?.posts && typeof data.posts !== "undefined"
+      ? data.posts[queueIndex + 1]
       : null;
 
   return (
@@ -53,14 +60,24 @@ const QueueContent = () => {
           rightIcon={<PrimaryNavigation />}
         />
         <div className="scrollContainer queueScrollContainer">
-          <ContentViewer type="" preview="" content={displayPost?.content} />
-          <ContentInformation
-            title={displayPost?.title}
-            description={displayPost?.description}
-            author={{ name: displayPost?.creator?.name }}
-          />
+          <div className="displayPost preloadPost">
+            <ContentViewer type="" preview="" content={preloadPost?.content} />
+            <ContentInformation
+              title={preloadPost?.title}
+              description={preloadPost?.description}
+              author={{ name: preloadPost?.creator?.name }}
+            />
+          </div>
+          <div className="displayPost currentPost">
+            <ContentViewer type="" preview="" content={currentPost?.content} />
+            <ContentInformation
+              title={currentPost?.title}
+              description={currentPost?.description}
+              author={{ name: currentPost?.creator?.name }}
+            />
+          </div>
         </div>
-        <ImpressionGrid />
+        <ImpressionGrid onClick={impressionClickHandler} />
         {/* <ImpressionWheel /> */}
       </div>
     </section>

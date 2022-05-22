@@ -14,3 +14,17 @@
   font-size: 20px;
   font-weight: 600;
 }
+
+.queueScrollContainer {
+  position: relative;
+
+  .displayPost {
+    position: absolute;
+
+    &.preloadPost {
+      opacity: 0;
+    }
+    &.currentPost {
+    }
+  }
+}

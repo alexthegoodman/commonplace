@@ -48,14 +48,27 @@
 
       li {
         display: block;
-        background: #f7f7f7;
-        padding: 10px 20px;
-        border-radius: 50px;
         margin: 7px;
-        font-size: 14px;
-        color: $midBlue;
-        font-weight: 400;
-        text-transform: capitalize;
+
+        a {
+          display: block;
+          padding: 10px 20px;
+          text-decoration: none;
+          font-size: 14px;
+          color: $midBlue;
+          font-weight: 400;
+          text-transform: capitalize;
+          background: #f7f7f7;
+          border-radius: 50px;
+
+          &:active {
+            background: $midBlue;
+            color: white;
+          }
+          &:focus {
+            outline: 2px $midBlue solid;
+          }
+        }
       }
     }
   }

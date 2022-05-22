@@ -9,7 +9,10 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
   className = "",
   onClick = (e) => console.info("Click ImpressionGrid"),
 }) => {
-  const clickHandler = (e: MouseEvent) => onClick(e);
+  const impressionClickHandler = (e) => {
+    onClick(e);
+  };
+
   const pillGridRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -26,7 +29,13 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
         <div className="impressionGridInner">
           <ul className="pillGrid">
             {impressions.map((impression, i) => {
-              return <li>{impression}</li>;
+              return (
+                <li>
+                  <a href="#!" onClick={impressionClickHandler}>
+                    {impression}
+                  </a>
+                </li>
+              );
             })}
           </ul>
         </div>
