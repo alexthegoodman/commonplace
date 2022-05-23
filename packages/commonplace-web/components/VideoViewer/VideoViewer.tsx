@@ -10,8 +10,20 @@ const VideoViewer: React.FC<VideoViewerProps> = ({
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
 
-  const videoRef = React.useRef(null);
+  const videoRef = React.useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = React.useState(false);
+
+  const onPlayToggle = () => {
+    if (videoRef.current) {
+      if (playing) {
+        videoRef.current.pause();
+        setPlaying(false);
+      } else {
+        videoRef.current.play();
+        setPlaying(true);
+      }
+    }
+  };
 
   return (
     <section className="videoViewer">
@@ -29,7 +41,7 @@ const VideoViewer: React.FC<VideoViewerProps> = ({
           </video>
         </div>
         {/* <div className="previewWrapper"></div> */}
-        <div className="controlsWrapper">
+        <div className="controlsWrapper" onClick={onPlayToggle}>
           {playing ? (
             <></>
           ) : (

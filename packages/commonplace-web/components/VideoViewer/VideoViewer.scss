@@ -1,5 +1,7 @@
 .videoViewer {
   .videoViewerInner {
+    position: relative;
+
     .contentWrapper {
       video {
         display: block;
@@ -7,7 +9,27 @@
       }
     }
     .controlsWrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 3;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       .playButton {
+        font-size: 32px;
+        background: $headerWhite;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 4px;
       }
     }
   }
