@@ -1,1 +1,14 @@
-/** Styles **/
+.videoViewer {
+  .videoViewerInner {
+    .contentWrapper {
+      video {
+        display: block;
+        max-width: 100%;
+      }
+    }
+    .controlsWrapper {
+      .playButton {
+      }
+    }
+  }
+}

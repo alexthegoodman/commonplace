@@ -24,11 +24,11 @@ const VideoViewer: React.FC<VideoViewerProps> = ({
             muted={false}
             preload="auto"
           >
-            {/* <source src="/video/.mp4" type="video/mp4" />
-                <source src="/video/.webm" type="video/webm" /> */}
+            <source src={sourceUrl} type="video/mp4" />
+            {/* <source src="/video/.webm" type="video/webm" /> */}
           </video>
         </div>
-        <div className="previewWrapper"></div>
+        {/* <div className="previewWrapper"></div> */}
         <div className="controlsWrapper">
           {playing ? (
             <></>

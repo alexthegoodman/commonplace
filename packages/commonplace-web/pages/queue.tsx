@@ -66,7 +66,11 @@ const QueueContent = () => {
         />
         <div className="scrollContainer queueScrollContainer">
           <div className="displayPost preloadPost">
-            <ContentViewer type="" preview="" content={preloadPost?.content} />
+            <ContentViewer
+              type={preloadPost?.contentType}
+              preview={preloadPost?.contentPreview}
+              content={preloadPost?.content}
+            />
             <ContentInformation
               title={preloadPost?.title}
               description={preloadPost?.description}
@@ -74,7 +78,11 @@ const QueueContent = () => {
             />
           </div>
           <div className="displayPost currentPost">
-            <ContentViewer type="" preview="" content={currentPost?.content} />
+            <ContentViewer
+              type={currentPost?.contentType}
+              preview={currentPost?.contentPreview}
+              content={currentPost?.content}
+            />
             <ContentInformation
               title={currentPost?.title}
               description={currentPost?.description}

@@ -2,11 +2,15 @@
 
 /** Component Imports **/
 @import "../components/ContentInformation/ContentInformation";
-@import "../components/ContentViewer/ContentViewer";
 @import "../components/ImpressionWheel/ImpressionWheel";
 @import "../components/ImpressionGrid/ImpressionGrid";
 @import "../components/PrimaryHeader/PrimaryHeader";
 @import "../components/PrimaryNavigation/PrimaryNavigation";
+
+@import "../components/ContentViewer/ContentViewer";
+@import "../components/VideoViewer/VideoViewer";
+@import "../components/AudioViewer/AudioViewer";
+@import "../components/TextViewer/TextViewer";
 
 /*** Page Styles ***/
 .brandname {

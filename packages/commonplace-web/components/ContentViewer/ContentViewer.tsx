@@ -1,4 +1,7 @@
 import * as React from "react";
+import AudioViewer from "../AudioViewer/AudioViewer";
+import TextViewer from "../TextViewer/TextViewer";
+import VideoViewer from "../VideoViewer/VideoViewer";
 
 import { ContentViewerProps } from "./ContentViewer.d";
 
@@ -14,7 +17,14 @@ const ContentViewer: React.FC<ContentViewerProps> = ({
   return (
     <section className="contentViewer">
       <div className="contentViewerInner">
-        <img src={content} />
+        {type === "image" ? <img src={content} /> : ""}
+        {type === "video" ? <VideoViewer sourceUrl={content} /> : ""}
+        {type === "audio" ? (
+          <AudioViewer previewUrl={preview} sourceUrl={content} />
+        ) : (
+          ""
+        )}
+        {type === "text" ? <TextViewer content={content} /> : ""}
       </div>
     </section>
   );

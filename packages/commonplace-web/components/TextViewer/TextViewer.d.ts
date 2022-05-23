@@ -1,6 +1,6 @@
-export interface VideoViewerProps {
+export interface TextViewerProps {
   ref?: React.Ref<any>;
   className?: string;
   onClick?: (e: MouseEvent) => void;
-  sourceUrl: string;
+  content: string;
 }
