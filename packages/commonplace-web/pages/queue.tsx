@@ -75,6 +75,7 @@ const QueueContent = () => {
               title={preloadPost?.title}
               description={preloadPost?.description}
               author={{ name: preloadPost?.creator?.name }}
+              createdAt={currentPost.createdAt}
             />
           </div>
           <div className="displayPost currentPost">
@@ -86,7 +87,11 @@ const QueueContent = () => {
             <ContentInformation
               title={currentPost?.title}
               description={currentPost?.description}
-              author={{ name: currentPost?.creator?.name }}
+              author={{
+                name: currentPost?.creator?.name,
+                profileImage: currentPost?.creator?.profileImage,
+              }}
+              createdAt={currentPost.createdAt}
             />
           </div>
         </div>

@@ -4,26 +4,49 @@
   .contentInformationInner {
     padding: 25px 25px;
 
+    .separator {
+      display: block;
+      width: 30px;
+      height: 2px;
+      background: #e5e5e5;
+      // margin: 15px 0;
+    }
+
     .contentTitle {
       font-size: 24px;
       margin-bottom: 10px;
       font-weight: 600;
+      margin-bottom: 25px;
     }
-    .contentDescription {
+    p {
       display: block;
       font-size: 14px;
       line-height: 22px;
       color: #757575;
       font-weight: 300;
       margin: 15px 0;
+      font-family: system-ui;
+      margin-top: 25px;
     }
     .contentAuthor {
+      margin: 15px 0;
+
       .contentAuthorInner {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
         .authorProfileImage {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background: $lightBlue;
+          overflow: hidden;
+          margin-right: 10px;
         }
         .authorAttribution {
           font-size: 14px;
-          font-weight: 400;
+          font-weight: 300;
         }
       }
     }

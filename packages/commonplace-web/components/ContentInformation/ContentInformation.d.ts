@@ -5,4 +5,5 @@ export interface ContentInformationProps {
   title?: string;
   description?: string;
   author?: any;
+  createdAt?: string;
 }
