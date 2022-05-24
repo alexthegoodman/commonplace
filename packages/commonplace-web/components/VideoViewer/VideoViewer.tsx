@@ -34,7 +34,7 @@ const VideoViewer: React.FC<VideoViewerProps> = ({
             autoPlay={false}
             loop={false}
             muted={false}
-            preload="auto"
+            preload="true"
           >
             <source src={sourceUrl} type="video/mp4" />
             {/* <source src="/video/.webm" type="video/webm" /> */}
