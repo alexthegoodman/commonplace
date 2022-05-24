@@ -6,9 +6,21 @@ import InterestPreview from "../components/InterestPreview/InterestPreview";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
 import SearchInput from "../components/SearchInput/SearchInput";
 
-const Interests: NextPage = () => {
+export const InterestsContent = ({
+  onBack,
+  onConfirm = () => console.info("confirm"),
+}) => {
   const router = useRouter();
-  const goBack = () => router.back();
+
+  const goBack = () => {
+    if (typeof onBack !== "undefined") {
+      onBack();
+    } else {
+      router.back();
+    }
+  };
+
+  const onSelectorConfirm = () => onConfirm();
 
   return (
     <section className="interests">
@@ -46,7 +58,9 @@ const Interests: NextPage = () => {
             </div>
             <div className="pickerControls">
               <div className="pickerControlsInner">
-                <a className="button">Confirm</a>
+                <a className="button" onClick={onSelectorConfirm}>
+                  Confirm
+                </a>
               </div>
             </div>
           </div>
@@ -54,6 +68,10 @@ const Interests: NextPage = () => {
       </div>
     </section>
   );
+};
+
+const Interests: NextPage = () => {
+  return <InterestsContent />;
 };
 
 export default Interests;
