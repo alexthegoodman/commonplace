@@ -75,7 +75,7 @@ const QueueContent = () => {
               title={preloadPost?.title}
               description={preloadPost?.description}
               author={{ name: preloadPost?.creator?.name }}
-              createdAt={currentPost.createdAt}
+              createdAt={currentPost?.createdAt}
             />
           </div>
           <div className="displayPost currentPost">
@@ -91,7 +91,7 @@ const QueueContent = () => {
                 name: currentPost?.creator?.name,
                 profileImage: currentPost?.creator?.profileImage,
               }}
-              createdAt={currentPost.createdAt}
+              createdAt={currentPost?.createdAt}
             />
           </div>
         </div>

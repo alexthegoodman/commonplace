@@ -7,7 +7,7 @@ export default async function seedPosts(users, interests) {
   const getDefaultPost = (rep1 = -1, rep2 = -1) => {
     const randomInt1 = rep1 !== -1 ? rep1 : faker.random.numeric();
     const randomInt2 = rep2 !== -1 ? rep2 : faker.random.numeric();
-    const contentSearch = faker.vehicle.vehicle();
+    const contentSearch = faker.vehicle.model();
 
     return {
       title: faker.lorem.words(),

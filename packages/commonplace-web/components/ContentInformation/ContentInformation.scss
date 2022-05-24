@@ -2,21 +2,28 @@
   // background: rgba($frenchRaspberry, 0.4);
 
   .contentInformationInner {
-    padding: 25px 25px;
+    // padding: 25px 25px;
 
-    .separator {
-      display: block;
-      width: 30px;
-      height: 2px;
-      background: #e5e5e5;
-      // margin: 15px 0;
-    }
+    // .separator {
+    //   display: block;
+    //   width: 30px;
+    //   height: 2px;
+    //   background: #e5e5e5;
+    //   // margin: 15px 0;
+    // }
 
     .contentTitle {
       font-size: 24px;
-      margin-bottom: 10px;
+      // margin-bottom: 10px;
       font-weight: 600;
-      margin-bottom: 25px;
+      // margin-bottom: 25px;
+
+      padding: 25px;
+      border-bottom: 1px #e5e5e5 solid;
+    }
+    .contentMetaData {
+      padding: 25px 25px 35px 25px;
+      // border-bottom: 1px #e5e5e5 solid;
     }
     p {
       display: block;
@@ -24,17 +31,46 @@
       line-height: 22px;
       color: #757575;
       font-weight: 300;
-      margin: 15px 0;
+      // margin: 15px 0;
       font-family: system-ui;
-      margin-top: 25px;
+      // margin-top: 25px;
+      margin-bottom: 15px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
     }
     .contentAuthor {
-      margin: 15px 0;
+      // margin: 15px 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      padding: 15px 25px;
+      border-bottom: 1px #e5e5e5 solid;
+
+      &:hover {
+        background: rgb(250, 250, 250);
+      }
+
+      &:focus {
+        outline: 1px grey solid;
+      }
+
+      // &:before {
+      //   content: " ";
+      //   display: block;
+      //   height: 30px;
+      //   width: 3px;
+      //   background: #e5e5e5;
+      //   margin-right: 15px;
+      // }
 
       .contentAuthorInner {
         display: flex;
         flex-direction: row;
         align-items: center;
+        width: 100%;
 
         .authorProfileImage {
           width: 30px;
@@ -42,11 +78,30 @@
           border-radius: 50%;
           background: $lightBlue;
           overflow: hidden;
-          margin-right: 10px;
+
+          img {
+            max-height: 100%;
+          }
         }
-        .authorAttribution {
-          font-size: 14px;
-          font-weight: 300;
+        .authorInformationWrapper {
+          width: calc(100% - 45px);
+        }
+        .authorInformation {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          width: 100%;
+          padding-left: 10px;
+
+          .authorAttribution {
+            font-size: 14px;
+            font-weight: 300;
+          }
+          .authorCreationCount {
+            font-size: 13px;
+            font-weight: 300;
+            color: grey;
+          }
         }
       }
     }
