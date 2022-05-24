@@ -8,13 +8,14 @@ export default async function seedPosts(users, interests) {
     const randomInt1 = rep1 !== -1 ? rep1 : faker.random.numeric();
     const randomInt2 = rep2 !== -1 ? rep2 : faker.random.numeric();
     const contentSearch = faker.vehicle.model();
+    const contentHeight = parseInt(faker.random.numeric(3)) + 400;
 
     return {
       title: faker.lorem.words(),
       description: faker.lorem.lines(),
       contentType: "image",
       contentPreview: "",
-      content: faker.image.imageUrl(800, 800, contentSearch),
+      content: faker.image.imageUrl(800, contentHeight, contentSearch),
       interestId: interests[randomInt1].id,
       creatorId: users[randomInt2].id,
     };
@@ -44,9 +45,7 @@ export default async function seedPosts(users, interests) {
         ...getDefaultPost(),
         contentType: "text",
         contentPreview: "",
-        content: `greetings \n\n this is a poem \n 
-          with many words of kindness \n 
-          and good things \n\n thank you`,
+        content: `greetings \n\nthis is a poem \n\nwith many words of kindness and wishes of wisdom \nand good things \n\nthank you`,
       },
       getDefaultPost(),
       getDefaultPost(),

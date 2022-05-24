@@ -6,9 +6,16 @@ const TextViewer: React.FC<TextViewerProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click TextViewer"),
+  content = "",
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
-  return <>TextViewer</>;
+  return (
+    <section className="textViewer">
+      <div className="textViewerInner">
+        <p>{content}</p>
+      </div>
+    </section>
+  );
 };
 
 export default TextViewer;
