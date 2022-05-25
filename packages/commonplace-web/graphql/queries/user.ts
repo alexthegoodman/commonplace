@@ -5,8 +5,13 @@ export const userQuery = gql`
     user(id: $id) {
       name
       email
+
+      generatedUsername
+      chosenUsername
+
       profileImage
       coverImage
+
       createdAt
       updatedAt
 
@@ -18,6 +23,7 @@ export const userQuery = gql`
         content
         creator {
           name
+          chosenUsername
         }
         interest {
           name
@@ -27,12 +33,28 @@ export const userQuery = gql`
           messages {
             user {
               name
+              chosenUsername
             }
             type
             content
           }
         }
       }
+    }
+  }
+`;
+
+export const userByUsernameQuery = gql`
+  query UserByUsername($chosenUsername: String!) {
+    getUserByUsername(chosenUsername: $chosenUsername) {
+      name
+      generatedUsername
+      chosenUsername
+
+      profileImage
+      coverImage
+
+      # get posts via secondary query?
     }
   }
 `;

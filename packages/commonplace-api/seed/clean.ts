@@ -37,3 +37,9 @@ export default async function clean() {
     where: { id: { not: "" } },
   });
 }
+
+clean()
+  .catch((e) => console.error(e))
+  .finally(async () => {
+    console.info("cleaned only");
+  });

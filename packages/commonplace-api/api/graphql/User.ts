@@ -8,21 +8,28 @@ const prisma = new PrismaClient();
 export const UserType = objectType({
   name: "User",
   definition(t) {
-    // t.string("id"); // do not expose
-    t.model.email();
     t.model.name();
+    t.model.generatedUsername();
+    t.model.chosenUsername();
 
-    t.model.credit();
     t.model.profileImage();
     t.model.coverImage();
 
-    t.model.posts();
-    t.model.threads();
-    // t.model.messages();
-    // t.model.readMessages();
+    t.model.posts({
+      filtering: false,
+      ordering: false,
+    });
 
     t.model.updatedAt();
     t.model.createdAt();
+
+    // ** Protected **//
+    // t.string("id"); // do not expose
+    t.model.email();
+    t.model.credit();
+    t.model.threads();
+    // t.model.messages();
+    // t.model.readMessages();
   },
 });
 
@@ -42,6 +49,37 @@ export const UserQuery = extendType({
         });
 
         console.info("Get user", id, user);
+
+        return user;
+      },
+    });
+  },
+});
+
+export const UserByUsernameQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.field("getUserByUsername", {
+      type: "User",
+      args: {
+        chosenUsername: nonNull(stringArg()),
+      },
+      resolve: async (_, { chosenUsername }, { prisma: PrismaClient }) => {
+        const user = await prisma.user.findFirst({
+          where: {
+            chosenUsername,
+          },
+          select: {
+            name: true,
+            generatedUsername: true,
+            chosenUsername: true,
+            profileImage: true,
+            coverImage: true,
+            // posts: true, // NOTE: get posts via secondary query
+          },
+        });
+
+        console.info("getUserByUsername", chosenUsername, user);
 
         return user;
       },

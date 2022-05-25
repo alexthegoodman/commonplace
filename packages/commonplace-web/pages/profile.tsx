@@ -9,15 +9,13 @@ import { userQuery } from "../graphql/queries/user";
 
 const getUserData = async () => {
   const userData = await request("http://localhost:4000/graphql", userQuery, {
-    where: {
-      id: "15029286-d77f-4952-a6bb-3000481369bb", // TODO: context.req.headers.cookie
-    },
+    id: "93417f42-d08c-49a3-b77f-2292204b07bf", // TODO: context.req.headers.cookie
   });
 
   return userData;
 };
 
-const ProfileContent = () => {
+export const ProfileContent = () => {
   const { data } = useSWR("/graphql", getUserData);
 
   console.info("ProfileContent", data);
@@ -34,7 +32,7 @@ const ProfileContent = () => {
               </a>
             </Link>
           }
-          title={data.user.name}
+          title={data?.user?.chosenUsername}
           rightIcon={
             <Link href="/queue">
               <a>
@@ -45,10 +43,10 @@ const ProfileContent = () => {
         />
         <div className="scrollContainer">
           <ProfileIntro
-            profileImage={data.user.profileImage}
-            coverImage={data.user.coverImage}
+            profileImage={data?.user?.profileImage}
+            coverImage={data?.user?.coverImage}
           />
-          <ProfilePosts posts={data.user.posts} />
+          <ProfilePosts posts={data?.user?.posts} />
         </div>
       </div>
     </section>
@@ -66,7 +64,7 @@ const Profile: NextPage<{ fallback: any }> = ({ fallback }) => {
 export async function getServerSideProps(context) {
   const userData = await getUserData();
 
-  console.info("getServerSideProps", userData, context);
+  console.info("getServerSideProps", userData);
 
   return {
     props: {

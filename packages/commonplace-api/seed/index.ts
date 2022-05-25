@@ -23,7 +23,7 @@ clean()
     main()
       .catch((e) => console.error(e))
       .finally(async () => {
-        console.info("disconnect");
+        console.info("populated");
         await prisma.$disconnect();
       });
   });

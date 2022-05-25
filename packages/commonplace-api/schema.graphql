@@ -63,6 +63,7 @@ input PostWhereUniqueInput {
 type Query {
   authenticate(email: String!, password: String!): String!
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
+  getUserByUsername(chosenUsername: String!): User!
   interests(after: InterestWhereUniqueInput, before: InterestWhereUniqueInput, first: Int, last: Int): [Interest!]!
   post(where: PostWhereUniqueInput!): Post
   posts(after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int): [Post!]!
@@ -86,10 +87,12 @@ input ThreadWhereUniqueInput {
 }
 
 type User {
+  chosenUsername: String
   coverImage: String!
   createdAt: DateTime!
   credit: Int!
   email: String!
+  generatedUsername: String!
   name: String
   posts(after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int): [Post!]!
   profileImage: String!
@@ -98,6 +101,8 @@ type User {
 }
 
 input UserWhereUniqueInput {
+  chosenUsername: String
   email: String
+  generatedUsername: String
   id: String
 }

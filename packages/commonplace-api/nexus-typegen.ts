@@ -57,7 +57,9 @@ export interface NexusGenInputs {
     id?: string | null; // String
   }
   UserWhereUniqueInput: { // input type
+    chosenUsername?: string | null; // String
     email?: string | null; // String
+    generatedUsername?: string | null; // String
     id?: string | null; // String
   }
 }
@@ -105,10 +107,12 @@ export interface NexusGenObjects {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
   User: { // root type
+    chosenUsername?: string | null; // String
     coverImage: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     credit: number; // Int!
     email: string; // String!
+    generatedUsername: string; // String!
     name?: string | null; // String
     profileImage: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
@@ -157,6 +161,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     authenticate: string; // String!
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
+    getUserByUsername: NexusGenRootTypes['User']; // User!
     interests: NexusGenRootTypes['Interest'][]; // [Interest!]!
     post: NexusGenRootTypes['Post'] | null; // Post
     posts: NexusGenRootTypes['Post'][]; // [Post!]!
@@ -174,10 +179,12 @@ export interface NexusGenFieldTypes {
     users: NexusGenRootTypes['User'][]; // [User!]!
   }
   User: { // field return type
+    chosenUsername: string | null; // String
     coverImage: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     credit: number; // Int!
     email: string; // String!
+    generatedUsername: string; // String!
     name: string | null; // String
     posts: NexusGenRootTypes['Post'][]; // [Post!]!
     profileImage: string; // String!
@@ -218,6 +225,7 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     authenticate: 'String'
     categories: 'Category'
+    getUserByUsername: 'User'
     interests: 'Interest'
     post: 'Post'
     posts: 'Post'
@@ -235,10 +243,12 @@ export interface NexusGenFieldTypeNames {
     users: 'User'
   }
   User: { // field return type name
+    chosenUsername: 'String'
     coverImage: 'String'
     createdAt: 'DateTime'
     credit: 'Int'
     email: 'String'
+    generatedUsername: 'String'
     name: 'String'
     posts: 'Post'
     profileImage: 'String'
@@ -290,6 +300,9 @@ export interface NexusGenArgTypes {
       before?: NexusGenInputs['CategoryWhereUniqueInput'] | null; // CategoryWhereUniqueInput
       first?: number | null; // Int
       last?: number | null; // Int
+    }
+    getUserByUsername: { // args
+      chosenUsername: string; // String!
     }
     interests: { // args
       after?: NexusGenInputs['InterestWhereUniqueInput'] | null; // InterestWhereUniqueInput
