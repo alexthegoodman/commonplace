@@ -2,6 +2,9 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import FormInput from "../components/FormInput/FormInput";
+import FormTextarea from "../components/FormTextarea/FormTextarea";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
 import StepCounter from "../components/StepCounter/StepCounter";
 import { InterestsContent } from "./interests";
@@ -12,12 +15,26 @@ const Upload: NextPage = () => {
   const [contentType, setContentType] = useState("image");
   const [showInterestsModal, setShowInterestsModal] = useState(false);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => console.log(data, contentType); // TODO: send data to API
+  const onError = (error) => console.error(error);
+
   const goBack = () => {
     if (step === 1) {
       router.back();
     } else {
       setStep(step - 1);
     }
+  };
+
+  const onNextClick = () => {
+    // TODO: step validation
+    setStep(step + 1);
   };
 
   const onPickInterest = () => {
@@ -35,16 +52,8 @@ const Upload: NextPage = () => {
     setShowInterestsModal(false);
   };
 
-  const onNextClick = () => {
-    setStep(step + 1);
-  };
-
   const onSelectType = (type) => {
     setContentType(type);
-  };
-
-  const onConfirmUpload = () => {
-    console.info("Upload!");
   };
 
   const contentTypes = ["image", "video", "audio", "text"];
@@ -71,79 +80,147 @@ const Upload: NextPage = () => {
 
             <StepCounter step={step} />
 
-            {step === 1 ? (
-              <>
-                <div className="uploadSection">
-                  <div className="uploadSectionInner">
-                    <span>What do you want to share?</span>
-                    <button className="button" onClick={onPickInterest}>
-                      Pick Interest
-                    </button>
+            <form className="form" onSubmit={handleSubmit(onSubmit, onError)}>
+              {step === 1 ? (
+                <>
+                  <div className="uploadSection">
+                    <div className="uploadSectionInner">
+                      <span>What do you want to share?</span>
+                      <button className="button" onClick={onPickInterest}>
+                        Pick Interest
+                      </button>
+                    </div>
                   </div>
-                </div>
 
-                <div className="uploadSection">
-                  <div className="uploadSectionInner">
-                    <span>What kind of content is it?</span>
-                    <div className="contentTypePicker">
-                      <div className="contentTypePickerInner">
-                        {contentTypes.map((type, i) => {
-                          return (
-                            <div
-                              className="contentTypeOption"
-                              onClick={() => onSelectType(type)}
-                            >
-                              <div className="option">
-                                {contentType === type ? (
-                                  <div className="feather-icon icon-check"></div>
-                                ) : (
-                                  <></>
-                                )}
+                  <div className="uploadSection">
+                    <div className="uploadSectionInner">
+                      <span>What kind of content is it?</span>
+                      <div className="contentTypePicker">
+                        <div className="contentTypePickerInner">
+                          {contentTypes.map((type, i) => {
+                            return (
+                              <div
+                                className="contentTypeOption"
+                                onClick={() => onSelectType(type)}
+                              >
+                                <div className="option">
+                                  {contentType === type ? (
+                                    <div className="feather-icon icon-check"></div>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </div>
+                                <span>{type}</span>
                               </div>
-                              <span>{type}</span>
-                            </div>
-                          );
-                        })}
+                            );
+                          })}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <a className="button" onClick={onNextClick}>
-                  Next
-                </a>
-              </>
-            ) : (
-              <></>
-            )}
+                  <a className="button" onClick={onNextClick}>
+                    Next
+                  </a>
+                </>
+              ) : (
+                <></>
+              )}
 
-            {step === 2 ? (
-              <>
-                <div className="uploadSection">
-                  <div className="uploadSectionInner"></div>
-                </div>
+              {step === 2 ? (
+                <>
+                  <div className="uploadSection">
+                    <div className="uploadSectionInner">
+                      <span>Select your content</span>
+                      <div className="contentUpload">
+                        <div className="contentUploadInner">
+                          {contentType === "image" ? (
+                            <button className="mediaUploadButton">
+                              Upload Image
+                            </button>
+                          ) : (
+                            <></>
+                          )}
+                          {contentType === "video" ? (
+                            <button className="mediaUploadButton">
+                              Upload Video
+                            </button>
+                          ) : (
+                            <></>
+                          )}
+                          {contentType === "audio" ? (
+                            <>
+                              <button className="mediaUploadButton">
+                                Upload Art
+                              </button>
+                              <button className="button">Upload Audio</button>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {contentType === "text" ? (
+                            <>
+                              <FormTextarea
+                                name="text"
+                                placeholder="Type here..."
+                                register={register}
+                                errors={errors}
+                                validation={{
+                                  required: contentType === "text",
+                                }}
+                              />
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-                <a className="button" onClick={onNextClick}>
-                  Next
-                </a>
-              </>
-            ) : (
-              <></>
-            )}
+                  <a className="button" onClick={onNextClick}>
+                    Next
+                  </a>
+                </>
+              ) : (
+                <></>
+              )}
 
-            {step === 3 ? (
-              <>
-                <div className="uploadSection">
-                  <div className="uploadSectionInner"></div>
-                </div>
+              {step === 3 ? (
+                <>
+                  <div className="uploadSection">
+                    <div className="uploadSectionInner">
+                      <span>Describe and Share!</span>
+                      <FormInput
+                        type="title"
+                        name="title"
+                        placeholder="Add Title..."
+                        register={register}
+                        errors={errors}
+                        validation={{ required: true }}
+                      />
+                      <FormTextarea
+                        name="description"
+                        placeholder="Add Description..."
+                        register={register}
+                        errors={errors}
+                        validation={{ required: false }}
+                      />
+                    </div>
+                  </div>
 
-                <a className="button" onClick={onConfirmUpload}>
-                  Post for 3CC
-                </a>
-              </>
-            ) : (
-              <></>
-            )}
+                  <div className="uploadSection">
+                    <div className="uploadSectionInner"></div>
+                  </div>
+
+                  <button className="button" type="submit">
+                    Post for 3CC
+                  </button>
+                </>
+              ) : (
+                <></>
+              )}
+            </form>
           </div>
         </section>
       )}
