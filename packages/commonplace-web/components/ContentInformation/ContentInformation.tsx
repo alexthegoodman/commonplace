@@ -11,29 +11,29 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
   post = null,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
-  const displayDate = DateTime.fromISO(post.createdAt).toFormat("DDD");
+  const displayDate = DateTime.fromISO(post?.createdAt).toFormat("DDD");
 
   return (
     <section className="contentInformation">
       <div className="contentInformationInner">
-        <h2 className="contentTitle">{post.title}</h2>
+        <h2 className="contentTitle">{post?.title}</h2>
 
         <div className="separator"></div>
 
-        {post.creator !== null ? (
-          <Link href="/profile">
+        {post?.creator !== null ? (
+          <Link href={`/co/${post?.creator?.chosenUsername}`}>
             <div className="contentAuthor">
               <div className="contentAuthorInner">
                 <div className="authorProfileImage">
-                  <img src={post.creator.profileImage} />
+                  <img src={post?.creator?.profileImage} />
                 </div>
                 <div className="authorInformationWrapper">
                   <div className="authorInformation">
                     <span className="authorAttribution">
-                      {post.creator.chosenUsername}
+                      {post?.creator?.chosenUsername}
                     </span>
                     <span className="authorCreationCount">
-                      {post.creator.posts.length} Creations
+                      {post?.creator?.posts.length} Creations
                     </span>
                   </div>
                 </div>
@@ -47,7 +47,7 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
         <div className="separator"></div>
 
         <div className="contentMetaData">
-          <p className="contentDescription">{post.description}</p>
+          <p className="contentDescription">{post?.description}</p>
           {/** # of Impressions */}
           {/** Clickable link to user profile? */}
           {/** Grid of other user posts? */}
