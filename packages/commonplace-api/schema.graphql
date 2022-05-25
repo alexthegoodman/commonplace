@@ -63,6 +63,7 @@ input PostWhereUniqueInput {
 type Query {
   authenticate(email: String!, password: String!): String!
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
+  getPostByPostTitle(postTitle: String!): Post!
   getPostsByUsername(chosenUsername: String!): [Post]!
   getUserByUsername(chosenUsername: String!): User!
   interests(after: InterestWhereUniqueInput, before: InterestWhereUniqueInput, first: Int, last: Int): [Interest!]!

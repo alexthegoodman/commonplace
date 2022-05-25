@@ -161,6 +161,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     authenticate: string; // String!
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
+    getPostByPostTitle: NexusGenRootTypes['Post']; // Post!
     getPostsByUsername: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
     getUserByUsername: NexusGenRootTypes['User']; // User!
     interests: NexusGenRootTypes['Interest'][]; // [Interest!]!
@@ -226,6 +227,7 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     authenticate: 'String'
     categories: 'Category'
+    getPostByPostTitle: 'Post'
     getPostsByUsername: 'Post'
     getUserByUsername: 'User'
     interests: 'Interest'
@@ -302,6 +304,9 @@ export interface NexusGenArgTypes {
       before?: NexusGenInputs['CategoryWhereUniqueInput'] | null; // CategoryWhereUniqueInput
       first?: number | null; // Int
       last?: number | null; // Int
+    }
+    getPostByPostTitle: { // args
+      postTitle: string; // String!
     }
     getPostsByUsername: { // args
       chosenUsername: string; // String!

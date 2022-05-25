@@ -25,6 +25,40 @@ export const PostType = objectType({
   },
 });
 
+export const PostByPostTitleQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.field("getPostByPostTitle", {
+      type: "Post",
+      args: {
+        postTitle: nonNull(stringArg()),
+      },
+      resolve: async (_, { postTitle }, { prisma: PrismaClient }) => {
+        const post = await prisma.post.findFirst({
+          where: {
+            generatedTitleSlug: postTitle,
+          },
+          select: {
+            // id: true,
+            title: true,
+            description: true,
+            generatedTitleSlug: true,
+            contentType: true,
+            contentPreview: true,
+            content: true,
+            updatedAt: true,
+            createdAt: true,
+          },
+        });
+
+        console.info("getPostsByPostTitle", postTitle, post);
+
+        return post;
+      },
+    });
+  },
+});
+
 export const PostsByUsernameQuery = extendType({
   type: "Query",
   definition(t) {

@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import faker from "@faker-js/faker";
+import slugify from "slugify";
 
 const prisma = new PrismaClient();
 
@@ -9,12 +10,15 @@ export default async function seedPosts(users, interests) {
     const randomInt2 = rep2 !== -1 ? rep2 : faker.random.numeric();
     const contentSearch = faker.vehicle.model();
     const contentHeight = parseInt(faker.random.numeric(3)) + 400;
+    const title = faker.lorem.words();
+    const generatedTitleSlug = slugify(title);
 
     return {
-      title: faker.lorem.words(),
+      title,
       description: faker.lorem.lines(),
       contentType: "image",
       contentPreview: "",
+      generatedTitleSlug,
       content: faker.image.imageUrl(800, contentHeight, contentSearch),
       interestId: interests[randomInt1].id,
       creatorId: users[randomInt2].id,

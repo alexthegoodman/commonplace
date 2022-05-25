@@ -54,3 +54,18 @@ export const postsByUsernameQuery = gql`
     }
   }
 `;
+
+export const postByPostTitleQuery = gql`
+  query getPostByPostTitle($postTitle: String!) {
+    getPostByPostTitle(postTitle: $postTitle) {
+      title
+      description
+      contentType
+      contentPreview
+      content
+
+      createdAt
+      updatedAt
+    }
+  }
+`;
