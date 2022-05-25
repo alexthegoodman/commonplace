@@ -7,7 +7,8 @@ const prisma = new PrismaClient();
 
 export const Query = queryType({
   definition(t) {
-    t.crud.user();
+    // t.crud.user(); // NOTE: no filtering except by id, CRUD unnecessary
+
     t.crud.post();
     t.crud.thread();
 

@@ -1,8 +1,8 @@
 import { gql } from "graphql-request";
 
 export const userQuery = gql`
-  query User($where: UserWhereUniqueInput!) {
-    user(where: $where) {
+  query User($id: String!) {
+    user(id: $id) {
       name
       email
       profileImage

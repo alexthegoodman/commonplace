@@ -68,7 +68,7 @@ type Query {
   posts(after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int): [Post!]!
   registerUser(email: String!, password: String!): String!
   thread(where: ThreadWhereUniqueInput!): Thread
-  user(where: UserWhereUniqueInput!): User
+  user(id: String!): User!
 }
 
 type Thread {

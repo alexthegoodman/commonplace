@@ -162,7 +162,7 @@ export interface NexusGenFieldTypes {
     posts: NexusGenRootTypes['Post'][]; // [Post!]!
     registerUser: string; // String!
     thread: NexusGenRootTypes['Thread'] | null; // Thread
-    user: NexusGenRootTypes['User'] | null; // User
+    user: NexusGenRootTypes['User']; // User!
   }
   Thread: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -314,7 +314,7 @@ export interface NexusGenArgTypes {
       where: NexusGenInputs['ThreadWhereUniqueInput']; // ThreadWhereUniqueInput!
     }
     user: { // args
-      where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+      id: string; // String!
     }
   }
   Thread: {

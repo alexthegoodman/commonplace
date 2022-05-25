@@ -26,6 +26,29 @@ export const UserType = objectType({
   },
 });
 
+export const UserQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.field("user", {
+      type: "User",
+      args: {
+        id: nonNull(stringArg()),
+      },
+      resolve: async (_, { id }, { prisma: PrismaClient }) => {
+        const user = await prisma.user.findUnique({
+          where: {
+            id,
+          },
+        });
+
+        console.info("Get user", id, user);
+
+        return user;
+      },
+    });
+  },
+});
+
 export const AuthenticateQuery = extendType({
   type: "Query",
   definition(t) {
