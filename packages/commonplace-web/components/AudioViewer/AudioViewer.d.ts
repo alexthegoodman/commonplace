@@ -4,4 +4,5 @@ export interface AudioViewerProps {
   onClick?: (e: MouseEvent) => void;
   previewUrl: string;
   sourceUrl: string;
+  mini?: boolean;
 }

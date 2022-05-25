@@ -3,4 +3,5 @@ export interface TextViewerProps {
   className?: string;
   onClick?: (e: MouseEvent) => void;
   content: string;
+  mini?: boolean;
 }

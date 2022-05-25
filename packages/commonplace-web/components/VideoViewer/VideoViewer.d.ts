@@ -3,4 +3,5 @@ export interface VideoViewerProps {
   className?: string;
   onClick?: (e: MouseEvent) => void;
   sourceUrl: string;
+  mini?: boolean;
 }
