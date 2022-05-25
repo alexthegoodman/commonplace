@@ -9,7 +9,7 @@ import { userQuery } from "../graphql/queries/user";
 
 const getUserData = async () => {
   const userData = await request("http://localhost:4000/graphql", userQuery, {
-    id: "f661f8ba-e1fd-4e6c-97ff-4bc5a9f5189exxx", // TODO: context.req.headers.cookie
+    id: "f661f8ba-e1fd-4e6c-97ff-4bc5a9f5189e", // TODO: context.req.headers.cookie
   });
 
   return userData;
