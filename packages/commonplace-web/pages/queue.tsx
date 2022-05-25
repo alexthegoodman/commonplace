@@ -71,12 +71,7 @@ const QueueContent = () => {
               preview={preloadPost?.contentPreview}
               content={preloadPost?.content}
             />
-            <ContentInformation
-              title={preloadPost?.title}
-              description={preloadPost?.description}
-              author={{ name: preloadPost?.creator?.name }}
-              createdAt={currentPost?.createdAt}
-            />
+            <ContentInformation post={currentPost} />
           </div>
           <div className="displayPost currentPost">
             <ContentViewer
@@ -84,15 +79,7 @@ const QueueContent = () => {
               preview={currentPost?.contentPreview}
               content={currentPost?.content}
             />
-            <ContentInformation
-              title={currentPost?.title}
-              description={currentPost?.description}
-              author={{
-                name: currentPost?.creator?.name,
-                profileImage: currentPost?.creator?.profileImage,
-              }}
-              createdAt={currentPost?.createdAt}
-            />
+            <ContentInformation post={currentPost} />
           </div>
         </div>
         <ImpressionGrid onClick={impressionClickHandler} />

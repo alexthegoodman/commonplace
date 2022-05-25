@@ -97,6 +97,11 @@
           .authorAttribution {
             font-size: 14px;
             font-weight: 300;
+
+            overflow: hidden;
+            white-space: nowrap;
+            width: 50%;
+            text-overflow: ellipsis;
           }
           .authorCreationCount {
             font-size: 13px;

@@ -11,7 +11,12 @@ export const postsQuery = gql`
 
       creator {
         name
+        chosenUsername
         profileImage
+
+        posts {
+          title
+        }
       }
       interest {
         name
@@ -21,6 +26,7 @@ export const postsQuery = gql`
         messages {
           user {
             name
+            chosenUsername
             profileImage
           }
           type
