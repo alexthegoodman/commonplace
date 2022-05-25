@@ -26,7 +26,8 @@ const Upload: NextPage = () => {
 
   const goBack = () => {
     if (step === 1) {
-      router.back();
+      // router.back();
+      router.push("/queue");
     } else {
       setStep(step - 1);
     }

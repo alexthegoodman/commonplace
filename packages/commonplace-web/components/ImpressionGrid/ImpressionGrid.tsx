@@ -30,7 +30,7 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
           <ul className="pillGrid">
             {impressions.map((impression, i) => {
               return (
-                <li>
+                <li key={`impressionGridItem${i}`}>
                   <a href="#!" onClick={impressionClickHandler}>
                     {impression}
                   </a>

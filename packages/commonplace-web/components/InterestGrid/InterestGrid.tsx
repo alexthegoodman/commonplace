@@ -14,7 +14,7 @@ const InterestGrid: React.FC<InterestGridProps> = ({
       <div className="interestGridInner">
         <ul className="pillGrid">
           {adjectives.map((adjective, i) => {
-            return <li>{adjective}</li>;
+            return <li key={`interestGridItem${i}`}>{adjective}</li>;
           })}
         </ul>
       </div>
