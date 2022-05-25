@@ -53,8 +53,6 @@ export const userByUsernameQuery = gql`
 
       profileImage
       coverImage
-
-      # get posts via secondary query?
     }
   }
 `;

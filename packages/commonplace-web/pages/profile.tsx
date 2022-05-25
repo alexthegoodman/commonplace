@@ -9,17 +9,13 @@ import { userQuery } from "../graphql/queries/user";
 
 const getUserData = async () => {
   const userData = await request("http://localhost:4000/graphql", userQuery, {
-    id: "93417f42-d08c-49a3-b77f-2292204b07bf", // TODO: context.req.headers.cookie
+    id: "f661f8ba-e1fd-4e6c-97ff-4bc5a9f5189exxx", // TODO: context.req.headers.cookie
   });
 
   return userData;
 };
 
-export const ProfileContent = () => {
-  const { data } = useSWR("/graphql", getUserData);
-
-  console.info("ProfileContent", data);
-
+export const ProfileContent = ({ data }) => {
   return (
     <section className="profile">
       <div className="profileInner">
@@ -53,10 +49,18 @@ export const ProfileContent = () => {
   );
 };
 
+const ProfileDataWrapper = () => {
+  const { data } = useSWR("/graphql", getUserData);
+
+  console.info("ProfileContent", data);
+
+  return <ProfileContent data={data} />;
+};
+
 const Profile: NextPage<{ fallback: any }> = ({ fallback }) => {
   return (
     <SWRConfig value={{ fallback }}>
-      <ProfileContent />
+      <ProfileDataWrapper />
     </SWRConfig>
   );
 };

@@ -161,6 +161,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     authenticate: string; // String!
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
+    getPostsByUsername: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
     getUserByUsername: NexusGenRootTypes['User']; // User!
     interests: NexusGenRootTypes['Interest'][]; // [Interest!]!
     post: NexusGenRootTypes['Post'] | null; // Post
@@ -225,6 +226,7 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     authenticate: 'String'
     categories: 'Category'
+    getPostsByUsername: 'Post'
     getUserByUsername: 'User'
     interests: 'Interest'
     post: 'Post'
@@ -301,6 +303,9 @@ export interface NexusGenArgTypes {
       first?: number | null; // Int
       last?: number | null; // Int
     }
+    getPostsByUsername: { // args
+      chosenUsername: string; // String!
+    }
     getUserByUsername: { // args
       chosenUsername: string; // String!
     }
@@ -345,12 +350,6 @@ export interface NexusGenArgTypes {
     }
   }
   User: {
-    posts: { // args
-      after?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
-      before?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
-      first?: number | null; // Int
-      last?: number | null; // Int
-    }
     threads: { // args
       after?: NexusGenInputs['ThreadWhereUniqueInput'] | null; // ThreadWhereUniqueInput
       before?: NexusGenInputs['ThreadWhereUniqueInput'] | null; // ThreadWhereUniqueInput

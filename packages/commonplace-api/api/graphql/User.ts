@@ -18,6 +18,7 @@ export const UserType = objectType({
     t.model.posts({
       filtering: false,
       ordering: false,
+      pagination: false,
     });
 
     t.model.updatedAt();

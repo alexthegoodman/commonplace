@@ -63,6 +63,7 @@ input PostWhereUniqueInput {
 type Query {
   authenticate(email: String!, password: String!): String!
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
+  getPostsByUsername(chosenUsername: String!): [Post]!
   getUserByUsername(chosenUsername: String!): User!
   interests(after: InterestWhereUniqueInput, before: InterestWhereUniqueInput, first: Int, last: Int): [Interest!]!
   post(where: PostWhereUniqueInput!): Post
@@ -94,7 +95,7 @@ type User {
   email: String!
   generatedUsername: String!
   name: String
-  posts(after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int): [Post!]!
+  posts: [Post!]!
   profileImage: String!
   threads(after: ThreadWhereUniqueInput, before: ThreadWhereUniqueInput, first: Int, last: Int): [Thread!]!
   updatedAt: DateTime!

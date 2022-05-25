@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 export const PostType = objectType({
   name: "Post",
   definition(t) {
+    // t.model.id();
     t.model.title();
     t.model.description();
 
@@ -21,5 +22,52 @@ export const PostType = objectType({
 
     t.model.updatedAt();
     t.model.createdAt();
+  },
+});
+
+export const PostsByUsernameQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.list.field("getPostsByUsername", {
+      type: "Post",
+      args: {
+        chosenUsername: nonNull(stringArg()),
+      },
+      resolve: async (_, { chosenUsername }, { prisma: PrismaClient }) => {
+        const getUserId = await prisma.user.findUnique({
+          where: {
+            chosenUsername,
+          },
+          select: {
+            id: true,
+          },
+        });
+
+        // console.info("getUserId", getUserId);
+
+        const posts = await prisma.post.findMany({
+          where: {
+            creator: {
+              id: getUserId?.id,
+            },
+          },
+          select: {
+            // id: true,
+            title: true,
+            description: true,
+            generatedTitleSlug: true,
+            contentType: true,
+            contentPreview: true,
+            content: true,
+            updatedAt: true,
+            createdAt: true,
+          },
+        });
+
+        console.info("getPostsByUsername", chosenUsername, posts);
+
+        return posts;
+      },
+    });
   },
 });

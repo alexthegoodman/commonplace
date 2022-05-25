@@ -1,11 +1,12 @@
 import request from "graphql-request";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { SWRConfig } from "swr";
+import useSWR, { SWRConfig } from "swr";
+import { postsByUsernameQuery } from "../../graphql/queries/post";
 import { userByUsernameQuery } from "../../graphql/queries/user";
 import { ProfileContent } from "../profile";
 
-const getUserByUsernameData = async (chosenUsername) => {
+const getUserAndPostsByUsernameData = async (chosenUsername) => {
   const userData = await request(
     "http://localhost:4000/graphql",
     userByUsernameQuery,
@@ -14,29 +15,55 @@ const getUserByUsernameData = async (chosenUsername) => {
     }
   );
 
-  return userData;
+  const postsData = await request(
+    "http://localhost:4000/graphql",
+    postsByUsernameQuery,
+    {
+      chosenUsername,
+    }
+  );
+
+  const returnData = {
+    user: {
+      ...userData.getUserByUsername,
+      posts: postsData.getPostsByUsername,
+    },
+  };
+
+  return returnData;
 };
 
-const CoProfile: NextPage<{ fallback: any }> = ({ fallback }) => {
+const CoProfileDataWrapper = () => {
   const router = useRouter();
   const { chosenUsername } = router.query;
 
+  const { data } = useSWR("/graphql", () =>
+    getUserAndPostsByUsernameData(chosenUsername)
+  );
+
+  console.info("CoProfileDataWrapper", data);
+
+  return <ProfileContent data={data} />;
+};
+
+const CoProfile: NextPage<{ fallback: any }> = ({ fallback }) => {
   return (
     <SWRConfig value={{ fallback }}>
-      <ProfileContent />
+      <CoProfileDataWrapper />
     </SWRConfig>
   );
 };
 
 export async function getServerSideProps({ query }) {
-  console.info("CoProfile getServerSideProps", query);
   const { chosenUsername } = query;
-  const userData = await getUserByUsernameData(chosenUsername);
-  console.info("getUserByUsernameData userData", userData);
+  const userAndPostsData = await getUserAndPostsByUsernameData(chosenUsername);
+
+  console.info("CoProfile userAndPostsData", query, userAndPostsData);
+
   return {
     props: {
       fallback: {
-        "/graphql": userData,
+        "/graphql": userAndPostsData,
       },
     },
   };
