@@ -12,19 +12,24 @@ const ContentViewer: React.FC<ContentViewerProps> = ({
   type = "",
   preview = "",
   content = "",
+  mini = false,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
   return (
     <section className="contentViewer">
       <div className="contentViewerInner">
         {type === "image" ? <img src={content} /> : ""}
-        {type === "video" ? <VideoViewer sourceUrl={content} /> : ""}
-        {type === "audio" ? (
-          <AudioViewer previewUrl={preview} sourceUrl={content} />
+        {type === "video" ? (
+          <VideoViewer mini={mini} sourceUrl={content} />
         ) : (
           ""
         )}
-        {type === "text" ? <TextViewer content={content} /> : ""}
+        {type === "audio" ? (
+          <AudioViewer mini={mini} previewUrl={preview} sourceUrl={content} />
+        ) : (
+          ""
+        )}
+        {type === "text" ? <TextViewer mini={mini} content={content} /> : ""}
       </div>
     </section>
   );

@@ -2,24 +2,44 @@
   .profilePostInner {
     .postContent {
       width: 100%;
-      aspect-ratio: 1;
+      // aspect-ratio: 1;
       background: $darkBlue;
+      overflow: hidden;
+      position: relative;
 
       img {
-        max-width: 100%;
+        display: block;
+        max-height: 100%;
+      }
+      .contentViewer {
+        min-width: 100%;
+        width: auto;
+        min-height: 100%;
+      }
+      .contentType {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        background: white;
+        padding: 3px 5px;
+        border-radius: 50px;
+        font-size: 13px;
+        opacity: 0.8;
       }
     }
     .postTitle {
-      height: 50px;
+      min-height: 50px;
+      height: auto;
       display: flex;
       align-items: center;
       background: $lightBlue;
-      padding: 0 15px;
+      padding: 5px 10px;
 
       span {
         color: $darkBlue;
-        font-weight: 600;
-        font-size: 18px;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 18px;
       }
     }
   }

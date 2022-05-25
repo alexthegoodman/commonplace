@@ -1,4 +1,5 @@
 import * as React from "react";
+import ContentViewer from "../ContentViewer/ContentViewer";
 
 import { ProfilePostProps } from "./ProfilePost.d";
 
@@ -13,7 +14,14 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
     <div className="profilePost">
       <div className="profilePostInner">
         <div className="postContent">
-          <img alt="" title="" src={post.content} />
+          {/* <img alt="" title="" src={post.content} /> */}
+          <ContentViewer
+            type={post.contentType}
+            preview={post.contentPreview}
+            content={post.content}
+            mini={true}
+          />
+          <span className="contentType">{post.contentType}</span>
         </div>
         <div className="postTitle">
           <span>{post.title}</span>

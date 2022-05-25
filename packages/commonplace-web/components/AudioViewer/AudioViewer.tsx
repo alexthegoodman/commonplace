@@ -8,6 +8,7 @@ const AudioViewer: React.FC<AudioViewerProps> = ({
   onClick = (e) => console.info("Click AudioViewer"),
   sourceUrl = "",
   previewUrl = "",
+  mini = false,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
 
@@ -45,17 +46,21 @@ const AudioViewer: React.FC<AudioViewerProps> = ({
             <img src={previewUrl} alt="" title="" />
           </div>
         </div>
-        <div className="controlsWrapper" onClick={onPlayToggle}>
-          {playing ? (
-            <div className="pauseButton">
-              <div className="feather-icon icon-pause"></div>
-            </div>
-          ) : (
-            <div className="playButton">
-              <div className="feather-icon icon-play"></div>
-            </div>
-          )}
-        </div>
+        {!mini ? (
+          <div className="controlsWrapper" onClick={onPlayToggle}>
+            {playing ? (
+              <div className="pauseButton">
+                <div className="feather-icon icon-pause"></div>
+              </div>
+            ) : (
+              <div className="playButton">
+                <div className="feather-icon icon-play"></div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </section>
   );

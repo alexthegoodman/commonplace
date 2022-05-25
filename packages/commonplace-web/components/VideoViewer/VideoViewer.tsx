@@ -7,6 +7,7 @@ const VideoViewer: React.FC<VideoViewerProps> = ({
   className = "",
   onClick = (e) => console.info("Click VideoViewer"),
   sourceUrl = "",
+  mini = false,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
 
@@ -41,15 +42,19 @@ const VideoViewer: React.FC<VideoViewerProps> = ({
           </video>
         </div>
         {/* <div className="previewWrapper"></div> */}
-        <div className="controlsWrapper" onClick={onPlayToggle}>
-          {playing ? (
-            <></>
-          ) : (
-            <div className="playButton">
-              <div className="feather-icon icon-play"></div>
-            </div>
-          )}
-        </div>
+        {!mini ? (
+          <div className="controlsWrapper" onClick={onPlayToggle}>
+            {playing ? (
+              <></>
+            ) : (
+              <div className="playButton">
+                <div className="feather-icon icon-play"></div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </section>
   );

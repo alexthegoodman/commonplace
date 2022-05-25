@@ -7,12 +7,13 @@ const TextViewer: React.FC<TextViewerProps> = ({
   className = "",
   onClick = (e) => console.info("Click TextViewer"),
   content = "",
+  mini = false,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
   return (
-    <section className="textViewer">
-      <div className="textViewerInner">
-        <p>{content}</p>
+    <section className={`textViewer ${mini ? "mini" : ""}`}>
+      <div className={`textViewerInner`}>
+        <p>{!mini ? content : content.substring(0, 10)}</p>
       </div>
     </section>
   );
