@@ -10,10 +10,11 @@ const PrimaryHeader: React.FC<PrimaryHeaderProps> = ({
   rightIcon = null,
   title = "",
   titleComponent = null,
+  inline = false,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
   return (
-    <header className={`primaryHeader ${className}`}>
+    <header className={`primaryHeader ${inline ? "inline" : ""} ${className}`}>
       <div className="primaryHeaderInner">
         <div className="headerIcon headerLeftIcon">{leftIcon}</div>
         <div className="headerTitleWrapper">

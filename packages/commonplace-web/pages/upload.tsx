@@ -70,6 +70,7 @@ const Upload: NextPage = () => {
         <section className="upload">
           <div className="uploadInner">
             <PrimaryHeader
+              inline={true}
               leftIcon={
                 <a onClick={goBack}>
                   <div className="feather-icon icon-arrow-left"></div>
@@ -87,7 +88,10 @@ const Upload: NextPage = () => {
                   <div className="uploadSection">
                     <div className="uploadSectionInner">
                       <span>What do you want to share?</span>
-                      <button className="button" onClick={onPickInterest}>
+                      <button
+                        className="button secondaryButton"
+                        onClick={onPickInterest}
+                      >
                         Pick Interest
                       </button>
                     </div>

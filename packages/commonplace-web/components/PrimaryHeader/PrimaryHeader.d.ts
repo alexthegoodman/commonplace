@@ -6,4 +6,5 @@ export interface PrimaryHeaderProps {
   rightIcon?: JSX.Component;
   title?: string;
   titleComponent?: JSX.Component;
+  inline?: boolean;
 }

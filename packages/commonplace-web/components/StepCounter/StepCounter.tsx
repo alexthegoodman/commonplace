@@ -10,16 +10,14 @@ const StepCounter: React.FC<StepCounterProps> = ({
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
   return (
-    <div className="scrollContainer">
-      <div className="stepCounter">
-        <div className="stepCounterInner">
-          <div className="counter">
-            <span className="countLabel">Step {step} of 3</span>
-          </div>
-          <div className="creditCounterWrapper">
-            <div className="creditCounter">
-              <span className="creditLabel">100CC</span>
-            </div>
+    <div className="stepCounter">
+      <div className="stepCounterInner">
+        <div className="counter">
+          <span className="countLabel">Step {step} of 3</span>
+        </div>
+        <div className="creditCounterWrapper">
+          <div className="creditCounter">
+            <span className="creditLabel">100CC</span>
           </div>
         </div>
       </div>

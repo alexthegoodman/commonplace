@@ -19,8 +19,10 @@
 
 .button {
   outline: none;
+  border: none;
+  box-shadow: none;
   background: none;
-  width: 100%;
+  max-width: 100%;
   font-size: 24px;
   background: $lightBlue;
   width: 275px;
@@ -28,6 +30,15 @@
   display: block;
   padding: 18px 0;
   text-align: center;
+}
+
+.secondaryButton {
+  @extend .button;
+  font-size: 20px;
+  background: $darkBlue;
+  color: white;
+  padding: 12px 0;
+  font-weight: 400;
 }
 
 .circleButton {

@@ -1,5 +1,74 @@
 /** Variables **/
 
 /** Component Imports **/
+@import "../components/StepCounter/StepCounter";
 
 /** Page Styles **/
+.upload {
+  width: 100vw;
+
+  .uploadInner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .form {
+      width: 80%;
+    }
+
+    .uploadSection {
+      width: 100%;
+      margin-bottom: 50px;
+
+      .uploadSectionInner {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        span {
+          display: block;
+          color: #757575;
+          font-size: 16px;
+          text-align: center;
+          font-weight: 400;
+          margin-bottom: 35px;
+        }
+
+        .contentTypePicker {
+          width: 100%;
+
+          .contentTypePickerInner {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            width: 100%;
+
+            .contentTypeOption {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+
+              .option {
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                background: #e5e5e5;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 5px;
+
+                .feather-icon {
+                  font-size: 32px;
+                }
+              }
+              span {
+                text-transform: capitalize;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
