@@ -5,6 +5,14 @@ import Utilities from "../../../commonplace-utilities";
 
 const prisma = new PrismaClient();
 
+const publicUserFields = {
+  name: true,
+  generatedUsername: true,
+  chosenUsername: true,
+  profileImage: true,
+  coverImage: true,
+};
+
 export const UserType = objectType({
   name: "User",
   definition(t) {
@@ -70,17 +78,49 @@ export const UserByUsernameQuery = extendType({
           where: {
             chosenUsername,
           },
-          select: {
-            name: true,
-            generatedUsername: true,
-            chosenUsername: true,
-            profileImage: true,
-            coverImage: true,
-            // posts: true, // NOTE: get posts via secondary query
-          },
+          select: publicUserFields,
         });
 
         console.info("getUserByUsername", chosenUsername, user);
+
+        return user;
+      },
+    });
+  },
+});
+
+export const UserByPostTitleQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.field("getUserByPostTitle", {
+      type: "User",
+      args: {
+        postTitle: nonNull(stringArg()),
+      },
+      resolve: async (_, { postTitle }, { prisma: PrismaClient }) => {
+        const getPostByTitle = await prisma.post.findFirst({
+          where: {
+            generatedTitleSlug: postTitle,
+          },
+          select: {
+            id: true,
+          },
+        });
+
+        console.info("getPostByTitle", getPostByTitle);
+
+        const user = await prisma.user.findFirst({
+          where: {
+            posts: {
+              some: {
+                id: getPostByTitle?.id,
+              },
+            },
+          },
+          select: publicUserFields,
+        });
+
+        console.info("getUserByPostTitle", postTitle, user);
 
         return user;
       },

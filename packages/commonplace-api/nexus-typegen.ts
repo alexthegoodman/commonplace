@@ -51,6 +51,7 @@ export interface NexusGenInputs {
     id?: string | null; // String
   }
   PostWhereUniqueInput: { // input type
+    generatedTitleSlug?: string | null; // String
     id?: string | null; // String
   }
   ThreadWhereUniqueInput: { // input type
@@ -163,6 +164,7 @@ export interface NexusGenFieldTypes {
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
     getPostByPostTitle: NexusGenRootTypes['Post']; // Post!
     getPostsByUsername: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
+    getUserByPostTitle: NexusGenRootTypes['User']; // User!
     getUserByUsername: NexusGenRootTypes['User']; // User!
     interests: NexusGenRootTypes['Interest'][]; // [Interest!]!
     post: NexusGenRootTypes['Post'] | null; // Post
@@ -229,6 +231,7 @@ export interface NexusGenFieldTypeNames {
     categories: 'Category'
     getPostByPostTitle: 'Post'
     getPostsByUsername: 'Post'
+    getUserByPostTitle: 'User'
     getUserByUsername: 'User'
     interests: 'Interest'
     post: 'Post'
@@ -310,6 +313,9 @@ export interface NexusGenArgTypes {
     }
     getPostsByUsername: { // args
       chosenUsername: string; // String!
+    }
+    getUserByPostTitle: { // args
+      postTitle: string; // String!
     }
     getUserByUsername: { // args
       chosenUsername: string; // String!

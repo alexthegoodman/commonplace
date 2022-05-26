@@ -33,7 +33,7 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
                       {post?.creator?.chosenUsername}
                     </span>
                     <span className="authorCreationCount">
-                      {post?.creator?.posts.length} Creations
+                      {post?.creator?.posts?.length} Creations
                     </span>
                   </div>
                 </div>

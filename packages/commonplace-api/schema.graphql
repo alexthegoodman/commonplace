@@ -57,6 +57,7 @@ type Post {
 }
 
 input PostWhereUniqueInput {
+  generatedTitleSlug: String
   id: String
 }
 
@@ -65,6 +66,7 @@ type Query {
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
   getPostByPostTitle(postTitle: String!): Post!
   getPostsByUsername(chosenUsername: String!): [Post]!
+  getUserByPostTitle(postTitle: String!): User!
   getUserByUsername(chosenUsername: String!): User!
   interests(after: InterestWhereUniqueInput, before: InterestWhereUniqueInput, first: Int, last: Int): [Interest!]!
   post(where: PostWhereUniqueInput!): Post

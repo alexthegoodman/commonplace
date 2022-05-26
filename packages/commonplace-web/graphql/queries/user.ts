@@ -56,3 +56,16 @@ export const userByUsernameQuery = gql`
     }
   }
 `;
+
+export const userByPostTitleQuery = gql`
+  query UserByPostTitle($postTitle: String!) {
+    getUserByPostTitle(postTitle: $postTitle) {
+      name
+      generatedUsername
+      chosenUsername
+
+      profileImage
+      coverImage
+    }
+  }
+`;

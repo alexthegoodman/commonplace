@@ -37,7 +37,7 @@ model Post {
   title       String
   description String
 
-  generatedTitleSlug String @default("")
+  generatedTitleSlug String @default("") @unique
 
   contentType    String // "video" "image" "audio" "text" // set on Interest if needed
   contentPreview String // url or encoded data depending on contentType

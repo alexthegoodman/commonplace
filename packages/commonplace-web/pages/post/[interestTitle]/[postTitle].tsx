@@ -4,9 +4,11 @@ import { useRouter } from "next/router";
 import useSWR, { SWRConfig } from "swr";
 import ContentInformation from "../../../components/ContentInformation/ContentInformation";
 import ContentViewer from "../../../components/ContentViewer/ContentViewer";
+import PrimaryHeader from "../../../components/PrimaryHeader/PrimaryHeader";
 import { postByPostTitleQuery } from "../../../graphql/queries/post";
+import { userByPostTitleQuery } from "../../../graphql/queries/user";
 
-const getPostByPostTitleData = async (postTitle) => {
+const getPostAndUserData = async (postTitle) => {
   const postData = await request(
     "http://localhost:4000/graphql",
     postByPostTitleQuery,
@@ -15,21 +17,52 @@ const getPostByPostTitleData = async (postTitle) => {
     }
   );
 
-  return postData;
+  const userData = await request(
+    "http://localhost:4000/graphql",
+    userByPostTitleQuery,
+    {
+      postTitle,
+    }
+  );
+
+  const returnData = {
+    ...postData.getPostByPostTitle,
+    creator: userData.getUserByPostTitle,
+  };
+
+  return returnData;
 };
 
 const PostContent = ({ data }) => {
-  const currentPost = data.getPostByPostTitle;
+  const currentPost = data;
+
+  console.info("currentPost", currentPost);
+
+  const router = useRouter();
+
+  const goBack = () => router.back();
 
   return (
     <section className="post">
       <div className="postInner">
-        <ContentViewer
-          type={currentPost?.contentType}
-          preview={currentPost?.contentPreview}
-          content={currentPost?.content}
+        <PrimaryHeader
+          leftIcon={
+            <a onClick={goBack}>
+              <div className="feather-icon icon-arrow-left"></div>
+            </a>
+          }
+          title={`Interest Post`}
+          rightIcon={<></>}
         />
-        <ContentInformation post={currentPost} />
+        <div className="scrollContainer">
+          <ContentViewer
+            type={currentPost?.contentType}
+            preview={currentPost?.contentPreview}
+            content={currentPost?.content}
+          />
+          <ContentInformation post={currentPost} />
+          {/** <PostImpressions /> */}
+        </div>
       </div>
     </section>
   );
@@ -39,7 +72,7 @@ const PostDataWrapper = () => {
   const router = useRouter();
   const { interestTitle, postTitle } = router.query;
 
-  const { data } = useSWR("/graphql", () => getPostByPostTitleData(postTitle));
+  const { data } = useSWR("/graphql", () => getPostAndUserData(postTitle));
 
   console.info("PostDataWrapper", data);
 
@@ -56,14 +89,14 @@ const Post: NextPage<{ fallback: any }> = ({ fallback }) => {
 
 export async function getServerSideProps({ query }) {
   const { interestTitle, postTitle } = query;
-  const postData = await getPostByPostTitleData(postTitle);
+  const postAndUserData = await getPostAndUserData(postTitle);
 
-  console.info("Post postData", query, postData);
+  console.info("Post postAndUserData", query, postAndUserData);
 
   return {
     props: {
       fallback: {
-        "/graphql": postData,
+        "/graphql": postAndUserData,
       },
     },
   };

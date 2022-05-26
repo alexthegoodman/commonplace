@@ -3,6 +3,17 @@ import { extendType, nonNull, objectType, stringArg } from "nexus";
 
 const prisma = new PrismaClient();
 
+const publicPostFields = {
+  title: true,
+  description: true,
+  generatedTitleSlug: true,
+  contentType: true,
+  contentPreview: true,
+  content: true,
+  updatedAt: true,
+  createdAt: true,
+};
+
 export const PostType = objectType({
   name: "Post",
   definition(t) {
@@ -38,17 +49,7 @@ export const PostByPostTitleQuery = extendType({
           where: {
             generatedTitleSlug: postTitle,
           },
-          select: {
-            // id: true,
-            title: true,
-            description: true,
-            generatedTitleSlug: true,
-            contentType: true,
-            contentPreview: true,
-            content: true,
-            updatedAt: true,
-            createdAt: true,
-          },
+          select: publicPostFields,
         });
 
         console.info("getPostsByPostTitle", postTitle, post);
@@ -85,17 +86,7 @@ export const PostsByUsernameQuery = extendType({
               id: getUserId?.id,
             },
           },
-          select: {
-            // id: true,
-            title: true,
-            description: true,
-            generatedTitleSlug: true,
-            contentType: true,
-            contentPreview: true,
-            content: true,
-            updatedAt: true,
-            createdAt: true,
-          },
+          select: publicPostFields,
         });
 
         console.info("getPostsByUsername", chosenUsername, posts);
