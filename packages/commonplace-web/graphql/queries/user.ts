@@ -44,28 +44,31 @@ export const userQuery = gql`
   }
 `;
 
+const PublicUserFieldsFragment = gql`
+  fragment PublicUserFieldsFragment on User {
+    name
+    generatedUsername
+    chosenUsername
+
+    profileImage
+    coverImage
+  }
+`;
+
 export const userByUsernameQuery = gql`
   query UserByUsername($chosenUsername: String!) {
     getUserByUsername(chosenUsername: $chosenUsername) {
-      name
-      generatedUsername
-      chosenUsername
-
-      profileImage
-      coverImage
+      ...PublicUserFieldsFragment
     }
   }
+  ${PublicUserFieldsFragment}
 `;
 
 export const userByPostTitleQuery = gql`
   query UserByPostTitle($postTitle: String!) {
     getUserByPostTitle(postTitle: $postTitle) {
-      name
-      generatedUsername
-      chosenUsername
-
-      profileImage
-      coverImage
+      ...PublicUserFieldsFragment
     }
   }
+  ${PublicUserFieldsFragment}
 `;

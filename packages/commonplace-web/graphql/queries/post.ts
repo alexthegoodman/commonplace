@@ -40,32 +40,33 @@ export const postsQuery = gql`
   }
 `;
 
+const PublicPostFieldsFragment = gql`
+  fragment PublicPostFieldsFragment on Post {
+    title
+    description
+    contentType
+    contentPreview
+    content
+
+    createdAt
+    updatedAt
+  }
+`;
+
 export const postsByUsernameQuery = gql`
   query getPostsByUsername($chosenUsername: String!) {
     getPostsByUsername(chosenUsername: $chosenUsername) {
-      title
-      description
-      contentType
-      contentPreview
-      content
-
-      createdAt
-      updatedAt
+      ...PublicPostFieldsFragment
     }
   }
+  ${PublicPostFieldsFragment}
 `;
 
 export const postByPostTitleQuery = gql`
   query getPostByPostTitle($postTitle: String!) {
     getPostByPostTitle(postTitle: $postTitle) {
-      title
-      description
-      contentType
-      contentPreview
-      content
-
-      createdAt
-      updatedAt
+      ...PublicPostFieldsFragment
     }
   }
+  ${PublicPostFieldsFragment}
 `;
