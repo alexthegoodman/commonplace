@@ -1,5 +1,7 @@
+import request from "graphql-request";
 import * as React from "react";
 import { useForm } from "react-hook-form";
+import { authenticateQuery } from "../../graphql/queries/user";
 import FormInput from "../FormInput/FormInput";
 
 import { SignInFormProps } from "./SignInForm.d";
@@ -17,7 +19,18 @@ const SignInForm: React.FC<SignInFormProps> = ({
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    console.log("onSubmit", data);
+    const userIdData = await request(
+      "http://localhost:4000/graphql",
+      authenticateQuery,
+      {
+        email: data.email,
+        password: data.password,
+      }
+    );
+    console.info("userIdData", userIdData);
+  };
   const onError = (error) => console.error(error);
 
   return (

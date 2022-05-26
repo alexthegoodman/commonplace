@@ -6,7 +6,12 @@ const SignIn: NextPage = () => {
   return (
     <section className="signIn">
       <div className="signInInner">
-        <PrimaryHeader leftIcon={<></>} title="Sign In" rightIcon={<></>} />
+        <PrimaryHeader
+          inline={true}
+          leftIcon={<></>}
+          title="Sign In"
+          rightIcon={<></>}
+        />
         <div className="formWrapper">
           <SignInForm />
         </div>
