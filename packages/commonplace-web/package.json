@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/error-message": "^2.0.0",
     "@types/luxon": "^2.3.2",
     "feather-webfont": "^4.22.3",
     "framer": "^2.1.2",

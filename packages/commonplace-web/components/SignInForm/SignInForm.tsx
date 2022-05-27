@@ -8,6 +8,8 @@ import { authenticateQuery } from "../../graphql/queries/user";
 import FormInput from "../FormInput/FormInput";
 
 import { SignInFormProps } from "./SignInForm.d";
+import FormMessage from "../FormMessage/FormMessage";
+import { useRouter } from "next/router";
 
 const SignInForm: React.FC<SignInFormProps> = ({
   ref = null,
@@ -16,7 +18,10 @@ const SignInForm: React.FC<SignInFormProps> = ({
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
 
+  const router = useRouter();
+
   const [cookies, setCookie, removeCookie] = useCookies(["coUserId"]);
+  const [formErrorMessage, setFormErrorMessage] = React.useState("");
 
   console.info("cookies", cookies);
 
@@ -54,8 +59,14 @@ const SignInForm: React.FC<SignInFormProps> = ({
         expires: expireCookie,
         // secure: true // only accessible via https
       });
+
+      // cleanup and
+      setFormErrorMessage("");
+      router.push("/queue");
     } catch (error) {
       console.error(error);
+      const errorMessage = error?.response?.errors[0].message;
+      setFormErrorMessage(errorMessage);
     }
   };
 
@@ -63,13 +74,15 @@ const SignInForm: React.FC<SignInFormProps> = ({
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit, onError)}>
+      <FormMessage type="error" message={formErrorMessage} />
+
       <FormInput
         type="email"
         name="email"
         placeholder="Email"
         register={register}
         errors={errors}
-        validation={{ required: true }}
+        validation={{ required: "Email is required." }}
       />
 
       <FormInput
@@ -78,7 +91,7 @@ const SignInForm: React.FC<SignInFormProps> = ({
         placeholder="Password"
         register={register}
         errors={errors}
-        validation={{ required: true }}
+        validation={{ required: "Password is required." }}
       />
 
       <input className="circleButton" type="submit" value="GO" />

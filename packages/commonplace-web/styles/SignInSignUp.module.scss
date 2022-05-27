@@ -3,11 +3,14 @@
 /** Component Imports **/
 
 /** Page Styles **/
-.signIn {
+.signIn,
+.signUp {
   width: 100vw;
 
-  .signInInner {
+  .signInInner,
+  .signUpInner {
     .formWrapper {
+      width: 80%;
       // padding-top: 35px;
     }
   }

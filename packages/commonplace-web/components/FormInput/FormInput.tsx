@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ErrorMessage } from "@hookform/error-message";
 
 import { FormInputProps } from "./FormInput.d";
 
@@ -10,11 +11,18 @@ const FormInput: React.FC<FormInputProps> = ({
   register = null,
   ...fieldProps
 }) => {
+  console.info("input errors", errors);
   return (
     <div className="formInput">
       <input {...fieldProps} {...register(fieldProps.name, validation)} />
       {errors !== null && errors[fieldProps.name] ? (
-        <span>Email is required.</span>
+        <ErrorMessage
+          errors={errors}
+          name={fieldProps.name}
+          render={({ message }) => (
+            <span className="formInputWarning">{message}</span>
+          )}
+        />
       ) : (
         <></>
       )}
