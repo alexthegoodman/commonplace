@@ -2,14 +2,17 @@ import request from "graphql-request";
 import type { NextPage } from "next";
 import Link from "next/link";
 import useSWR, { SWRConfig } from "swr";
+import { useCookies } from "react-cookie";
+
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
 import ProfileIntro from "../components/ProfileIntro/ProfileIntro";
 import ProfilePosts from "../components/ProfilePosts/ProfilePosts";
 import { userQuery } from "../graphql/queries/user";
+import Utilities from "../../commonplace-utilities";
 
-const getUserData = async () => {
+const getUserData = async (userId) => {
   const userData = await request("http://localhost:4000/graphql", userQuery, {
-    id: "f661f8ba-e1fd-4e6c-97ff-4bc5a9f5189e", // TODO: context.req.headers.cookie
+    id: userId,
   });
 
   return userData;
@@ -50,9 +53,11 @@ export const ProfileContent = ({ data }) => {
 };
 
 const ProfileDataWrapper = () => {
-  const { data } = useSWR("/graphql", getUserData);
+  const [cookies] = useCookies(["coUserId"]);
+  const userId = cookies.coUserId;
+  const { data } = useSWR("/graphql", () => getUserData(userId));
 
-  console.info("ProfileContent", data);
+  console.info("ProfileContent", userId, data);
 
   return <ProfileContent data={data} />;
 };
@@ -66,9 +71,15 @@ const Profile: NextPage<{ fallback: any }> = ({ fallback }) => {
 };
 
 export async function getServerSideProps(context) {
-  const userData = await getUserData();
+  const utilities = new Utilities();
+  const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
+  const userId = cookieData.coUserId;
 
-  console.info("getServerSideProps", userData);
+  console.info("coUserId", userId);
+
+  const userData = await getUserData(userId);
+
+  console.info("getServerSideProps", userId, userData);
 
   return {
     props: {

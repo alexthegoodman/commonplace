@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookform/error-message": "^2.0.0",
     "@types/luxon": "^2.3.2",
+    "@typescript-eslint/parser": "^5.26.0",
     "feather-webfont": "^4.22.3",
     "framer": "^2.1.2",
     "framer-motion": "^6.3.3",
