@@ -1,6 +1,9 @@
 import request from "graphql-request";
 import * as React from "react";
 import { useForm } from "react-hook-form";
+import { useCookies } from "react-cookie";
+const { DateTime } = require("luxon");
+
 import { authenticateQuery } from "../../graphql/queries/user";
 import FormInput from "../FormInput/FormInput";
 
@@ -13,6 +16,10 @@ const SignInForm: React.FC<SignInFormProps> = ({
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
 
+  const [cookies, setCookie, removeCookie] = useCookies(["coUserId"]);
+
+  console.info("cookies", cookies);
+
   const {
     register,
     handleSubmit,
@@ -21,16 +28,37 @@ const SignInForm: React.FC<SignInFormProps> = ({
 
   const onSubmit = async (data) => {
     console.log("onSubmit", data);
-    const userIdData = await request(
-      "http://localhost:4000/graphql",
-      authenticateQuery,
-      {
-        email: data.email,
-        password: data.password,
-      }
-    );
-    console.info("userIdData", userIdData);
+
+    try {
+      const userIdData = await request(
+        "http://localhost:4000/graphql",
+        authenticateQuery,
+        {
+          email: data.email,
+          password: data.password,
+        }
+      );
+
+      const userId = userIdData.authenticate;
+      const expireCookie = DateTime.now()
+        .plus({ weeks: 1 })
+        .endOf("day")
+        .toUTC()
+        .toJSDate();
+
+      console.info("userId", userId, expireCookie);
+
+      setCookie("coUserId", userId, {
+        sameSite: "strict",
+        domain: "localhost", // TODO: set by production or development
+        expires: expireCookie,
+        // secure: true // only accessible via https
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   const onError = (error) => console.error(error);
 
   return (

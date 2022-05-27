@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/luxon": "^2.3.2",
     "feather-webfont": "^4.22.3",
     "framer": "^2.1.2",
     "framer-motion": "^6.3.3",
@@ -17,6 +18,7 @@
     "luxon": "^2.4.0",
     "next": "12.1.6",
     "react": "18.1.0",
+    "react-cookie": "^4.1.1",
     "react-dom": "18.1.0",
     "react-hook-form": "^7.31.1",
     "sass": "^1.51.0",
