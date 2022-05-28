@@ -9,6 +9,14 @@
     }
   }
 
+  .contentViewerWrapper {
+    width: calc(100vw - 140px);
+
+    .contentViewer {
+      width: 100%;
+    }
+  }
+
   .messageItemInner {
     display: flex;
     flex-direction: row;

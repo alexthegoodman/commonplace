@@ -21,10 +21,8 @@ const MessageList: React.FC<MessageListProps> = ({
 
           return (
             <MessageItem
-              type={message?.type}
+              message={message}
               authorSide={isCurrentUser ? "right" : "left"}
-              profileImage={message?.user?.profileImage}
-              content={message?.content}
             />
           );
         })}
