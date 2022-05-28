@@ -1,6 +1,14 @@
 .messageItem {
   margin-top: 25px;
 
+  &.impression {
+    .messageItemInner {
+      .itemContent {
+        background: $midBlue;
+      }
+    }
+  }
+
   .messageItemInner {
     display: flex;
     flex-direction: row;

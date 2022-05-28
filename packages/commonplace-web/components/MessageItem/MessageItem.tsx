@@ -6,6 +6,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click MessageItem"),
+  type = "reply",
   authorSide = "left",
   profileImage = "",
   content = "",
@@ -21,7 +22,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
   );
 
   return (
-    <div className="messageItem">
+    <div className={`messageItem ${type}`}>
       <div className="messageItemInner">
         {authorSide === "left" ? authorAttribution : <></>}
         <div className={`itemContent ${authorSide}`}>
