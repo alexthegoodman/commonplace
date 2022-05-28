@@ -19,12 +19,12 @@
       }
     }
     .itemContent {
-      width: 200px;
+      width: calc(100vw - 140px);
       min-height: 50px;
       background: $darkBlue;
       display: flex;
       align-items: center;
-      padding: 0 15px;
+      padding: 15px;
 
       &.left {
         margin-left: 10px;
@@ -36,6 +36,9 @@
 
       span {
         color: white;
+        font-size: 15px;
+        line-height: 22px;
+        white-space: pre-wrap;
       }
     }
   }
