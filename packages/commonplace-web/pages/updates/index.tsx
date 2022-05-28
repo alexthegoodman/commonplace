@@ -72,7 +72,7 @@ const UpdatesContent: NextPage = () => {
               <UpdateItem
                 id={thread.id}
                 label={previewMessage.content}
-                author={{ name: previewMessage?.user?.name }}
+                author={previewMessage?.user}
               />
             );
           })}

@@ -23,11 +23,13 @@ const UpdateItem: React.FC<UpdateItemProps> = ({
   return (
     <div className="updateItem" onClick={goToThead}>
       <div className="updateItemInner">
-        <img src={image} />
+        <div className="itemImageWrapper">
+          <img src={author?.profileImage} />
+        </div>
         <div className="itemInformation">
           <span className="itemLabel">{label}</span>
           {author !== null ? (
-            <span className="itemAttribution">by {author.name}</span>
+            <span className="itemAttribution">by {author?.chosenUsername}</span>
           ) : (
             <></>
           )}
