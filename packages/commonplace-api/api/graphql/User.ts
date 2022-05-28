@@ -199,16 +199,21 @@ export const RegisterUserQuery = extendType({
 
           bcrypt.hash(password, 12, async (err, hash) => {
             if (utilities.helpers.isDefinedWithContent(hash)) {
+              const generatedUsername =
+                utilities.helpers.emailToUsername(email);
+
               let newUser;
               try {
                 newUser = await prisma.user.create({
                   data: {
                     email,
                     password: hash,
+                    generatedUsername,
+                    chosenUsername: generatedUsername,
                   },
                 });
               } catch (error) {
-                reject(error);
+                reject(utilities.ERROR_CODES.C008);
               }
 
               // TODO: mandrill

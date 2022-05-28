@@ -6,6 +6,12 @@ export const authenticateQuery = gql`
   }
 `;
 
+export const registerQuery = gql`
+  query RegisterUser($email: String!, $password: String!) {
+    registerUser(email: $email, password: $password)
+  }
+`;
+
 export const userQuery = gql`
   query User($id: String!) {
     user(id: $id) {

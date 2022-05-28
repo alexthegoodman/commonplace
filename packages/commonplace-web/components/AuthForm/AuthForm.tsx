@@ -1,20 +1,21 @@
 import request from "graphql-request";
+import { useRouter } from "next/router";
 import * as React from "react";
-import { useForm } from "react-hook-form";
 import { useCookies } from "react-cookie";
+import { useForm } from "react-hook-form";
 const { DateTime } = require("luxon");
 
-import { authenticateQuery } from "../../graphql/queries/user";
+import { authenticateQuery, registerQuery } from "../../graphql/queries/user";
 import FormInput from "../FormInput/FormInput";
-
-import { SignInFormProps } from "./SignInForm.d";
 import FormMessage from "../FormMessage/FormMessage";
-import { useRouter } from "next/router";
 
-const SignInForm: React.FC<SignInFormProps> = ({
+import { AuthFormProps } from "./AuthForm.d";
+
+const AuthForm: React.FC<AuthFormProps> = ({
   ref = null,
   className = "",
-  onClick = (e) => console.info("Click SignInForm"),
+  onClick = (e) => console.info("Click AuthForm"),
+  type = "sign-in",
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
 
@@ -35,16 +36,30 @@ const SignInForm: React.FC<SignInFormProps> = ({
     console.log("onSubmit", data);
 
     try {
-      const userIdData = await request(
-        "http://localhost:4000/graphql",
-        authenticateQuery,
-        {
-          email: data.email,
-          password: data.password,
-        }
-      );
+      var userIdData, userId;
 
-      const userId = userIdData.authenticate;
+      if (type === "sign-in") {
+        userIdData = await request(
+          "http://localhost:4000/graphql",
+          authenticateQuery,
+          {
+            email: data.email,
+            password: data.password,
+          }
+        );
+        userId = userIdData.authenticate;
+      } else if (type === "sign-up") {
+        userIdData = await request(
+          "http://localhost:4000/graphql",
+          registerQuery,
+          {
+            email: data.email,
+            password: data.password,
+          }
+        );
+        userId = userIdData.registerUser;
+      }
+
       const expireCookie = DateTime.now()
         .plus({ weeks: 1 })
         .endOf("day")
@@ -63,7 +78,7 @@ const SignInForm: React.FC<SignInFormProps> = ({
       // cleanup and
       setFormErrorMessage("");
       router.push("/queue");
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       const errorMessage = error?.response?.errors[0].message;
       setFormErrorMessage(errorMessage);
@@ -99,4 +114,4 @@ const SignInForm: React.FC<SignInFormProps> = ({
   );
 };
 
-export default SignInForm;
+export default AuthForm;

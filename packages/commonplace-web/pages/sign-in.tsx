@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import AuthForm from "../components/AuthForm/AuthForm";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
-import SignInForm from "../components/SignInForm/SignInForm";
 
 const SignIn: NextPage = () => {
   return (
@@ -14,7 +14,7 @@ const SignIn: NextPage = () => {
           rightIcon={<></>}
         />
         <div className="formWrapper">
-          <SignInForm />
+          <AuthForm type="sign-in" />
         </div>
         <div className="otherLinks">
           <span>

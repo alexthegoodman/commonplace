@@ -1,15 +1,20 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import AuthForm from "../components/AuthForm/AuthForm";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
-import SignUpForm from "../components/SignUpForm/SignUpForm";
 
 const SignUp: NextPage = () => {
   return (
     <section className="signUp">
       <div className="signUpInner">
-        <PrimaryHeader leftIcon={<></>} title="Sign Up" rightIcon={<></>} />
+        <PrimaryHeader
+          inline={true}
+          leftIcon={<></>}
+          title="Sign Up"
+          rightIcon={<></>}
+        />
         <div className="formWrapper">
-          <SignUpForm />
+          <AuthForm type="sign-up" />
         </div>
         <div className="otherLinks">
           <span>

@@ -1,12 +1,12 @@
 import * as React from "react";
 // import { storiesOf } from "@storybook/react";
-// import SignUpForm from "./SignUpForm";
+// import AuthForm from "./AuthForm";
 // import TestProvider from "../../modules/client/TestProvider";
 
 // const stories = storiesOf("UI Components", module);
 
-// stories.add("SignUpForm", () => (
+// stories.add("AuthForm", () => (
 //   <TestProvider>
-//     <SignUpForm />
+//     <AuthForm />
 //   </TestProvider>
 // ));

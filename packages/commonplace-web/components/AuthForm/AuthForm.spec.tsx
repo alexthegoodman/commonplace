@@ -1,16 +1,16 @@
 import * as React from "react";
 import { render } from "enzyme";
 
-import SignInForm from "./SignInForm";
+import AuthForm from "./AuthForm";
 import TestProvider from "../../modules/client/TestProvider";
 
-describe("SignInForm", () => {
+describe("AuthForm", () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = render(
       <TestProvider>
-        <SignInForm />
+        <AuthForm />
       </TestProvider>
     );
   });

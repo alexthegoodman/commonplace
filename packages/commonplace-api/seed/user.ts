@@ -1,15 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import faker from "@faker-js/faker";
-import { nanoid } from "nanoid";
+import Utilities from "../../commonplace-utilities";
 
 const prisma = new PrismaClient();
 
 export default async function seedUsers() {
   const getDefaultUser = (providedEmail = "") => {
+    const utilities = new Utilities();
     const email = providedEmail !== "" ? providedEmail : faker.internet.email();
-    const emailUsername = email.split("@")[0];
-    const pin = nanoid(10);
-    const generatedUsername = emailUsername + "-" + pin;
+    const generatedUsername = utilities.helpers.emailToUsername(email);
 
     return {
       email,
