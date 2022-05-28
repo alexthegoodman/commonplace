@@ -13,5 +13,25 @@
       width: 80%;
       // padding-top: 35px;
     }
+    .otherLinks {
+      width: 80%;
+      display: flex;
+      margin: 0 auto;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        display: block;
+        text-align: center;
+        color: darkgray;
+        font-size: 18px;
+
+        a {
+          color: $lightBlue;
+          font-style: italic;
+        }
+      }
+    }
   }
 }

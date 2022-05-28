@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Link from "next/link";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
 import SignInForm from "../components/SignInForm/SignInForm";
 
@@ -14,6 +15,14 @@ const SignIn: NextPage = () => {
         />
         <div className="formWrapper">
           <SignInForm />
+        </div>
+        <div className="otherLinks">
+          <span>
+            Or you may{" "}
+            <Link href="/sign-up">
+              <a>Sign Up</a>
+            </Link>
+          </span>
         </div>
       </div>
     </section>
