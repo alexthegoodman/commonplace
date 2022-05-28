@@ -49,7 +49,8 @@ model Post {
   
   creator     User @relation(fields: [creatorId], references: [id])
   creatorId   String
-  threads     Thread[] // each thread contains an impression
+  // threads     Thread[] 
+  messages    Message[]
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -59,8 +60,6 @@ model Thread {
   id             String   @id @default(uuid()) @unique
   repliesAllowed Boolean
 
-  post     Post?    @relation(fields: [postId], references: [id])
-  postId   String
   users    User[]
   messages Message[]
 
@@ -77,6 +76,9 @@ model Message {
   userId   String
   thread   Thread   @relation(fields: [threadId], references: [id])
   threadId String
+
+  post     Post?    @relation(fields: [postId], references: [id])
+  postId   String?
 
   readBy   User[] @relation("userReadMessages")
 

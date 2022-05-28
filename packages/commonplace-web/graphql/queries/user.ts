@@ -34,17 +34,6 @@ export const userQuery = gql`
         interest {
           name
         }
-        threads {
-          repliesAllowed
-          messages {
-            user {
-              name
-              chosenUsername
-            }
-            type
-            content
-          }
-        }
       }
     }
   }

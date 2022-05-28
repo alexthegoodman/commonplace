@@ -48,6 +48,7 @@ scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publicati
 type Message {
   content: String!
   createdAt: DateTime!
+  post: Post
   readBy(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
   type: String!
   updatedAt: DateTime!
@@ -62,6 +63,8 @@ input MessageOrderByWithRelationInput {
   content: SortOrder
   createdAt: SortOrder
   id: SortOrder
+  post: PostOrderByWithRelationInput
+  postId: SortOrder
   readBy: UserOrderByRelationAggregateInput
   thread: ThreadOrderByWithRelationInput
   threadId: SortOrder
@@ -91,7 +94,6 @@ type Post {
   creator: User!
   description: String!
   interest: Interest!
-  threads(after: ThreadWhereUniqueInput, before: ThreadWhereUniqueInput, first: Int, last: Int): [Thread!]!
   title: String!
   updatedAt: DateTime!
 }
@@ -112,8 +114,8 @@ input PostOrderByWithRelationInput {
   id: SortOrder
   interest: InterestOrderByWithRelationInput
   interestId: SortOrder
+  messages: MessageOrderByRelationAggregateInput
   modifiers: ModifierOrderByRelationAggregateInput
-  threads: ThreadOrderByRelationAggregateInput
   title: SortOrder
   updatedAt: SortOrder
 }
@@ -147,7 +149,6 @@ type Thread {
   createdAt: DateTime!
   id: String!
   messages(after: MessageWhereUniqueInput, before: MessageWhereUniqueInput, first: Int, last: Int, orderBy: [MessageOrderByWithRelationInput!]): [Message!]!
-  post: Post
   repliesAllowed: Boolean!
   updatedAt: DateTime!
   users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
@@ -161,8 +162,6 @@ input ThreadOrderByWithRelationInput {
   createdAt: SortOrder
   id: SortOrder
   messages: MessageOrderByRelationAggregateInput
-  post: PostOrderByWithRelationInput
-  postId: SortOrder
   repliesAllowed: SortOrder
   updatedAt: SortOrder
   users: UserOrderByRelationAggregateInput

@@ -10,6 +10,7 @@ export const MessageType = objectType({
     t.model.content();
 
     t.model.user();
+    t.model.post();
     // t.model.thread();
 
     t.model.readBy();

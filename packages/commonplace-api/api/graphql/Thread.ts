@@ -9,7 +9,7 @@ export const ThreadType = objectType({
     t.model.id();
     t.model.repliesAllowed();
 
-    t.model.post();
+    // t.model.post();
     t.model.users();
     t.model.messages({
       ordering: true,

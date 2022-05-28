@@ -67,6 +67,8 @@ export interface NexusGenInputs {
     content?: NexusGenEnums['SortOrder'] | null; // SortOrder
     createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    post?: NexusGenInputs['PostOrderByWithRelationInput'] | null; // PostOrderByWithRelationInput
+    postId?: NexusGenEnums['SortOrder'] | null; // SortOrder
     readBy?: NexusGenInputs['UserOrderByRelationAggregateInput'] | null; // UserOrderByRelationAggregateInput
     thread?: NexusGenInputs['ThreadOrderByWithRelationInput'] | null; // ThreadOrderByWithRelationInput
     threadId?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -96,8 +98,8 @@ export interface NexusGenInputs {
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     interest?: NexusGenInputs['InterestOrderByWithRelationInput'] | null; // InterestOrderByWithRelationInput
     interestId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    messages?: NexusGenInputs['MessageOrderByRelationAggregateInput'] | null; // MessageOrderByRelationAggregateInput
     modifiers?: NexusGenInputs['ModifierOrderByRelationAggregateInput'] | null; // ModifierOrderByRelationAggregateInput
-    threads?: NexusGenInputs['ThreadOrderByRelationAggregateInput'] | null; // ThreadOrderByRelationAggregateInput
     title?: NexusGenEnums['SortOrder'] | null; // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
@@ -112,8 +114,6 @@ export interface NexusGenInputs {
     createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     messages?: NexusGenInputs['MessageOrderByRelationAggregateInput'] | null; // MessageOrderByRelationAggregateInput
-    post?: NexusGenInputs['PostOrderByWithRelationInput'] | null; // PostOrderByWithRelationInput
-    postId?: NexusGenEnums['SortOrder'] | null; // SortOrder
     repliesAllowed?: NexusGenEnums['SortOrder'] | null; // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     users?: NexusGenInputs['UserOrderByRelationAggregateInput'] | null; // UserOrderByRelationAggregateInput
@@ -228,6 +228,7 @@ export interface NexusGenFieldTypes {
   Message: { // field return type
     content: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
+    post: NexusGenRootTypes['Post'] | null; // Post
     readBy: NexusGenRootTypes['User'][]; // [User!]!
     type: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
@@ -244,7 +245,6 @@ export interface NexusGenFieldTypes {
     creator: NexusGenRootTypes['User']; // User!
     description: string; // String!
     interest: NexusGenRootTypes['Interest']; // Interest!
-    threads: NexusGenRootTypes['Thread'][]; // [Thread!]!
     title: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
@@ -266,7 +266,6 @@ export interface NexusGenFieldTypes {
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: string; // String!
     messages: NexusGenRootTypes['Message'][]; // [Message!]!
-    post: NexusGenRootTypes['Post'] | null; // Post
     repliesAllowed: boolean; // Boolean!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     users: NexusGenRootTypes['User'][]; // [User!]!
@@ -298,6 +297,7 @@ export interface NexusGenFieldTypeNames {
   Message: { // field return type name
     content: 'String'
     createdAt: 'DateTime'
+    post: 'Post'
     readBy: 'User'
     type: 'String'
     updatedAt: 'DateTime'
@@ -314,7 +314,6 @@ export interface NexusGenFieldTypeNames {
     creator: 'User'
     description: 'String'
     interest: 'Interest'
-    threads: 'Thread'
     title: 'String'
     updatedAt: 'DateTime'
   }
@@ -336,7 +335,6 @@ export interface NexusGenFieldTypeNames {
     createdAt: 'DateTime'
     id: 'String'
     messages: 'Message'
-    post: 'Post'
     repliesAllowed: 'Boolean'
     updatedAt: 'DateTime'
     users: 'User'
@@ -387,14 +385,6 @@ export interface NexusGenArgTypes {
       content: string; // String!
       threadId: string; // String!
       type: string; // String!
-    }
-  }
-  Post: {
-    threads: { // args
-      after?: NexusGenInputs['ThreadWhereUniqueInput'] | null; // ThreadWhereUniqueInput
-      before?: NexusGenInputs['ThreadWhereUniqueInput'] | null; // ThreadWhereUniqueInput
-      first?: number | null; // Int
-      last?: number | null; // Int
     }
   }
   Query: {

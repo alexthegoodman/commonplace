@@ -7,18 +7,19 @@ const PublicThreadFieldsFragment = gql`
     users {
       name
     }
-    post {
-      title
-      contentType
-      contentPreview
-      content
-    }
+
     messages(orderBy: $orderMessagesBy) {
       user {
         name
         email
         chosenUsername
         profileImage
+      }
+      post {
+        title
+        contentType
+        contentPreview
+        content
       }
       type
       content

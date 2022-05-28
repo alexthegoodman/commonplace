@@ -21,18 +21,6 @@ export const postsQuery = gql`
       interest {
         name
       }
-      threads {
-        repliesAllowed
-        messages {
-          user {
-            name
-            chosenUsername
-            profileImage
-          }
-          type
-          content
-        }
-      }
 
       createdAt
       updatedAt
