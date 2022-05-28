@@ -23,7 +23,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
   return (
     <div className={`messageItem ${message?.type}`}>
       {message?.type === "impression" ? (
-        <div className="contentViewerWrapper">
+        <div className={`contentViewerWrapper ${authorSide}`}>
           <ContentViewer
             type={message?.post?.contentType}
             preview={message?.post?.contentPreview}

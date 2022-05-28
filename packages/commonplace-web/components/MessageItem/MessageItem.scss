@@ -10,10 +10,15 @@
   }
 
   .contentViewerWrapper {
-    width: calc(100vw - 140px);
+    display: flex;
+    width: 100%;
+
+    &.left {
+      justify-content: flex-end;
+    }
 
     .contentViewer {
-      width: 100%;
+      width: calc(100vw - 140px);
     }
   }
 
