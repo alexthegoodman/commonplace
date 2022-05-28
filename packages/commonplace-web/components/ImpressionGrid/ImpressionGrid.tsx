@@ -23,7 +23,7 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
   }, []);
 
   return (
-    <section className="impressionGridWrapper">
+    <section className="impressionGridWrapper darkMode">
       <span className="gridLabel">What's your impression?</span>
       <div className="impressionGrid" ref={pillGridRef}>
         <div className="impressionGridInner">

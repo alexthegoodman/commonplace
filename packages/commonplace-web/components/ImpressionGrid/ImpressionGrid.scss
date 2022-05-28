@@ -24,10 +24,27 @@
     // background: $lightBlue;
     font-weight: 500;
   }
+
+  &.darkMode {
+    background: $backBlack;
+
+    .grid {
+      .impressionGridInner {
+        .pillGrid {
+          li {
+            a {
+              background: $frontBlack;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .queueScrollContainer {
-  height: calc(100vh - 255px);
+  height: calc(100vh - 210px);
 }
 
 .grid {
