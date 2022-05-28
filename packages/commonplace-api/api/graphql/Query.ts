@@ -18,7 +18,7 @@ export const Query = queryType({
 
     // NOTE: not protected, better accessed via interest query?
     // paginate?
-    t.crud.posts();
+    t.crud.posts({ filtering: true });
 
     // NOTE: not protected
     t.crud.categories();

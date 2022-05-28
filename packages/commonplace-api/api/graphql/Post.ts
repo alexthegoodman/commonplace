@@ -17,7 +17,7 @@ const publicPostFields = {
 export const PostType = objectType({
   name: "Post",
   definition(t) {
-    // t.model.id();
+    t.model.id();
     t.model.title();
     t.model.description();
 

@@ -41,11 +41,55 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  BoolFilter: { // input type
+    equals?: boolean | null; // Boolean
+    not?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
+  }
+  CategoryListRelationFilter: { // input type
+    every?: NexusGenInputs['CategoryWhereInput'] | null; // CategoryWhereInput
+    none?: NexusGenInputs['CategoryWhereInput'] | null; // CategoryWhereInput
+    some?: NexusGenInputs['CategoryWhereInput'] | null; // CategoryWhereInput
+  }
   CategoryOrderByRelationAggregateInput: { // input type
     _count?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
+  CategoryWhereInput: { // input type
+    AND?: NexusGenInputs['CategoryWhereInput'][] | null; // [CategoryWhereInput!]
+    NOT?: NexusGenInputs['CategoryWhereInput'][] | null; // [CategoryWhereInput!]
+    OR?: NexusGenInputs['CategoryWhereInput'][] | null; // [CategoryWhereInput!]
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    interests?: NexusGenInputs['InterestListRelationFilter'] | null; // InterestListRelationFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
   CategoryWhereUniqueInput: { // input type
     id?: string | null; // String
+  }
+  DateTimeFilter: { // input type
+    equals?: NexusGenScalars['DateTime'] | null; // DateTime
+    gt?: NexusGenScalars['DateTime'] | null; // DateTime
+    gte?: NexusGenScalars['DateTime'] | null; // DateTime
+    in?: NexusGenScalars['DateTime'][] | null; // [DateTime!]
+    lt?: NexusGenScalars['DateTime'] | null; // DateTime
+    lte?: NexusGenScalars['DateTime'] | null; // DateTime
+    not?: NexusGenInputs['NestedDateTimeFilter'] | null; // NestedDateTimeFilter
+    notIn?: NexusGenScalars['DateTime'][] | null; // [DateTime!]
+  }
+  IntFilter: { // input type
+    equals?: number | null; // Int
+    gt?: number | null; // Int
+    gte?: number | null; // Int
+    in?: number[] | null; // [Int!]
+    lt?: number | null; // Int
+    lte?: number | null; // Int
+    not?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    notIn?: number[] | null; // [Int!]
+  }
+  InterestListRelationFilter: { // input type
+    every?: NexusGenInputs['InterestWhereInput'] | null; // InterestWhereInput
+    none?: NexusGenInputs['InterestWhereInput'] | null; // InterestWhereInput
+    some?: NexusGenInputs['InterestWhereInput'] | null; // InterestWhereInput
   }
   InterestOrderByWithRelationInput: { // input type
     categories?: NexusGenInputs['CategoryOrderByRelationAggregateInput'] | null; // CategoryOrderByRelationAggregateInput
@@ -57,8 +101,26 @@ export interface NexusGenInputs {
     posts?: NexusGenInputs['PostOrderByRelationAggregateInput'] | null; // PostOrderByRelationAggregateInput
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
+  InterestWhereInput: { // input type
+    AND?: NexusGenInputs['InterestWhereInput'][] | null; // [InterestWhereInput!]
+    NOT?: NexusGenInputs['InterestWhereInput'][] | null; // [InterestWhereInput!]
+    OR?: NexusGenInputs['InterestWhereInput'][] | null; // [InterestWhereInput!]
+    categories?: NexusGenInputs['CategoryListRelationFilter'] | null; // CategoryListRelationFilter
+    contentType?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    modifiers?: NexusGenInputs['ModifierListRelationFilter'] | null; // ModifierListRelationFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    posts?: NexusGenInputs['PostListRelationFilter'] | null; // PostListRelationFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
   InterestWhereUniqueInput: { // input type
     id?: string | null; // String
+  }
+  MessageListRelationFilter: { // input type
+    every?: NexusGenInputs['MessageWhereInput'] | null; // MessageWhereInput
+    none?: NexusGenInputs['MessageWhereInput'] | null; // MessageWhereInput
+    some?: NexusGenInputs['MessageWhereInput'] | null; // MessageWhereInput
   }
   MessageOrderByRelationAggregateInput: { // input type
     _count?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -77,11 +139,99 @@ export interface NexusGenInputs {
     user?: NexusGenInputs['UserOrderByWithRelationInput'] | null; // UserOrderByWithRelationInput
     userId?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
+  MessageWhereInput: { // input type
+    AND?: NexusGenInputs['MessageWhereInput'][] | null; // [MessageWhereInput!]
+    NOT?: NexusGenInputs['MessageWhereInput'][] | null; // [MessageWhereInput!]
+    OR?: NexusGenInputs['MessageWhereInput'][] | null; // [MessageWhereInput!]
+    content?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    post?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
+    postId?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    readBy?: NexusGenInputs['UserListRelationFilter'] | null; // UserListRelationFilter
+    thread?: NexusGenInputs['ThreadWhereInput'] | null; // ThreadWhereInput
+    threadId?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    type?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    user?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    userId?: NexusGenInputs['StringFilter'] | null; // StringFilter
+  }
   MessageWhereUniqueInput: { // input type
     id?: string | null; // String
   }
+  ModifierListRelationFilter: { // input type
+    every?: NexusGenInputs['ModifierWhereInput'] | null; // ModifierWhereInput
+    none?: NexusGenInputs['ModifierWhereInput'] | null; // ModifierWhereInput
+    some?: NexusGenInputs['ModifierWhereInput'] | null; // ModifierWhereInput
+  }
   ModifierOrderByRelationAggregateInput: { // input type
     _count?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  ModifierWhereInput: { // input type
+    AND?: NexusGenInputs['ModifierWhereInput'][] | null; // [ModifierWhereInput!]
+    NOT?: NexusGenInputs['ModifierWhereInput'][] | null; // [ModifierWhereInput!]
+    OR?: NexusGenInputs['ModifierWhereInput'][] | null; // [ModifierWhereInput!]
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    interests?: NexusGenInputs['InterestListRelationFilter'] | null; // InterestListRelationFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    posts?: NexusGenInputs['PostListRelationFilter'] | null; // PostListRelationFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
+  NestedBoolFilter: { // input type
+    equals?: boolean | null; // Boolean
+    not?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
+  }
+  NestedDateTimeFilter: { // input type
+    equals?: NexusGenScalars['DateTime'] | null; // DateTime
+    gt?: NexusGenScalars['DateTime'] | null; // DateTime
+    gte?: NexusGenScalars['DateTime'] | null; // DateTime
+    in?: NexusGenScalars['DateTime'][] | null; // [DateTime!]
+    lt?: NexusGenScalars['DateTime'] | null; // DateTime
+    lte?: NexusGenScalars['DateTime'] | null; // DateTime
+    not?: NexusGenInputs['NestedDateTimeFilter'] | null; // NestedDateTimeFilter
+    notIn?: NexusGenScalars['DateTime'][] | null; // [DateTime!]
+  }
+  NestedIntFilter: { // input type
+    equals?: number | null; // Int
+    gt?: number | null; // Int
+    gte?: number | null; // Int
+    in?: number[] | null; // [Int!]
+    lt?: number | null; // Int
+    lte?: number | null; // Int
+    not?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    notIn?: number[] | null; // [Int!]
+  }
+  NestedStringFilter: { // input type
+    contains?: string | null; // String
+    endsWith?: string | null; // String
+    equals?: string | null; // String
+    gt?: string | null; // String
+    gte?: string | null; // String
+    in?: string[] | null; // [String!]
+    lt?: string | null; // String
+    lte?: string | null; // String
+    not?: NexusGenInputs['NestedStringFilter'] | null; // NestedStringFilter
+    notIn?: string[] | null; // [String!]
+    startsWith?: string | null; // String
+  }
+  NestedStringNullableFilter: { // input type
+    contains?: string | null; // String
+    endsWith?: string | null; // String
+    equals?: string | null; // String
+    gt?: string | null; // String
+    gte?: string | null; // String
+    in?: string[] | null; // [String!]
+    lt?: string | null; // String
+    lte?: string | null; // String
+    not?: NexusGenInputs['NestedStringNullableFilter'] | null; // NestedStringNullableFilter
+    notIn?: string[] | null; // [String!]
+    startsWith?: string | null; // String
+  }
+  PostListRelationFilter: { // input type
+    every?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
+    none?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
+    some?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
   }
   PostOrderByRelationAggregateInput: { // input type
     _count?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -103,9 +253,62 @@ export interface NexusGenInputs {
     title?: NexusGenEnums['SortOrder'] | null; // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
+  PostWhereInput: { // input type
+    AND?: NexusGenInputs['PostWhereInput'][] | null; // [PostWhereInput!]
+    NOT?: NexusGenInputs['PostWhereInput'][] | null; // [PostWhereInput!]
+    OR?: NexusGenInputs['PostWhereInput'][] | null; // [PostWhereInput!]
+    content?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    contentPreview?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    contentType?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    creator?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    creatorId?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    description?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    generatedTitleSlug?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    interest?: NexusGenInputs['InterestWhereInput'] | null; // InterestWhereInput
+    interestId?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    messages?: NexusGenInputs['MessageListRelationFilter'] | null; // MessageListRelationFilter
+    modifiers?: NexusGenInputs['ModifierListRelationFilter'] | null; // ModifierListRelationFilter
+    title?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
   PostWhereUniqueInput: { // input type
     generatedTitleSlug?: string | null; // String
     id?: string | null; // String
+  }
+  StringFilter: { // input type
+    contains?: string | null; // String
+    endsWith?: string | null; // String
+    equals?: string | null; // String
+    gt?: string | null; // String
+    gte?: string | null; // String
+    in?: string[] | null; // [String!]
+    lt?: string | null; // String
+    lte?: string | null; // String
+    mode?: NexusGenEnums['QueryMode'] | null; // QueryMode
+    not?: NexusGenInputs['NestedStringFilter'] | null; // NestedStringFilter
+    notIn?: string[] | null; // [String!]
+    startsWith?: string | null; // String
+  }
+  StringNullableFilter: { // input type
+    contains?: string | null; // String
+    endsWith?: string | null; // String
+    equals?: string | null; // String
+    gt?: string | null; // String
+    gte?: string | null; // String
+    in?: string[] | null; // [String!]
+    lt?: string | null; // String
+    lte?: string | null; // String
+    mode?: NexusGenEnums['QueryMode'] | null; // QueryMode
+    not?: NexusGenInputs['NestedStringNullableFilter'] | null; // NestedStringNullableFilter
+    notIn?: string[] | null; // [String!]
+    startsWith?: string | null; // String
+  }
+  ThreadListRelationFilter: { // input type
+    every?: NexusGenInputs['ThreadWhereInput'] | null; // ThreadWhereInput
+    none?: NexusGenInputs['ThreadWhereInput'] | null; // ThreadWhereInput
+    some?: NexusGenInputs['ThreadWhereInput'] | null; // ThreadWhereInput
   }
   ThreadOrderByRelationAggregateInput: { // input type
     _count?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -118,8 +321,24 @@ export interface NexusGenInputs {
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     users?: NexusGenInputs['UserOrderByRelationAggregateInput'] | null; // UserOrderByRelationAggregateInput
   }
+  ThreadWhereInput: { // input type
+    AND?: NexusGenInputs['ThreadWhereInput'][] | null; // [ThreadWhereInput!]
+    NOT?: NexusGenInputs['ThreadWhereInput'][] | null; // [ThreadWhereInput!]
+    OR?: NexusGenInputs['ThreadWhereInput'][] | null; // [ThreadWhereInput!]
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    messages?: NexusGenInputs['MessageListRelationFilter'] | null; // MessageListRelationFilter
+    repliesAllowed?: NexusGenInputs['BoolFilter'] | null; // BoolFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    users?: NexusGenInputs['UserListRelationFilter'] | null; // UserListRelationFilter
+  }
   ThreadWhereUniqueInput: { // input type
     id?: string | null; // String
+  }
+  UserListRelationFilter: { // input type
+    every?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    none?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    some?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
   }
   UserOrderByRelationAggregateInput: { // input type
     _count?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -141,6 +360,26 @@ export interface NexusGenInputs {
     threads?: NexusGenInputs['ThreadOrderByRelationAggregateInput'] | null; // ThreadOrderByRelationAggregateInput
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
+  UserWhereInput: { // input type
+    AND?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
+    NOT?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
+    OR?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
+    chosenUsername?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    coverImage?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    credit?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    email?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    generatedUsername?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    messages?: NexusGenInputs['MessageListRelationFilter'] | null; // MessageListRelationFilter
+    name?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    password?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    posts?: NexusGenInputs['PostListRelationFilter'] | null; // PostListRelationFilter
+    profileImage?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    readMessages?: NexusGenInputs['MessageListRelationFilter'] | null; // MessageListRelationFilter
+    threads?: NexusGenInputs['ThreadListRelationFilter'] | null; // ThreadListRelationFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
   UserWhereUniqueInput: { // input type
     chosenUsername?: string | null; // String
     email?: string | null; // String
@@ -150,6 +389,7 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  QueryMode: "default" | "insensitive"
   SortOrder: "asc" | "desc"
 }
 
@@ -183,6 +423,7 @@ export interface NexusGenObjects {
     contentType: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     description: string; // String!
+    id: string; // String!
     title: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
@@ -244,6 +485,7 @@ export interface NexusGenFieldTypes {
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     creator: NexusGenRootTypes['User']; // User!
     description: string; // String!
+    id: string; // String!
     interest: NexusGenRootTypes['Interest']; // Interest!
     title: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
@@ -313,6 +555,7 @@ export interface NexusGenFieldTypeNames {
     createdAt: 'DateTime'
     creator: 'User'
     description: 'String'
+    id: 'String'
     interest: 'Interest'
     title: 'String'
     updatedAt: 'DateTime'
@@ -384,6 +627,7 @@ export interface NexusGenArgTypes {
       authorEmail: string; // String!
       content: string; // String!
       postCreatorEmail?: string | null; // String
+      postId?: string | null; // String
       threadId?: string | null; // String
       type: string; // String!
     }
@@ -425,6 +669,7 @@ export interface NexusGenArgTypes {
       before?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
       first?: number | null; // Int
       last?: number | null; // Int
+      where?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
     }
     registerUser: { // args
       email: string; // String!

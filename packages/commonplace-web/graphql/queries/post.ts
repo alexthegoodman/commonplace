@@ -1,8 +1,9 @@
 import { gql } from "graphql-request";
 
 export const postsQuery = gql`
-  query Posts {
-    posts {
+  query Posts($where: PostWhereInput) {
+    posts(where: $where) {
+      id
       title
       description
       contentType
@@ -13,6 +14,7 @@ export const postsQuery = gql`
         name
         chosenUsername
         profileImage
+        email
 
         posts {
           title

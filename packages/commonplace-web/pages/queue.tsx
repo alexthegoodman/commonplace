@@ -24,11 +24,31 @@ const getPostsAndUserData = async (userId) => {
     id: userId,
   });
 
-  const postsData = await request(
-    "http://localhost:4000/graphql",
-    postsQuery,
-    {}
-  );
+  console.info("getPostsAndUserData", userId);
+
+  const postsData = await request("http://localhost:4000/graphql", postsQuery, {
+    where: {
+      // NOT currentUser's posts
+      creatorId: {
+        not: {
+          equals: userId,
+        },
+      },
+      // NOT posts with impression from currentUser
+      messages: {
+        none: {
+          user: {
+            id: {
+              equals: userId,
+            },
+          },
+          type: {
+            equals: "impression",
+          },
+        },
+      },
+    },
+  });
 
   const returnData = {
     currentUser: userData,
@@ -69,24 +89,31 @@ const QueueContent = () => {
     const currentUserEmail = data?.currentUser?.user?.email;
     const postCreatorEmail = currentPost?.creator?.email;
 
-    // const savedImpression = await request(
-    //   "http://localhost:4000/graphql",
-    //   createMessageMutation,
-    //   {
-    //     type: "impression",
-    //     content: impression,
-    //     authorEmail: currentUserEmail,
-    //     postCreatorEmail: postCreatorEmail,
-    //   }
-    // );
+    console.info(
+      "saving impression",
+      impression,
+      currentUserEmail,
+      postCreatorEmail,
+      currentPost
+    );
 
-    // console.info(
-    //   "savedImpression",
-    //   impression,
-    //   currentUserEmail,
-    //   postCreatorEmail,
-    //   savedImpression
-    // );
+    const savedImpression = await request(
+      "http://localhost:4000/graphql",
+      createMessageMutation,
+      {
+        type: "impression",
+        content: impression,
+        authorEmail: currentUserEmail,
+        postCreatorEmail: postCreatorEmail,
+        postId: currentPost?.id,
+      }
+    );
+
+    console.info(
+      "savedImpression",
+
+      savedImpression
+    );
 
     // TODO: filter getPosts by those already with impression and created by self, limit to 10
     // TODO: on index 10, refresh SWR 10 posts and reset index to 0

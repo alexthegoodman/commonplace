@@ -5,12 +5,16 @@ export const createMessageMutation = gql`
     $type: String!
     $content: String!
     $authorEmail: String!
-    $threadId: String!
+    $postCreatorEmail: String
+    $postId: String
+    $threadId: String
   ) {
     createMessage(
       type: $type
       content: $content
       authorEmail: $authorEmail
+      postCreatorEmail: $postCreatorEmail
+      postId: $postId
       threadId: $threadId
     ) {
       createdAt

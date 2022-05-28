@@ -2,13 +2,35 @@
 ### Do not make changes to this file directly
 
 
+input BoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
 type Category {
   interests(after: InterestWhereUniqueInput, before: InterestWhereUniqueInput, first: Int, last: Int): [Interest!]!
   name: String!
 }
 
+input CategoryListRelationFilter {
+  every: CategoryWhereInput
+  none: CategoryWhereInput
+  some: CategoryWhereInput
+}
+
 input CategoryOrderByRelationAggregateInput {
   _count: SortOrder
+}
+
+input CategoryWhereInput {
+  AND: [CategoryWhereInput!]
+  NOT: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  interests: InterestListRelationFilter
+  name: StringFilter
+  updatedAt: DateTimeFilter
 }
 
 input CategoryWhereUniqueInput {
@@ -20,9 +42,37 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
 type Interest {
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
   name: String!
+}
+
+input InterestListRelationFilter {
+  every: InterestWhereInput
+  none: InterestWhereInput
+  some: InterestWhereInput
 }
 
 input InterestOrderByWithRelationInput {
@@ -34,6 +84,20 @@ input InterestOrderByWithRelationInput {
   name: SortOrder
   posts: PostOrderByRelationAggregateInput
   updatedAt: SortOrder
+}
+
+input InterestWhereInput {
+  AND: [InterestWhereInput!]
+  NOT: [InterestWhereInput!]
+  OR: [InterestWhereInput!]
+  categories: CategoryListRelationFilter
+  contentType: StringFilter
+  createdAt: DateTimeFilter
+  id: StringFilter
+  modifiers: ModifierListRelationFilter
+  name: StringFilter
+  posts: PostListRelationFilter
+  updatedAt: DateTimeFilter
 }
 
 input InterestWhereUniqueInput {
@@ -55,6 +119,12 @@ type Message {
   user: User!
 }
 
+input MessageListRelationFilter {
+  every: MessageWhereInput
+  none: MessageWhereInput
+  some: MessageWhereInput
+}
+
 input MessageOrderByRelationAggregateInput {
   _count: SortOrder
 }
@@ -74,16 +144,107 @@ input MessageOrderByWithRelationInput {
   userId: SortOrder
 }
 
+input MessageWhereInput {
+  AND: [MessageWhereInput!]
+  NOT: [MessageWhereInput!]
+  OR: [MessageWhereInput!]
+  content: StringFilter
+  createdAt: DateTimeFilter
+  id: StringFilter
+  post: PostWhereInput
+  postId: StringNullableFilter
+  readBy: UserListRelationFilter
+  thread: ThreadWhereInput
+  threadId: StringFilter
+  type: StringFilter
+  updatedAt: DateTimeFilter
+  user: UserWhereInput
+  userId: StringFilter
+}
+
 input MessageWhereUniqueInput {
   id: String
+}
+
+input ModifierListRelationFilter {
+  every: ModifierWhereInput
+  none: ModifierWhereInput
+  some: ModifierWhereInput
 }
 
 input ModifierOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
+input ModifierWhereInput {
+  AND: [ModifierWhereInput!]
+  NOT: [ModifierWhereInput!]
+  OR: [ModifierWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  interests: InterestListRelationFilter
+  name: StringFilter
+  posts: PostListRelationFilter
+  updatedAt: DateTimeFilter
+}
+
 type Mutation {
-  createMessage(authorEmail: String!, content: String!, postCreatorEmail: String, threadId: String, type: String!): Message!
+  createMessage(authorEmail: String!, content: String!, postCreatorEmail: String, postId: String, threadId: String, type: String!): Message!
+}
+
+input NestedBoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input NestedIntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
+input NestedStringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input NestedStringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
 }
 
 type Post {
@@ -93,9 +254,16 @@ type Post {
   createdAt: DateTime!
   creator: User!
   description: String!
+  id: String!
   interest: Interest!
   title: String!
   updatedAt: DateTime!
+}
+
+input PostListRelationFilter {
+  every: PostWhereInput
+  none: PostWhereInput
+  some: PostWhereInput
 }
 
 input PostOrderByRelationAggregateInput {
@@ -120,6 +288,27 @@ input PostOrderByWithRelationInput {
   updatedAt: SortOrder
 }
 
+input PostWhereInput {
+  AND: [PostWhereInput!]
+  NOT: [PostWhereInput!]
+  OR: [PostWhereInput!]
+  content: StringFilter
+  contentPreview: StringFilter
+  contentType: StringFilter
+  createdAt: DateTimeFilter
+  creator: UserWhereInput
+  creatorId: StringFilter
+  description: StringFilter
+  generatedTitleSlug: StringFilter
+  id: StringFilter
+  interest: InterestWhereInput
+  interestId: StringFilter
+  messages: MessageListRelationFilter
+  modifiers: ModifierListRelationFilter
+  title: StringFilter
+  updatedAt: DateTimeFilter
+}
+
 input PostWhereUniqueInput {
   generatedTitleSlug: String
   id: String
@@ -134,15 +323,50 @@ type Query {
   getUserByUsername(chosenUsername: String!): User!
   interests(after: InterestWhereUniqueInput, before: InterestWhereUniqueInput, first: Int, last: Int): [Interest!]!
   post(where: PostWhereUniqueInput!): Post
-  posts(after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int): [Post!]!
+  posts(after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int, where: PostWhereInput): [Post!]!
   registerUser(email: String!, password: String!): String!
   thread(where: ThreadWhereUniqueInput!): Thread
   user(id: String!): User!
 }
 
+enum QueryMode {
+  default
+  insensitive
+}
+
 enum SortOrder {
   asc
   desc
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
 }
 
 type Thread {
@@ -152,6 +376,12 @@ type Thread {
   repliesAllowed: Boolean!
   updatedAt: DateTime!
   users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
+}
+
+input ThreadListRelationFilter {
+  every: ThreadWhereInput
+  none: ThreadWhereInput
+  some: ThreadWhereInput
 }
 
 input ThreadOrderByRelationAggregateInput {
@@ -165,6 +395,18 @@ input ThreadOrderByWithRelationInput {
   repliesAllowed: SortOrder
   updatedAt: SortOrder
   users: UserOrderByRelationAggregateInput
+}
+
+input ThreadWhereInput {
+  AND: [ThreadWhereInput!]
+  NOT: [ThreadWhereInput!]
+  OR: [ThreadWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  messages: MessageListRelationFilter
+  repliesAllowed: BoolFilter
+  updatedAt: DateTimeFilter
+  users: UserListRelationFilter
 }
 
 input ThreadWhereUniqueInput {
@@ -183,6 +425,12 @@ type User {
   profileImage: String!
   threads(after: ThreadWhereUniqueInput, before: ThreadWhereUniqueInput, first: Int, last: Int): [Thread!]!
   updatedAt: DateTime!
+}
+
+input UserListRelationFilter {
+  every: UserWhereInput
+  none: UserWhereInput
+  some: UserWhereInput
 }
 
 input UserOrderByRelationAggregateInput {
@@ -205,6 +453,27 @@ input UserOrderByWithRelationInput {
   readMessages: MessageOrderByRelationAggregateInput
   threads: ThreadOrderByRelationAggregateInput
   updatedAt: SortOrder
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  chosenUsername: StringNullableFilter
+  coverImage: StringFilter
+  createdAt: DateTimeFilter
+  credit: IntFilter
+  email: StringFilter
+  generatedUsername: StringFilter
+  id: StringFilter
+  messages: MessageListRelationFilter
+  name: StringNullableFilter
+  password: StringFilter
+  posts: PostListRelationFilter
+  profileImage: StringFilter
+  readMessages: MessageListRelationFilter
+  threads: ThreadListRelationFilter
+  updatedAt: DateTimeFilter
 }
 
 input UserWhereUniqueInput {

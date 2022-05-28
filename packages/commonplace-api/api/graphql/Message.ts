@@ -1,5 +1,5 @@
 import { PrismaClient, User } from "@prisma/client";
-import { extendType, nonNull, objectType, stringArg } from "nexus";
+import { extendType, nonNull, nullable, objectType, stringArg } from "nexus";
 
 const prisma = new PrismaClient();
 
@@ -29,12 +29,13 @@ export const CreateMessageMutation = extendType({
         type: nonNull(stringArg()),
         content: nonNull(stringArg()),
         authorEmail: nonNull(stringArg()),
-        postCreatorEmail: stringArg(),
-        threadId: stringArg(),
+        postCreatorEmail: nullable(stringArg()),
+        postId: nullable(stringArg()),
+        threadId: nullable(stringArg()),
       },
       resolve: async (
         _,
-        { type, content, authorEmail, postCreatorEmail, threadId },
+        { type, content, authorEmail, postCreatorEmail, postId, threadId },
         { prisma: PrismaClient }
       ) => {
         console.info(
@@ -83,11 +84,16 @@ export const CreateMessageMutation = extendType({
               },
             },
           });
-        } else if (type === "impression" && postCreatorEmail) {
+        } else if (type === "impression" && postCreatorEmail && postId) {
           message = await prisma.message.create({
             data: {
               type,
               content,
+              post: {
+                connect: {
+                  id: postId,
+                },
+              },
               thread: {
                 create: {
                   repliesAllowed: true,
