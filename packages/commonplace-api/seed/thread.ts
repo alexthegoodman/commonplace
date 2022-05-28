@@ -8,7 +8,7 @@ export default async function seedThreads(users, posts) {
     return {
       repliesAllowed: true,
       users: {
-        connect: [{ id: users[0].id }, { id: users[0].id }],
+        connect: [{ id: users[0].id }, { id: users[1].id }],
       },
     };
   };
