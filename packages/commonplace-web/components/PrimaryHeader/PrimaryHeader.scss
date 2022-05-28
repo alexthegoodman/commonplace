@@ -36,12 +36,6 @@
           text-align: center;
           font-size: 24px;
           line-height: 30px;
-
-          max-width: 60vw;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          overflow: hidden;
-          margin: 0 auto;
         }
       }
     }
@@ -93,6 +87,12 @@
       .title {
         font-size: 24px;
         font-weight: 600;
+
+        max-width: 60vw;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 0 auto;
       }
     }
   }

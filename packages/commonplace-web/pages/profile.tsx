@@ -55,6 +55,7 @@ export const ProfileContent = ({ data }) => {
 const ProfileDataWrapper = () => {
   const [cookies] = useCookies(["coUserId"]);
   const userId = cookies.coUserId;
+
   const { data } = useSWR("/graphql", () => getUserData(userId));
 
   console.info("ProfileContent", userId, data);

@@ -2,18 +2,19 @@ import request from "graphql-request";
 import type { NextPage } from "next";
 import Link from "next/link";
 import useSWR, { SWRConfig } from "swr";
+import { useCookies } from "react-cookie";
+
+import Utilities from "../../../commonplace-utilities";
 import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
 import UpdateItem from "../../components/UpdateItem/UpdateItem";
 import { threadsQuery } from "../../graphql/queries/thread";
 
-const getUserThreadData = async () => {
+const getUserThreadData = async (userId) => {
   const userThreadData = await request(
     "http://localhost:4000/graphql",
     threadsQuery,
     {
-      where: {
-        id: "15029286-d77f-4952-a6bb-3000481369bb", // TODO: context.req.headers.cookie
-      },
+      id: userId,
     }
   );
 
@@ -21,7 +22,10 @@ const getUserThreadData = async () => {
 };
 
 const UpdatesContent: NextPage = () => {
-  const { data } = useSWR("/graphql", getUserThreadData);
+  const [cookies] = useCookies(["coUserId"]);
+  const userId = cookies.coUserId;
+
+  const { data } = useSWR("/graphql", () => getUserThreadData(userId));
 
   console.info("UpdatesContent", data);
 
@@ -66,9 +70,15 @@ const Updates: NextPage<{ fallback: any }> = ({ fallback }) => {
 };
 
 export async function getServerSideProps(context) {
-  const userThreadData = await getUserThreadData();
+  const utilities = new Utilities();
+  const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
+  const userId = cookieData.coUserId;
 
-  console.info("getServerSideProps", userThreadData, context);
+  console.info("coUserId", userId);
+
+  const userThreadData = await getUserThreadData(userId);
+
+  console.info("getServerSideProps", userThreadData);
 
   return {
     props: {

@@ -7,6 +7,8 @@ const MessageList: React.FC<MessageListProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click MessageList"),
+  currentUser = null,
+  otherUser = null,
   messages = [],
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
@@ -15,7 +17,7 @@ const MessageList: React.FC<MessageListProps> = ({
       <div className="messageListInner">
         {messages?.map((message, i) => {
           const isCurrentUser =
-            message?.user?.email === "alexthegoodman@gmail.com" ? true : false;
+            message?.user?.email === currentUser?.user?.email ? true : false;
 
           return (
             <MessageItem
