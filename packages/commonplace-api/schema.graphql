@@ -7,6 +7,10 @@ type Category {
   name: String!
 }
 
+input CategoryOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
 input CategoryWhereUniqueInput {
   id: String
 }
@@ -19,6 +23,17 @@ scalar DateTime
 type Interest {
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
   name: String!
+}
+
+input InterestOrderByWithRelationInput {
+  categories: CategoryOrderByRelationAggregateInput
+  contentType: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  modifiers: ModifierOrderByRelationAggregateInput
+  name: SortOrder
+  posts: PostOrderByRelationAggregateInput
+  updatedAt: SortOrder
 }
 
 input InterestWhereUniqueInput {
@@ -39,8 +54,33 @@ type Message {
   user: User!
 }
 
+input MessageOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input MessageOrderByWithRelationInput {
+  content: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  readBy: UserOrderByRelationAggregateInput
+  thread: ThreadOrderByWithRelationInput
+  threadId: SortOrder
+  type: SortOrder
+  updatedAt: SortOrder
+  user: UserOrderByWithRelationInput
+  userId: SortOrder
+}
+
 input MessageWhereUniqueInput {
   id: String
+}
+
+input ModifierOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+type Mutation {
+  createMessage(authorEmail: String!, content: String!, threadId: String!, type: String!): Message!
 }
 
 type Post {
@@ -54,6 +94,28 @@ type Post {
   threads(after: ThreadWhereUniqueInput, before: ThreadWhereUniqueInput, first: Int, last: Int): [Thread!]!
   title: String!
   updatedAt: DateTime!
+}
+
+input PostOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input PostOrderByWithRelationInput {
+  content: SortOrder
+  contentPreview: SortOrder
+  contentType: SortOrder
+  createdAt: SortOrder
+  creator: UserOrderByWithRelationInput
+  creatorId: SortOrder
+  description: SortOrder
+  generatedTitleSlug: SortOrder
+  id: SortOrder
+  interest: InterestOrderByWithRelationInput
+  interestId: SortOrder
+  modifiers: ModifierOrderByRelationAggregateInput
+  threads: ThreadOrderByRelationAggregateInput
+  title: SortOrder
+  updatedAt: SortOrder
 }
 
 input PostWhereUniqueInput {
@@ -76,14 +138,34 @@ type Query {
   user(id: String!): User!
 }
 
+enum SortOrder {
+  asc
+  desc
+}
+
 type Thread {
   createdAt: DateTime!
   id: String!
-  messages(after: MessageWhereUniqueInput, before: MessageWhereUniqueInput, first: Int, last: Int): [Message!]!
+  messages(after: MessageWhereUniqueInput, before: MessageWhereUniqueInput, first: Int, last: Int, orderBy: [MessageOrderByWithRelationInput!]): [Message!]!
   post: Post
   repliesAllowed: Boolean!
   updatedAt: DateTime!
   users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
+}
+
+input ThreadOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ThreadOrderByWithRelationInput {
+  createdAt: SortOrder
+  id: SortOrder
+  messages: MessageOrderByRelationAggregateInput
+  post: PostOrderByWithRelationInput
+  postId: SortOrder
+  repliesAllowed: SortOrder
+  updatedAt: SortOrder
+  users: UserOrderByRelationAggregateInput
 }
 
 input ThreadWhereUniqueInput {
@@ -102,6 +184,28 @@ type User {
   profileImage: String!
   threads(after: ThreadWhereUniqueInput, before: ThreadWhereUniqueInput, first: Int, last: Int): [Thread!]!
   updatedAt: DateTime!
+}
+
+input UserOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input UserOrderByWithRelationInput {
+  chosenUsername: SortOrder
+  coverImage: SortOrder
+  createdAt: SortOrder
+  credit: SortOrder
+  email: SortOrder
+  generatedUsername: SortOrder
+  id: SortOrder
+  messages: MessageOrderByRelationAggregateInput
+  name: SortOrder
+  password: SortOrder
+  posts: PostOrderByRelationAggregateInput
+  profileImage: SortOrder
+  readMessages: MessageOrderByRelationAggregateInput
+  threads: ThreadOrderByRelationAggregateInput
+  updatedAt: SortOrder
 }
 
 input UserWhereUniqueInput {

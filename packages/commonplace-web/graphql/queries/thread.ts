@@ -13,7 +13,7 @@ const PublicThreadFieldsFragment = gql`
       contentPreview
       content
     }
-    messages {
+    messages(orderBy: $orderMessagesBy) {
       user {
         name
         email
@@ -33,7 +33,10 @@ const PublicThreadFieldsFragment = gql`
 `;
 
 export const threadsQuery = gql`
-  query Threads($id: String!) {
+  query Threads(
+    $id: String!
+    $orderMessagesBy: [MessageOrderByWithRelationInput!]
+  ) {
     user(id: $id) {
       name
       email
@@ -49,7 +52,10 @@ export const threadsQuery = gql`
 `;
 
 export const threadQuery = gql`
-  query Thread($where: ThreadWhereUniqueInput!) {
+  query Thread(
+    $where: ThreadWhereUniqueInput!
+    $orderMessagesBy: [MessageOrderByWithRelationInput!]
+  ) {
     thread(where: $where) {
       ...PublicThreadFieldsFragment
     }

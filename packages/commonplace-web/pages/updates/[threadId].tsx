@@ -24,6 +24,9 @@ const getUserAndThreadData = async (userId, threadId) => {
       where: {
         id: threadId, // TODO: from url slug
       },
+      orderMessagesBy: {
+        createdAt: "desc",
+      },
     }
   );
 
@@ -76,7 +79,10 @@ const ThreadContent = () => {
           otherUser={otherUser}
           messages={data?.currentThread?.thread?.messages}
         />
-        <MessageDictator />
+        <MessageDictator
+          author={data?.currentUser}
+          threadId={threadId as string}
+        />
       </div>
     </section>
   );

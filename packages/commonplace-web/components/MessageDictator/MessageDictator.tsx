@@ -1,5 +1,7 @@
+import request from "graphql-request";
 import * as React from "react";
 import { useForm } from "react-hook-form";
+import { createMessageMutation } from "../../graphql/mutations/message";
 import FormInput from "../FormInput/FormInput";
 import FormTextarea from "../FormTextarea/FormTextarea";
 
@@ -9,6 +11,8 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click MessageDictator"),
+  author = null,
+  threadId = "",
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
 
@@ -18,7 +22,22 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    console.log("MessageDictator onSubmit", data);
+
+    const message = await request(
+      "http://localhost:4000/graphql",
+      createMessageMutation,
+      {
+        type: "reply",
+        content: data?.message,
+        authorEmail: author?.user?.email,
+        threadId: threadId,
+      }
+    );
+
+    console.info("message", message);
+  };
   const onError = (error) => console.error(error);
 
   return (

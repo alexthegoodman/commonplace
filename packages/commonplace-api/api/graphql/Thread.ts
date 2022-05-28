@@ -11,7 +11,9 @@ export const ThreadType = objectType({
 
     t.model.post();
     t.model.users();
-    t.model.messages();
+    t.model.messages({
+      ordering: true,
+    });
 
     t.model.updatedAt();
     t.model.createdAt();

@@ -15,6 +15,9 @@ const getUserThreadData = async (userId) => {
     threadsQuery,
     {
       id: userId,
+      orderMessagesBy: {
+        createdAt: "desc",
+      },
     }
   );
 
