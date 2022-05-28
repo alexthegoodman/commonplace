@@ -423,7 +423,7 @@ type User {
   name: String
   posts: [Post!]!
   profileImage: String!
-  threads(after: ThreadWhereUniqueInput, before: ThreadWhereUniqueInput, first: Int, last: Int, orderBy: [ThreadOrderByWithRelationInput!]): [Thread!]!
+  threads(after: ThreadWhereUniqueInput, before: ThreadWhereUniqueInput, first: Int, last: Int, orderBy: [ThreadOrderByWithRelationInput!], where: ThreadWhereInput): [Thread!]!
   updatedAt: DateTime!
 }
 

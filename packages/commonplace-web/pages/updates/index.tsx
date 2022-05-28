@@ -21,6 +21,18 @@ const getUserThreadData = async (userId) => {
       orderThreadsBy: {
         updatedAt: "desc",
       },
+      // EXCLUDE threads where messages are only from currentUser
+      threadWhere: {
+        messages: {
+          some: {
+            userId: {
+              not: {
+                equals: userId,
+              },
+            },
+          },
+        },
+      },
     }
   );
 

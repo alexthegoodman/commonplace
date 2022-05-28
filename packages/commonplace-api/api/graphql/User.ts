@@ -36,7 +36,7 @@ export const UserType = objectType({
     // t.string("id"); // do not expose
     t.model.email();
     t.model.credit();
-    t.model.threads({ ordering: true });
+    t.model.threads({ ordering: true, filtering: true });
     // t.model.messages();
     // t.model.readMessages();
   },

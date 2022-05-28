@@ -704,6 +704,7 @@ export interface NexusGenArgTypes {
       first?: number | null; // Int
       last?: number | null; // Int
       orderBy?: NexusGenInputs['ThreadOrderByWithRelationInput'][] | null; // [ThreadOrderByWithRelationInput!]
+      where?: NexusGenInputs['ThreadWhereInput'] | null; // ThreadWhereInput
     }
   }
 }
