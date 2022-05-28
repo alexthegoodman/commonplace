@@ -2,9 +2,18 @@
   margin-top: 25px;
 
   &.impression {
+    .contentViewerWrapper {
+      .contentViewer {
+        border-radius: 10px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
     .messageItemInner {
       .itemContent {
         background: $midBlue;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
       }
     }
   }
@@ -52,6 +61,8 @@
       display: flex;
       align-items: center;
       padding: 15px;
+
+      border-radius: 10px;
 
       &.left {
         margin-left: 10px;

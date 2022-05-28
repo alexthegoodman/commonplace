@@ -1,4 +1,7 @@
 .profilePost {
+  border-radius: 10px;
+  overflow: hidden;
+
   .profilePostInner {
     a {
       text-decoration: none;
@@ -35,11 +38,14 @@
       height: auto;
       display: flex;
       align-items: center;
-      background: $lightBlue;
-      padding: 5px 10px;
+      background: rgb(250, 250, 250);
+      padding: 10px 10px;
+      border-radius: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
 
       span {
-        color: $darkBlue;
+        color: black;
         font-weight: 400;
         font-size: 15px;
         line-height: 18px;
