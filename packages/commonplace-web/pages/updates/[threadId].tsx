@@ -45,8 +45,12 @@ const ThreadContent = () => {
   const router = useRouter();
   const { threadId } = router.query;
 
-  const { data } = useSWR("/graphql", () =>
-    getUserAndThreadData(userId, threadId)
+  const { data } = useSWR(
+    "/graphql",
+    () => getUserAndThreadData(userId, threadId),
+    {
+      refreshInterval: 1000,
+    }
   );
 
   console.info("ThreadContent", data);

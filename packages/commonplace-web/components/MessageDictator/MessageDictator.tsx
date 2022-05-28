@@ -1,6 +1,7 @@
 import request from "graphql-request";
 import * as React from "react";
 import { useForm } from "react-hook-form";
+import { useSWRConfig } from "swr";
 import { createMessageMutation } from "../../graphql/mutations/message";
 import FormInput from "../FormInput/FormInput";
 import FormTextarea from "../FormTextarea/FormTextarea";
@@ -16,9 +17,12 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
 
+  // const { mutate } = useSWRConfig();
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -35,6 +39,10 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
         threadId: threadId,
       }
     );
+
+    // mutate("http://localhost:4000/graphql");
+
+    reset();
 
     console.info("message", message);
   };
