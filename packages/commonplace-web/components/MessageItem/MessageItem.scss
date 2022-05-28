@@ -19,6 +19,12 @@
 
     .contentViewer {
       width: calc(100vw - 140px);
+
+      .contentViewerInner {
+        .textViewer {
+          padding: 35px 25px;
+        }
+      }
     }
   }
 
