@@ -21,6 +21,8 @@ export const PostType = objectType({
     t.model.title();
     t.model.description();
 
+    t.model.generatedTitleSlug();
+
     t.model.contentType();
     t.model.contentPreview();
     t.model.content();

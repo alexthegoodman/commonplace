@@ -6,6 +6,8 @@ export const postsQuery = gql`
       id
       title
       description
+      generatedTitleSlug
+
       contentType
       contentPreview
       content
@@ -34,6 +36,8 @@ const PublicPostFieldsFragment = gql`
   fragment PublicPostFieldsFragment on Post {
     title
     description
+    generatedTitleSlug
+
     contentType
     contentPreview
     content

@@ -24,9 +24,12 @@ export const userQuery = gql`
       posts {
         title
         description
+        generatedTitleSlug
+
         contentType
         contentPreview
         content
+
         creator {
           name
           chosenUsername

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import * as React from "react";
 import ContentViewer from "../ContentViewer/ContentViewer";
 
@@ -13,19 +14,23 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
   return (
     <div className="profilePost">
       <div className="profilePostInner">
-        <div className="postContent">
-          {/* <img alt="" title="" src={post.content} /> */}
-          <ContentViewer
-            type={post.contentType}
-            preview={post.contentPreview}
-            content={post.content}
-            mini={true}
-          />
-          <span className="contentType">{post.contentType}</span>
-        </div>
-        <div className="postTitle">
-          <span>{post.title}</span>
-        </div>
+        <Link href={`/post/interest-title/${post.generatedTitleSlug}`}>
+          <a>
+            <div className="postContent">
+              {/* <img alt="" title="" src={post.content} /> */}
+              <ContentViewer
+                type={post.contentType}
+                preview={post.contentPreview}
+                content={post.content}
+                mini={true}
+              />
+              <span className="contentType">{post.contentType}</span>
+            </div>
+            <div className="postTitle">
+              <span>{post.title}</span>
+            </div>
+          </a>
+        </Link>
       </div>
     </div>
   );

@@ -423,6 +423,7 @@ export interface NexusGenObjects {
     contentType: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     description: string; // String!
+    generatedTitleSlug: string; // String!
     id: string; // String!
     title: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
@@ -485,6 +486,7 @@ export interface NexusGenFieldTypes {
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     creator: NexusGenRootTypes['User']; // User!
     description: string; // String!
+    generatedTitleSlug: string; // String!
     id: string; // String!
     interest: NexusGenRootTypes['Interest']; // Interest!
     title: string; // String!
@@ -555,6 +557,7 @@ export interface NexusGenFieldTypeNames {
     createdAt: 'DateTime'
     creator: 'User'
     description: 'String'
+    generatedTitleSlug: 'String'
     id: 'String'
     interest: 'Interest'
     title: 'String'

@@ -254,6 +254,7 @@ type Post {
   createdAt: DateTime!
   creator: User!
   description: String!
+  generatedTitleSlug: String!
   id: String!
   interest: Interest!
   title: String!
