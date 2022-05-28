@@ -84,7 +84,9 @@ const UpdatesContent: NextPage = () => {
 
 const Updates: NextPage<{ fallback: any }> = ({ fallback }) => {
   return (
-    <SWRConfig value={{ fallback }}>
+    <SWRConfig
+      value={{ fallback, revalidateOnMount: true, refreshWhenHidden: true }}
+    >
       <UpdatesContent />
     </SWRConfig>
   );

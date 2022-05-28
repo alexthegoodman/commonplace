@@ -48,7 +48,9 @@ const CoProfileDataWrapper = () => {
 
 const CoProfile: NextPage<{ fallback: any }> = ({ fallback }) => {
   return (
-    <SWRConfig value={{ fallback }}>
+    <SWRConfig
+      value={{ fallback, revalidateOnMount: true, refreshWhenHidden: true }}
+    >
       <CoProfileDataWrapper />
     </SWRConfig>
   );

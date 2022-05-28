@@ -163,7 +163,9 @@ const Queue: NextPage<{ fallback: any }> = ({ fallback }) => {
 
   return (
     <QueueContext.Provider value={{ state, dispatch }}>
-      <SWRConfig value={{ fallback }}>
+      <SWRConfig
+        value={{ fallback, revalidateOnMount: true, refreshWhenHidden: true }}
+      >
         <QueueContent />
       </SWRConfig>
     </QueueContext.Provider>

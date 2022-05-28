@@ -16,16 +16,22 @@ const PostImpressions: React.FC<PostImpressionsProps> = ({
           <div className="feather-icon icon-message-square"></div> Impressions
         </span>
         <div className="impressionList">
-          {impressions.map((impression, i) => {
-            return (
-              <div className="impression">
-                <span className="content">{impression.content}</span>
-                <span className="attribution">
-                  from {impression?.user?.chosenUsername}
-                </span>
-              </div>
-            );
-          })}
+          {impressions?.length > 0 ? (
+            impressions?.map((impression, i) => {
+              return (
+                <div className="impression">
+                  <span className="content">{impression.content}</span>
+                  <span className="attribution">
+                    from {impression?.user?.chosenUsername}
+                  </span>
+                </div>
+              );
+            })
+          ) : (
+            <div className="impressionEmpty">
+              <span>No Impressions Yet!</span>
+            </div>
+          )}
         </div>
       </div>
     </section>
