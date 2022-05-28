@@ -1,0 +1,35 @@
+.postImpressions {
+  padding: 25px;
+  border-top: 1px #e5e5e5 solid;
+
+  .postImpressionsInner {
+    .listLabel {
+      .feather-icon {
+        margin-right: 3px;
+      }
+    }
+    .impressionList {
+      margin-top: 25px;
+
+      .impression {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+
+        span {
+          display: block;
+
+          &.content {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #444444;
+          }
+          &.attribution {
+            font-size: 14px;
+            color: darkgray;
+          }
+        }
+      }
+    }
+  }
+}

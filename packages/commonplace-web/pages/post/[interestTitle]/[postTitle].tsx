@@ -4,7 +4,9 @@ import { useRouter } from "next/router";
 import useSWR, { SWRConfig } from "swr";
 import ContentInformation from "../../../components/ContentInformation/ContentInformation";
 import ContentViewer from "../../../components/ContentViewer/ContentViewer";
+import PostImpressions from "../../../components/PostImpressions/PostImpressions";
 import PrimaryHeader from "../../../components/PrimaryHeader/PrimaryHeader";
+import { postImpressionsQuery } from "../../../graphql/queries/message";
 import { postByPostTitleQuery } from "../../../graphql/queries/post";
 import { userByPostTitleQuery } from "../../../graphql/queries/user";
 
@@ -12,6 +14,14 @@ const getPostAndUserData = async (postTitle) => {
   const postData = await request(
     "http://localhost:4000/graphql",
     postByPostTitleQuery,
+    {
+      postTitle,
+    }
+  );
+
+  const impressionData = await request(
+    "http://localhost:4000/graphql",
+    postImpressionsQuery,
     {
       postTitle,
     }
@@ -28,6 +38,7 @@ const getPostAndUserData = async (postTitle) => {
   const returnData = {
     ...postData.getPostByPostTitle,
     creator: userData.getUserByPostTitle,
+    impressions: impressionData.getPostImpressions,
   };
 
   return returnData;
@@ -46,6 +57,7 @@ const PostContent = ({ data }) => {
     <section className="post">
       <div className="postInner">
         <PrimaryHeader
+          inline={true}
           leftIcon={
             <a onClick={goBack}>
               <div className="feather-icon icon-arrow-left"></div>
@@ -61,7 +73,7 @@ const PostContent = ({ data }) => {
             content={currentPost?.content}
           />
           <ContentInformation post={currentPost} />
-          {/** <PostImpressions /> */}
+          <PostImpressions impressions={currentPost?.impressions} />
         </div>
       </div>
     </section>

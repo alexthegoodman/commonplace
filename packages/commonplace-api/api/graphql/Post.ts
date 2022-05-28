@@ -31,7 +31,7 @@ export const PostType = objectType({
     // t.model.modifiers();
 
     t.model.creator();
-    t.model.threads();
+    // t.model.threads();
 
     t.model.updatedAt();
     t.model.createdAt();

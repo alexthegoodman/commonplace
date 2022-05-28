@@ -32,9 +32,13 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
                     <span className="authorAttribution">
                       {post?.creator?.chosenUsername}
                     </span>
-                    <span className="authorCreationCount">
-                      {post?.creator?.posts?.length} Creations
-                    </span>
+                    {post?.creator?.posts?.length > 0 ? (
+                      <span className="authorCreationCount">
+                        {post?.creator?.posts?.length} Creations
+                      </span>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               </div>

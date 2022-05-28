@@ -496,6 +496,7 @@ export interface NexusGenFieldTypes {
     authenticate: string; // String!
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
     getPostByPostTitle: NexusGenRootTypes['Post']; // Post!
+    getPostImpressions: Array<NexusGenRootTypes['Message'] | null>; // [Message]!
     getPostsByUsername: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
     getUserByPostTitle: NexusGenRootTypes['User']; // User!
     getUserByUsername: NexusGenRootTypes['User']; // User!
@@ -567,6 +568,7 @@ export interface NexusGenFieldTypeNames {
     authenticate: 'String'
     categories: 'Category'
     getPostByPostTitle: 'Post'
+    getPostImpressions: 'Message'
     getPostsByUsername: 'Post'
     getUserByPostTitle: 'User'
     getUserByUsername: 'User'
@@ -647,6 +649,9 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
     }
     getPostByPostTitle: { // args
+      postTitle: string; // String!
+    }
+    getPostImpressions: { // args
       postTitle: string; // String!
     }
     getPostsByUsername: { // args

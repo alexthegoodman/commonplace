@@ -319,6 +319,7 @@ type Query {
   authenticate(email: String!, password: String!): String!
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
   getPostByPostTitle(postTitle: String!): Post!
+  getPostImpressions(postTitle: String!): [Message]!
   getPostsByUsername(chosenUsername: String!): [Post]!
   getUserByPostTitle(postTitle: String!): User!
   getUserByUsername(chosenUsername: String!): User!

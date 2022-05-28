@@ -20,6 +20,38 @@ export const MessageType = objectType({
   },
 });
 
+export const PostImpressionsQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.list.field("getPostImpressions", {
+      type: "Message",
+      args: {
+        postTitle: nonNull(stringArg()),
+      },
+      resolve: async (_, { postTitle }, { prisma: PrismaClient }) => {
+        const post = await prisma.post.findUnique({
+          where: {
+            generatedTitleSlug: postTitle,
+          },
+        });
+
+        const impressions = await prisma.message.findMany({
+          where: {
+            post: {
+              id: post?.id,
+            },
+            type: "impression",
+          },
+        });
+
+        console.info("Get impressions", postTitle, post, impressions);
+
+        return impressions;
+      },
+    });
+  },
+});
+
 export const CreateMessageMutation = extendType({
   type: "Mutation",
   definition(t) {
