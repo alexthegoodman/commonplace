@@ -26,7 +26,9 @@ const getPostsData = async () => {
 };
 
 const QueueContent = () => {
-  const { data } = useSWR("/graphql", getPostsData);
+  const { data } = useSWR("/graphql", getPostsData, {
+    revalidateIfStale: true,
+  });
   const { state, dispatch } = useContext(QueueContext);
 
   const { selectedInterest } = state;

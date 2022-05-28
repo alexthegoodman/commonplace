@@ -28,7 +28,9 @@ const UpdatesContent: NextPage = () => {
   const [cookies] = useCookies(["coUserId"]);
   const userId = cookies.coUserId;
 
-  const { data } = useSWR("/graphql", () => getUserThreadData(userId));
+  const { data } = useSWR("/graphql", () => getUserThreadData(userId), {
+    revalidateIfStale: true,
+  });
 
   console.info("UpdatesContent", data);
 
@@ -36,6 +38,7 @@ const UpdatesContent: NextPage = () => {
     <section className="updates">
       <div className="updatesInner">
         <PrimaryHeader
+          inline={true}
           leftIcon={
             <Link href="/queue">
               <a>
