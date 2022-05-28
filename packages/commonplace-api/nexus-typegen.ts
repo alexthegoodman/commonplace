@@ -383,7 +383,8 @@ export interface NexusGenArgTypes {
     createMessage: { // args
       authorEmail: string; // String!
       content: string; // String!
-      threadId: string; // String!
+      postCreatorEmail?: string | null; // String
+      threadId?: string | null; // String
       type: string; // String!
     }
   }

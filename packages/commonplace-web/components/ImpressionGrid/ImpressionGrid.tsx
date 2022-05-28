@@ -31,7 +31,10 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
             {impressions.map((impression, i) => {
               return (
                 <li key={`impressionGridItem${i}`}>
-                  <a href="#!" onClick={impressionClickHandler}>
+                  <a
+                    href="#!"
+                    onClick={() => impressionClickHandler(impression)}
+                  >
                     {impression}
                   </a>
                 </li>

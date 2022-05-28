@@ -83,7 +83,7 @@ input ModifierOrderByRelationAggregateInput {
 }
 
 type Mutation {
-  createMessage(authorEmail: String!, content: String!, threadId: String!, type: String!): Message!
+  createMessage(authorEmail: String!, content: String!, postCreatorEmail: String, threadId: String, type: String!): Message!
 }
 
 type Post {
