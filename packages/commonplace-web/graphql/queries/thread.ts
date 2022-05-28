@@ -37,6 +37,7 @@ export const threadsQuery = gql`
   query Threads(
     $id: String!
     $orderMessagesBy: [MessageOrderByWithRelationInput!]
+    $orderThreadsBy: [ThreadOrderByWithRelationInput!]
   ) {
     user(id: $id) {
       name
@@ -44,7 +45,7 @@ export const threadsQuery = gql`
       createdAt
       updatedAt
 
-      threads {
+      threads(orderBy: $orderThreadsBy) {
         ...PublicThreadFieldsFragment
       }
     }

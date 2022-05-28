@@ -18,6 +18,9 @@ const getUserThreadData = async (userId) => {
       orderMessagesBy: {
         createdAt: "desc",
       },
+      orderThreadsBy: {
+        updatedAt: "desc",
+      },
     }
   );
 
