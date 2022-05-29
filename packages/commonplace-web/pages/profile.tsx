@@ -56,7 +56,7 @@ const ProfileDataWrapper = () => {
   const [cookies] = useCookies(["coUserId"]);
   const userId = cookies.coUserId;
 
-  const { data } = useSWR("/graphql", () => getUserData(userId));
+  const { data } = useSWR("profileKey", () => getUserData(userId));
 
   console.info("ProfileContent", userId, data);
 
@@ -87,7 +87,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       fallback: {
-        "/graphql": userData,
+        profileKey: userData,
       },
     },
   };

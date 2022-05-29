@@ -84,7 +84,7 @@ const PostDataWrapper = () => {
   const router = useRouter();
   const { interestTitle, postTitle } = router.query;
 
-  const { data } = useSWR("/graphql", () => getPostAndUserData(postTitle));
+  const { data } = useSWR("postKey", () => getPostAndUserData(postTitle));
 
   console.info("PostDataWrapper", data);
 
@@ -110,7 +110,7 @@ export async function getServerSideProps({ query }) {
   return {
     props: {
       fallback: {
-        "/graphql": postAndUserData,
+        postKey: postAndUserData,
       },
     },
   };

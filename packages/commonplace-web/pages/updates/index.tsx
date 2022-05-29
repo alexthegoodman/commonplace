@@ -43,7 +43,7 @@ const UpdatesContent: NextPage = () => {
   const [cookies] = useCookies(["coUserId"]);
   const userId = cookies.coUserId;
 
-  const { data } = useSWR("/graphql", () => getUserThreadData(userId), {
+  const { data } = useSWR("updatesKey", () => getUserThreadData(userId), {
     revalidateIfStale: true,
   });
 
@@ -112,7 +112,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       fallback: {
-        "/graphql": userThreadData,
+        updatesKey: userThreadData,
       },
     },
   };

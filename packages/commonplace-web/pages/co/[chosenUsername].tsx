@@ -37,7 +37,7 @@ const CoProfileDataWrapper = () => {
   const router = useRouter();
   const { chosenUsername } = router.query;
 
-  const { data } = useSWR("/graphql", () =>
+  const { data } = useSWR("coProfileKey", () =>
     getUserAndPostsByUsernameData(chosenUsername)
   );
 
@@ -65,7 +65,7 @@ export async function getServerSideProps({ query }) {
   return {
     props: {
       fallback: {
-        "/graphql": userAndPostsData,
+        coProfileKey: userAndPostsData,
       },
     },
   };

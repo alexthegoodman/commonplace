@@ -46,7 +46,7 @@ const ThreadContent = () => {
   const { threadId } = router.query;
 
   const { data } = useSWR(
-    "/graphql",
+    "threadKey",
     () => getUserAndThreadData(userId, threadId),
     {
       refreshInterval: 1000,
@@ -118,7 +118,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       fallback: {
-        "/graphql": threadData,
+        threadKey: threadData,
       },
     },
   };

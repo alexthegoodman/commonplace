@@ -62,7 +62,7 @@ const QueueContent = () => {
   const [cookies] = useCookies(["coUserId"]);
   const userId = cookies.coUserId;
 
-  const { data } = useSWR("/graphql", () => getPostsAndUserData(userId), {
+  const { data } = useSWR("queueKey", () => getPostsAndUserData(userId), {
     revalidateIfStale: true,
   });
 
@@ -186,7 +186,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       fallback: {
-        "/graphql": returnData,
+        queueKey: returnData,
       },
     },
   };
