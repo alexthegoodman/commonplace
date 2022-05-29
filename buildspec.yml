@@ -14,7 +14,7 @@ phases:
       - pip install --upgrade awscli
       # install Node 12
       - curl -sL https://deb.nodesource.com/setup_12.x | bash -
-      - apt install nodejs
+      - yum install nodejs
 
   pre_build:
     commands:
