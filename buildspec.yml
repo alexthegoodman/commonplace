@@ -13,12 +13,13 @@ phases:
       nodejs: 12
     commands:
       # upgrade AWS CLI
-      - pip install --upgrade awscli
+      # - pip install --upgrade awscli
 
   pre_build:
     commands:
       # install server dependencies
       - cd ./packages/commonplace-api/
+      - npm install -g ts-node
       - npm install
       # migrate server database
       - npx prisma migrate deploy
