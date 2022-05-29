@@ -19,7 +19,7 @@ phases:
     commands:
       # install server dependencies
       - cd ./packages/commonplace-api/
-      - npm install -g ts-node
+      - npm install -g ts-node typescript
       - npm install
       # migrate server database
       - npx prisma migrate deploy
