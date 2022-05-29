@@ -31,11 +31,13 @@ phases:
   build:
     commands:
       # install client dependencies and build static files
+      - cd ../../
       - cd ./packages/commonplace-web/
       - npm install
       - npm run build
   post_build:
     commands:
+      - cd ../../
       - ls -la packages/commonplace-api
       - ls -la packages/commonplace-web
 
