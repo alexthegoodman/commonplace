@@ -18,15 +18,17 @@ phases:
   pre_build:
     commands:
       # install server dependencies
-      - npm install --prefix ./packages/commonplace-api/
+      - cd ./packages/commonplace-api/
+      - npm install
       # migrate server database
       - npx prisma migrate deploy
-      - npm run db:seed --prefix ./packages/commonplace-api/
+      - npm run db:seed
   build:
     commands:
       # install client dependencies and build static files
-      - npm install --prefix ./packages/commonplace-web/ && npm run build --prefix ./packages/commonplace-web/
-      - npm run build --prefix ./packages/commonplace-web/
+      - cd ./packages/commonplace-web/
+      - npm install
+      - npm run build
   post_build:
     commands:
       - ls -la packages/commonplace-api
