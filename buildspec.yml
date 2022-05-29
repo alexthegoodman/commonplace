@@ -18,8 +18,11 @@ phases:
   pre_build:
     commands:
       # install server dependencies
+      - cd ./packages/commonplace-utilities/
+      - npm install
+      - cd ../../
       - cd ./packages/commonplace-api/
-      - npm install -g ts-node typescript nanoid
+      - npm install -g ts-node typescript
       - npm install
       # migrate server database
       - npx prisma migrate deploy
