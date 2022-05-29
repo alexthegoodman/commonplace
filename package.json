@@ -3,5 +3,8 @@
   "private": true,
   "devDependencies": {
     "lerna": "^4.0.0"
+  },
+  "dependencies": {
+    "ts-node": "^10.8.0"
   }
 }

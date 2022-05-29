@@ -1,0 +1,38 @@
+# Migrate RDS Database
+# Seed Database (only on local and dev)
+# Install node_modules for server and client
+
+# Use Procfile to start server and client
+# API may be accessible via port, or may redesirect requests to Next.js
+
+version: 0.2
+
+phases:
+  install:
+    commands:
+      # upgrade AWS CLI
+      - pip install --upgrade awscli
+      # install Node 12
+      - curl -sL https://deb.nodesource.com/setup_12.x | bash -
+      - apt install nodejs
+
+  pre_build:
+    commands:
+      # install server dependencies
+      - npm install --prefix ./packages/commonplace-api/
+      # migrate server database
+      - npx prisma migrate deploy
+      - npm run db:seed --prefix ./packages/commonplace-api/
+  build:
+    commands:
+      # install client dependencies and build static files
+      - npm install --prefix ./packages/commonplace-web/ && npm run build --prefix ./packages/commonplace-web/
+      - npm run build --prefix ./packages/commonplace-web/
+  post_build:
+    commands:
+      - ls -la packages/commonplace-api
+      - ls -la packages/commonplace-web
+
+artifacts:
+  files:
+    - "**/*"

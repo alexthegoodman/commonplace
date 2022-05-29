@@ -1,5 +1,5 @@
-export interface ImpressionWheelProps {
-  ref?: React.Ref<any>;
-  className?: string;
-  onClick?: (e: MouseEvent) => void;
-}
+// export interface ImpressionWheelProps {
+//   ref?: React.Ref<any>;
+//   className?: string;
+//   onClick?: (e: MouseEvent) => void;
+// }
