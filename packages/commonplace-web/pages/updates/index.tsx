@@ -65,17 +65,23 @@ const UpdatesContent: NextPage = () => {
           rightIcon={<></>}
         />
         <div className="scrollContainer updatesContainer">
-          {data?.user?.threads?.map((thread, i) => {
-            const previewMessage = thread.messages[0];
+          {data?.user?.threads?.length > 0 ? (
+            data?.user?.threads?.map((thread, i) => {
+              const previewMessage = thread.messages[0];
 
-            return (
-              <UpdateItem
-                id={thread.id}
-                label={previewMessage.content}
-                author={previewMessage?.user}
-              />
-            );
-          })}
+              return (
+                <UpdateItem
+                  id={thread.id}
+                  label={previewMessage.content}
+                  author={previewMessage?.user}
+                />
+              );
+            })
+          ) : (
+            <div className="emptyMessage">
+              <span>Give Impressions. Upload Content. Gain Matches!</span>
+            </div>
+          )}
         </div>
       </div>
     </section>

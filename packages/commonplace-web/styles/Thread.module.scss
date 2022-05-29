@@ -9,3 +9,16 @@
 .thread {
   width: 100vw;
 }
+
+.emptyMessage {
+  width: 80%;
+  margin: 50px auto;
+  text-align: center;
+
+  span {
+    font-size: 16px;
+    line-height: 28px;
+    color: darkgray;
+    font-weight: 300;
+  }
+}
