@@ -22,11 +22,11 @@ phases:
       - npm install
       - cd ../../
       - cd ./packages/commonplace-api/
-      - npm install -g ts-node typescript
+      - npm install -g ts-node typescript prisma @types/nod
       - npm install
       # migrate server database
       - npx prisma migrate deploy
-      - npm run prisma generate
+      - prisma generate
       - npm run db:seed
   build:
     commands:
