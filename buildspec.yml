@@ -22,7 +22,7 @@ phases:
       - npm install
       - cd ../../
       - cd ./packages/commonplace-api/
-      - npm install -g ts-node typescript prisma @types/nod
+      - npm install -g ts-node typescript prisma @types/node
       - npm install
       # migrate server database
       - npx prisma migrate deploy
