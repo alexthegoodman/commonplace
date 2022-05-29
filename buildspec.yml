@@ -9,12 +9,11 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 12
     commands:
       # upgrade AWS CLI
       - pip install --upgrade awscli
-      # install Node 12
-      - curl -sL https://deb.nodesource.com/setup_12.x | bash -
-      - yum install nodejs
 
   pre_build:
     commands:
