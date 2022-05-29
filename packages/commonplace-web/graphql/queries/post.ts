@@ -33,7 +33,7 @@ export const postsQuery = gql`
 `;
 
 const PublicPostFieldsFragment = gql`
-  fragment PublicPostFieldsFragment on Post {
+  fragment PublicPostFieldsFragment on PublicPost {
     title
     description
     generatedTitleSlug
