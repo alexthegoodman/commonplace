@@ -428,6 +428,24 @@ export interface NexusGenObjects {
     title: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
+  PublicPost: { // root type
+    content?: string | null; // String
+    contentPreview?: string | null; // String
+    contentType?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    generatedTitleSlug?: string | null; // String
+    id?: string | null; // String
+    title?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PublicUser: { // root type
+    chosenUsername?: string | null; // String
+    coverImage?: string | null; // String
+    generatedUsername?: string | null; // String
+    name?: string | null; // String
+    profileImage?: string | null; // String
+  }
   Query: {};
   Thread: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -492,20 +510,38 @@ export interface NexusGenFieldTypes {
     title: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
+  PublicPost: { // field return type
+    content: string | null; // String
+    contentPreview: string | null; // String
+    contentType: string | null; // String
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    description: string | null; // String
+    generatedTitleSlug: string | null; // String
+    id: string | null; // String
+    title: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PublicUser: { // field return type
+    chosenUsername: string | null; // String
+    coverImage: string | null; // String
+    generatedUsername: string | null; // String
+    name: string | null; // String
+    profileImage: string | null; // String
+  }
   Query: { // field return type
     authenticate: string; // String!
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
-    getPostByPostTitle: NexusGenRootTypes['Post']; // Post!
+    getPostByPostTitle: NexusGenRootTypes['PublicPost'] | null; // PublicPost
     getPostImpressions: Array<NexusGenRootTypes['Message'] | null>; // [Message]!
-    getPostsByUsername: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
-    getUserByPostTitle: NexusGenRootTypes['User']; // User!
-    getUserByUsername: NexusGenRootTypes['User']; // User!
+    getPostsByUsername: Array<NexusGenRootTypes['PublicPost'] | null> | null; // [PublicPost]
+    getUserByPostTitle: NexusGenRootTypes['PublicUser'] | null; // PublicUser
+    getUserByUsername: NexusGenRootTypes['PublicUser'] | null; // PublicUser
     interests: NexusGenRootTypes['Interest'][]; // [Interest!]!
     post: NexusGenRootTypes['Post'] | null; // Post
     posts: NexusGenRootTypes['Post'][]; // [Post!]!
     registerUser: string; // String!
     thread: NexusGenRootTypes['Thread'] | null; // Thread
-    user: NexusGenRootTypes['User']; // User!
+    user: NexusGenRootTypes['User'] | null; // User
   }
   Thread: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -564,14 +600,32 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
     updatedAt: 'DateTime'
   }
+  PublicPost: { // field return type name
+    content: 'String'
+    contentPreview: 'String'
+    contentType: 'String'
+    createdAt: 'DateTime'
+    description: 'String'
+    generatedTitleSlug: 'String'
+    id: 'String'
+    title: 'String'
+    updatedAt: 'DateTime'
+  }
+  PublicUser: { // field return type name
+    chosenUsername: 'String'
+    coverImage: 'String'
+    generatedUsername: 'String'
+    name: 'String'
+    profileImage: 'String'
+  }
   Query: { // field return type name
     authenticate: 'String'
     categories: 'Category'
-    getPostByPostTitle: 'Post'
+    getPostByPostTitle: 'PublicPost'
     getPostImpressions: 'Message'
-    getPostsByUsername: 'Post'
-    getUserByPostTitle: 'User'
-    getUserByUsername: 'User'
+    getPostsByUsername: 'PublicPost'
+    getUserByPostTitle: 'PublicUser'
+    getUserByUsername: 'PublicUser'
     interests: 'Interest'
     post: 'Post'
     posts: 'Post'

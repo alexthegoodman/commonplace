@@ -4,6 +4,7 @@ import { extendType, nonNull, objectType, stringArg } from "nexus";
 const prisma = new PrismaClient();
 
 const publicPostFields = {
+  id: true,
   title: true,
   description: true,
   generatedTitleSlug: true,
@@ -13,6 +14,24 @@ const publicPostFields = {
   updatedAt: true,
   createdAt: true,
 };
+
+export const PublicPostType = objectType({
+  name: "PublicPost",
+  definition(t) {
+    t.field("id", { type: "String" });
+    t.field("title", { type: "String" });
+    t.field("description", { type: "String" });
+
+    t.field("generatedTitleSlug", { type: "String" });
+
+    t.field("contentType", { type: "String" });
+    t.field("contentPreview", { type: "String" });
+    t.field("content", { type: "String" });
+
+    t.field("updatedAt", { type: "DateTime" });
+    t.field("createdAt", { type: "DateTime" });
+  },
+});
 
 export const PostType = objectType({
   name: "Post",
@@ -41,8 +60,8 @@ export const PostType = objectType({
 export const PostByPostTitleQuery = extendType({
   type: "Query",
   definition(t) {
-    t.nonNull.field("getPostByPostTitle", {
-      type: "Post",
+    t.field("getPostByPostTitle", {
+      type: "PublicPost",
       args: {
         postTitle: nonNull(stringArg()),
       },
@@ -65,8 +84,8 @@ export const PostByPostTitleQuery = extendType({
 export const PostsByUsernameQuery = extendType({
   type: "Query",
   definition(t) {
-    t.nonNull.list.field("getPostsByUsername", {
-      type: "Post",
+    t.list.field("getPostsByUsername", {
+      type: "PublicPost",
       args: {
         chosenUsername: nonNull(stringArg()),
       },

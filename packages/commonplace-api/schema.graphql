@@ -315,20 +315,40 @@ input PostWhereUniqueInput {
   id: String
 }
 
+type PublicPost {
+  content: String
+  contentPreview: String
+  contentType: String
+  createdAt: DateTime
+  description: String
+  generatedTitleSlug: String
+  id: String
+  title: String
+  updatedAt: DateTime
+}
+
+type PublicUser {
+  chosenUsername: String
+  coverImage: String
+  generatedUsername: String
+  name: String
+  profileImage: String
+}
+
 type Query {
   authenticate(email: String!, password: String!): String!
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
-  getPostByPostTitle(postTitle: String!): Post!
+  getPostByPostTitle(postTitle: String!): PublicPost
   getPostImpressions(postTitle: String!): [Message]!
-  getPostsByUsername(chosenUsername: String!): [Post]!
-  getUserByPostTitle(postTitle: String!): User!
-  getUserByUsername(chosenUsername: String!): User!
+  getPostsByUsername(chosenUsername: String!): [PublicPost]
+  getUserByPostTitle(postTitle: String!): PublicUser
+  getUserByUsername(chosenUsername: String!): PublicUser
   interests(after: InterestWhereUniqueInput, before: InterestWhereUniqueInput, first: Int, last: Int): [Interest!]!
   post(where: PostWhereUniqueInput!): Post
   posts(after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int, where: PostWhereInput): [Post!]!
   registerUser(email: String!, password: String!): String!
   thread(where: ThreadWhereUniqueInput!): Thread
-  user(id: String!): User!
+  user(id: String!): User
 }
 
 enum QueryMode {

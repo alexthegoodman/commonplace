@@ -14,7 +14,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "npx webpack --config webpack.config.js --watch",
+    "build": "npx webpack --config webpack.config.js",
     "start": "nodemon --watch dist/main.js -- dist/main.js",
     "dev": "ts-node-dev --transpile-only --no-notify index.ts",
     "test": "echo \"Error: run tests from root\" && exit 1",

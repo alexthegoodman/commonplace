@@ -13,6 +13,18 @@ const publicUserFields = {
   coverImage: true,
 };
 
+export const PublicUserType = objectType({
+  name: "PublicUser",
+  definition(t) {
+    t.field("name", { type: "String" });
+    t.field("generatedUsername", { type: "String" });
+    t.field("chosenUsername", { type: "String" });
+
+    t.field("profileImage", { type: "String" });
+    t.field("coverImage", { type: "String" });
+  },
+});
+
 export const UserType = objectType({
   name: "User",
   definition(t) {
@@ -45,7 +57,7 @@ export const UserType = objectType({
 export const UserQuery = extendType({
   type: "Query",
   definition(t) {
-    t.nonNull.field("user", {
+    t.field("user", {
       type: "User",
       args: {
         id: nonNull(stringArg()),
@@ -68,8 +80,8 @@ export const UserQuery = extendType({
 export const UserByUsernameQuery = extendType({
   type: "Query",
   definition(t) {
-    t.nonNull.field("getUserByUsername", {
-      type: "User",
+    t.field("getUserByUsername", {
+      type: "PublicUser",
       args: {
         chosenUsername: nonNull(stringArg()),
       },
@@ -92,8 +104,8 @@ export const UserByUsernameQuery = extendType({
 export const UserByPostTitleQuery = extendType({
   type: "Query",
   definition(t) {
-    t.nonNull.field("getUserByPostTitle", {
-      type: "User",
+    t.field("getUserByPostTitle", {
+      type: "PublicUser",
       args: {
         postTitle: nonNull(stringArg()),
       },

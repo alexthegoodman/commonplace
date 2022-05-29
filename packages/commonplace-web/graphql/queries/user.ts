@@ -49,7 +49,7 @@ export const userQuery = gql`
 `;
 
 const PublicUserFieldsFragment = gql`
-  fragment PublicUserFieldsFragment on User {
+  fragment PublicUserFieldsFragment on PublicUser {
     name
     generatedUsername
     chosenUsername
