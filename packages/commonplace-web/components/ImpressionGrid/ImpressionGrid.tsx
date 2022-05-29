@@ -17,7 +17,7 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
 
   React.useEffect(() => {
     if (pillGridRef.current) {
-      pillGridRef.current.scrollLeft = 700;
+      pillGridRef.current.scrollLeft = 600;
       pillGridRef.current.setAttribute("class", "impressionGrid visibleGrid");
     }
   }, []);

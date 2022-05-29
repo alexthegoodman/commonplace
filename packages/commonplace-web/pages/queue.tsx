@@ -123,7 +123,12 @@ const QueueContent = () => {
     <section className="queue">
       <div className="queueInner">
         <PrimaryHeader
-          leftIcon={<span className="brandname">Co</span>}
+          leftIcon={
+            <div className="brandnameWrapper">
+              <span className="brandname mobileOnly">Co</span>
+              <span className="brandname desktopOnly">CommonPlace</span>
+            </div>
+          }
           titleComponent={
             <Link href="/interests">
               <a className="pickerButton">

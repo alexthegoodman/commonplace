@@ -1,7 +1,21 @@
+@media screen and (min-width: 1200px) {
+  header.primaryHeader {
+    width: 1200px;
+    margin: 0 auto;
+
+    .primaryHeaderInner {
+      .headerIcon {
+        width: auto;
+        padding: 0 15px;
+      }
+    }
+  }
+}
+
 .primaryHeader {
   position: absolute;
   top: 0;
-  width: 100vw;
+  width: 100%;
   z-index: 10;
 
   &.inline {
@@ -69,7 +83,7 @@
 
       &.headerLeftIcon {
         background: $frenchRaspberry;
-        border-radius: 50%;
+        border-radius: 50px;
 
         a,
         span {
