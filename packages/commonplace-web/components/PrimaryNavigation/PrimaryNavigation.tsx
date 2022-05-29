@@ -14,16 +14,19 @@ const PrimaryNavigation: React.FC<PrimaryNavigationProps> = ({
       <div className="primaryNavigationInner">
         <Link href="/upload">
           <a className="navOption primaryNavOption">
+            <span className="navLabel desktopOnly">Upload</span>
             <div className="feather-icon icon-upload"></div>
           </a>
         </Link>
         <Link href="/profile">
           <a className="navOption">
+            <span className="navLabel desktopOnly">Profile</span>
             <div className="feather-icon icon-user"></div>
           </a>
         </Link>
         <Link href="/updates">
           <a className="navOption">
+            <span className="navLabel desktopOnly">Updates</span>
             <div className="feather-icon icon-message-square"></div>
           </a>
         </Link>
