@@ -20,13 +20,13 @@ import { postsQuery } from "../graphql/queries/post";
 import { userQuery } from "../graphql/queries/user";
 
 const getPostsAndUserData = async (userId) => {
-  const userData = await request("http://localhost:4000/graphql", userQuery, {
+  const userData = await request("http://127.0.0.1:4000/graphql", userQuery, {
     id: userId,
   });
 
   console.info("getPostsAndUserData", userId);
 
-  const postsData = await request("http://localhost:4000/graphql", postsQuery, {
+  const postsData = await request("http://127.0.0.1:4000/graphql", postsQuery, {
     where: {
       // NOT currentUser's posts
       creatorId: {
@@ -98,7 +98,7 @@ const QueueContent = () => {
     );
 
     const savedImpression = await request(
-      "http://localhost:4000/graphql",
+      "http://127.0.0.1:4000/graphql",
       createMessageMutation,
       {
         type: "impression",

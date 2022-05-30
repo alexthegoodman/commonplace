@@ -13,12 +13,12 @@ import { useRouter } from "next/router";
 import { userQuery } from "../../graphql/queries/user";
 
 const getUserAndThreadData = async (userId, threadId) => {
-  const userData = await request("http://localhost:4000/graphql", userQuery, {
+  const userData = await request("http://127.0.0.1:4000/graphql", userQuery, {
     id: userId,
   });
 
   const threadData = await request(
-    "http://localhost:4000/graphql",
+    "http://127.0.0.1:4000/graphql",
     threadQuery,
     {
       where: {

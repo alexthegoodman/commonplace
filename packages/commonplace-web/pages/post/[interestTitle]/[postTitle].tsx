@@ -12,7 +12,7 @@ import { userByPostTitleQuery } from "../../../graphql/queries/user";
 
 const getPostAndUserData = async (postTitle) => {
   const postData = await request(
-    "http://localhost:4000/graphql",
+    "http://127.0.0.1:4000/graphql",
     postByPostTitleQuery,
     {
       postTitle,
@@ -20,7 +20,7 @@ const getPostAndUserData = async (postTitle) => {
   );
 
   const impressionData = await request(
-    "http://localhost:4000/graphql",
+    "http://127.0.0.1:4000/graphql",
     postImpressionsQuery,
     {
       postTitle,
@@ -28,7 +28,7 @@ const getPostAndUserData = async (postTitle) => {
   );
 
   const userData = await request(
-    "http://localhost:4000/graphql",
+    "http://127.0.0.1:4000/graphql",
     userByPostTitleQuery,
     {
       postTitle,

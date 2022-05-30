@@ -30,7 +30,7 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
     console.log("MessageDictator onSubmit", data);
 
     const message = await request(
-      "http://localhost:4000/graphql",
+      "http://127.0.0.1:4000/graphql",
       createMessageMutation,
       {
         type: "reply",
@@ -40,7 +40,7 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
       }
     );
 
-    // mutate("http://localhost:4000/graphql");
+    // mutate("http://127.0.0.1:4000/graphql");
 
     reset();
 

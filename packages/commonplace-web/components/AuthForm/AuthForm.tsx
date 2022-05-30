@@ -40,7 +40,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
       if (type === "sign-in") {
         userIdData = await request(
-          "http://localhost:4000/graphql",
+          "http://127.0.0.1:4000/graphql",
           authenticateQuery,
           {
             email: data.email,
@@ -50,7 +50,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
         userId = userIdData.authenticate;
       } else if (type === "sign-up") {
         userIdData = await request(
-          "http://localhost:4000/graphql",
+          "http://127.0.0.1:4000/graphql",
           registerQuery,
           {
             email: data.email,

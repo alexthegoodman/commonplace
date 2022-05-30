@@ -11,7 +11,7 @@ import { threadsQuery } from "../../graphql/queries/thread";
 
 const getUserThreadData = async (userId) => {
   const userThreadData = await request(
-    "http://localhost:4000/graphql",
+    "http://127.0.0.1:4000/graphql",
     threadsQuery,
     {
       id: userId,
