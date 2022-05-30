@@ -70,7 +70,8 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
       setCookie("coUserId", userId, {
         sameSite: "strict",
-        domain: "localhost", // TODO: set by production or development
+        domain:
+          "commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com", // TODO: set by production or development
         expires: expireCookie,
         // secure: true // only accessible via https
       });
