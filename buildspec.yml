@@ -34,7 +34,7 @@ phases:
       - cd ../../
       - cd ./packages/commonplace-web/
       - npm install -g typescript @types/node
-      - npm install
+      - npm ci
       - npm run build
   post_build:
     commands:
