@@ -12,7 +12,7 @@ app.get("/", function (req, res) {
     res.send("API Functioning");
 });
 console.info("Start Server...");
-app.listen(port, function () {
+app.listen(port, "127.0.0.1", function () {
     console.info("Express Server ready on port ".concat(port));
 });
 (0, api_1.startApolloServer)();
