@@ -30,7 +30,7 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
     console.log("MessageDictator onSubmit", data);
 
     const message = await request(
-      "http://127.0.0.1:4000/graphql",
+      "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
       createMessageMutation,
       {
         type: "reply",
@@ -40,7 +40,7 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
       }
     );
 
-    // mutate("http://127.0.0.1:4000/graphql");
+    // mutate("http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql");
 
     reset();
 

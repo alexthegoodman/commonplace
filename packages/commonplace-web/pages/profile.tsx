@@ -11,9 +11,13 @@ import { userQuery } from "../graphql/queries/user";
 import Utilities from "../../commonplace-utilities";
 
 const getUserData = async (userId) => {
-  const userData = await request("http://127.0.0.1:4000/graphql", userQuery, {
-    id: userId,
-  });
+  const userData = await request(
+    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
+    userQuery,
+    {
+      id: userId,
+    }
+  );
 
   return userData;
 };

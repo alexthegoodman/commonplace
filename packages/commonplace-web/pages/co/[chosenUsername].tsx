@@ -8,7 +8,7 @@ import { ProfileContent } from "../profile";
 
 const getUserAndPostsByUsernameData = async (chosenUsername) => {
   const userData = await request(
-    "http://127.0.0.1:4000/graphql",
+    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
     userByUsernameQuery,
     {
       chosenUsername,
@@ -16,7 +16,7 @@ const getUserAndPostsByUsernameData = async (chosenUsername) => {
   );
 
   const postsData = await request(
-    "http://127.0.0.1:4000/graphql",
+    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
     postsByUsernameQuery,
     {
       chosenUsername,
