@@ -14,8 +14,8 @@
     "lib"
   ],
   "scripts": {
-    "build": "npx webpack --config webpack.config.js",
-    "start": "nodemon --watch dist/main.js -- dist/main.js",
+    "build": "tsc",
+    "start": "node ./dist/commonplace-api/index.js",
     "dev": "ts-node-dev --transpile-only --no-notify index.ts",
     "test": "echo \"Error: run tests from root\" && exit 1",
     "generate": "prisma generate",
@@ -55,6 +55,7 @@
     "nodemon": "^2.0.16",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
+    "pretty-console-logs": "^0.3.0",
     "slugify": "^1.6.5"
   },
   "resolutions": {
