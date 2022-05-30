@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
 
 console.info("Start Server...");
 
-app.listen(port, "127.0.0.1", () => {
+app.listen(port, "0.0.0.0", () => {
   console.info(`Express Server ready on port ${port}`);
 });
 

@@ -5,7 +5,7 @@ var server_1 = require("./server");
 var startApolloServer = function () {
     server_1.server
         .listen({
-        host: "127.0.0.1",
+        host: "0.0.0.0",
         port: 4000,
     })
         .then(function (_a) {
