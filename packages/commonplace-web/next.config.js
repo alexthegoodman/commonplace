@@ -14,9 +14,6 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  env: {
-    NODE_ENV: process.env.NODE_ENV,
-  },
 };
 
 module.exports = nextConfig;
