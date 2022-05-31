@@ -15,48 +15,41 @@ import {
   QueueContextReducer,
   QueueContextState,
 } from "../context/QueueContext/QueueContext";
+import { cpGraphqlUrl } from "../def/urls";
 import { createMessageMutation } from "../graphql/mutations/message";
 import { postsQuery } from "../graphql/queries/post";
 import { userQuery } from "../graphql/queries/user";
 
 const getPostsAndUserData = async (userId) => {
-  const userData = await request(
-    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-    userQuery,
-    {
-      id: userId,
-    }
-  );
+  const userData = await request(cpGraphqlUrl, userQuery, {
+    id: userId,
+  });
 
   console.info("getPostsAndUserData", userId);
 
-  const postsData = await request(
-    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-    postsQuery,
-    {
-      where: {
-        // NOT currentUser's posts
-        creatorId: {
-          not: {
-            equals: userId,
-          },
+  const postsData = await request(cpGraphqlUrl, postsQuery, {
+    where: {
+      // NOT currentUser's posts
+      creatorId: {
+        not: {
+          equals: userId,
         },
-        // NOT posts with impression from currentUser
-        messages: {
-          none: {
-            user: {
-              id: {
-                equals: userId,
-              },
+      },
+      // NOT posts with impression from currentUser
+      messages: {
+        none: {
+          user: {
+            id: {
+              equals: userId,
             },
-            type: {
-              equals: "impression",
-            },
+          },
+          type: {
+            equals: "impression",
           },
         },
       },
-    }
-  );
+    },
+  });
 
   const returnData = {
     currentUser: userData,
@@ -105,17 +98,13 @@ const QueueContent = () => {
       currentPost
     );
 
-    const savedImpression = await request(
-      "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-      createMessageMutation,
-      {
-        type: "impression",
-        content: impression,
-        authorEmail: currentUserEmail,
-        postCreatorEmail: postCreatorEmail,
-        postId: currentPost?.id,
-      }
-    );
+    const savedImpression = await request(cpGraphqlUrl, createMessageMutation, {
+      type: "impression",
+      content: impression,
+      authorEmail: currentUserEmail,
+      postCreatorEmail: postCreatorEmail,
+      postId: currentPost?.id,
+    });
 
     console.info(
       "savedImpression",

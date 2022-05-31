@@ -11,28 +11,21 @@ import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
 import { threadQuery } from "../../graphql/queries/thread";
 import { useRouter } from "next/router";
 import { userQuery } from "../../graphql/queries/user";
+import { cpGraphqlUrl } from "../../def/urls";
 
 const getUserAndThreadData = async (userId, threadId) => {
-  const userData = await request(
-    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-    userQuery,
-    {
-      id: userId,
-    }
-  );
+  const userData = await request(cpGraphqlUrl, userQuery, {
+    id: userId,
+  });
 
-  const threadData = await request(
-    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-    threadQuery,
-    {
-      where: {
-        id: threadId, // TODO: from url slug
-      },
-      orderMessagesBy: {
-        createdAt: "desc",
-      },
-    }
-  );
+  const threadData = await request(cpGraphqlUrl, threadQuery, {
+    where: {
+      id: threadId, // TODO: from url slug
+    },
+    orderMessagesBy: {
+      createdAt: "desc",
+    },
+  });
 
   const returnData = {
     currentUser: userData,

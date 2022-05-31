@@ -9,15 +9,12 @@ import ProfileIntro from "../components/ProfileIntro/ProfileIntro";
 import ProfilePosts from "../components/ProfilePosts/ProfilePosts";
 import { userQuery } from "../graphql/queries/user";
 import Utilities from "../../commonplace-utilities";
+import { cpGraphqlUrl } from "../def/urls";
 
 const getUserData = async (userId) => {
-  const userData = await request(
-    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-    userQuery,
-    {
-      id: userId,
-    }
-  );
+  const userData = await request(cpGraphqlUrl, userQuery, {
+    id: userId,
+  });
 
   return userData;
 };

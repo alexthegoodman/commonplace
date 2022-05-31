@@ -2,26 +2,19 @@ import request from "graphql-request";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import useSWR, { SWRConfig } from "swr";
+import { cpGraphqlUrl } from "../../def/urls";
 import { postsByUsernameQuery } from "../../graphql/queries/post";
 import { userByUsernameQuery } from "../../graphql/queries/user";
 import { ProfileContent } from "../profile";
 
 const getUserAndPostsByUsernameData = async (chosenUsername) => {
-  const userData = await request(
-    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-    userByUsernameQuery,
-    {
-      chosenUsername,
-    }
-  );
+  const userData = await request(cpGraphqlUrl, userByUsernameQuery, {
+    chosenUsername,
+  });
 
-  const postsData = await request(
-    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-    postsByUsernameQuery,
-    {
-      chosenUsername,
-    }
-  );
+  const postsData = await request(cpGraphqlUrl, postsByUsernameQuery, {
+    chosenUsername,
+  });
 
   const returnData = {
     user: {

@@ -8,33 +8,30 @@ import Utilities from "../../../commonplace-utilities";
 import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
 import UpdateItem from "../../components/UpdateItem/UpdateItem";
 import { threadsQuery } from "../../graphql/queries/thread";
+import { cpGraphqlUrl } from "../../def/urls";
 
 const getUserThreadData = async (userId) => {
-  const userThreadData = await request(
-    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-    threadsQuery,
-    {
-      id: userId,
-      orderMessagesBy: {
-        createdAt: "desc",
-      },
-      orderThreadsBy: {
-        updatedAt: "desc",
-      },
-      // EXCLUDE threads where messages are only from currentUser
-      threadWhere: {
-        messages: {
-          some: {
-            userId: {
-              not: {
-                equals: userId,
-              },
+  const userThreadData = await request(cpGraphqlUrl, threadsQuery, {
+    id: userId,
+    orderMessagesBy: {
+      createdAt: "desc",
+    },
+    orderThreadsBy: {
+      updatedAt: "desc",
+    },
+    // EXCLUDE threads where messages are only from currentUser
+    threadWhere: {
+      messages: {
+        some: {
+          userId: {
+            not: {
+              equals: userId,
             },
           },
         },
       },
-    }
-  );
+    },
+  });
 
   return userThreadData;
 };

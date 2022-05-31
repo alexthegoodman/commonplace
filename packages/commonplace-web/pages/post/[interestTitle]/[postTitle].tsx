@@ -6,34 +6,23 @@ import ContentInformation from "../../../components/ContentInformation/ContentIn
 import ContentViewer from "../../../components/ContentViewer/ContentViewer";
 import PostImpressions from "../../../components/PostImpressions/PostImpressions";
 import PrimaryHeader from "../../../components/PrimaryHeader/PrimaryHeader";
+import { cpGraphqlUrl } from "../../../def/urls";
 import { postImpressionsQuery } from "../../../graphql/queries/message";
 import { postByPostTitleQuery } from "../../../graphql/queries/post";
 import { userByPostTitleQuery } from "../../../graphql/queries/user";
 
 const getPostAndUserData = async (postTitle) => {
-  const postData = await request(
-    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-    postByPostTitleQuery,
-    {
-      postTitle,
-    }
-  );
+  const postData = await request(cpGraphqlUrl, postByPostTitleQuery, {
+    postTitle,
+  });
 
-  const impressionData = await request(
-    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-    postImpressionsQuery,
-    {
-      postTitle,
-    }
-  );
+  const impressionData = await request(cpGraphqlUrl, postImpressionsQuery, {
+    postTitle,
+  });
 
-  const userData = await request(
-    "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-    userByPostTitleQuery,
-    {
-      postTitle,
-    }
-  );
+  const userData = await request(cpGraphqlUrl, userByPostTitleQuery, {
+    postTitle,
+  });
 
   const returnData = {
     ...postData.getPostByPostTitle,

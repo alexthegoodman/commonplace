@@ -2,6 +2,7 @@ import request from "graphql-request";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
+import { cpGraphqlUrl } from "../../def/urls";
 import { createMessageMutation } from "../../graphql/mutations/message";
 import FormInput from "../FormInput/FormInput";
 import FormTextarea from "../FormTextarea/FormTextarea";
@@ -29,18 +30,14 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
   const onSubmit = async (data) => {
     console.log("MessageDictator onSubmit", data);
 
-    const message = await request(
-      "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-      createMessageMutation,
-      {
-        type: "reply",
-        content: data?.message,
-        authorEmail: author?.user?.email,
-        threadId: threadId,
-      }
-    );
+    const message = await request(cpGraphqlUrl, createMessageMutation, {
+      type: "reply",
+      content: data?.message,
+      authorEmail: author?.user?.email,
+      threadId: threadId,
+    });
 
-    // mutate("http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql");
+    // mutate(cpGraphqlUrl);
 
     reset();
 

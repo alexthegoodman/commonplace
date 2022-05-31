@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
+import { cpDomain, cpGraphqlUrl } from "../../def/urls";
 const { DateTime } = require("luxon");
 
 import { authenticateQuery, registerQuery } from "../../graphql/queries/user";
@@ -39,24 +40,16 @@ const AuthForm: React.FC<AuthFormProps> = ({
       var userIdData, userId;
 
       if (type === "sign-in") {
-        userIdData = await request(
-          "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-          authenticateQuery,
-          {
-            email: data.email,
-            password: data.password,
-          }
-        );
+        userIdData = await request(cpGraphqlUrl, authenticateQuery, {
+          email: data.email,
+          password: data.password,
+        });
         userId = userIdData.authenticate;
       } else if (type === "sign-up") {
-        userIdData = await request(
-          "http://commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com:4000/graphql",
-          registerQuery,
-          {
-            email: data.email,
-            password: data.password,
-          }
-        );
+        userIdData = await request(cpGraphqlUrl, registerQuery, {
+          email: data.email,
+          password: data.password,
+        });
         userId = userIdData.registerUser;
       }
 
@@ -70,8 +63,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
       setCookie("coUserId", userId, {
         sameSite: "strict",
-        domain:
-          "commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com", // TODO: set by production or development
+        domain: cpDomain, // TODO: set by production or development
         expires: expireCookie,
         // secure: true // only accessible via https
       });
