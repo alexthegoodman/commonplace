@@ -1,4 +1,4 @@
-export const env = process.env.NODE_ENV;
+export const env = process.env.NEXT_PUBLIC_APP_ENV;
 
 export const cpDomain =
   env === "production"
