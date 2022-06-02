@@ -121,6 +121,7 @@ export const InterestsContent = ({
   );
 };
 
+// TODO: remove "page" as actual page is unnecessary
 const Interests: NextPage = () => {
   return <InterestsContent />;
 };
