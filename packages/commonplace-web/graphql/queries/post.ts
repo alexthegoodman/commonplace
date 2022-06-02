@@ -1,8 +1,11 @@
 import { gql } from "graphql-request";
 
 export const postsQuery = gql`
-  query Posts($where: PostWhereInput) {
-    posts(where: $where) {
+  query Posts(
+    $where: PostWhereInput
+    $orderBy: [PostOrderByWithRelationInput!]
+  ) {
+    posts(where: $where, orderBy: $orderBy) {
       id
       title
       description

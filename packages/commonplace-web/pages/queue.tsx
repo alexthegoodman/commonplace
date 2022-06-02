@@ -49,6 +49,9 @@ const getPostsAndUserData = async (userId) => {
         },
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   const returnData = {
