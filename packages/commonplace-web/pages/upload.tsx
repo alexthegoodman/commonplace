@@ -14,6 +14,7 @@ const Upload: NextPage = () => {
   const [step, setStep] = useState(1);
   const [contentType, setContentType] = useState("image");
   const [showInterestsModal, setShowInterestsModal] = useState(false);
+  const [selectedInterest, setSelectedInterest] = useState<any>(null);
 
   const {
     register,
@@ -48,7 +49,9 @@ const Upload: NextPage = () => {
     setShowInterestsModal(false);
   };
 
-  const onConfirmInterest = () => {
+  const onConfirmInterest = (category, interest) => {
+    console.info("onConfirmInterest", category, interest);
+    setSelectedInterest(interest);
     setStep(1);
     setShowInterestsModal(false);
   };
@@ -94,6 +97,7 @@ const Upload: NextPage = () => {
                       >
                         Pick Interest
                       </button>
+                      {selectedInterest?.name}
                     </div>
                   </div>
 

@@ -1,13 +1,31 @@
 .interestGrid {
   @extend .grid;
 
+  &.smallGrid {
+    height: auto;
+
+    .interestGridInner {
+      .pillGrid {
+        height: auto;
+        width: 500px;
+      }
+    }
+  }
+
   .interestGridInner {
     .pillGrid {
-      height: 145px;
+      // height: 145px;
 
       li {
-        background: $lightBlue;
-        color: white;
+        // background: $lightBlue;
+        // color: white;
+
+        &.selected {
+          a {
+            background: purple;
+            color: white;
+          }
+        }
       }
     }
   }

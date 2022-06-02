@@ -6,15 +6,26 @@ import { InterestGridProps } from "./InterestGrid.d";
 const InterestGrid: React.FC<InterestGridProps> = ({
   ref = null,
   className = "",
-  onClick = (e) => console.info("Click InterestGrid"),
+  data = null,
+  selectedItemId = null,
+  onItemSelect = null,
 }) => {
-  const clickHandler = (e: MouseEvent) => onClick(e);
   return (
-    <section className="interestGrid">
+    <section className={`interestGrid ${className}`}>
       <div className="interestGridInner">
         <ul className="pillGrid">
-          {adjectives.map((adjective, i) => {
-            return <li key={`interestGridItem${i}`}>{adjective}</li>;
+          {data?.map((item, i) => {
+            const itemSelectHandler = () => onItemSelect(item.id);
+
+            return (
+              <li
+                key={`interestGridItem${i}`}
+                className={item.id === selectedItemId ? "selected" : ""}
+                onClick={itemSelectHandler}
+              >
+                <a>{item.name}</a>
+              </li>
+            );
           })}
         </ul>
       </div>

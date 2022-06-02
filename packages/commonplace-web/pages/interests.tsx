@@ -2,6 +2,7 @@ import request from "graphql-request";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import InterestGrid from "../components/InterestGrid/InterestGrid";
 import InterestPreview from "../components/InterestPreview/InterestPreview";
@@ -21,7 +22,7 @@ const getCategoriesAndInterestData = async () => {
 
 export const InterestsContent = ({
   onBack,
-  onConfirm = () => console.info("confirm"),
+  onConfirm = (selectedCategory, selectedInterest) => console.info("confirm"),
 }) => {
   const { data } = useSWR("interestsKey", () => getCategoriesAndInterestData());
   const router = useRouter();
@@ -36,7 +37,28 @@ export const InterestsContent = ({
     }
   };
 
-  const onSelectorConfirm = () => onConfirm();
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedInterest, setSelectedInterest] = useState("");
+
+  const defaultCategory = data?.categories[0].id;
+
+  useEffect(() => {
+    setSelectedCategory(defaultCategory);
+  }, defaultCategory);
+
+  console.info("selectedCategory", defaultCategory, selectedCategory);
+
+  const displayCategory = data?.categories?.filter((category, i) => {
+    return category.id === selectedCategory;
+  })[0];
+
+  const displayInterests = displayCategory?.interests;
+
+  const displayInterest = displayInterests?.filter((interest, i) => {
+    return interest.id === selectedInterest;
+  })[0];
+
+  const onSelectorConfirm = () => onConfirm(displayCategory, displayInterest);
 
   return (
     <section className="interests">
@@ -50,7 +72,7 @@ export const InterestsContent = ({
           title="Pick Interest"
           rightIcon={<></>}
         />
-        <InterestPreview />
+        <InterestPreview selectedInterest={displayInterest?.name} />
         <section className="interestPicker">
           <div className="interestPickerInner">
             <div className="pickerSearch">
@@ -61,13 +83,26 @@ export const InterestsContent = ({
                 <div className="selectorLevel">
                   <span className="selectorLabel">Category</span>
                   <div className="selectorGridWrapper">
-                    <InterestGrid />
+                    <InterestGrid
+                      className="smallGrid"
+                      data={data?.categories}
+                      selectedItemId={selectedCategory}
+                      onItemSelect={(id) => {
+                        setSelectedCategory(id);
+                        setSelectedInterest("");
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="selectorLevel">
                   <span className="selectorLabel">Interest</span>
                   <div className="selectorGridWrapper">
-                    <InterestGrid />
+                    <InterestGrid
+                      className="smallGrid"
+                      data={displayInterests}
+                      selectedItemId={selectedInterest}
+                      onItemSelect={setSelectedInterest}
+                    />
                   </div>
                 </div>
               </div>
