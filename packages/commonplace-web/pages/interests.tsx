@@ -1,16 +1,32 @@
+import request from "graphql-request";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import useSWR from "swr";
 import InterestGrid from "../components/InterestGrid/InterestGrid";
 import InterestPreview from "../components/InterestPreview/InterestPreview";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
 import SearchInput from "../components/SearchInput/SearchInput";
+import { cpGraphqlUrl } from "../def/urls";
+import { categoriesAndInterestsQuery } from "../graphql/queries/interest";
+
+const getCategoriesAndInterestData = async () => {
+  const categoriesAndInterestsData = await request(
+    cpGraphqlUrl,
+    categoriesAndInterestsQuery
+  );
+
+  return categoriesAndInterestsData;
+};
 
 export const InterestsContent = ({
   onBack,
   onConfirm = () => console.info("confirm"),
 }) => {
+  const { data } = useSWR("interestsKey", () => getCategoriesAndInterestData());
   const router = useRouter();
+
+  console.info("data", data);
 
   const goBack = () => {
     if (typeof onBack !== "undefined") {

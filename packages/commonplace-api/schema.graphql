@@ -8,6 +8,7 @@ input BoolFilter {
 }
 
 type Category {
+  id: String!
   interests(after: InterestWhereUniqueInput, before: InterestWhereUniqueInput, first: Int, last: Int): [Interest!]!
   name: String!
 }
@@ -66,6 +67,7 @@ input IntFilter {
 
 type Interest {
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
+  id: String!
   name: String!
 }
 

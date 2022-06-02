@@ -405,9 +405,11 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Category: { // root type
+    id: string; // String!
     name: string; // String!
   }
   Interest: { // root type
+    id: string; // String!
     name: string; // String!
   }
   Message: { // root type
@@ -478,11 +480,13 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnu
 
 export interface NexusGenFieldTypes {
   Category: { // field return type
+    id: string; // String!
     interests: NexusGenRootTypes['Interest'][]; // [Interest!]!
     name: string; // String!
   }
   Interest: { // field return type
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
+    id: string; // String!
     name: string; // String!
   }
   Message: { // field return type
@@ -568,11 +572,13 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   Category: { // field return type name
+    id: 'String'
     interests: 'Interest'
     name: 'String'
   }
   Interest: { // field return type name
     categories: 'Category'
+    id: 'String'
     name: 'String'
   }
   Message: { // field return type name
