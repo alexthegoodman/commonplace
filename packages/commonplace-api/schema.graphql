@@ -192,6 +192,7 @@ input ModifierWhereInput {
 
 type Mutation {
   createMessage(authorEmail: String!, content: String!, postCreatorEmail: String, postId: String, threadId: String, type: String!): Message!
+  createPost(contentType: String!, creatorId: String!, description: String!, file1Data: String!, file1Name: String!, file1Size: Int!, file1Type: String!, file2Data: String, file2Name: String, file2Size: Int, file2Type: String, interestId: String!, title: String!): Post!
 }
 
 input NestedBoolFilter {

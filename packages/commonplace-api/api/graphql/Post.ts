@@ -1,5 +1,16 @@
 import { PrismaClient, User } from "@prisma/client";
-import { extendType, nonNull, objectType, stringArg } from "nexus";
+import { nanoid } from "nanoid";
+import {
+  extendType,
+  intArg,
+  nonNull,
+  nullable,
+  objectType,
+  stringArg,
+} from "nexus";
+import slugify from "slugify";
+
+import Utilities from "../../../commonplace-utilities";
 
 const prisma = new PrismaClient();
 
@@ -54,6 +65,119 @@ export const PostType = objectType({
 
     t.model.updatedAt();
     t.model.createdAt();
+  },
+});
+
+export const CreatePostMutation = extendType({
+  type: "Mutation",
+  definition(t) {
+    t.nonNull.field("createPost", {
+      type: "Post",
+      args: {
+        creatorId: nonNull(stringArg()),
+        interestId: nonNull(stringArg()),
+        contentType: nonNull(stringArg()),
+        title: nonNull(stringArg()),
+        description: nonNull(stringArg()),
+
+        file1Name: nonNull(stringArg()),
+        file1Size: nonNull(intArg()),
+        file1Type: nonNull(stringArg()),
+        file1Data: nonNull(stringArg()),
+
+        file2Name: nullable(stringArg()),
+        file2Size: nullable(intArg()),
+        file2Type: nullable(stringArg()),
+        file2Data: nullable(stringArg()),
+      },
+      resolve: async (
+        _,
+        {
+          creatorId,
+          interestId,
+          contentType,
+          title,
+          description,
+          file1Name,
+          file1Size,
+          file1Type,
+          file1Data,
+          file2Name,
+          file2Size,
+          file2Type,
+          file2Data,
+        },
+        { prisma: PrismaClient }
+      ) => {
+        console.info(
+          "Create Post",
+          creatorId,
+          interestId,
+          contentType,
+          title,
+          description,
+          file1Name,
+          file1Size,
+          file1Type,
+          file2Name,
+          file2Size,
+          file2Type
+        );
+
+        const utilities = new Utilities();
+
+        const upload1Path = await utilities.AWS.uploadAsset(
+          file1Name,
+          file1Type,
+          file1Size,
+          file1Data
+        );
+
+        let upload2Path = "";
+        if (file2Name && file2Data) {
+          upload2Path = await utilities.AWS.uploadAsset(
+            file2Name,
+            file2Type,
+            file2Size,
+            file2Data
+          );
+        }
+
+        const generatedTitleSlug = slugify(title) + "-" + nanoid(10);
+
+        console.info(
+          "generatedTitleSlug",
+          upload1Path,
+          upload2Path,
+          generatedTitleSlug
+        );
+
+        const post = await prisma.post.create({
+          data: {
+            title,
+            description,
+            generatedTitleSlug,
+            contentType,
+            contentPreview: upload2Path,
+            content: upload1Path,
+            interest: {
+              connect: {
+                id: interestId,
+              },
+            },
+            creator: {
+              connect: {
+                id: creatorId,
+              },
+            },
+          },
+        });
+
+        console.info("Created post", post);
+
+        return post;
+      },
+    });
   },
 });
 

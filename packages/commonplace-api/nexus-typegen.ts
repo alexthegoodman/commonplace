@@ -500,6 +500,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     createMessage: NexusGenRootTypes['Message']; // Message!
+    createPost: NexusGenRootTypes['Post']; // Post!
   }
   Post: { // field return type
     content: string; // String!
@@ -592,6 +593,7 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     createMessage: 'Message'
+    createPost: 'Post'
   }
   Post: { // field return type name
     content: 'String'
@@ -695,6 +697,21 @@ export interface NexusGenArgTypes {
       postId?: string | null; // String
       threadId?: string | null; // String
       type: string; // String!
+    }
+    createPost: { // args
+      contentType: string; // String!
+      creatorId: string; // String!
+      description: string; // String!
+      file1Data: string; // String!
+      file1Name: string; // String!
+      file1Size: number; // Int!
+      file1Type: string; // String!
+      file2Data?: string | null; // String
+      file2Name?: string | null; // String
+      file2Size?: number | null; // Int
+      file2Type?: string | null; // String
+      interestId: string; // String!
+      title: string; // String!
     }
   }
   Query: {

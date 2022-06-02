@@ -1,3 +1,4 @@
+import request from "graphql-request";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -8,6 +9,7 @@ import FormTextarea from "../components/FormTextarea/FormTextarea";
 import FormUpload from "../components/FormUpload/FormUpload";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
 import StepCounter from "../components/StepCounter/StepCounter";
+import { cpGraphqlUrl } from "../def/urls";
 import { InterestsContent } from "./interests";
 
 const Upload: NextPage = () => {
@@ -25,7 +27,18 @@ const Upload: NextPage = () => {
     formState: { errors },
   } = methods;
 
-  const onSubmit = (data) => console.log(data, contentType); // TODO: send data to API
+  const onSubmit = async (data) => {
+    console.log(data, contentType);
+
+    // await request(cpGraphqlUrl, createPostQuery, {
+    //   interest:,
+    //   contentType:,
+    //   file...,
+    //   file2...,
+    //   title:,
+    //   description:,
+    // });
+  }; // TODO: send data to API
   const onError = (error) => console.error(error);
 
   const goBack = () => {
