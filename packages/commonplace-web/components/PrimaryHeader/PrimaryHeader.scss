@@ -81,8 +81,29 @@
         left: -2px;
       }
 
-      &.headerLeftIcon {
+      .brandnameWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        // background: #8446ff;
+        // background: -webkit-radial-gradient(top left, #8446ff, #ff4040);
+        // background: -moz-radial-gradient(top left, #8446ff, #ff4040);
+        background: radial-gradient(at bottom right, #8446ff, #ff4040);
+
+        .brandname {
+          font-size: 20px;
+          font-weight: 600;
+          color: white;
+        }
+      }
+
+      .headerButton {
         background: $frenchRaspberry;
+        width: 50px;
+        height: 50px;
         border-radius: 50px;
 
         a,
