@@ -14,6 +14,9 @@ const FormUpload: React.FC<FormUploadProps> = ({
   const { register: contextRegister, setValue, getValues } = useFormContext();
   const { name } = fieldProps;
 
+  // const currentValues = getValues();
+
+  const fileNameField = name + "Name";
   const fileSizeField = name + "Size";
   const fileTypeField = name + "Type";
   const fileDataField = name + "Data";
@@ -28,7 +31,7 @@ const FormUpload: React.FC<FormUploadProps> = ({
     const file = e.target["files"][0];
     const reader = new FileReader();
 
-    setValue(name, file.name);
+    setValue(fileNameField, file.name);
     setValue(fileSizeField, file.size);
     setValue(fileTypeField, file.type);
 
@@ -43,7 +46,7 @@ const FormUpload: React.FC<FormUploadProps> = ({
   };
 
   return (
-    <div className="formInput">
+    <div className="formUpload">
       <input
         type="file"
         {...fieldProps}

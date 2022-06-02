@@ -91,7 +91,7 @@
         // background: #8446ff;
         // background: -webkit-radial-gradient(top left, #8446ff, #ff4040);
         // background: -moz-radial-gradient(top left, #8446ff, #ff4040);
-        background: radial-gradient(at bottom right, #8446ff, #ff4040);
+        background: $brandGradient;
 
         .brandname {
           font-size: 20px;

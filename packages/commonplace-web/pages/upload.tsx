@@ -99,9 +99,12 @@ const Upload: NextPage = () => {
                           className="button secondaryButton"
                           onClick={onPickInterest}
                         >
-                          Pick Interest
+                          {selectedInterest?.name ? (
+                            <>{selectedInterest?.name}</>
+                          ) : (
+                            <>Pick Interest</>
+                          )}
                         </button>
-                        {selectedInterest?.name}
                       </div>
                     </div>
 
@@ -113,7 +116,9 @@ const Upload: NextPage = () => {
                             {contentTypes.map((type, i) => {
                               return (
                                 <div
-                                  className="contentTypeOption"
+                                  className={`contentTypeOption ${
+                                    contentType === type ? "selectedOption" : ""
+                                  }`}
                                   onClick={() => onSelectType(type)}
                                 >
                                   <div className="option">
@@ -228,9 +233,9 @@ const Upload: NextPage = () => {
                       </div>
                     </div>
 
-                    <div className="uploadSection">
+                    {/* <div className="uploadSection">
                       <div className="uploadSectionInner"></div>
-                    </div>
+                    </div> */}
 
                     <button className="button" type="submit">
                       Post for 3CC

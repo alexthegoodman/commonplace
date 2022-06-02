@@ -1,9 +1,11 @@
 /** Variables **/
+$inputGrey: #ececec;
 
 /** Component Imports **/
 @import "../components/FormInput/FormInput";
 @import "../components/SearchInput/SearchInput";
 @import "../components/FormTextarea/FormTextarea";
+@import "../components/FormUpload/FormUpload";
 @import "../components/FormMessage/FormMessage";
 
 /** Page Styles **/
@@ -25,18 +27,28 @@
   background: none;
   max-width: 100%;
   font-size: 24px;
-  background: $lightBlue;
+  // background: $lightBlue;
+  background: $brandGradient;
+  color: white;
   width: 275px;
   font-weight: 600;
   display: block;
   padding: 18px 0;
   text-align: center;
+
+  &:focus {
+    outline: 1px $red solid;
+  }
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 .secondaryButton {
   @extend .button;
   font-size: 20px;
-  background: $darkBlue;
+  // background: $darkBlue;
+  background: $purple;
   color: white;
   padding: 12px 0;
   font-weight: 400;

@@ -1,1 +1,10 @@
-/** Styles **/
+.formUpload {
+  input {
+    padding: 20px;
+    height: auto;
+    background: $inputGrey;
+    color: black;
+    font-size: 16px;
+    width: 100%;
+  }
+}

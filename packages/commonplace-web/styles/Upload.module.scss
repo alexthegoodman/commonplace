@@ -64,6 +64,20 @@
               }
               span {
                 text-transform: capitalize;
+                font-weight: 600;
+              }
+
+              &.selectedOption {
+                .option {
+                  background: $red;
+
+                  .feather-icon {
+                    color: white;
+                  }
+                }
+                span {
+                  color: $red;
+                }
               }
             }
           }
