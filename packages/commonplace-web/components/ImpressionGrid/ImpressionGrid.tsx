@@ -28,17 +28,19 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
       <div className="impressionGrid" ref={pillGridRef}>
         <div className="impressionGridInner">
           <ul className="pillGrid">
-            {impressions.map((impression, i) => {
-              return (
-                <li key={`impressionGridItem${i}`}>
-                  <a
-                    href="#!"
-                    onClick={() => impressionClickHandler(impression)}
-                  >
-                    {impression}
-                  </a>
-                </li>
-              );
+            {impressions.map((category, x) => {
+              return category.list.map((impression, i) => {
+                return (
+                  <li key={`impressionGridItem${x}${i}`}>
+                    <a
+                      href="#!"
+                      onClick={() => impressionClickHandler(impression.name)}
+                    >
+                      {impression.name}
+                    </a>
+                  </li>
+                );
+              });
             })}
           </ul>
         </div>
