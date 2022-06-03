@@ -1,0 +1,24 @@
+/** Variables **/
+
+/** Component Imports **/
+
+/** Page Styles **/
+.settingsList {
+  .settingsListInner {
+    padding: 25px;
+
+    a {
+      display: block;
+      font-size: 24px;
+      font-weight: 600;
+      text-decoration: none;
+      color: black;
+      margin-bottom: 35px;
+    }
+
+    .bottomLinks {
+      position: absolute;
+      bottom: 35px;
+    }
+  }
+}
