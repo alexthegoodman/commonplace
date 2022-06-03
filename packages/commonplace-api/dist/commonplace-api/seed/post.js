@@ -65,8 +65,8 @@ function seedPosts(users, interests) {
                         if (rep2 === void 0) { rep2 = -1; }
                         var randomInt1 = rep1 !== -1 ? rep1 : faker_1.default.random.numeric();
                         var randomInt2 = rep2 !== -1 ? rep2 : faker_1.default.random.numeric();
-                        var contentSearch = faker_1.default.vehicle.model();
-                        var contentHeight = parseInt(faker_1.default.random.numeric(3)) + 400;
+                        var contentSearch = "design";
+                        var contentHeight = parseInt(faker_1.default.random.numeric(3)) + 300;
                         var title = faker_1.default.lorem.words();
                         var generatedTitleSlug = (0, slugify_1.default)(title);
                         return {

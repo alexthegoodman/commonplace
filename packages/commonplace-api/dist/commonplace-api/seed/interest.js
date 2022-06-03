@@ -35,39 +35,104 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var client_1 = require("@prisma/client");
+var faker_1 = __importDefault(require("@faker-js/faker"));
 var prisma = new client_1.PrismaClient();
 function seedInterests() {
     return __awaiter(this, void 0, void 0, function () {
-        var getDefaultInterest, interests;
+        var getDefaultCategory, category1, category2, category3, getDefaultInterest, interest1, interest2, interest3, interest4, interest5, interest6, interest7, interest8, interest9, interest10, interests;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    getDefaultInterest = function () {
+                    getDefaultCategory = function () {
+                        var name = faker_1.default.lorem.words();
                         return {
-                            name: "Test",
-                            contentType: "image",
+                            name: name,
                         };
                     };
-                    return [4 /*yield*/, prisma.interest.createMany({
-                            data: [
-                                getDefaultInterest(),
-                                getDefaultInterest(),
-                                getDefaultInterest(),
-                                getDefaultInterest(),
-                                getDefaultInterest(),
-                                getDefaultInterest(),
-                                getDefaultInterest(),
-                                getDefaultInterest(),
-                                getDefaultInterest(),
-                                getDefaultInterest(),
-                            ],
+                    return [4 /*yield*/, prisma.category.create({
+                            data: getDefaultCategory(),
                         })];
                 case 1:
-                    _a.sent();
-                    return [4 /*yield*/, prisma.interest.findMany()];
+                    category1 = _a.sent();
+                    return [4 /*yield*/, prisma.category.create({
+                            data: getDefaultCategory(),
+                        })];
                 case 2:
+                    category2 = _a.sent();
+                    return [4 /*yield*/, prisma.category.create({
+                            data: getDefaultCategory(),
+                        })];
+                case 3:
+                    category3 = _a.sent();
+                    getDefaultInterest = function (category) {
+                        var name = faker_1.default.lorem.words();
+                        return {
+                            name: name,
+                            contentType: "",
+                            categories: {
+                                connect: {
+                                    id: category.id,
+                                },
+                            },
+                        };
+                    };
+                    return [4 /*yield*/, prisma.interest.create({
+                            data: getDefaultInterest(category1),
+                        })];
+                case 4:
+                    interest1 = _a.sent();
+                    return [4 /*yield*/, prisma.interest.create({
+                            data: getDefaultInterest(category2),
+                        })];
+                case 5:
+                    interest2 = _a.sent();
+                    return [4 /*yield*/, prisma.interest.create({
+                            data: getDefaultInterest(category3),
+                        })];
+                case 6:
+                    interest3 = _a.sent();
+                    return [4 /*yield*/, prisma.interest.create({
+                            data: getDefaultInterest(category1),
+                        })];
+                case 7:
+                    interest4 = _a.sent();
+                    return [4 /*yield*/, prisma.interest.create({
+                            data: getDefaultInterest(category1),
+                        })];
+                case 8:
+                    interest5 = _a.sent();
+                    return [4 /*yield*/, prisma.interest.create({
+                            data: getDefaultInterest(category2),
+                        })];
+                case 9:
+                    interest6 = _a.sent();
+                    return [4 /*yield*/, prisma.interest.create({
+                            data: getDefaultInterest(category3),
+                        })];
+                case 10:
+                    interest7 = _a.sent();
+                    return [4 /*yield*/, prisma.interest.create({
+                            data: getDefaultInterest(category1),
+                        })];
+                case 11:
+                    interest8 = _a.sent();
+                    return [4 /*yield*/, prisma.interest.create({
+                            data: getDefaultInterest(category3),
+                        })];
+                case 12:
+                    interest9 = _a.sent();
+                    return [4 /*yield*/, prisma.interest.create({
+                            data: getDefaultInterest(category1),
+                        })];
+                case 13:
+                    interest10 = _a.sent();
+                    return [4 /*yield*/, prisma.interest.findMany()];
+                case 14:
                     interests = _a.sent();
                     return [2 /*return*/, {
                             interests: interests,

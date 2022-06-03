@@ -35,10 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostsByUsernameQuery = exports.PostByPostTitleQuery = exports.PostType = exports.PublicPostType = void 0;
+exports.PostsByUsernameQuery = exports.PostByPostTitleQuery = exports.CreatePostMutation = exports.PostType = exports.PublicPostType = void 0;
 var client_1 = require("@prisma/client");
+var nanoid_1 = require("nanoid");
 var nexus_1 = require("nexus");
+var slugify_1 = __importDefault(require("slugify"));
+var commonplace_utilities_1 = __importDefault(require("../../../commonplace-utilities"));
 var prisma = new client_1.PrismaClient();
 var publicPostFields = {
     id: true,
@@ -81,6 +87,80 @@ exports.PostType = (0, nexus_1.objectType)({
         // t.model.threads();
         t.model.updatedAt();
         t.model.createdAt();
+    },
+});
+exports.CreatePostMutation = (0, nexus_1.extendType)({
+    type: "Mutation",
+    definition: function (t) {
+        var _this = this;
+        t.nonNull.field("createPost", {
+            type: "Post",
+            args: {
+                creatorId: (0, nexus_1.nonNull)((0, nexus_1.stringArg)()),
+                interestId: (0, nexus_1.nonNull)((0, nexus_1.stringArg)()),
+                contentType: (0, nexus_1.nonNull)((0, nexus_1.stringArg)()),
+                title: (0, nexus_1.nonNull)((0, nexus_1.stringArg)()),
+                description: (0, nexus_1.nonNull)((0, nexus_1.stringArg)()),
+                file1Name: (0, nexus_1.nonNull)((0, nexus_1.stringArg)()),
+                file1Size: (0, nexus_1.nonNull)((0, nexus_1.intArg)()),
+                file1Type: (0, nexus_1.nonNull)((0, nexus_1.stringArg)()),
+                file1Data: (0, nexus_1.nonNull)((0, nexus_1.stringArg)()),
+                file2Name: (0, nexus_1.nullable)((0, nexus_1.stringArg)()),
+                file2Size: (0, nexus_1.nullable)((0, nexus_1.intArg)()),
+                file2Type: (0, nexus_1.nullable)((0, nexus_1.stringArg)()),
+                file2Data: (0, nexus_1.nullable)((0, nexus_1.stringArg)()),
+            },
+            resolve: function (_, _a, _b) {
+                var creatorId = _a.creatorId, interestId = _a.interestId, contentType = _a.contentType, title = _a.title, description = _a.description, file1Name = _a.file1Name, file1Size = _a.file1Size, file1Type = _a.file1Type, file1Data = _a.file1Data, file2Name = _a.file2Name, file2Size = _a.file2Size, file2Type = _a.file2Type, file2Data = _a.file2Data;
+                var PrismaClient = _b.prisma;
+                return __awaiter(_this, void 0, void 0, function () {
+                    var utilities, upload1Path, upload2Path, generatedTitleSlug, post;
+                    return __generator(this, function (_c) {
+                        switch (_c.label) {
+                            case 0:
+                                console.info("Create Post", creatorId, interestId, contentType, title, description, file1Name, file1Size, file1Type, file2Name, file2Size, file2Type);
+                                utilities = new commonplace_utilities_1.default();
+                                return [4 /*yield*/, utilities.AWS.uploadAsset(file1Name, file1Type, file1Size, file1Data)];
+                            case 1:
+                                upload1Path = _c.sent();
+                                upload2Path = "";
+                                if (!(file2Name && file2Data)) return [3 /*break*/, 3];
+                                return [4 /*yield*/, utilities.AWS.uploadAsset(file2Name, file2Type, file2Size, file2Data)];
+                            case 2:
+                                upload2Path = _c.sent();
+                                _c.label = 3;
+                            case 3:
+                                generatedTitleSlug = (0, slugify_1.default)(title) + "-" + (0, nanoid_1.nanoid)(10);
+                                console.info("generatedTitleSlug", upload1Path, upload2Path, generatedTitleSlug);
+                                return [4 /*yield*/, prisma.post.create({
+                                        data: {
+                                            title: title,
+                                            description: description,
+                                            generatedTitleSlug: generatedTitleSlug,
+                                            contentType: contentType,
+                                            contentPreview: upload2Path,
+                                            content: upload1Path,
+                                            interest: {
+                                                connect: {
+                                                    id: interestId,
+                                                },
+                                            },
+                                            creator: {
+                                                connect: {
+                                                    id: creatorId,
+                                                },
+                                            },
+                                        },
+                                    })];
+                            case 4:
+                                post = _c.sent();
+                                console.info("Created post", post);
+                                return [2 /*return*/, post];
+                        }
+                    });
+                });
+            },
+        });
     },
 });
 exports.PostByPostTitleQuery = (0, nexus_1.extendType)({

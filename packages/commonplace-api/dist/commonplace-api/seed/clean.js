@@ -90,15 +90,20 @@ function clean() {
                         })];
                 case 3:
                     _a.sent();
-                    return [4 /*yield*/, prisma.interest.deleteMany({
+                    return [4 /*yield*/, prisma.category.deleteMany({
                             where: { id: { not: "" } },
                         })];
                 case 4:
                     _a.sent();
-                    return [4 /*yield*/, prisma.user.deleteMany({
+                    return [4 /*yield*/, prisma.interest.deleteMany({
                             where: { id: { not: "" } },
                         })];
                 case 5:
+                    _a.sent();
+                    return [4 /*yield*/, prisma.user.deleteMany({
+                            where: { id: { not: "" } },
+                        })];
+                case 6:
                     _a.sent();
                     return [2 /*return*/];
             }

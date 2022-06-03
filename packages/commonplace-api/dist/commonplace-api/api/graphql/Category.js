@@ -7,6 +7,7 @@ var prisma = new client_1.PrismaClient();
 exports.CategoryType = (0, nexus_1.objectType)({
     name: "Category",
     definition: function (t) {
+        t.model.id();
         t.model.name();
         t.model.interests();
     },

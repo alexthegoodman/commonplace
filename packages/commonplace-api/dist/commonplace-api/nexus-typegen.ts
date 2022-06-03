@@ -405,9 +405,11 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Category: { // root type
+    id: string; // String!
     name: string; // String!
   }
   Interest: { // root type
+    id: string; // String!
     name: string; // String!
   }
   Message: { // root type
@@ -478,11 +480,13 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnu
 
 export interface NexusGenFieldTypes {
   Category: { // field return type
+    id: string; // String!
     interests: NexusGenRootTypes['Interest'][]; // [Interest!]!
     name: string; // String!
   }
   Interest: { // field return type
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
+    id: string; // String!
     name: string; // String!
   }
   Message: { // field return type
@@ -496,6 +500,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     createMessage: NexusGenRootTypes['Message']; // Message!
+    createPost: NexusGenRootTypes['Post']; // Post!
   }
   Post: { // field return type
     content: string; // String!
@@ -568,11 +573,13 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   Category: { // field return type name
+    id: 'String'
     interests: 'Interest'
     name: 'String'
   }
   Interest: { // field return type name
     categories: 'Category'
+    id: 'String'
     name: 'String'
   }
   Message: { // field return type name
@@ -586,6 +593,7 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     createMessage: 'Message'
+    createPost: 'Post'
   }
   Post: { // field return type name
     content: 'String'
@@ -690,6 +698,21 @@ export interface NexusGenArgTypes {
       threadId?: string | null; // String
       type: string; // String!
     }
+    createPost: { // args
+      contentType: string; // String!
+      creatorId: string; // String!
+      description: string; // String!
+      file1Data: string; // String!
+      file1Name: string; // String!
+      file1Size: number; // Int!
+      file1Type: string; // String!
+      file2Data?: string | null; // String
+      file2Name?: string | null; // String
+      file2Size?: number | null; // Int
+      file2Type?: string | null; // String
+      interestId: string; // String!
+      title: string; // String!
+    }
   }
   Query: {
     authenticate: { // args
@@ -731,6 +754,7 @@ export interface NexusGenArgTypes {
       before?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
       first?: number | null; // Int
       last?: number | null; // Int
+      orderBy?: NexusGenInputs['PostOrderByWithRelationInput'][] | null; // [PostOrderByWithRelationInput!]
       where?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
     }
     registerUser: { // args

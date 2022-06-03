@@ -14,7 +14,7 @@ exports.Query = (0, nexus_1.queryType)({
         t.crud.thread();
         // NOTE: not protected, better accessed via interest query?
         // paginate?
-        t.crud.posts({ filtering: true });
+        t.crud.posts({ filtering: true, ordering: true });
         // NOTE: not protected
         t.crud.categories();
         // NOTE: not protected
