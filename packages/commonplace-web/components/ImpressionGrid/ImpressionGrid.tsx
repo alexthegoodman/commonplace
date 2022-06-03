@@ -14,6 +14,7 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
   };
 
   const pillGridRef = React.useRef<HTMLDivElement>(null);
+  const [selectedCategory, setSelectedCategory] = React.useState("all");
 
   React.useEffect(() => {
     if (pillGridRef.current) {
@@ -24,23 +25,85 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
 
   return (
     <section className="impressionGridWrapper darkMode">
-      <span className="gridLabel">What's your impression?</span>
+      <div className="gridToolbar">
+        <span className="gridLabel">What's your impression?</span>
+        <div className="gridCategories">
+          <div
+            className={`gridCategory ${
+              selectedCategory === "all" ? "selected" : ""
+            }`}
+            onClick={() => setSelectedCategory("all")}
+          >
+            <i className="typcn typcn-sort-alphabetically-outline"></i>
+          </div>
+          <div
+            className={`gridCategory ${
+              selectedCategory === "honor" ? "selected" : ""
+            }`}
+            onClick={() => setSelectedCategory("honor")}
+          >
+            <i className="typcn typcn-heart-outline"></i>
+          </div>
+          <div
+            className={`gridCategory ${
+              selectedCategory === "creative" ? "selected" : ""
+            }`}
+            onClick={() => setSelectedCategory("creative")}
+          >
+            <i className="typcn typcn-brush"></i>
+          </div>
+          <div
+            className={`gridCategory ${
+              selectedCategory === "intellect" ? "selected" : ""
+            }`}
+            onClick={() => setSelectedCategory("intellect")}
+          >
+            <i className="typcn typcn-lightbulb"></i>
+          </div>
+          <div
+            className={`gridCategory ${
+              selectedCategory === "action" ? "selected" : ""
+            }`}
+            onClick={() => setSelectedCategory("action")}
+          >
+            <i className="typcn typcn-flash-outline"></i>
+          </div>
+          <div
+            className={`gridCategory ${
+              selectedCategory === "social" ? "selected" : ""
+            }`}
+            onClick={() => setSelectedCategory("social")}
+          >
+            <i className="typcn typcn-message-typing"></i>
+          </div>
+        </div>
+      </div>
       <div className="impressionGrid" ref={pillGridRef}>
         <div className="impressionGridInner">
-          <ul className="pillGrid">
+          <ul
+            className={`pillGrid ${
+              selectedCategory !== "all" ? "smallGrid" : ""
+            }`}
+          >
             {impressions.map((category, x) => {
-              return category.list.map((impression, i) => {
-                return (
-                  <li key={`impressionGridItem${x}${i}`}>
-                    <a
-                      href="#!"
-                      onClick={() => impressionClickHandler(impression.name)}
-                    >
-                      {impression.name}
-                    </a>
-                  </li>
-                );
-              });
+              const categoryName = category.name.toLowerCase();
+              if (
+                categoryName === selectedCategory ||
+                selectedCategory === "all"
+              ) {
+                return category.list.map((impression, i) => {
+                  return (
+                    <li key={`impressionGridItem${x}${i}`}>
+                      <a
+                        href="#!"
+                        onClick={() => impressionClickHandler(impression.name)}
+                      >
+                        {impression.name}
+                      </a>
+                    </li>
+                  );
+                });
+              }
             })}
           </ul>
         </div>
