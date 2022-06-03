@@ -4,6 +4,8 @@
 
 /** Page Styles **/
 .settingsList {
+  width: 100%;
+
   .settingsListInner {
     padding: 25px;
 
@@ -19,6 +21,23 @@
     .bottomLinks {
       position: absolute;
       bottom: 35px;
+    }
+  }
+}
+
+.settings {
+  width: 100%;
+
+  .settingsInner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .form {
+      width: 80%;
+      margin-top: 25px;
     }
   }
 }

@@ -47,6 +47,11 @@ const FormUpload: React.FC<FormUploadProps> = ({
 
   return (
     <div className="formUpload">
+      {fieldProps.placeholder !== "" ? (
+        <label>{fieldProps.placeholder}</label>
+      ) : (
+        <></>
+      )}
       <input
         type="file"
         {...fieldProps}
