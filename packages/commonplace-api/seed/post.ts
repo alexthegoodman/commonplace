@@ -8,8 +8,8 @@ export default async function seedPosts(users, interests) {
   const getDefaultPost = (rep1 = -1, rep2 = -1) => {
     const randomInt1 = rep1 !== -1 ? rep1 : faker.random.numeric();
     const randomInt2 = rep2 !== -1 ? rep2 : faker.random.numeric();
-    const contentSearch = faker.vehicle.model();
-    const contentHeight = parseInt(faker.random.numeric(3)) + 400;
+    const contentSearch = "design";
+    const contentHeight = parseInt(faker.random.numeric(3)) + 300;
     const title = faker.lorem.words();
     const generatedTitleSlug = slugify(title);
 
