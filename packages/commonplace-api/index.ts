@@ -4,6 +4,11 @@ import { startApolloServer } from "./api";
 const app = express();
 const port = 3001;
 
+// NOTE: fixes aws-sdk type error
+declare global {
+  export interface ReadableStream {}
+}
+
 console.info("Setup Express Routes...");
 
 app.get("/", (req, res) => {

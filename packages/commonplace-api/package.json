@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.100.0",
+    "@aws-sdk/types": "^3.78.0",
     "@faker-js/faker": "^6.3.1",
     "@prisma/client": "^3.14.0",
     "@types/express": "^4.17.13",
