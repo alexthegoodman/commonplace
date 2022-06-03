@@ -33,7 +33,7 @@ phases:
       # install client dependencies and build static files
       - cd ../../
       - cd ./packages/commonplace-web/
-      - npm install -g typescript @types/node
+      - npm install -g typescript @types/node @types/react
       - npm ci
       - npm run build
   post_build:
