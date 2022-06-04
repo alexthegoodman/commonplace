@@ -60,7 +60,8 @@
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "pretty-console-logs": "^0.3.0",
-    "slugify": "^1.6.5"
+    "slugify": "^1.6.5",
+    "ts-dotenv": "^0.8.3"
   },
   "resolutions": {
     "graphql": "16.0.0"

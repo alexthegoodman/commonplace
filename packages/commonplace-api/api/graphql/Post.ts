@@ -152,6 +152,10 @@ export const CreatePostMutation = extendType({
           generatedTitleSlug
         );
 
+        if (!utilities.helpers.isDefinedWithContent(upload1Path)) {
+          throw Error(utilities.ERROR_CODES.C010);
+        }
+
         const post = await prisma.post.create({
           data: {
             title,

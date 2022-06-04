@@ -8,7 +8,13 @@ export default class AWS {
   s3Client;
 
   constructor() {
-    this.s3Client = new S3Client({ region: this.REGION });
+    this.s3Client = new S3Client({
+      region: this.REGION,
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      },
+    });
   }
 
   getUploadDirectory() {
@@ -53,13 +59,15 @@ export default class AWS {
       };
 
       try {
-        //   const data = await this.s3Client.send(new PutObjectCommand(bucketParams));
+        const data = await this.s3Client.send(
+          new PutObjectCommand(bucketParams)
+        );
 
-        console.info("uploadAsset complete");
+        console.info("uploadAsset complete", data, key);
 
         return key;
       } catch (err) {
-        console.log("Error", err);
+        console.error("Error", err);
       }
     } else {
       console.error(ERROR_CODES.B001);
