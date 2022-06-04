@@ -28,7 +28,7 @@
       .playButton,
       .pauseButton {
         font-size: 32px;
-        background: $headerWhite;
+        // background: $headerWhite;
         width: 60px;
         height: 60px;
         border-radius: 50%;
@@ -38,8 +38,9 @@
         padding-left: 4px;
 
         .typcn {
-          font-size: 48px;
-          color: $frenchRaspberry;
+          font-size: 78px;
+          color: white;
+          text-shadow: 1px 2px 4px rgb(0 0 0 / 80%);
         }
       }
       .pauseButton {
