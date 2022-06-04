@@ -50,11 +50,11 @@ const AudioViewer: React.FC<AudioViewerProps> = ({
           <div className="controlsWrapper" onClick={onPlayToggle}>
             {playing ? (
               <div className="pauseButton">
-                <div className="feather-icon icon-pause"></div>
+                <i className="typcn typcn-media-pause"></i>
               </div>
             ) : (
               <div className="playButton">
-                <div className="feather-icon icon-play"></div>
+                <i className="typcn typcn-media-play"></i>
               </div>
             )}
           </div>

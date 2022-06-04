@@ -36,6 +36,11 @@
         justify-content: center;
         align-items: center;
         padding-left: 4px;
+
+        .typcn {
+          font-size: 48px;
+          color: $frenchRaspberry;
+        }
       }
       .pauseButton {
         padding-left: 0;

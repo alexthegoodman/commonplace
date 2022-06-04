@@ -48,7 +48,8 @@ const VideoViewer: React.FC<VideoViewerProps> = ({
               <></>
             ) : (
               <div className="playButton">
-                <div className="feather-icon icon-play"></div>
+                {/* <div className="feather-icon icon-play"></div> */}
+                <i className="typcn typcn-media-play"></i>
               </div>
             )}
           </div>
