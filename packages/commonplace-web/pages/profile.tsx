@@ -48,7 +48,7 @@ export const ProfileContent = ({ data }) => {
             profileImage={data?.user?.profileImage}
             coverImage={data?.user?.coverImage}
           />
-          <ProfilePosts posts={data?.user?.posts} />
+          <ProfilePosts creator={data?.user} posts={data?.user?.posts} />
         </div>
       </div>
     </section>

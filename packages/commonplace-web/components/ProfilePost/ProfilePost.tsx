@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import Link from "next/link";
 import * as React from "react";
 import ContentViewer from "../ContentViewer/ContentViewer";
@@ -8,9 +9,16 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click ProfilePost"),
+  creator = null,
   post = {},
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
+  // TODO: alt -
+  const displayDate = DateTime.fromISO(post?.createdAt).toFormat("D");
+  const contentSEOStatement = `${post?.title} Post in ${post?.interest?.name} Interest - Created by ${creator.chosenUsername} - ${displayDate}`;
+
+  // console.info("contentSEOStatement", contentSEOStatement);
+
   return (
     <div className="profilePost">
       <div className="profilePostInner">
@@ -19,6 +27,7 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
             <div className="postContent">
               {/* <img alt="" title="" src={post.content} /> */}
               <ContentViewer
+                alt={contentSEOStatement}
                 type={post.contentType}
                 preview={post.contentPreview}
                 content={post.content}

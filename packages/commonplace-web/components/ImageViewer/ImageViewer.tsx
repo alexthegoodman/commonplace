@@ -8,6 +8,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click ImageViewer"),
+  alt = "",
   sourceUrl = null,
 }) => {
   const imageRequest = JSON.stringify({
@@ -26,7 +27,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 
   const imageUrl = `${cloudfrontUrl}/${requestData}`;
 
-  return <img src={imageUrl} />;
+  return <img alt={alt} title={alt} src={imageUrl} />;
 };
 
 export default ImageViewer;

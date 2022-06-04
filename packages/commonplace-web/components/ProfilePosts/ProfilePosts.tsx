@@ -7,6 +7,7 @@ const ProfilePosts: React.FC<ProfilePostsProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click ProfilePosts"),
+  creator = null,
   posts = [],
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
@@ -14,7 +15,7 @@ const ProfilePosts: React.FC<ProfilePostsProps> = ({
     <section className="profilePosts">
       <div className="profilePostsInner">
         {posts.map((post, i) => {
-          return <ProfilePost post={post} />;
+          return <ProfilePost creator={creator} post={post} />;
         })}
       </div>
     </section>

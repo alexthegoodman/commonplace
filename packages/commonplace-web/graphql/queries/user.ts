@@ -43,6 +43,9 @@ export const userQuery = gql`
         interest {
           name
         }
+
+        createdAt
+        updatedAt
       }
     }
   }

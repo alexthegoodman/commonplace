@@ -11,6 +11,7 @@ const ContentViewer: React.FC<ContentViewerProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click ContentViewer"),
+  alt = "",
   type = "",
   preview = "",
   content = "",
@@ -22,7 +23,7 @@ const ContentViewer: React.FC<ContentViewerProps> = ({
     <section className="contentViewer">
       <div className="contentViewerInner">
         {type === "image" ? (
-          <ImageViewer mini={mini} sourceUrl={content} />
+          <ImageViewer mini={mini} alt={alt} sourceUrl={content} />
         ) : (
           ""
         )}

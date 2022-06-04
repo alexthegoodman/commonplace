@@ -8,13 +8,15 @@ export default class AWS {
   s3Client;
 
   constructor() {
-    this.s3Client = new S3Client({
-      region: this.REGION,
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      },
-    });
+    if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
+      this.s3Client = new S3Client({
+        region: this.REGION,
+        credentials: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        },
+      });
+    }
   }
 
   getUploadDirectory() {
