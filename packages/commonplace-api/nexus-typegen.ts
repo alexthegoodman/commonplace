@@ -439,6 +439,7 @@ export interface NexusGenObjects {
     description?: string | null; // String
     generatedTitleSlug?: string | null; // String
     id?: string | null; // String
+    interest?: NexusGenRootTypes['Interest'] | null; // Interest
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
@@ -524,6 +525,7 @@ export interface NexusGenFieldTypes {
     description: string | null; // String
     generatedTitleSlug: string | null; // String
     id: string | null; // String
+    interest: NexusGenRootTypes['Interest'] | null; // Interest
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
@@ -617,6 +619,7 @@ export interface NexusGenFieldTypeNames {
     description: 'String'
     generatedTitleSlug: 'String'
     id: 'String'
+    interest: 'Interest'
     title: 'String'
     updatedAt: 'DateTime'
   }

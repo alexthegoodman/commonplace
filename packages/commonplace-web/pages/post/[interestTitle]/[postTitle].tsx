@@ -1,4 +1,5 @@
 import request from "graphql-request";
+import { DateTime } from "luxon";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import useSWR, { SWRConfig } from "swr";
@@ -42,6 +43,9 @@ const PostContent = ({ data }) => {
 
   const goBack = () => router.back();
 
+  const displayDate = DateTime.fromISO(currentPost?.createdAt).toFormat("D");
+  const contentSEOStatement = `${currentPost?.title} Post in ${currentPost?.interest?.name} Interest - Created by ${currentPost?.creator?.chosenUsername} - ${displayDate}`;
+
   return (
     <section className="post">
       <div className="postInner">
@@ -57,6 +61,7 @@ const PostContent = ({ data }) => {
         />
         <div className="scrollContainer">
           <ContentViewer
+            alt={contentSEOStatement}
             type={currentPost?.contentType}
             preview={currentPost?.contentPreview}
             content={currentPost?.content}

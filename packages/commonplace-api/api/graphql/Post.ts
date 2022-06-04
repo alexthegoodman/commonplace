@@ -22,6 +22,7 @@ const publicPostFields = {
   contentType: true,
   contentPreview: true,
   content: true,
+  interest: true,
   updatedAt: true,
   createdAt: true,
 };
@@ -38,6 +39,8 @@ export const PublicPostType = objectType({
     t.field("contentType", { type: "String" });
     t.field("contentPreview", { type: "String" });
     t.field("content", { type: "String" });
+
+    t.field("interest", { type: "Interest" });
 
     t.field("updatedAt", { type: "DateTime" });
     t.field("createdAt", { type: "DateTime" });

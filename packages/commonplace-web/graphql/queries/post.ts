@@ -45,6 +45,10 @@ const PublicPostFieldsFragment = gql`
     contentPreview
     content
 
+    interest {
+      name
+    }
+
     createdAt
     updatedAt
   }

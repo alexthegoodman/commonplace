@@ -22,7 +22,7 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
   return (
     <div className="profilePost">
       <div className="profilePostInner">
-        <Link href={`/post/interest-title/${post.generatedTitleSlug}`}>
+        <Link href={`/post/${post?.interest?.name}/${post.generatedTitleSlug}`}>
           <a>
             <div className="postContent">
               {/* <img alt="" title="" src={post.content} /> */}
