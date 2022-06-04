@@ -1,5 +1,7 @@
 import * as React from "react";
+import { cloudfrontUrl } from "../../def/urls";
 import AudioViewer from "../AudioViewer/AudioViewer";
+import ImageViewer from "../ImageViewer/ImageViewer";
 import TextViewer from "../TextViewer/TextViewer";
 import VideoViewer from "../VideoViewer/VideoViewer";
 
@@ -15,10 +17,15 @@ const ContentViewer: React.FC<ContentViewerProps> = ({
   mini = false,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
+
   return (
     <section className="contentViewer">
       <div className="contentViewerInner">
-        {type === "image" ? <img src={content} /> : ""}
+        {type === "image" ? (
+          <ImageViewer mini={mini} sourceUrl={content} />
+        ) : (
+          ""
+        )}
         {type === "video" ? (
           <VideoViewer mini={mini} sourceUrl={content} />
         ) : (
