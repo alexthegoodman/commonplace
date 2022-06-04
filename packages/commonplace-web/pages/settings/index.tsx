@@ -1,9 +1,19 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useCookies } from "react-cookie";
+
 import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
 
 const Settings: NextPage = () => {
-  const signOut = () => {};
+  const router = useRouter();
+  const [cookies, setCookie, removeCookie] = useCookies(["coUserId"]);
+
+  const signOut = () => {
+    removeCookie("coUserId");
+    router.push("/sign-in");
+  };
+
   return (
     <section className="settings">
       <div className="settingsInner">
