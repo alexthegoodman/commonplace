@@ -3,21 +3,43 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 import { FormProvider, useForm } from "react-hook-form";
+import useSWR, { SWRConfig } from "swr";
+import Utilities from "../../commonplace-utilities";
 import FormInput from "../components/FormInput/FormInput";
+import FormMessage from "../components/FormMessage/FormMessage";
 import FormTextarea from "../components/FormTextarea/FormTextarea";
 import FormUpload from "../components/FormUpload/FormUpload";
 import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
 import StepCounter from "../components/StepCounter/StepCounter";
 import { cpGraphqlUrl } from "../def/urls";
+import { createPostMutation } from "../graphql/mutations/post";
+import { userQuery } from "../graphql/queries/user";
 import { InterestsContent } from "./interests";
 
-const Upload: NextPage = () => {
+const getUserData = async (userId) => {
+  const userData = await request(cpGraphqlUrl, userQuery, {
+    id: userId,
+  });
+
+  return userData;
+};
+
+const UploadContent = () => {
+  const [cookies] = useCookies(["coUserId"]);
+  const userId = cookies.coUserId;
+
+  const { data } = useSWR("profileKey", () => getUserData(userId));
+
+  console.info("UploadContent", userId, data);
+
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [contentType, setContentType] = useState("image");
   const [showInterestsModal, setShowInterestsModal] = useState(false);
   const [selectedInterest, setSelectedInterest] = useState<any>(null);
+  const [formErrorMessage, setFormErrorMessage] = useState("");
 
   const methods = useForm();
 
@@ -27,18 +49,26 @@ const Upload: NextPage = () => {
     formState: { errors },
   } = methods;
 
-  const onSubmit = async (data) => {
-    console.log(data, contentType);
+  const onSubmit = async (formValues) => {
+    console.log("onSubmit", formValues, contentType);
 
-    // await request(cpGraphqlUrl, createPostQuery, {
-    //   interest:,
-    //   contentType:,
-    //   file...,
-    //   file2...,
-    //   title:,
-    //   description:,
-    // });
-  }; // TODO: send data to API
+    // TODO: send data to API
+    const createdPost = await request(cpGraphqlUrl, createPostMutation, {
+      creatorId: userId,
+      interestId: selectedInterest?.id,
+      contentType,
+      ...formValues,
+    });
+
+    console.info(
+      "createdPost",
+      createdPost,
+      createdPost.createPost.generatedTitleSlug
+    );
+
+    router.push(`/post/interest/${createdPost.createPost.generatedTitleSlug}`);
+  };
+
   const onError = (error) => console.error(error);
 
   const goBack = () => {
@@ -50,9 +80,38 @@ const Upload: NextPage = () => {
     }
   };
 
+  const goToNextStep = (nextStep) => {
+    setStep(nextStep);
+    setFormErrorMessage("");
+  };
+
   const onNextClick = () => {
-    // TODO: step validation
-    setStep(step + 1);
+    const formValues = methods.getValues();
+    const nextStep = step + 1;
+
+    if (nextStep === 2) {
+      if (contentType !== "" && selectedInterest !== null) {
+        goToNextStep(nextStep);
+      } else {
+        setFormErrorMessage("Interest is required.");
+      }
+    } else if (nextStep === 3) {
+      // TODO: step validation
+      console.info("formValues", formValues);
+      if (contentType === "audio") {
+        if (formValues.file1.length > 0 && formValues.file2.length > 0) {
+          goToNextStep(nextStep);
+        } else {
+          setFormErrorMessage("Both files are required.");
+        }
+      } else {
+        if (formValues.file1.length > 0) {
+          goToNextStep(nextStep);
+        } else {
+          setFormErrorMessage("File is required.");
+        }
+      }
+    }
   };
 
   const onPickInterest = () => {
@@ -103,6 +162,8 @@ const Upload: NextPage = () => {
 
             <FormProvider {...methods}>
               <form className="form" onSubmit={handleSubmit(onSubmit, onError)}>
+                <FormMessage type="error" message={formErrorMessage} />
+
                 {step === 1 ? (
                   <>
                     <div className="uploadSection">
@@ -168,7 +229,7 @@ const Upload: NextPage = () => {
                           <div className="contentUploadInner">
                             {contentType === "image" ? (
                               <FormUpload
-                                name="imageUpload"
+                                name="file1"
                                 placeholder="Upload Image"
                                 register={register}
                                 errors={errors}
@@ -180,18 +241,38 @@ const Upload: NextPage = () => {
                               <></>
                             )}
                             {contentType === "video" ? (
-                              <button className="mediaUploadButton">
-                                Upload Video
-                              </button>
+                              <FormUpload
+                                name="file1"
+                                placeholder="Upload Video"
+                                register={register}
+                                errors={errors}
+                                validation={{
+                                  required: contentType === "video",
+                                }}
+                              />
                             ) : (
                               <></>
                             )}
                             {contentType === "audio" ? (
                               <>
-                                <button className="mediaUploadButton">
-                                  Upload Art
-                                </button>
-                                <button className="button">Upload Audio</button>
+                                <FormUpload
+                                  name="file1"
+                                  placeholder="Upload Audio"
+                                  register={register}
+                                  errors={errors}
+                                  validation={{
+                                    required: contentType === "audio",
+                                  }}
+                                />
+                                <FormUpload
+                                  name="file2"
+                                  placeholder="Upload Art"
+                                  register={register}
+                                  errors={errors}
+                                  validation={{
+                                    required: contentType === "audio",
+                                  }}
+                                />
                               </>
                             ) : (
                               <></>
@@ -235,7 +316,7 @@ const Upload: NextPage = () => {
                           placeholder="Add Title..."
                           register={register}
                           errors={errors}
-                          validation={{ required: true }}
+                          validation={{ required: "Title is required." }}
                         />
                         <FormTextarea
                           name="description"
@@ -266,5 +347,35 @@ const Upload: NextPage = () => {
     </>
   );
 };
+
+const Upload: NextPage<{ fallback: any }> = ({ fallback }) => {
+  return (
+    <SWRConfig
+      value={{ fallback, revalidateOnMount: true, refreshWhenHidden: true }}
+    >
+      <UploadContent />
+    </SWRConfig>
+  );
+};
+
+export async function getServerSideProps(context) {
+  const utilities = new Utilities();
+  const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
+  const userId = cookieData.coUserId;
+
+  console.info("coUserId", userId);
+
+  const userData = await getUserData(userId);
+
+  console.info("getServerSideProps", userId, userData);
+
+  return {
+    props: {
+      fallback: {
+        profileKey: userData,
+      },
+    },
+  };
+}
 
 export default Upload;

@@ -438,6 +438,9 @@ input ThreadWhereUniqueInput {
   id: String
 }
 
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
 type User {
   chosenUsername: String
   coverImage: String!

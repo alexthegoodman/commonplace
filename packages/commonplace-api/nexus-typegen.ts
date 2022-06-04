@@ -401,6 +401,7 @@ export interface NexusGenScalars {
   ID: string
   DateTime: any
   JSONObject: any
+  Upload: any
 }
 
 export interface NexusGenObjects {

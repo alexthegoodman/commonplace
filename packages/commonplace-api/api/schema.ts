@@ -2,6 +2,7 @@ import { makeSchema, asNexusMethod } from "nexus";
 import { join } from "path";
 import { nexusPrisma } from "nexus-plugin-prisma";
 import { DateTimeResolver, JSONObjectResolver } from "graphql-scalars";
+import GraphQLUpload from "graphql-upload/GraphQLUpload.js";
 
 const jsonScalar = asNexusMethod(JSONObjectResolver, "json");
 const dateTimeScalar = asNexusMethod(DateTimeResolver, "date");
@@ -9,7 +10,7 @@ const dateTimeScalar = asNexusMethod(DateTimeResolver, "date");
 import * as types from "./graphql";
 
 export const schema = makeSchema({
-  types: [types, jsonScalar, dateTimeScalar],
+  types: [types, jsonScalar, dateTimeScalar, GraphQLUpload],
   plugins: [
     nexusPrisma({
       experimentalCRUD: true,
