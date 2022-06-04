@@ -54,7 +54,8 @@ const UpdatesContent: NextPage = () => {
           leftIcon={
             <Link href="/queue">
               <a>
-                <div className="feather-icon icon-list"></div>
+                {/* <div className="feather-icon icon-list"></div> */}
+                <i className="typcn typcn-equals"></i>
               </a>
             </Link>
           }

@@ -66,7 +66,7 @@ export const InterestsContent = ({
         <PrimaryHeader
           leftIcon={
             <a href="#!" onClick={goBack}>
-              X
+              <i className="typcn typcn-arrow-left"></i>
             </a>
           }
           title="Pick Interest"

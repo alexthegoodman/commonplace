@@ -1,6 +1,6 @@
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: $desktopWidth) {
   header.primaryHeader {
-    width: 1200px;
+    width: $desktopWidth;
     margin: 0 auto;
 
     .primaryHeaderInner {
@@ -23,6 +23,12 @@
     background: white;
 
     .primaryHeaderInner {
+      .headerIcon {
+        .typcn {
+          color: black;
+        }
+      }
+
       .headerTitleWrapper {
         .title {
           padding-top: 6px;
@@ -70,6 +76,14 @@
       position: relative;
       top: -7px;
 
+      .typcn {
+        font-size: 28px;
+      }
+
+      .typcn-arrow-left {
+        font-size: 36px;
+      }
+
       a {
         text-decoration: none;
         font-size: 24px;
@@ -79,11 +93,6 @@
       .icon-list {
         position: relative;
         left: -2px;
-      }
-
-      .typcn {
-        font-size: 36px;
-        color: black;
       }
 
       .brandnameWrapper {

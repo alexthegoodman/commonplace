@@ -92,7 +92,7 @@ const Upload: NextPage = () => {
               inline={true}
               leftIcon={
                 <a onClick={goBack}>
-                  <div className="feather-icon icon-arrow-left"></div>
+                  <i className="typcn typcn-arrow-left"></i>
                 </a>
               }
               title="Upload Creation"
@@ -150,6 +150,7 @@ const Upload: NextPage = () => {
                       </div>
                     </div>
 
+                    {/** TODO: step by step validation */}
                     <a className="button" onClick={onNextClick}>
                       Next
                     </a>

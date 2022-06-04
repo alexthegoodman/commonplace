@@ -28,7 +28,8 @@ export const ProfileContent = ({ data }) => {
           leftIcon={
             <Link href="/settings">
               <a>
-                <div className="feather-icon icon-settings"></div>
+                {/* <div className="feather-icon icon-settings"></div> */}
+                <i className="typcn typcn-cog"></i>
               </a>
             </Link>
           }
@@ -36,7 +37,8 @@ export const ProfileContent = ({ data }) => {
           rightIcon={
             <Link href="/queue">
               <a>
-                <div className="feather-icon icon-list"></div>
+                {/* <div className="feather-icon icon-list"></div> */}
+                <i className="typcn typcn-equals"></i>
               </a>
             </Link>
           }
