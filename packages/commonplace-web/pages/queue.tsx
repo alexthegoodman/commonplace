@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useContext, useEffect, useReducer, useState } from "react";
 import { useCookies } from "react-cookie";
 import useSWR, { SWRConfig } from "swr";
+import { motion, useAnimation } from "framer-motion";
 import Utilities from "../../commonplace-utilities";
 import ContentInformation from "../components/ContentInformation/ContentInformation";
 import ContentViewer from "../components/ContentViewer/ContentViewer";
@@ -26,8 +27,6 @@ const getPostsAndUserData = async (userId) => {
   const userData = await request(cpGraphqlUrl, userQuery, {
     id: userId,
   });
-
-  console.info("getPostsAndUserData", userId);
 
   const postsData = await request(cpGraphqlUrl, postsQuery, {
     where: {
@@ -76,7 +75,7 @@ const QueueContent = () => {
 
   const { selectedInterest } = state;
 
-  console.info("QueueContent", data, state, dispatch);
+  console.info("QueueContent", data, state);
 
   const firstId = data?.posts[0].id;
 
@@ -94,14 +93,6 @@ const QueueContent = () => {
   const nextPost = data?.posts[currentPostIndex + 1];
   const nextPostId = nextPost.id;
 
-  console.info(
-    "impressionClickHandler",
-    data?.posts,
-    currentPostIndex,
-    currentPost,
-    nextPostId
-  );
-
   // preload image
   const { imageUrl } = useImageUrl(nextPost?.content, {
     width: 800,
@@ -113,19 +104,17 @@ const QueueContent = () => {
   // TODO: preload audio
 
   const impressionClickHandler = async (impression) => {
+    await postAnimation.start((i) => ({
+      opacity: 0,
+      y: 10,
+      transition: { delay: i * 1.5 - 1 },
+    }));
+
     // setQueueIndex(queueIndex + 1);
     setQueuePostId(nextPostId);
     // TODO: send impression message
     const currentUserEmail = data?.currentUser?.user?.email;
     const postCreatorEmail = currentPost?.creator?.email;
-
-    console.info(
-      "saving impression",
-      impression,
-      currentUserEmail,
-      postCreatorEmail,
-      currentPost
-    );
 
     const savedImpression = await request(cpGraphqlUrl, createMessageMutation, {
       type: "impression",
@@ -136,7 +125,29 @@ const QueueContent = () => {
     });
 
     console.info("savedImpression", savedImpression);
+
+    await postAnimation.start((i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 1.5 - 1 },
+    }));
   };
+
+  const postAnimation = useAnimation();
+
+  useEffect(() => {
+    postAnimation.set((i) => ({
+      opacity: 0,
+      y: 10,
+      transition: { delay: i * 1.5 - 1 },
+    }));
+
+    postAnimation.start((i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 1.5 - 1 },
+    }));
+  }, []);
 
   return (
     <section className="queue">
@@ -159,12 +170,20 @@ const QueueContent = () => {
         />
         <div className="scrollContainer queueScrollContainer">
           <div className="displayPost currentPost">
-            <ContentViewer
-              type={currentPost?.contentType}
-              preview={currentPost?.contentPreview}
-              content={currentPost?.content}
-            />
-            <ContentInformation post={currentPost} />
+            <motion.div
+              custom={0}
+              animate={postAnimation}
+              initial={{ opacity: 0 }}
+            >
+              <ContentViewer
+                type={currentPost?.contentType}
+                preview={currentPost?.contentPreview}
+                content={currentPost?.content}
+              />
+            </motion.div>
+            <motion.div custom={1} animate={postAnimation}>
+              <ContentInformation post={currentPost} />
+            </motion.div>
           </div>
         </div>
         <ImpressionGrid onClick={impressionClickHandler} />
