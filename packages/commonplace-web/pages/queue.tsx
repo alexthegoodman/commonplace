@@ -1,7 +1,7 @@
 import request, { gql } from "graphql-request";
 import type { NextPage } from "next";
 import Link from "next/link";
-import { useContext, useReducer, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import { useCookies } from "react-cookie";
 import useSWR, { SWRConfig } from "swr";
 import Utilities from "../../commonplace-utilities";
@@ -15,10 +15,12 @@ import {
   QueueContextReducer,
   QueueContextState,
 } from "../context/QueueContext/QueueContext";
-import { cpGraphqlUrl } from "../def/urls";
+import { cloudfrontUrl, cpGraphqlUrl } from "../def/urls";
 import { createMessageMutation } from "../graphql/mutations/message";
 import { postsQuery } from "../graphql/queries/post";
 import { userQuery } from "../graphql/queries/user";
+import { useImageUrl } from "../hooks/useImageUrl";
+import { usePreloadImage } from "../hooks/usePreloadImage";
 
 const getPostsAndUserData = async (userId) => {
   const userData = await request(cpGraphqlUrl, userQuery, {
@@ -86,27 +88,31 @@ const QueueContent = () => {
     (post, i) => post.id === queuePostId
   )[0];
 
-  // const currentPost =
-  //   data && data?.posts && typeof data.posts !== "undefined"
-  //     ? data.posts[queueIndex]
-  //     : null;
-  // const preloadPost =
-  //   data && data?.posts && typeof data.posts !== "undefined"
-  //     ? data.posts[queueIndex + 1]
-  //     : null;
+  const currentPostIndex = data?.posts.findIndex(
+    (post, x) => post.id === currentPost.id
+  );
+  const nextPost = data?.posts[currentPostIndex + 1];
+  const nextPostId = nextPost.id;
+
+  console.info(
+    "impressionClickHandler",
+    data?.posts,
+    currentPostIndex,
+    currentPost,
+    nextPostId
+  );
+
+  // preload image
+  const { imageUrl } = useImageUrl(nextPost?.content, {
+    width: 800,
+  });
+
+  usePreloadImage(imageUrl);
+
+  // TODO: preload video
+  // TODO: preload audio
 
   const impressionClickHandler = async (impression) => {
-    const currentPostIndex = data?.posts.findIndex(
-      (post, x) => post.id === currentPost.id
-    );
-    const nextPostId = data?.posts[currentPostIndex + 1].id;
-    console.info(
-      "impressionClickHandler",
-      data?.posts,
-      currentPostIndex,
-      currentPost,
-      nextPostId
-    );
     // setQueueIndex(queueIndex + 1);
     setQueuePostId(nextPostId);
     // TODO: send impression message
@@ -129,14 +135,7 @@ const QueueContent = () => {
       postId: currentPost?.id,
     });
 
-    console.info(
-      "savedImpression",
-
-      savedImpression
-    );
-
-    // TODO: filter getPosts by those already with impression and created by self, limit to 10
-    // TODO: on index 10, refresh SWR 10 posts and reset index to 0
+    console.info("savedImpression", savedImpression);
   };
 
   return (
@@ -159,14 +158,6 @@ const QueueContent = () => {
           rightIcon={<PrimaryNavigation />}
         />
         <div className="scrollContainer queueScrollContainer">
-          {/* <div className="displayPost preloadPost">
-            <ContentViewer
-              type={preloadPost?.contentType}
-              preview={preloadPost?.contentPreview}
-              content={preloadPost?.content}
-            />
-            <ContentInformation post={currentPost} />
-          </div> */}
           <div className="displayPost currentPost">
             <ContentViewer
               type={currentPost?.contentType}

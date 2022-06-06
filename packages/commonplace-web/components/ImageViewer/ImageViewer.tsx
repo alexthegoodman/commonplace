@@ -1,5 +1,7 @@
 import * as React from "react";
+import Utilities from "../../../commonplace-utilities";
 import { cloudfrontUrl } from "../../def/urls";
+import { useImageUrl } from "../../hooks/useImageUrl";
 
 // TODO: set ESLint ignore for `next build` type check
 import { ImageViewerProps } from "./ImageViewer.d";
@@ -11,21 +13,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
   alt = "",
   sourceUrl = null,
 }) => {
-  const imageRequest = JSON.stringify({
-    bucket: "cp-aws-assets",
-    key: sourceUrl,
-    edits: {
-      resize: {
-        width: 800,
-        // height: 800,
-        fit: "contain",
-      },
-    },
-  });
-
-  const requestData = Buffer.from(imageRequest).toString("base64");
-
-  const imageUrl = `${cloudfrontUrl}/${requestData}`;
+  const { imageUrl } = useImageUrl(sourceUrl as string, { width: 800 });
 
   return <img alt={alt} title={alt} src={imageUrl} />;
 };
