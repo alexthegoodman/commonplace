@@ -12,6 +12,8 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
   const displayDate = DateTime.fromISO(post?.createdAt).toFormat("DDD");
+  const prrofileSEOStatement =
+    post?.creator?.chosenUsername + " on CommonPlace";
 
   return (
     <section className="contentInformation">
@@ -25,7 +27,11 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
             <div className="contentAuthor">
               <div className="contentAuthorInner">
                 <div className="authorProfileImage">
-                  <img src={post?.creator?.profileImage} />
+                  <img
+                    alt={prrofileSEOStatement}
+                    title={prrofileSEOStatement}
+                    src={post?.creator?.profileImage}
+                  />
                 </div>
                 <div className="authorInformationWrapper">
                   <div className="authorInformation">

@@ -6,6 +6,7 @@ const AudioViewer: React.FC<AudioViewerProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click AudioViewer"),
+  alt = "",
   sourceUrl = "",
   previewUrl = "",
   mini = false,
@@ -43,7 +44,7 @@ const AudioViewer: React.FC<AudioViewerProps> = ({
         </div>
         <div className="previewImageWrapper">
           <div className="previewImage">
-            <img src={previewUrl} alt="" title="" />
+            <img src={previewUrl} alt={alt} title={alt} />
           </div>
         </div>
         {!mini ? (

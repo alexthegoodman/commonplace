@@ -33,7 +33,12 @@ const ContentViewer: React.FC<ContentViewerProps> = ({
           ""
         )}
         {type === "audio" ? (
-          <AudioViewer mini={mini} previewUrl={preview} sourceUrl={content} />
+          <AudioViewer
+            mini={mini}
+            alt={alt}
+            previewUrl={preview}
+            sourceUrl={content}
+          />
         ) : (
           ""
         )}
