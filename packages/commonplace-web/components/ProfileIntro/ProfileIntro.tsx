@@ -6,6 +6,7 @@ const ProfileIntro: React.FC<ProfileIntroProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click ProfileIntro"),
+  alt = "",
   profileImage = "",
   coverImage = "",
 }) => {
@@ -14,10 +15,10 @@ const ProfileIntro: React.FC<ProfileIntroProps> = ({
     <section className="profileIntro">
       <div className="profileIntroInner">
         <div className="coverPhoto">
-          <img alt="" src={profileImage} />
+          <img src={coverImage} />
         </div>
         <div className="profilePhoto">
-          <img alt="" title="" src={coverImage} />
+          <img alt={alt} title={alt} src={profileImage} />
         </div>
       </div>
     </section>

@@ -20,6 +20,9 @@ const getUserData = async (userId) => {
 };
 
 export const ProfileContent = ({ data }) => {
+  const prrofileSEOStatement =
+    data?.user?.chosenUsername + "'s Profile on CommonPlace";
+
   return (
     <section className="profile">
       <div className="profileInner">
@@ -45,6 +48,7 @@ export const ProfileContent = ({ data }) => {
         />
         <div className="scrollContainer">
           <ProfileIntro
+            alt={prrofileSEOStatement}
             profileImage={data?.user?.profileImage}
             coverImage={data?.user?.coverImage}
           />
