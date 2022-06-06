@@ -106,8 +106,8 @@ const QueueContent = () => {
   const impressionClickHandler = async (impression) => {
     await postAnimation.start((i) => ({
       opacity: 0,
-      y: 10,
-      transition: { delay: i * 1.5 - 1 },
+      y: 5,
+      transition: { delay: 1 + i * 0.15 },
     }));
 
     // setQueueIndex(queueIndex + 1);
