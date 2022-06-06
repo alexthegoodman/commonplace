@@ -58,12 +58,14 @@ export interface NexusGenInputs {
     NOT?: NexusGenInputs['CategoryWhereInput'][] | null; // [CategoryWhereInput!]
     OR?: NexusGenInputs['CategoryWhereInput'][] | null; // [CategoryWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    generatedCategorySlug?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     interests?: NexusGenInputs['InterestListRelationFilter'] | null; // InterestListRelationFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
   }
   CategoryWhereUniqueInput: { // input type
+    generatedCategorySlug?: string | null; // String
     id?: string | null; // String
   }
   DateTimeFilter: { // input type
@@ -95,6 +97,7 @@ export interface NexusGenInputs {
     categories?: NexusGenInputs['CategoryOrderByRelationAggregateInput'] | null; // CategoryOrderByRelationAggregateInput
     contentType?: NexusGenEnums['SortOrder'] | null; // SortOrder
     createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    generatedInterestSlug?: NexusGenEnums['SortOrder'] | null; // SortOrder
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     modifiers?: NexusGenInputs['ModifierOrderByRelationAggregateInput'] | null; // ModifierOrderByRelationAggregateInput
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -108,6 +111,7 @@ export interface NexusGenInputs {
     categories?: NexusGenInputs['CategoryListRelationFilter'] | null; // CategoryListRelationFilter
     contentType?: NexusGenInputs['StringFilter'] | null; // StringFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    generatedInterestSlug?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     modifiers?: NexusGenInputs['ModifierListRelationFilter'] | null; // ModifierListRelationFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -115,6 +119,7 @@ export interface NexusGenInputs {
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
   }
   InterestWhereUniqueInput: { // input type
+    generatedInterestSlug?: string | null; // String
     id?: string | null; // String
   }
   MessageListRelationFilter: { // input type
@@ -172,6 +177,7 @@ export interface NexusGenInputs {
     NOT?: NexusGenInputs['ModifierWhereInput'][] | null; // [ModifierWhereInput!]
     OR?: NexusGenInputs['ModifierWhereInput'][] | null; // [ModifierWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    generatedModifierSlug?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     interests?: NexusGenInputs['InterestListRelationFilter'] | null; // InterestListRelationFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -541,7 +547,9 @@ export interface NexusGenFieldTypes {
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
     getPostByPostTitle: NexusGenRootTypes['PublicPost'] | null; // PublicPost
     getPostImpressions: Array<NexusGenRootTypes['Message'] | null>; // [Message]!
+    getPostURLs: Array<string | null> | null; // [String]
     getPostsByUsername: Array<NexusGenRootTypes['PublicPost'] | null> | null; // [PublicPost]
+    getProfileURLs: Array<string | null> | null; // [String]
     getUserByPostTitle: NexusGenRootTypes['PublicUser'] | null; // PublicUser
     getUserByUsername: NexusGenRootTypes['PublicUser'] | null; // PublicUser
     interests: NexusGenRootTypes['Interest'][]; // [Interest!]!
@@ -635,7 +643,9 @@ export interface NexusGenFieldTypeNames {
     categories: 'Category'
     getPostByPostTitle: 'PublicPost'
     getPostImpressions: 'Message'
+    getPostURLs: 'String'
     getPostsByUsername: 'PublicPost'
+    getProfileURLs: 'String'
     getUserByPostTitle: 'PublicUser'
     getUserByUsername: 'PublicUser'
     interests: 'Interest'

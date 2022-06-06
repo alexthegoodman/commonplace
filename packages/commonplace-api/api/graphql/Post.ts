@@ -188,6 +188,37 @@ export const CreatePostMutation = extendType({
   },
 });
 
+export const PostURLsQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.list.field("getPostURLs", {
+      type: "String",
+      args: {},
+      resolve: async (_, {}, { prisma: PrismaClient }) => {
+        const slugs = await prisma.post.findMany({
+          select: {
+            generatedTitleSlug: true,
+            interest: true,
+          },
+        });
+
+        const urls = slugs.map((user, i) => {
+          return (
+            "/" +
+            user.interest.generatedInterestSlug +
+            "/" +
+            user.generatedTitleSlug
+          );
+        });
+
+        console.info("getPostURLs", slugs, urls);
+
+        return urls;
+      },
+    });
+  },
+});
+
 export const PostByPostTitleQuery = extendType({
   type: "Query",
   definition(t) {

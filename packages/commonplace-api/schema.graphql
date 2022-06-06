@@ -28,6 +28,7 @@ input CategoryWhereInput {
   NOT: [CategoryWhereInput!]
   OR: [CategoryWhereInput!]
   createdAt: DateTimeFilter
+  generatedCategorySlug: StringFilter
   id: StringFilter
   interests: InterestListRelationFilter
   name: StringFilter
@@ -35,6 +36,7 @@ input CategoryWhereInput {
 }
 
 input CategoryWhereUniqueInput {
+  generatedCategorySlug: String
   id: String
 }
 
@@ -81,6 +83,7 @@ input InterestOrderByWithRelationInput {
   categories: CategoryOrderByRelationAggregateInput
   contentType: SortOrder
   createdAt: SortOrder
+  generatedInterestSlug: SortOrder
   id: SortOrder
   modifiers: ModifierOrderByRelationAggregateInput
   name: SortOrder
@@ -95,6 +98,7 @@ input InterestWhereInput {
   categories: CategoryListRelationFilter
   contentType: StringFilter
   createdAt: DateTimeFilter
+  generatedInterestSlug: StringFilter
   id: StringFilter
   modifiers: ModifierListRelationFilter
   name: StringFilter
@@ -103,6 +107,7 @@ input InterestWhereInput {
 }
 
 input InterestWhereUniqueInput {
+  generatedInterestSlug: String
   id: String
 }
 
@@ -183,6 +188,7 @@ input ModifierWhereInput {
   NOT: [ModifierWhereInput!]
   OR: [ModifierWhereInput!]
   createdAt: DateTimeFilter
+  generatedModifierSlug: StringFilter
   id: StringFilter
   interests: InterestListRelationFilter
   name: StringFilter
@@ -344,7 +350,9 @@ type Query {
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
   getPostByPostTitle(postTitle: String!): PublicPost
   getPostImpressions(postTitle: String!): [Message]!
+  getPostURLs: [String]
   getPostsByUsername(chosenUsername: String!): [PublicPost]
+  getProfileURLs: [String]
   getUserByPostTitle(postTitle: String!): PublicUser
   getUserByUsername(chosenUsername: String!): PublicUser
   interests(after: InterestWhereUniqueInput, before: InterestWhereUniqueInput, first: Int, last: Int): [Interest!]!

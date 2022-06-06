@@ -54,6 +54,12 @@ const PublicPostFieldsFragment = gql`
   }
 `;
 
+export const postURLsQuery = gql`
+  query GetPostURLs {
+    getPostURLs
+  }
+`;
+
 export const postsByUsernameQuery = gql`
   query getPostsByUsername($chosenUsername: String!) {
     getPostsByUsername(chosenUsername: $chosenUsername) {

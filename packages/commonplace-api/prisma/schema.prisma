@@ -90,6 +90,7 @@ model Message {
 model Interest {
   id       String   @id @default(uuid()) @unique
   name     String
+  generatedInterestSlug String @default("") @unique
   
   contentType String
 
@@ -104,6 +105,7 @@ model Interest {
 model Category {
   id       String   @id @default(uuid()) @unique
   name     String
+  generatedCategorySlug String @default("") @unique
 
   interests Interest[]
   
@@ -114,6 +116,7 @@ model Category {
 model Modifier {
   id       String   @id @default(uuid()) @unique
   name     String
+  generatedModifierSlug String @default("") @unique
 
   posts     Post[]
   interests Interest[]

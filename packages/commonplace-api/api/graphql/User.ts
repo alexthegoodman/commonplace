@@ -77,6 +77,31 @@ export const UserQuery = extendType({
   },
 });
 
+export const ProfileURLsQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.list.field("getProfileURLs", {
+      type: "String",
+      args: {},
+      resolve: async (_, {}, { prisma: PrismaClient }) => {
+        const userNames = await prisma.user.findMany({
+          select: {
+            chosenUsername: true,
+          },
+        });
+
+        const urls = userNames.map((user, i) => {
+          return "/co/" + user.chosenUsername;
+        });
+
+        console.info("getProfileURLs", userNames, urls);
+
+        return urls;
+      },
+    });
+  },
+});
+
 export const UserByUsernameQuery = extendType({
   type: "Query",
   definition(t) {

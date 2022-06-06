@@ -62,6 +62,12 @@ const PublicUserFieldsFragment = gql`
   }
 `;
 
+export const profileURLsQuery = gql`
+  query GetProfileURLs {
+    getProfileURLs
+  }
+`;
+
 export const userByUsernameQuery = gql`
   query UserByUsername($chosenUsername: String!) {
     getUserByUsername(chosenUsername: $chosenUsername) {

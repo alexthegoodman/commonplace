@@ -1,14 +1,17 @@
 import { PrismaClient } from "@prisma/client";
 import faker from "@faker-js/faker";
+import slugify from "slugify";
 
 const prisma = new PrismaClient();
 
 export default async function seedInterests() {
   const getDefaultCategory = () => {
     const name = faker.lorem.words();
+    const generatedCategorySlug = slugify(name);
 
     return {
       name,
+      generatedCategorySlug,
     };
   };
 
@@ -26,9 +29,11 @@ export default async function seedInterests() {
 
   const getDefaultInterest = (category) => {
     const name = faker.lorem.words();
+    const generatedInterestSlug = slugify(name);
 
     return {
-      name: name,
+      name,
+      generatedInterestSlug,
       contentType: "",
       categories: {
         connect: {

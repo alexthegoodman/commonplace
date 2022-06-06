@@ -43,16 +43,16 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'readBy' | 'updatedAt' | 'createdAt'
     }
     interests: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'name' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'generatedInterestSlug' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'name' | 'generatedInterestSlug' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
     }
     categories: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'interests' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'name' | 'interests' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'generatedCategorySlug' | 'interests' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'name' | 'generatedCategorySlug' | 'interests' | 'updatedAt' | 'createdAt'
     }
     modifiers: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'name' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'generatedModifierSlug' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'name' | 'generatedModifierSlug' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
     }
   },
   User: {
@@ -75,8 +75,8 @@ interface NexusPrismaInputs {
   }
   Post: {
     modifiers: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'name' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'generatedModifierSlug' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'name' | 'generatedModifierSlug' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
     }
     messages: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'readBy' | 'updatedAt' | 'createdAt'
@@ -105,18 +105,18 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'title' | 'description' | 'generatedTitleSlug' | 'contentType' | 'contentPreview' | 'content' | 'interest' | 'interestId' | 'modifiers' | 'creator' | 'creatorId' | 'messages' | 'updatedAt' | 'createdAt'
     }
     categories: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'interests' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'name' | 'interests' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'generatedCategorySlug' | 'interests' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'name' | 'generatedCategorySlug' | 'interests' | 'updatedAt' | 'createdAt'
     }
     modifiers: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'name' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'generatedModifierSlug' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'name' | 'generatedModifierSlug' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
     }
   }
   Category: {
     interests: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'name' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'generatedInterestSlug' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'name' | 'generatedInterestSlug' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
     }
   }
   Modifier: {
@@ -125,8 +125,8 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'title' | 'description' | 'generatedTitleSlug' | 'contentType' | 'contentPreview' | 'content' | 'interest' | 'interestId' | 'modifiers' | 'creator' | 'creatorId' | 'messages' | 'updatedAt' | 'createdAt'
     }
     interests: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'name' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'generatedInterestSlug' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'name' | 'generatedInterestSlug' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
     }
   }
 }
@@ -252,6 +252,7 @@ interface NexusPrismaOutputs {
   Interest: {
     id: 'String'
     name: 'String'
+    generatedInterestSlug: 'String'
     contentType: 'String'
     posts: 'Post'
     categories: 'Category'
@@ -262,6 +263,7 @@ interface NexusPrismaOutputs {
   Category: {
     id: 'String'
     name: 'String'
+    generatedCategorySlug: 'String'
     interests: 'Interest'
     updatedAt: 'DateTime'
     createdAt: 'DateTime'
@@ -269,6 +271,7 @@ interface NexusPrismaOutputs {
   Modifier: {
     id: 'String'
     name: 'String'
+    generatedModifierSlug: 'String'
     posts: 'Post'
     interests: 'Interest'
     updatedAt: 'DateTime'
