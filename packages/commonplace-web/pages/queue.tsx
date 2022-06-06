@@ -88,7 +88,7 @@ const QueueContent = () => {
   )[0];
 
   const currentPostIndex = data?.posts.findIndex(
-    (post, x) => post.id === currentPost.id
+    (post, x) => post.id === currentPost?.id
   );
   const nextPost = data?.posts[currentPostIndex + 1];
   const nextPostId = nextPost.id;
