@@ -76,19 +76,39 @@ const QueueContent = () => {
 
   console.info("QueueContent", data, state, dispatch);
 
-  const [queueIndex, setQueueIndex] = useState(0);
+  const firstId = data?.posts[0].id;
 
-  const currentPost =
-    data && data?.posts && typeof data.posts !== "undefined"
-      ? data.posts[queueIndex]
-      : null;
-  const preloadPost =
-    data && data?.posts && typeof data.posts !== "undefined"
-      ? data.posts[queueIndex + 1]
-      : null;
+  // const [queueIndex, setQueueIndex] = useState(0);
+  const [queuePostId, setQueuePostId] = useState(firstId); // defaults to first post
+
+  // TODO: get currentPost via id
+  const currentPost = data?.posts?.filter(
+    (post, i) => post.id === queuePostId
+  )[0];
+
+  // const currentPost =
+  //   data && data?.posts && typeof data.posts !== "undefined"
+  //     ? data.posts[queueIndex]
+  //     : null;
+  // const preloadPost =
+  //   data && data?.posts && typeof data.posts !== "undefined"
+  //     ? data.posts[queueIndex + 1]
+  //     : null;
 
   const impressionClickHandler = async (impression) => {
-    setQueueIndex(queueIndex + 1);
+    const currentPostIndex = data?.posts.findIndex(
+      (post, x) => post.id === currentPost.id
+    );
+    const nextPostId = data?.posts[currentPostIndex + 1].id;
+    console.info(
+      "impressionClickHandler",
+      data?.posts,
+      currentPostIndex,
+      currentPost,
+      nextPostId
+    );
+    // setQueueIndex(queueIndex + 1);
+    setQueuePostId(nextPostId);
     // TODO: send impression message
     const currentUserEmail = data?.currentUser?.user?.email;
     const postCreatorEmail = currentPost?.creator?.email;
@@ -139,14 +159,14 @@ const QueueContent = () => {
           rightIcon={<PrimaryNavigation />}
         />
         <div className="scrollContainer queueScrollContainer">
-          <div className="displayPost preloadPost">
+          {/* <div className="displayPost preloadPost">
             <ContentViewer
               type={preloadPost?.contentType}
               preview={preloadPost?.contentPreview}
               content={preloadPost?.content}
             />
             <ContentInformation post={currentPost} />
-          </div>
+          </div> */}
           <div className="displayPost currentPost">
             <ContentViewer
               type={currentPost?.contentType}
