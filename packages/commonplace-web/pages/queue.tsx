@@ -77,10 +77,11 @@ const QueueContent = () => {
 
   console.info("QueueContent", data, state);
 
-  const firstId = data?.posts[0].id;
+  const firstId = data?.posts[0]?.id;
 
   // const [queueIndex, setQueueIndex] = useState(0);
   const [queuePostId, setQueuePostId] = useState(firstId); // defaults to first post
+  const [queueFinished, setQueueFinished] = useState(firstId ? false : true);
 
   // TODO: get currentPost via id
   const currentPost = data?.posts?.filter(
@@ -90,8 +91,16 @@ const QueueContent = () => {
   const currentPostIndex = data?.posts.findIndex(
     (post, x) => post.id === currentPost?.id
   );
+
+  useEffect(() => {
+    if (typeof currentPost?.id === "undefined") {
+      // reached end of queue
+      setQueueFinished(true);
+    }
+  }, [currentPostIndex]);
+
   const nextPost = data?.posts[currentPostIndex + 1];
-  const nextPostId = nextPost.id;
+  const nextPostId = nextPost?.id;
 
   // preload image
   const { imageUrl } = useImageUrl(nextPost?.content, {
@@ -169,22 +178,28 @@ const QueueContent = () => {
           rightIcon={<PrimaryNavigation />}
         />
         <div className="scrollContainer queueScrollContainer">
-          <div className="displayPost currentPost">
-            <motion.div
-              custom={0}
-              animate={postAnimation}
-              initial={{ opacity: 0 }}
-            >
-              <ContentViewer
-                type={currentPost?.contentType}
-                preview={currentPost?.contentPreview}
-                content={currentPost?.content}
-              />
-            </motion.div>
-            <motion.div custom={1} animate={postAnimation}>
-              <ContentInformation post={currentPost} />
-            </motion.div>
-          </div>
+          {!queueFinished ? (
+            <div className="displayPost currentPost">
+              <motion.div
+                custom={0}
+                animate={postAnimation}
+                initial={{ opacity: 0 }}
+              >
+                <ContentViewer
+                  type={currentPost?.contentType}
+                  preview={currentPost?.contentPreview}
+                  content={currentPost?.content}
+                />
+              </motion.div>
+              <motion.div custom={1} animate={postAnimation}>
+                <ContentInformation post={currentPost} />
+              </motion.div>
+            </div>
+          ) : (
+            <div className="emptyMessage queueEmptyMessage">
+              <span>Check out other interests or upload a post!</span>
+            </div>
+          )}
         </div>
         <ImpressionGrid onClick={impressionClickHandler} />
         {/* <ImpressionWheel /> */}
