@@ -167,6 +167,29 @@ const QueueContent = () => {
     }));
   }, []);
 
+  const unreadThreads = [];
+
+  data?.threads?.forEach((thread, i) => {
+    const previewMessage = thread.messages[0];
+    const lastMessageIndex = thread.messages.length - 1;
+    const lastReadIndex = thread.readHistory.length - 1;
+    const lastMessageTime = thread.messages[lastMessageIndex].createdAt;
+    const lastReadTime = thread.readHistory[lastReadIndex].createdAt;
+
+    // console.info("thhread times", lastReadTime, lastMessageTime);
+
+    let isRead = false;
+    if (lastReadTime > lastMessageTime) {
+      isRead = true;
+    } else {
+      unreadThreads.push(thread);
+    }
+  });
+
+  const unreadThreadCount = unreadThreads.length;
+
+  console.info("unreadThreads", unreadThreads);
+
   return (
     <section className="queue">
       <div className="queueInner">
@@ -184,7 +207,7 @@ const QueueContent = () => {
               </a>
             </Link>
           }
-          rightIcon={<PrimaryNavigation threadCount={data?.threads?.length} />}
+          rightIcon={<PrimaryNavigation threadCount={unreadThreadCount} />}
         />
         <div className="scrollContainer queueScrollContainer">
           {!queueFinished ? (
