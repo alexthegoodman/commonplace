@@ -7,6 +7,12 @@ export default async function seedThreads(users, posts) {
   const getDefaultThread = () => {
     return {
       repliesAllowed: true,
+      readHistory: {
+        create: {
+          name: "readBy",
+          content: users[0].chosenUsername,
+        },
+      },
       users: {
         connect: [{ id: users[0].id }, { id: users[1].id }],
       },
@@ -16,13 +22,14 @@ export default async function seedThreads(users, posts) {
   const thread1 = await prisma.thread.create({
     data: {
       ...getDefaultThread(),
+
       messages: {
         create: [
           {
             type: "impression",
             content: "Dazzling",
             user: { connect: { id: users[0].id } },
-            readBy: { connect: { id: users[1].id } }, // include author?
+            // readBy: { connect: { id: users[1].id } }, // include author?
             post: {
               connect: { id: posts[0].id },
             },
@@ -46,7 +53,7 @@ export default async function seedThreads(users, posts) {
             type: "impression",
             content: "Original",
             user: { connect: { id: users[0].id } },
-            readBy: { connect: { id: users[1].id } }, // include author?
+            // readBy: { connect: { id: users[1].id } }, // include author?
             post: {
               connect: { id: posts[1].id },
             },

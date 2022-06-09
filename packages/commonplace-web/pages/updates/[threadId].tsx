@@ -60,6 +60,11 @@ const ThreadContent = () => {
 
   console.info("otherUser", otherUser);
 
+  // TODO:
+  // readHistory is an array of Records
+  // check if the most recent record is newer than
+  // the last messsage sent in the thread
+
   return (
     <section className="thread">
       <div className="threadInner">

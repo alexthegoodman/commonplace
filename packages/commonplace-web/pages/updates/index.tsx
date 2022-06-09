@@ -10,7 +10,7 @@ import UpdateItem from "../../components/UpdateItem/UpdateItem";
 import { threadsQuery } from "../../graphql/queries/thread";
 import { cpGraphqlUrl } from "../../def/urls";
 
-const getUserThreadData = async (userId) => {
+export const getUserThreadData = async (userId) => {
   const userThreadData = await request(cpGraphqlUrl, threadsQuery, {
     id: userId,
     orderMessagesBy: {

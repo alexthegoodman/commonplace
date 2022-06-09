@@ -7,6 +7,7 @@ const PrimaryNavigation: React.FC<PrimaryNavigationProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click PrimaryNavigation"),
+  threadCount = 0,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
   return (
@@ -30,6 +31,11 @@ const PrimaryNavigation: React.FC<PrimaryNavigationProps> = ({
           <a className="navOption">
             <span className="navLabel desktopOnly">Updates</span>
             {/* <div className="feather-icon icon-message-square"></div> */}
+            {threadCount > 0 ? (
+              <span className="navIndicator">{threadCount}</span>
+            ) : (
+              <></>
+            )}
             <i className="typcn typcn-messages"></i>
           </a>
         </Link>

@@ -6,4 +6,4 @@ export * from "./Category";
 export * from "./Interest";
 
 export * from "./Query";
-// export * from "./Mutation";
+export * from "./Mutation";

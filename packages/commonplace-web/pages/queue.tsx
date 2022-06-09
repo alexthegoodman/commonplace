@@ -22,6 +22,7 @@ import { postsQuery } from "../graphql/queries/post";
 import { userQuery } from "../graphql/queries/user";
 import { useImageUrl } from "../hooks/useImageUrl";
 import { usePreloadImage } from "../hooks/usePreloadImage";
+import { getUserThreadData } from "./updates";
 
 const getPostsAndUserData = async (userId) => {
   const userData = await request(cpGraphqlUrl, userQuery, {
@@ -55,9 +56,12 @@ const getPostsAndUserData = async (userId) => {
     },
   });
 
+  const userThreadData = await getUserThreadData(userId);
+
   const returnData = {
     currentUser: userData,
     posts: postsData.posts,
+    threads: userThreadData?.user?.threads,
   };
 
   return returnData;
@@ -175,7 +179,7 @@ const QueueContent = () => {
               </a>
             </Link>
           }
-          rightIcon={<PrimaryNavigation />}
+          rightIcon={<PrimaryNavigation threadCount={data?.threads?.length} />}
         />
         <div className="scrollContainer queueScrollContainer">
           {!queueFinished ? (

@@ -27,7 +27,7 @@ model User {
   posts        Post[]
   threads      Thread[]
   messages     Message[]  @relation("userMessages")
-  readMessages Message[]  @relation("userReadMessages")
+  // readMessages Message[]  @relation("userReadMessages")
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -64,6 +64,8 @@ model Thread {
   users    User[]
   messages Message[]
 
+  readHistory Record[]
+
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }
@@ -81,7 +83,7 @@ model Message {
   post     Post?    @relation(fields: [postId], references: [id])
   postId   String?
 
-  readBy   User[] @relation("userReadMessages")
+  // readBy   User[] @relation("userReadMessages")
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -120,6 +122,18 @@ model Modifier {
 
   posts     Post[]
   interests Interest[]
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Record {
+  id       String   @id @default(uuid()) @unique
+  name     String
+  content  String?
+
+  thread    Thread? @relation(fields: [threadId], references: [id])
+  threadId  String?
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
