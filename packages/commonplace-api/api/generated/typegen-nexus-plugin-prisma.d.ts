@@ -21,26 +21,27 @@ interface PrismaModels {
   Interest: Prisma.Interest
   Category: Prisma.Category
   Modifier: Prisma.Modifier
+  Record: Prisma.Record
 }
 
 // Prisma input types metadata
 interface NexusPrismaInputs {
   Query: {
     users: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'email' | 'name' | 'password' | 'generatedUsername' | 'chosenUsername' | 'credit' | 'profileImage' | 'coverImage' | 'posts' | 'threads' | 'messages' | 'readMessages' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'email' | 'name' | 'password' | 'generatedUsername' | 'chosenUsername' | 'credit' | 'profileImage' | 'coverImage' | 'posts' | 'threads' | 'messages' | 'readMessages' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'email' | 'name' | 'password' | 'generatedUsername' | 'chosenUsername' | 'credit' | 'profileImage' | 'coverImage' | 'posts' | 'threads' | 'messages' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'email' | 'name' | 'password' | 'generatedUsername' | 'chosenUsername' | 'credit' | 'profileImage' | 'coverImage' | 'posts' | 'threads' | 'messages' | 'updatedAt' | 'createdAt'
     }
     posts: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'title' | 'description' | 'generatedTitleSlug' | 'contentType' | 'contentPreview' | 'content' | 'interest' | 'interestId' | 'modifiers' | 'creator' | 'creatorId' | 'messages' | 'updatedAt' | 'createdAt'
       ordering: 'id' | 'title' | 'description' | 'generatedTitleSlug' | 'contentType' | 'contentPreview' | 'content' | 'interest' | 'interestId' | 'modifiers' | 'creator' | 'creatorId' | 'messages' | 'updatedAt' | 'createdAt'
     }
     threads: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'repliesAllowed' | 'users' | 'messages' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'repliesAllowed' | 'users' | 'messages' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'repliesAllowed' | 'users' | 'messages' | 'readHistory' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'repliesAllowed' | 'users' | 'messages' | 'readHistory' | 'updatedAt' | 'createdAt'
     }
     messages: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'readBy' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'readBy' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'updatedAt' | 'createdAt'
     }
     interests: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'generatedInterestSlug' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
@@ -54,6 +55,10 @@ interface NexusPrismaInputs {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'generatedModifierSlug' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
       ordering: 'id' | 'name' | 'generatedModifierSlug' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
     }
+    records: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'content' | 'thread' | 'threadId' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'name' | 'content' | 'thread' | 'threadId' | 'updatedAt' | 'createdAt'
+    }
   },
   User: {
     posts: {
@@ -61,16 +66,12 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'title' | 'description' | 'generatedTitleSlug' | 'contentType' | 'contentPreview' | 'content' | 'interest' | 'interestId' | 'modifiers' | 'creator' | 'creatorId' | 'messages' | 'updatedAt' | 'createdAt'
     }
     threads: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'repliesAllowed' | 'users' | 'messages' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'repliesAllowed' | 'users' | 'messages' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'repliesAllowed' | 'users' | 'messages' | 'readHistory' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'repliesAllowed' | 'users' | 'messages' | 'readHistory' | 'updatedAt' | 'createdAt'
     }
     messages: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'readBy' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'readBy' | 'updatedAt' | 'createdAt'
-    }
-    readMessages: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'readBy' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'readBy' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'updatedAt' | 'createdAt'
     }
   }
   Post: {
@@ -79,25 +80,26 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'name' | 'generatedModifierSlug' | 'posts' | 'interests' | 'updatedAt' | 'createdAt'
     }
     messages: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'readBy' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'readBy' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'updatedAt' | 'createdAt'
     }
   }
   Thread: {
     users: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'email' | 'name' | 'password' | 'generatedUsername' | 'chosenUsername' | 'credit' | 'profileImage' | 'coverImage' | 'posts' | 'threads' | 'messages' | 'readMessages' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'email' | 'name' | 'password' | 'generatedUsername' | 'chosenUsername' | 'credit' | 'profileImage' | 'coverImage' | 'posts' | 'threads' | 'messages' | 'readMessages' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'email' | 'name' | 'password' | 'generatedUsername' | 'chosenUsername' | 'credit' | 'profileImage' | 'coverImage' | 'posts' | 'threads' | 'messages' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'email' | 'name' | 'password' | 'generatedUsername' | 'chosenUsername' | 'credit' | 'profileImage' | 'coverImage' | 'posts' | 'threads' | 'messages' | 'updatedAt' | 'createdAt'
     }
     messages: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'readBy' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'readBy' | 'updatedAt' | 'createdAt'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'type' | 'content' | 'user' | 'userId' | 'thread' | 'threadId' | 'post' | 'postId' | 'updatedAt' | 'createdAt'
+    }
+    readHistory: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'content' | 'thread' | 'threadId' | 'updatedAt' | 'createdAt'
+      ordering: 'id' | 'name' | 'content' | 'thread' | 'threadId' | 'updatedAt' | 'createdAt'
     }
   }
   Message: {
-    readBy: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'email' | 'name' | 'password' | 'generatedUsername' | 'chosenUsername' | 'credit' | 'profileImage' | 'coverImage' | 'posts' | 'threads' | 'messages' | 'readMessages' | 'updatedAt' | 'createdAt'
-      ordering: 'id' | 'email' | 'name' | 'password' | 'generatedUsername' | 'chosenUsername' | 'credit' | 'profileImage' | 'coverImage' | 'posts' | 'threads' | 'messages' | 'readMessages' | 'updatedAt' | 'createdAt'
-    }
+
   }
   Interest: {
     posts: {
@@ -129,6 +131,9 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'name' | 'generatedInterestSlug' | 'contentType' | 'posts' | 'categories' | 'modifiers' | 'updatedAt' | 'createdAt'
     }
   }
+  Record: {
+
+  }
 }
 
 // Prisma output types metadata
@@ -148,6 +153,8 @@ interface NexusPrismaOutputs {
     categories: 'Category'
     modifier: 'Modifier'
     modifiers: 'Modifier'
+    record: 'Record'
+    records: 'Record'
   },
   Mutation: {
     createOneUser: 'User'
@@ -192,6 +199,12 @@ interface NexusPrismaOutputs {
     deleteOneModifier: 'Modifier'
     deleteManyModifier: 'AffectedRowsOutput'
     upsertOneModifier: 'Modifier'
+    createOneRecord: 'Record'
+    updateOneRecord: 'Record'
+    updateManyRecord: 'AffectedRowsOutput'
+    deleteOneRecord: 'Record'
+    deleteManyRecord: 'AffectedRowsOutput'
+    upsertOneRecord: 'Record'
   },
   User: {
     id: 'String'
@@ -206,7 +219,6 @@ interface NexusPrismaOutputs {
     posts: 'Post'
     threads: 'Thread'
     messages: 'Message'
-    readMessages: 'Message'
     updatedAt: 'DateTime'
     createdAt: 'DateTime'
   }
@@ -232,6 +244,7 @@ interface NexusPrismaOutputs {
     repliesAllowed: 'Boolean'
     users: 'User'
     messages: 'Message'
+    readHistory: 'Record'
     updatedAt: 'DateTime'
     createdAt: 'DateTime'
   }
@@ -245,7 +258,6 @@ interface NexusPrismaOutputs {
     threadId: 'String'
     post: 'Post'
     postId: 'String'
-    readBy: 'User'
     updatedAt: 'DateTime'
     createdAt: 'DateTime'
   }
@@ -277,6 +289,15 @@ interface NexusPrismaOutputs {
     updatedAt: 'DateTime'
     createdAt: 'DateTime'
   }
+  Record: {
+    id: 'String'
+    name: 'String'
+    content: 'String'
+    thread: 'Thread'
+    threadId: 'String'
+    updatedAt: 'DateTime'
+    createdAt: 'DateTime'
+  }
 }
 
 // Helper to gather all methods relative to a model
@@ -288,6 +309,7 @@ interface NexusPrismaMethods {
   Interest: Typegen.NexusPrismaFields<'Interest'>
   Category: Typegen.NexusPrismaFields<'Category'>
   Modifier: Typegen.NexusPrismaFields<'Modifier'>
+  Record: Typegen.NexusPrismaFields<'Record'>
   Query: Typegen.NexusPrismaFields<'Query'>
   Mutation: Typegen.NexusPrismaFields<'Mutation'>
 }

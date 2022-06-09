@@ -20,7 +20,7 @@ const getUserData = async (userId) => {
 };
 
 export const ProfileContent = ({ data }) => {
-  const prrofileSEOStatement =
+  const profileSEOStatement =
     data?.user?.chosenUsername + "'s Profile on CommonPlace";
 
   return (
@@ -48,7 +48,7 @@ export const ProfileContent = ({ data }) => {
         />
         <div className="scrollContainer">
           <ProfileIntro
-            alt={prrofileSEOStatement}
+            alt={profileSEOStatement}
             profileImage={data?.user?.profileImage}
             coverImage={data?.user?.coverImage}
             title={data?.user?.chosenUsername}

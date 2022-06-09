@@ -12,6 +12,8 @@ import { threadQuery } from "../../graphql/queries/thread";
 import { useRouter } from "next/router";
 import { userQuery } from "../../graphql/queries/user";
 import { cpGraphqlUrl } from "../../def/urls";
+import { useEffect } from "react";
+import { createRecordMutation } from "../../graphql/mutations/record";
 
 const getUserAndThreadData = async (userId, threadId) => {
   const userData = await request(cpGraphqlUrl, userQuery, {
@@ -60,7 +62,29 @@ const ThreadContent = () => {
 
   console.info("otherUser", otherUser);
 
+  const setReadBy = async () => {
+    const readAt = await request(cpGraphqlUrl, createRecordMutation, {
+      data: {
+        name: "readBy",
+        content: data?.currentUser?.user?.chosenUsername,
+        thread: {
+          connect: {
+            id: threadId,
+          },
+        },
+      },
+    });
+
+    console.info("readAt", readAt);
+  };
+
   // TODO:
+  // add one record to readHistory every time
+  useEffect(() => {
+    console.info("setting readBy");
+    setReadBy();
+  }, []);
+
   // readHistory is an array of Records
   // check if the most recent record is newer than
   // the last messsage sent in the thread

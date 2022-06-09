@@ -6,8 +6,13 @@ const PublicThreadFieldsFragment = gql`
     repliesAllowed
     users {
       name
+      chosenUsername
     }
-
+    readHistory {
+      name
+      content
+      createdAt
+    }
     messages(orderBy: $orderMessagesBy) {
       user {
         name

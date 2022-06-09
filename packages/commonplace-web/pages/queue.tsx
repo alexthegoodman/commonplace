@@ -58,10 +58,15 @@ const getPostsAndUserData = async (userId) => {
 
   const userThreadData = await getUserThreadData(userId);
 
+  let threads = [];
+  if (typeof userThreadData?.user?.threads !== "undefined") {
+    threads = userThreadData?.user?.threads;
+  }
+
   const returnData = {
     currentUser: userData,
     posts: postsData.posts,
-    threads: userThreadData?.user?.threads,
+    threads,
   };
 
   return returnData;
