@@ -9,6 +9,8 @@ const ProfileIntro: React.FC<ProfileIntroProps> = ({
   alt = "",
   profileImage = "",
   coverImage = "",
+  title = "",
+  subTitle = "",
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
   return (
@@ -20,6 +22,10 @@ const ProfileIntro: React.FC<ProfileIntroProps> = ({
         <div className="profilePhoto">
           <img alt={alt} title={alt} src={profileImage} />
         </div>
+      </div>
+      <div className="introInformation">
+        <h1 className="introTitle">{title}</h1>
+        <h2 className="subTitle">{subTitle}</h2>
       </div>
     </section>
   );

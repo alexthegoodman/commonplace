@@ -36,7 +36,7 @@ export const ProfileContent = ({ data }) => {
               </a>
             </Link>
           }
-          title={data?.user?.chosenUsername}
+          title={""}
           rightIcon={
             <Link href="/queue">
               <a>
@@ -51,6 +51,8 @@ export const ProfileContent = ({ data }) => {
             alt={prrofileSEOStatement}
             profileImage={data?.user?.profileImage}
             coverImage={data?.user?.coverImage}
+            title={data?.user?.chosenUsername}
+            subTitle={`${data?.user?.posts?.length} Creations`}
           />
           <ProfilePosts creator={data?.user} posts={data?.user?.posts} />
         </div>
