@@ -12,6 +12,7 @@ const UpdateItem: React.FC<UpdateItemProps> = ({
   image = null,
   label = "",
   author = null,
+  isRead = false,
 }) => {
   const router = useRouter();
   const goToThead = (e) => {
@@ -32,6 +33,11 @@ const UpdateItem: React.FC<UpdateItemProps> = ({
             <span className="itemAttribution">by {author?.chosenUsername}</span>
           ) : (
             <></>
+          )}
+          {isRead ? (
+            <div className="itemColor colorGrey"></div>
+          ) : (
+            <div className="itemColor colorRed"></div>
           )}
         </div>
       </div>

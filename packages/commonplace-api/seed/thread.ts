@@ -10,7 +10,7 @@ export default async function seedThreads(users, posts) {
       readHistory: {
         create: {
           name: "readBy",
-          content: users[0].chosenUsername,
+          content: users[1].chosenUsername,
         },
       },
       users: {

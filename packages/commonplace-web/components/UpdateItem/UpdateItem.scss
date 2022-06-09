@@ -33,6 +33,7 @@
       justify-content: center;
       padding-left: 25px;
       width: calc(100% - 50px);
+      position: relative;
 
       .itemLabel {
         font-size: 20px;
@@ -50,6 +51,21 @@
         white-space: nowrap;
         width: 75%;
         text-overflow: ellipsis;
+      }
+      .itemColor {
+        position: absolute;
+        right: 0;
+        top: 18px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+
+        &.colorGrey {
+          background: #e5e5e5;
+        }
+        &.colorRed {
+          background: $red;
+        }
       }
     }
   }

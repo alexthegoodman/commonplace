@@ -66,12 +66,25 @@ const UpdatesContent: NextPage = () => {
           {data?.user?.threads?.length > 0 ? (
             data?.user?.threads?.map((thread, i) => {
               const previewMessage = thread.messages[0];
+              const lastMessageIndex = thread.messages.length - 1;
+              const lastReadIndex = thread.readHistory.length - 1;
+              const lastMessageTime =
+                thread.messages[lastMessageIndex].createdAt;
+              const lastReadTime = thread.readHistory[lastReadIndex].createdAt;
+
+              // console.info("thhread times", lastReadTime, lastMessageTime);
+
+              let isRead = false;
+              if (lastReadTime > lastMessageTime) {
+                isRead = true;
+              }
 
               return (
                 <UpdateItem
                   id={thread.id}
                   label={previewMessage.content}
                   author={previewMessage?.user}
+                  isRead={isRead}
                 />
               );
             })
