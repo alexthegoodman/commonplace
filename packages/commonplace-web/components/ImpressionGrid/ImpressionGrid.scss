@@ -11,12 +11,28 @@
   width: 100%;
   position: absolute;
   bottom: 0;
+  z-index: 3;
   // box-shadow: 0px 4px 8px 5px rgba(0, 0, 0, 0.25);
   // background: $lightBlue;
   /* Created with https://www.css-gradient.com */
   // background: #fa578b;
   // background: radial-gradient(at bottom right, #fa578b, #c82a47);
   background: radial-gradient(at bottom right, $strawberry, $frenchRaspberry);
+
+  .creditCounter {
+    position: absolute;
+    top: -50px;
+    right: 15px;
+    text-align: right;
+    width: fit-content;
+    padding: 15px;
+    background: white;
+    border-radius: 50px;
+
+    span {
+      font-weight: 600;
+    }
+  }
 
   .gridToolbar {
     .gridLabel {

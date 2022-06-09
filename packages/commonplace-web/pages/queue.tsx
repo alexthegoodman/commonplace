@@ -91,6 +91,7 @@ const QueueContent = () => {
   // const [queueIndex, setQueueIndex] = useState(0);
   const [queuePostId, setQueuePostId] = useState(firstId); // defaults to first post
   const [queueFinished, setQueueFinished] = useState(firstId ? false : true);
+  const [currentImpression, setCurrentImpression] = useState("");
 
   // TODO: get currentPost via id
   const currentPost = data?.posts?.filter(
@@ -122,13 +123,22 @@ const QueueContent = () => {
   // TODO: preload audio
 
   const impressionClickHandler = async (impression) => {
+    setCurrentImpression(impression);
+
     await postAnimation.start((i) => ({
       opacity: 0,
       y: 5,
-      transition: { delay: 1 + i * 0.15 },
+      // transition: { delay: 1 + i * 0.15 },
+    }));
+
+    await betweenPostAnimation.start((i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }, // TODO: FLASHES at end
     }));
 
     // setQueueIndex(queueIndex + 1);
+
     setQueuePostId(nextPostId);
     // TODO: send impression message
     const currentUserEmail = data?.currentUser?.user?.email;
@@ -142,8 +152,17 @@ const QueueContent = () => {
       postId: currentPost?.id,
     });
 
+    // TODO: securely add credit to currentUser when creaating impression
+    // best to check that impression has not been given by this user on this posts
+    // before creating imp or credit (as 2 is not allowed anyway)
+
     console.info("savedImpression", savedImpression);
 
+    await betweenPostAnimation.start((i) => ({
+      opacity: 0,
+      y: -5,
+      transition: { duration: 0.5 },
+    }));
     await postAnimation.start((i) => ({
       opacity: 1,
       y: 0,
@@ -152,12 +171,18 @@ const QueueContent = () => {
   };
 
   const postAnimation = useAnimation();
+  const betweenPostAnimation = useAnimation();
 
   useEffect(() => {
+    betweenPostAnimation.set((i) => ({
+      opacity: 0,
+      y: -5,
+      // transition: { delay: i * 1.5 - 1 },
+    }));
     postAnimation.set((i) => ({
       opacity: 0,
-      y: 10,
-      transition: { delay: i * 1.5 - 1 },
+      y: 5,
+      // transition: { delay: i * 1.5 - 1 },
     }));
 
     postAnimation.start((i) => ({
@@ -233,9 +258,15 @@ const QueueContent = () => {
             </div>
           )}
         </div>
+
         <ImpressionGrid onClick={impressionClickHandler} />
         {/* <ImpressionWheel /> */}
       </div>
+      <motion.div custom={1} animate={betweenPostAnimation}>
+        <div className="fullscreenMessage">
+          <span>{currentImpression}</span>
+        </div>
+      </motion.div>
     </section>
   );
 };
