@@ -12,6 +12,16 @@ const MessageList: React.FC<MessageListProps> = ({
   messages = [],
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
+  const [detailItem, setDetailItem] = React.useState(null);
+
+  const onMessageClick = (id) => {
+    if (id === detailItem) {
+      setDetailItem(null);
+    } else {
+      setDetailItem(id);
+    }
+  };
+
   return (
     <section className="messageList">
       <div className="messageListInner">
@@ -19,10 +29,14 @@ const MessageList: React.FC<MessageListProps> = ({
           const isCurrentUser =
             message?.user?.email === currentUser?.user?.email ? true : false;
 
+          console.info("message", message);
+
           return (
             <MessageItem
+              onClick={() => onMessageClick(message?.id)}
               message={message}
               authorSide={isCurrentUser ? "right" : "left"}
+              detailsOpen={detailItem === message.id ? true : false}
             />
           );
         })}

@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 export const MessageType = objectType({
   name: "Message",
   definition(t) {
+    t.model.id();
     t.model.type();
     t.model.content();
 
@@ -13,7 +14,7 @@ export const MessageType = objectType({
     t.model.post();
     // t.model.thread();
 
-    t.model.readBy();
+    // t.model.readBy();
 
     t.model.updatedAt();
     t.model.createdAt();

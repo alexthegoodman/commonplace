@@ -1,7 +1,9 @@
 import * as React from "react";
 import ContentViewer from "../ContentViewer/ContentViewer";
+import { motion } from "framer-motion";
 
 import { MessageItemProps } from "./MessageItem.d";
+import { DateTime } from "luxon";
 
 const MessageItem: React.FC<MessageItemProps> = ({
   ref = null,
@@ -9,8 +11,12 @@ const MessageItem: React.FC<MessageItemProps> = ({
   onClick = (e) => console.info("Click MessageItem"),
   message = null,
   authorSide = "left",
+  detailsOpen = false,
 }) => {
-  const clickHandler = (e: MouseEvent) => onClick(e);
+  const onMessageClick = () => {
+    onClick();
+  };
+  const displayDate = DateTime.fromISO(message?.createdAt).toFormat("DDD");
 
   const authorAttribution = (
     <div className="itemAuthor">
@@ -21,7 +27,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
   );
 
   return (
-    <div className={`messageItem ${message?.type}`}>
+    <div className={`messageItem ${message?.type}`} onClick={onMessageClick}>
       {message?.type === "impression" ? (
         <div className={`contentViewerWrapper ${authorSide}`}>
           <ContentViewer
@@ -39,6 +45,21 @@ const MessageItem: React.FC<MessageItemProps> = ({
           <span>{message?.content}</span>
         </div>
         {authorSide === "right" ? authorAttribution : <></>}
+      </div>
+      <div className="messageMeta">
+        {detailsOpen ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span>{message?.user?.chosenUsername}</span>
+            <span>@ {displayDate}</span>
+          </motion.div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

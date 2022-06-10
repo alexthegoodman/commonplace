@@ -75,9 +75,9 @@ export const InterestsContent = ({
         <InterestPreview selectedInterest={displayInterest?.name} />
         <section className="interestPicker">
           <div className="interestPickerInner">
-            <div className="pickerSearch">
+            {/* <div className="pickerSearch">
               <SearchInput />
-            </div>
+            </div> */}
             <div className="pickerSelector">
               <div className="pickerSelectorInner">
                 <div className="selectorLevel">

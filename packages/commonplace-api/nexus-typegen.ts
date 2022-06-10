@@ -925,6 +925,7 @@ export interface NexusGenObjects {
   Message: { // root type
     content: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
     type: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
@@ -1010,6 +1011,7 @@ export interface NexusGenFieldTypes {
   Message: { // field return type
     content: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
     post: NexusGenRootTypes['Post'] | null; // Post
     type: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
@@ -1114,6 +1116,7 @@ export interface NexusGenFieldTypeNames {
   Message: { // field return type name
     content: 'String'
     createdAt: 'DateTime'
+    id: 'String'
     post: 'Post'
     type: 'String'
     updatedAt: 'DateTime'

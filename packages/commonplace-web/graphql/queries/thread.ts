@@ -26,6 +26,7 @@ const PublicThreadFieldsFragment = gql`
         contentPreview
         content
       }
+      id
       type
       content
 

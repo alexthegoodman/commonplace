@@ -182,6 +182,7 @@ scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publicati
 type Message {
   content: String!
   createdAt: DateTime!
+  id: String!
   post: Post
   type: String!
   updatedAt: DateTime!
