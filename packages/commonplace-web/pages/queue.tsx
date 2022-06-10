@@ -24,6 +24,7 @@ import { useImageUrl } from "../hooks/useImageUrl";
 import { usePreloadImage } from "../hooks/usePreloadImage";
 import { getUserThreadData } from "./updates";
 import { useUnreadThreads } from "../hooks/useUnreadThreads";
+import { InterestsContent } from "./interests";
 
 const getPostsAndUserData = async (userId) => {
   const userData = await request(cpGraphqlUrl, userQuery, {
@@ -81,11 +82,11 @@ const QueueContent = () => {
     revalidateIfStale: true,
   });
 
-  const { state, dispatch } = useContext(QueueContext);
+  // const { state, dispatch } = useContext(QueueContext);
 
-  const { selectedInterest } = state;
+  // const { selectedInterest } = state;
 
-  console.info("QueueContent", data, state);
+  console.info("QueueContent", data);
 
   const firstId = data?.posts[0]?.id;
 
@@ -93,6 +94,8 @@ const QueueContent = () => {
   const [queuePostId, setQueuePostId] = useState(firstId); // defaults to first post
   const [queueFinished, setQueueFinished] = useState(firstId ? false : true);
   const [currentImpression, setCurrentImpression] = useState("");
+  const [showInterestsModal, setShowInterestsModal] = useState(false);
+  const [selectedInterest, setSelectedInterest] = useState<any>(null);
 
   // TODO: get currentPost via id
   const currentPost = data?.posts?.filter(
@@ -175,6 +178,7 @@ const QueueContent = () => {
   const betweenPostAnimation = useAnimation();
 
   useEffect(() => {
+    // TODO: wrap up animations into hookss
     betweenPostAnimation.set((i) => ({
       opacity: 0,
       y: -5,
@@ -200,60 +204,87 @@ const QueueContent = () => {
 
   console.info("unreadThreads", unreadThreads);
 
-  return (
-    <section className="queue">
-      <div className="queueInner">
-        <PrimaryHeader
-          leftIcon={
-            <div className="brandnameWrapper">
-              <span className="brandname mobileOnly">Co</span>
-              <span className="brandname desktopOnly">CommonPlace</span>
-            </div>
-          }
-          titleComponent={
-            <Link href="/interests">
-              <a className="pickerButton">
-                <i className="typcn typcn-point-of-interest"></i>
-                {selectedInterest === 0 ? "All Interests" : "..."}
-              </a>
-            </Link>
-          }
-          rightIcon={<PrimaryNavigation threadCount={unreadThreadCount} />}
-        />
-        <div className="scrollContainer queueScrollContainer">
-          {!queueFinished ? (
-            <div className="displayPost currentPost">
-              <motion.div
-                custom={0}
-                animate={postAnimation}
-                initial={{ opacity: 0 }}
-              >
-                <ContentViewer
-                  type={currentPost?.contentType}
-                  preview={currentPost?.contentPreview}
-                  content={currentPost?.content}
-                />
-              </motion.div>
-              <motion.div custom={1} animate={postAnimation}>
-                <ContentInformation post={currentPost} />
-              </motion.div>
-            </div>
-          ) : (
-            <div className="emptyMessage queueEmptyMessage">
-              <span>Check out other interests or upload a post!</span>
-            </div>
-          )}
-        </div>
+  const onSelectInterestClick = () => {
+    setShowInterestsModal(true);
+  };
 
-        <ImpressionGrid onClick={impressionClickHandler} />
-        {/* <ImpressionWheel /> */}
-      </div>
-      <motion.div custom={1} animate={betweenPostAnimation}>
-        <div className="fullscreenMessage">
-          <span>{currentImpression}</span>
-        </div>
-      </motion.div>
-    </section>
+  const onCloseInterests = () => {
+    setShowInterestsModal(false);
+  };
+
+  const onConfirmInterest = (category, interest) => {
+    console.info("confirm interest", category, interest);
+    setShowInterestsModal(false);
+    setSelectedInterest(interest);
+  };
+
+  return (
+    <>
+      {showInterestsModal ? (
+        <InterestsContent
+          onBack={onCloseInterests}
+          onConfirm={onConfirmInterest}
+        />
+      ) : (
+        <section className="queue">
+          <div className="queueInner">
+            <PrimaryHeader
+              leftIcon={
+                <div className="brandnameWrapper">
+                  <span className="brandname mobileOnly">Co</span>
+                  <span className="brandname desktopOnly">CommonPlace</span>
+                </div>
+              }
+              titleComponent={
+                <a
+                  className="pickerButton"
+                  href="#!"
+                  onClick={onSelectInterestClick}
+                >
+                  <i className="typcn typcn-point-of-interest"></i>
+                  {selectedInterest === null
+                    ? "All Interests"
+                    : selectedInterest?.name}
+                </a>
+              }
+              rightIcon={<PrimaryNavigation threadCount={unreadThreadCount} />}
+            />
+            <div className="scrollContainer queueScrollContainer">
+              {!queueFinished ? (
+                <div className="displayPost currentPost">
+                  <motion.div
+                    custom={0}
+                    animate={postAnimation}
+                    initial={{ opacity: 0 }}
+                  >
+                    <ContentViewer
+                      type={currentPost?.contentType}
+                      preview={currentPost?.contentPreview}
+                      content={currentPost?.content}
+                    />
+                  </motion.div>
+                  <motion.div custom={1} animate={postAnimation}>
+                    <ContentInformation post={currentPost} />
+                  </motion.div>
+                </div>
+              ) : (
+                <div className="emptyMessage queueEmptyMessage">
+                  <span>Check out other interests or upload a post!</span>
+                </div>
+              )}
+            </div>
+
+            <ImpressionGrid onClick={impressionClickHandler} />
+            {/* <ImpressionWheel /> */}
+          </div>
+          <motion.div custom={1} animate={betweenPostAnimation}>
+            <div className="fullscreenMessage">
+              <span>{currentImpression}</span>
+            </div>
+          </motion.div>
+        </section>
+      )}
+    </>
   );
 };
 
