@@ -23,6 +23,7 @@ import { userQuery } from "../graphql/queries/user";
 import { useImageUrl } from "../hooks/useImageUrl";
 import { usePreloadImage } from "../hooks/usePreloadImage";
 import { getUserThreadData } from "./updates";
+import { useUnreadThreads } from "../hooks/useUnreadThreads";
 
 const getPostsAndUserData = async (userId) => {
   const userData = await request(cpGraphqlUrl, userQuery, {
@@ -192,42 +193,10 @@ const QueueContent = () => {
     }));
   }, []);
 
-  const unreadThreads = [] as any[];
-
-  data?.threads?.forEach((thread: any, i) => {
-    let lastMessage = thread.messages.filter(
-      (message, i) =>
-        message?.user?.chosenUsername !==
-        data?.currentUser?.user?.chosenUsername
-    );
-    lastMessage = lastMessage[0];
-
-    let lastReadRecord = thread.readHistory.filter(
-      (record, i) => record.content === data?.currentUser?.user?.chosenUsername
-    );
-    lastReadRecord = lastReadRecord[lastReadRecord.length - 1];
-
-    // console.info("lastReadRecord", i, lastMessage, lastReadRecord);
-
-    if (
-      typeof lastMessage !== "undefined" &&
-      typeof lastReadRecord !== "undefined"
-    ) {
-      const lastMessageTime = lastMessage.createdAt;
-      const lastReadTime = lastReadRecord.createdAt;
-      // TODO: make dry with updates page indicators (hook?)
-
-      // console.info("thhread times", lastReadTime, lastMessageTime);
-
-      let isRead = true;
-      if (lastReadTime < lastMessageTime) {
-        isRead = false;
-        unreadThreads.push(thread);
-      }
-    }
-  });
-
-  const unreadThreadCount = unreadThreads.length;
+  const { unreadThreads, unreadThreadCount } = useUnreadThreads(
+    data?.threads,
+    data?.currentUser?.user?.chosenUsername
+  );
 
   console.info("unreadThreads", unreadThreads);
 

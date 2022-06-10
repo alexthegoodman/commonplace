@@ -9,6 +9,7 @@ import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
 import UpdateItem from "../../components/UpdateItem/UpdateItem";
 import { threadsQuery } from "../../graphql/queries/thread";
 import { cpGraphqlUrl } from "../../def/urls";
+import { useUnreadThreads } from "../../hooks/useUnreadThreads";
 
 export const getUserThreadData = async (userId) => {
   const userThreadData = await request(cpGraphqlUrl, threadsQuery, {
@@ -44,6 +45,11 @@ const UpdatesContent: NextPage = () => {
     revalidateIfStale: true,
   });
 
+  const { unreadThreads, unreadThreadCount } = useUnreadThreads(
+    data?.user?.threads,
+    data?.user?.chosenUsername
+  );
+
   console.info("UpdatesContent", data);
 
   return (
@@ -67,38 +73,17 @@ const UpdatesContent: NextPage = () => {
             data?.user?.threads?.map((thread, i) => {
               const previewMessage = thread.messages[0];
 
-              let lastMessage = thread.messages.filter(
-                (message, i) =>
-                  message?.user?.chosenUsername !== data?.user?.chosenUsername
+              const match = unreadThreads.find(
+                (unread, z) => unread.id === thread.id
               );
-              lastMessage = lastMessage[0]; // last message not user
-
-              let lastReadRecord = thread.readHistory.filter(
-                (record, i) => record.content === data?.user?.chosenUsername
-              );
-              lastReadRecord = lastReadRecord[lastReadRecord.length - 1]; // last record that is user
-
-              console.info("thread list", lastMessage, lastReadRecord);
-
-              let isRead = true;
-              if (
-                typeof lastMessage !== "undefined" &&
-                typeof lastReadRecord !== "undefined"
-              ) {
-                const lastMessageTime = lastMessage.createdAt;
-                const lastReadTime = lastReadRecord.createdAt;
-
-                if (lastReadTime < lastMessageTime) {
-                  isRead = false;
-                }
-              }
 
               return (
                 <UpdateItem
+                  key={`updateItem${i}`}
                   id={thread.id}
                   label={previewMessage.content}
                   author={previewMessage?.user}
-                  isRead={isRead}
+                  isRead={match ? false : true}
                 />
               );
             })
