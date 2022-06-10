@@ -135,9 +135,14 @@
           text-decoration: none;
           color: black;
           background: $headerWhite;
-          padding: 5px 10px;
+          padding: 10px 15px;
           display: block;
           border-radius: 3px;
+
+          .typcn {
+            font-size: 20px;
+            margin-right: 4px;
+          }
         }
       }
       .title {

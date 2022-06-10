@@ -213,6 +213,7 @@ const QueueContent = () => {
           titleComponent={
             <Link href="/interests">
               <a className="pickerButton">
+                <i className="typcn typcn-point-of-interest"></i>
                 {selectedInterest === 0 ? "All Interests" : "..."}
               </a>
             </Link>
