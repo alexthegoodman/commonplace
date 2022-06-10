@@ -97,6 +97,7 @@ const QueueContent = () => {
   const [currentImpression, setCurrentImpression] = useState("");
   const [showInterestsModal, setShowInterestsModal] = useState(false);
   const [selectedInterest, setSelectedInterest] = useState<any>(null);
+  const [creditUi, setCreditUi] = useState(data?.currentUser?.user?.credit);
 
   // TODO: get currentPost via id
   const currentPost = data?.posts?.filter(
@@ -128,6 +129,7 @@ const QueueContent = () => {
   // TODO: preload audio
 
   const impressionClickHandler = async (impression) => {
+    setCreditUi(creditUi + 1);
     setCurrentImpression(impression);
 
     await postAnimation.start((i) => ({
@@ -274,7 +276,7 @@ const QueueContent = () => {
             </div>
 
             <ImpressionGrid
-              creditCount={data?.currentUser?.user?.credit}
+              creditCount={creditUi}
               onClick={impressionClickHandler}
             />
             {/* <ImpressionWheel /> */}
