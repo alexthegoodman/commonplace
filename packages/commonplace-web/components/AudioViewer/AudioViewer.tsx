@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useAudioUrl } from "../../hooks/useAudioUrl";
+import { useImageUrl } from "../../hooks/useImageUrl";
 
 import { AudioViewerProps } from "./AudioViewer.d";
 
@@ -12,6 +14,9 @@ const AudioViewer: React.FC<AudioViewerProps> = ({
   mini = false,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
+
+  const { audioUrl } = useAudioUrl(sourceUrl);
+  const { imageUrl } = useImageUrl(previewUrl);
 
   const audioRef = React.useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = React.useState(false);
@@ -39,12 +44,12 @@ const AudioViewer: React.FC<AudioViewerProps> = ({
             muted={false}
             preload="true"
           >
-            <source src={sourceUrl} type="audio/mp3"></source>
+            <source src={audioUrl} type="audio/mp3"></source>
           </audio>
         </div>
         <div className="previewImageWrapper">
           <div className="previewImage">
-            <img src={previewUrl} alt={alt} title={alt} />
+            <img src={imageUrl} alt={alt} title={alt} />
           </div>
         </div>
         {!mini ? (

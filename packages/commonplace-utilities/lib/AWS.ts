@@ -31,7 +31,7 @@ export default class AWS {
     return size;
   }
 
-  async uploadAsset(filename, fileType, fileSize, base64) {
+  async uploadAsset(contentType, filename, fileType, fileSize, base64) {
     const sizeLimit = 10000000; // 10MB
     const calculatedFileSize = this.getSizeBase64(base64.length);
 
@@ -47,10 +47,23 @@ export default class AWS {
 
       console.info("uploadAsset", key, fileType);
 
-      const buffer = Buffer.from(
-        base64.replace(/^data:image\/\w+;base64,/, ""),
-        "base64"
-      );
+      let buffer;
+      if (contentType === "image") {
+        buffer = Buffer.from(
+          base64.replace(/^data:image\/\w+;base64,/, ""),
+          "base64"
+        );
+      } else if (contentType === "video") {
+        buffer = Buffer.from(
+          base64.replace(/^data:video\/\w+;base64,/, ""),
+          "base64"
+        );
+      } else if (contentType === "audio") {
+        buffer = Buffer.from(
+          base64.replace(/^data:audio\/\w+;base64,/, ""),
+          "base64"
+        );
+      }
 
       const bucketParams = {
         Bucket: "cp-aws-assets",

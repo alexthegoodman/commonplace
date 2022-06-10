@@ -129,16 +129,21 @@ export const CreatePostMutation = extendType({
 
         const utilities = new Utilities();
 
-        const upload1Path = await utilities.AWS.uploadAsset(
-          file1Name,
-          file1Type,
-          file1Size,
-          file1Data
-        );
+        let upload1Path = "";
+        if (file1Name && file1Data) {
+          upload1Path = await utilities.AWS.uploadAsset(
+            contentType,
+            file1Name,
+            file1Type,
+            file1Size,
+            file1Data
+          );
+        }
 
         let upload2Path = "";
         if (file2Name && file2Data) {
           upload2Path = await utilities.AWS.uploadAsset(
+            "image", // file2 is always image
             file2Name,
             file2Type,
             file2Size,
