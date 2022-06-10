@@ -8,6 +8,7 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click ImpressionGrid"),
+  creditCount = 0,
 }) => {
   const impressionClickHandler = (e) => {
     onClick(e);
@@ -26,7 +27,7 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
   return (
     <section className="impressionGridWrapper darkMode">
       <div className="creditCounter">
-        <span>0 Credits</span>
+        <span>{creditCount} Credits</span>
       </div>
       <div className="gridToolbar">
         <span className="gridLabel">What's your impression?</span>

@@ -80,6 +80,7 @@ const QueueContent = () => {
 
   const { data } = useSWR("queueKey", () => getPostsAndUserData(userId), {
     revalidateIfStale: true,
+    // refreshInterval: 10000,
   });
 
   // const { state, dispatch } = useContext(QueueContext);
@@ -272,7 +273,10 @@ const QueueContent = () => {
               )}
             </div>
 
-            <ImpressionGrid onClick={impressionClickHandler} />
+            <ImpressionGrid
+              creditCount={data?.currentUser?.user?.credit}
+              onClick={impressionClickHandler}
+            />
             {/* <ImpressionWheel /> */}
           </div>
           <motion.div custom={1} animate={betweenPostAnimation}>

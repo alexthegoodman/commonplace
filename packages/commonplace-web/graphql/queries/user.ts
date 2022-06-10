@@ -21,6 +21,8 @@ export const userQuery = gql`
       generatedUsername
       chosenUsername
 
+      credit
+
       profileImage
       coverImage
 
