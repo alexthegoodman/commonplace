@@ -61,6 +61,10 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
           {/** # of Impressions */}
           {/** Clickable link to user profile? */}
           {/** Grid of other user posts? */}
+          <p>
+            <i className="typcn typcn-point-of-interest"></i>{" "}
+            {post?.interest?.name}
+          </p>
           <p>Uploaded on {displayDate}</p>
         </div>
       </div>

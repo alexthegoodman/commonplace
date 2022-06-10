@@ -216,6 +216,8 @@ const QueueContent = () => {
     console.info("confirm interest", category, interest);
     setShowInterestsModal(false);
     setSelectedInterest(interest);
+    // TODO: set selectedInterest as cookie?
+    // need to refresh data with new interest
   };
 
   return (
