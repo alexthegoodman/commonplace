@@ -95,9 +95,6 @@ export const CreateMessageMutation = extendType({
           });
         }
 
-        // TODO: sanitize content (?)
-        // NOTE: are all fields sanitized?
-
         let message;
 
         if (type === "reply" && threadId) {
@@ -118,30 +115,61 @@ export const CreateMessageMutation = extendType({
             },
           });
         } else if (type === "impression" && postCreatorEmail && postId) {
-          message = await prisma.message.create({
-            data: {
+          // TODO: securely add credit to currentUser when creaating impression
+          // best to check that impression has not been given by this user on this posts
+          // before creating imp or credit (as 2 is not allowed anyway)
+          const checkMessage = await prisma.message.findFirst({
+            where: {
               type,
-              content,
               post: {
-                connect: {
-                  id: postId,
-                },
-              },
-              thread: {
-                create: {
-                  repliesAllowed: true,
-                  users: {
-                    connect: [{ id: author?.id }, { id: postCreator?.id }],
-                  },
-                },
+                id: postId,
               },
               user: {
-                connect: {
-                  id: author?.id,
-                },
+                id: author?.id,
               },
             },
           });
+
+          console.info("checkMessage", checkMessage);
+
+          if (checkMessage === null) {
+            const newCredit = (author?.credit as number) + 1;
+            await prisma.user.update({
+              where: {
+                id: author?.id,
+              },
+              data: {
+                credit: newCredit,
+              },
+            });
+
+            message = await prisma.message.create({
+              data: {
+                type,
+                content,
+                post: {
+                  connect: {
+                    id: postId,
+                  },
+                },
+                thread: {
+                  create: {
+                    repliesAllowed: true,
+                    users: {
+                      connect: [{ id: author?.id }, { id: postCreator?.id }],
+                    },
+                  },
+                },
+                user: {
+                  connect: {
+                    id: author?.id,
+                  },
+                },
+              },
+            });
+          } else {
+            throw Error("Cannot give impression to same post twice");
+          }
         }
 
         console.info("Created message", message);

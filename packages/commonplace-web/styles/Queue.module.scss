@@ -16,6 +16,7 @@
 /*** Page Styles ***/
 .queueScrollContainer {
   position: relative;
+  z-index: 5;
 
   .displayPost {
     position: absolute;

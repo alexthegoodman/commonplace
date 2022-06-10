@@ -26,7 +26,7 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
   return (
     <section className="impressionGridWrapper darkMode">
       <div className="creditCounter">
-        <span>100 Credits</span>
+        <span>0 Credits</span>
       </div>
       <div className="gridToolbar">
         <span className="gridLabel">What's your impression?</span>

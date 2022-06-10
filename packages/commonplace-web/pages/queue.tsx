@@ -156,10 +156,6 @@ const QueueContent = () => {
       postId: currentPost?.id,
     });
 
-    // TODO: securely add credit to currentUser when creaating impression
-    // best to check that impression has not been given by this user on this posts
-    // before creating imp or credit (as 2 is not allowed anyway)
-
     console.info("savedImpression", savedImpression);
 
     await betweenPostAnimation.start((i) => ({
