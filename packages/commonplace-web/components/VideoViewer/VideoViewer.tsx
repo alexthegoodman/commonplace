@@ -1,4 +1,6 @@
 import * as React from "react";
+import { cloudfrontUrl } from "../../def/urls";
+import { useVideoUrl } from "../../hooks/useVideoUrl";
 
 import { VideoViewerProps } from "./VideoViewer.d";
 
@@ -10,6 +12,8 @@ const VideoViewer: React.FC<VideoViewerProps> = ({
   mini = false,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
+  // const videoSource = `${cloudfrontUrl}${sourceUrl}`;
+  const { videoUrl } = useVideoUrl(sourceUrl as string);
 
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = React.useState(false);
@@ -37,7 +41,7 @@ const VideoViewer: React.FC<VideoViewerProps> = ({
             muted={false}
             preload="true"
           >
-            <source src={sourceUrl} type="video/mp4" />
+            <source src={videoUrl} type="video/mp4" />
             {/* <source src="/video/.webm" type="video/webm" /> */}
           </video>
         </div>
