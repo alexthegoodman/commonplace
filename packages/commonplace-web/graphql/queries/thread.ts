@@ -47,6 +47,7 @@ export const threadsQuery = gql`
   ) {
     user(id: $id) {
       name
+      chosenUsername
       email
       createdAt
       updatedAt

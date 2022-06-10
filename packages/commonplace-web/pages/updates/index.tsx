@@ -17,7 +17,7 @@ export const getUserThreadData = async (userId) => {
       createdAt: "desc",
     },
     orderThreadsBy: {
-      updatedAt: "desc",
+      createdAt: "desc",
     },
     // EXCLUDE threads where messages are only from currentUser
     threadWhere: {
@@ -66,17 +66,31 @@ const UpdatesContent: NextPage = () => {
           {data?.user?.threads?.length > 0 ? (
             data?.user?.threads?.map((thread, i) => {
               const previewMessage = thread.messages[0];
-              const lastMessageIndex = thread.messages.length - 1;
-              const lastReadIndex = thread.readHistory.length - 1;
-              const lastMessageTime =
-                thread.messages[lastMessageIndex].createdAt;
-              const lastReadTime = thread.readHistory[lastReadIndex].createdAt;
 
-              // console.info("thhread times", lastReadTime, lastMessageTime);
+              let lastMessage = thread.messages.filter(
+                (message, i) =>
+                  message?.user?.chosenUsername !== data?.user?.chosenUsername
+              );
+              lastMessage = lastMessage[0]; // last message not user
 
-              let isRead = false;
-              if (lastReadTime > lastMessageTime) {
-                isRead = true;
+              let lastReadRecord = thread.readHistory.filter(
+                (record, i) => record.content === data?.user?.chosenUsername
+              );
+              lastReadRecord = lastReadRecord[lastReadRecord.length - 1]; // last record that is user
+
+              console.info("thread list", lastMessage, lastReadRecord);
+
+              let isRead = true;
+              if (
+                typeof lastMessage !== "undefined" &&
+                typeof lastReadRecord !== "undefined"
+              ) {
+                const lastMessageTime = lastMessage.createdAt;
+                const lastReadTime = lastReadRecord.createdAt;
+
+                if (lastReadTime < lastMessageTime) {
+                  isRead = false;
+                }
               }
 
               return (

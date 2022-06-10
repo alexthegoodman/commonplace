@@ -166,7 +166,7 @@ const QueueContent = () => {
     await postAnimation.start((i) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 1.5 - 1 },
+      // transition: { delay: i * 1.5 - 1 },
     }));
   };
 
@@ -188,26 +188,42 @@ const QueueContent = () => {
     postAnimation.start((i) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 1.5 - 1 },
+      // transition: { delay: i * 1.5 - 1 },
     }));
   }, []);
 
-  const unreadThreads = [];
+  const unreadThreads = [] as any[];
 
-  data?.threads?.forEach((thread, i) => {
-    const previewMessage = thread.messages[0];
-    const lastMessageIndex = thread.messages.length - 1;
-    const lastReadIndex = thread.readHistory.length - 1;
-    const lastMessageTime = thread.messages[lastMessageIndex].createdAt;
-    const lastReadTime = thread.readHistory[lastReadIndex].createdAt;
+  data?.threads?.forEach((thread: any, i) => {
+    let lastMessage = thread.messages.filter(
+      (message, i) =>
+        message?.user?.chosenUsername !==
+        data?.currentUser?.user?.chosenUsername
+    );
+    lastMessage = lastMessage[0];
 
-    // console.info("thhread times", lastReadTime, lastMessageTime);
+    let lastReadRecord = thread.readHistory.filter(
+      (record, i) => record.content === data?.currentUser?.user?.chosenUsername
+    );
+    lastReadRecord = lastReadRecord[lastReadRecord.length - 1];
 
-    let isRead = false;
-    if (lastReadTime > lastMessageTime) {
-      isRead = true;
-    } else {
-      unreadThreads.push(thread);
+    // console.info("lastReadRecord", i, lastMessage, lastReadRecord);
+
+    if (
+      typeof lastMessage !== "undefined" &&
+      typeof lastReadRecord !== "undefined"
+    ) {
+      const lastMessageTime = lastMessage.createdAt;
+      const lastReadTime = lastReadRecord.createdAt;
+      // TODO: make dry with updates page indicators (hook?)
+
+      // console.info("thhread times", lastReadTime, lastMessageTime);
+
+      let isRead = true;
+      if (lastReadTime < lastMessageTime) {
+        isRead = false;
+        unreadThreads.push(thread);
+      }
     }
   });
 
