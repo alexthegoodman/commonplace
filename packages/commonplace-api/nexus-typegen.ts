@@ -1240,15 +1240,16 @@ export interface NexusGenArgTypes {
       contentType: string; // String!
       creatorId: string; // String!
       description: string; // String!
-      file1Data: string; // String!
-      file1Name: string; // String!
-      file1Size: number; // Int!
-      file1Type: string; // String!
+      file1Data?: string | null; // String
+      file1Name?: string | null; // String
+      file1Size?: number | null; // Int
+      file1Type?: string | null; // String
       file2Data?: string | null; // String
       file2Name?: string | null; // String
       file2Size?: number | null; // Int
       file2Type?: string | null; // String
       interestId: string; // String!
+      text?: string | null; // String
       title: string; // String!
     }
   }

@@ -7,10 +7,11 @@ export const createPostMutation = gql`
     $contentType: String!
     $title: String!
     $description: String!
-    $file1Name: String!
-    $file1Size: Int!
-    $file1Type: String!
-    $file1Data: String!
+    $text: String
+    $file1Name: String
+    $file1Size: Int
+    $file1Type: String
+    $file1Data: String
     $file2Name: String
     $file2Size: Int
     $file2Type: String
@@ -22,6 +23,7 @@ export const createPostMutation = gql`
       contentType: $contentType
       title: $title
       description: $description
+      text: $text
       file1Name: $file1Name
       file1Size: $file1Size
       file1Type: $file1Type

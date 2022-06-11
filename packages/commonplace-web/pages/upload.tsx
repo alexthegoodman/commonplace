@@ -99,16 +99,22 @@ const UploadContent = () => {
       // TODO: step validation
       console.info("formValues", formValues);
       if (contentType === "audio") {
-        if (formValues.file1.length > 0 && formValues.file2.length > 0) {
+        if (formValues?.file1?.length > 0 && formValues?.file2?.length > 0) {
           goToNextStep(nextStep);
         } else {
           setFormErrorMessage("Both files are required.");
         }
-      } else {
-        if (formValues.file1.length > 0) {
+      } else if (contentType === "image" || contentType === "video") {
+        if (formValues?.file1?.length > 0) {
           goToNextStep(nextStep);
         } else {
           setFormErrorMessage("File is required.");
+        }
+      } else if (contentType === "text") {
+        if (formValues?.text?.length > 0) {
+          goToNextStep(nextStep);
+        } else {
+          setFormErrorMessage("Text is required.");
         }
       }
     }

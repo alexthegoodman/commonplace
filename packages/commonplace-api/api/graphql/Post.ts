@@ -83,10 +83,12 @@ export const CreatePostMutation = extendType({
         title: nonNull(stringArg()),
         description: nonNull(stringArg()),
 
-        file1Name: nonNull(stringArg()),
-        file1Size: nonNull(intArg()),
-        file1Type: nonNull(stringArg()),
-        file1Data: nonNull(stringArg()),
+        text: nullable(stringArg()),
+
+        file1Name: nullable(stringArg()),
+        file1Size: nullable(intArg()),
+        file1Type: nullable(stringArg()),
+        file1Data: nullable(stringArg()),
 
         file2Name: nullable(stringArg()),
         file2Size: nullable(intArg()),
@@ -101,6 +103,7 @@ export const CreatePostMutation = extendType({
           contentType,
           title,
           description,
+          text,
           file1Name,
           file1Size,
           file1Type,
@@ -119,6 +122,7 @@ export const CreatePostMutation = extendType({
           contentType,
           title,
           description,
+          text,
           file1Name,
           file1Size,
           file1Type,
@@ -160,8 +164,20 @@ export const CreatePostMutation = extendType({
           generatedTitleSlug
         );
 
-        if (!utilities.helpers.isDefinedWithContent(upload1Path)) {
-          throw Error(utilities.ERROR_CODES.C010);
+        // if (!utilities.helpers.isDefinedWithContent(upload1Path)) {
+        //   throw Error(utilities.ERROR_CODES.C010);
+        // }
+
+        let contentData = {
+          contentPreview: upload2Path,
+          content: upload1Path,
+        };
+
+        if (contentType === "text") {
+          contentData = {
+            contentPreview: "",
+            content: text,
+          };
         }
 
         const post = await prisma.post.create({
@@ -170,8 +186,7 @@ export const CreatePostMutation = extendType({
             description,
             generatedTitleSlug,
             contentType,
-            contentPreview: upload2Path,
-            content: upload1Path,
+            ...contentData,
             interest: {
               connect: {
                 id: interestId,
