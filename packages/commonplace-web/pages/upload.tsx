@@ -287,6 +287,7 @@ const UploadContent = () => {
                               <>
                                 <FormTextarea
                                   name="text"
+                                  rows={8}
                                   placeholder="Type here..."
                                   register={register}
                                   errors={errors}
