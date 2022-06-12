@@ -1,5 +1,6 @@
 import request from "graphql-request";
 import type { NextPage } from "next";
+import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -59,6 +60,7 @@ const SettingsContent = () => {
   return (
     <section className="settings">
       <div className="settingsInner">
+        <NextSeo title={`Update Profile | Settings | CommonPlace`} />
         <PrimaryHeader
           inline={true}
           leftIcon={

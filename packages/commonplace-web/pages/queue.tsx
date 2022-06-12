@@ -25,6 +25,7 @@ import { usePreloadImage } from "../hooks/usePreloadImage";
 import { getUserThreadData } from "./updates";
 import { useUnreadThreads } from "../hooks/useUnreadThreads";
 import { InterestsContent } from "./interests";
+import { NextSeo } from "next-seo";
 
 const getPostsAndUserData = async (userId, interestId = null) => {
   const userData = await request(cpGraphqlUrl, userQuery, {
@@ -270,13 +271,17 @@ const QueueContent = () => {
   return (
     <>
       {showInterestsModal ? (
-        <InterestsContent
-          onBack={onCloseInterests}
-          onConfirm={onConfirmInterest}
-        />
+        <>
+          <NextSeo title={`Select Interest | CommonPlace`} />
+          <InterestsContent
+            onBack={onCloseInterests}
+            onConfirm={onConfirmInterest}
+          />
+        </>
       ) : (
         <section className="queue">
           <div className="queueInner">
+            <NextSeo title={`Queue | CommonPlace`} />
             <PrimaryHeader
               leftIcon={
                 <div className="brandnameWrapper">

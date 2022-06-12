@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
@@ -17,6 +18,7 @@ const Settings: NextPage = () => {
   return (
     <section className="settings">
       <div className="settingsInner">
+        <NextSeo title={`Settings | CommonPlace`} />
         <PrimaryHeader
           inline={true}
           leftIcon={

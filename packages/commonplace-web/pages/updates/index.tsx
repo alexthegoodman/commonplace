@@ -10,6 +10,7 @@ import UpdateItem from "../../components/UpdateItem/UpdateItem";
 import { threadsQuery } from "../../graphql/queries/thread";
 import { cpGraphqlUrl } from "../../def/urls";
 import { useUnreadThreads } from "../../hooks/useUnreadThreads";
+import { NextSeo } from "next-seo";
 
 export const getUserThreadData = async (userId) => {
   const userThreadData = await request(cpGraphqlUrl, threadsQuery, {
@@ -55,6 +56,7 @@ const UpdatesContent: NextPage = () => {
   return (
     <section className="updates">
       <div className="updatesInner">
+        <NextSeo title={`Updates | CommonPlace`} />
         <PrimaryHeader
           inline={true}
           leftIcon={

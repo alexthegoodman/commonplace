@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -21,6 +22,7 @@ const Settings: NextPage = () => {
   return (
     <section className="settings">
       <div className="settingsInner">
+        <NextSeo title={`Change Password | Settings | CommonPlace`} />
         <PrimaryHeader
           inline={true}
           leftIcon={
