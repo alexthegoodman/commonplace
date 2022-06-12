@@ -14,6 +14,7 @@ import { userQuery } from "../../graphql/queries/user";
 import { cpGraphqlUrl } from "../../def/urls";
 import { useEffect } from "react";
 import { createRecordMutation } from "../../graphql/mutations/record";
+import { NextSeo } from "next-seo";
 
 const getUserAndThreadData = async (userId, threadId) => {
   const userData = await request(cpGraphqlUrl, userQuery, {
@@ -92,6 +93,9 @@ const ThreadContent = () => {
   return (
     <section className="thread">
       <div className="threadInner">
+        <NextSeo
+          title={`Chat with ${otherUser?.chosenUsername} | Updates | CommonPlace`}
+        />
         <PrimaryHeader
           inline={true}
           leftIcon={
