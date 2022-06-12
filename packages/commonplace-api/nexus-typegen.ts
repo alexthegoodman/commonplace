@@ -1021,6 +1021,7 @@ export interface NexusGenFieldTypes {
     createMessage: NexusGenRootTypes['Message']; // Message!
     createOneRecord: NexusGenRootTypes['Record']; // Record!
     createPost: NexusGenRootTypes['Post']; // Post!
+    updateProfile: string; // String!
   }
   Post: { // field return type
     content: string; // String!
@@ -1126,6 +1127,7 @@ export interface NexusGenFieldTypeNames {
     createMessage: 'Message'
     createOneRecord: 'Record'
     createPost: 'Post'
+    updateProfile: 'String'
   }
   Post: { // field return type name
     content: 'String'
@@ -1251,6 +1253,18 @@ export interface NexusGenArgTypes {
       interestId: string; // String!
       text?: string | null; // String
       title: string; // String!
+    }
+    updateProfile: { // args
+      coverImageData?: string | null; // String
+      coverImageName?: string | null; // String
+      coverImageSize?: number | null; // Int
+      coverImageType?: string | null; // String
+      profileImageData?: string | null; // String
+      profileImageName?: string | null; // String
+      profileImageSize?: number | null; // Int
+      profileImageType?: string | null; // String
+      userId: string; // String!
+      username: string; // String!
     }
   }
   Query: {
