@@ -18,7 +18,7 @@ export const useUnreadThreads = (threads = [], currentUsername) => {
     );
     lastReadRecord = lastReadRecord[lastReadRecord.length - 1];
 
-    console.info("lastReadRecord", i, lastMessage, lastReadRecord);
+    // console.info("lastReadRecord", i, lastMessage, lastReadRecord);
 
     if (
       typeof lastMessage !== "undefined" &&
@@ -27,11 +27,18 @@ export const useUnreadThreads = (threads = [], currentUsername) => {
       const lastMessageTime = lastMessage.createdAt;
       const lastReadTime = lastReadRecord.createdAt;
 
+      console.info("compare times", i, lastReadTime, lastMessageTime);
+
       let isRead = true;
       if (lastReadTime < lastMessageTime) {
         isRead = false;
         unreadThreads.push(thread);
       }
+    } else if (
+      typeof lastMessage !== "undefined" &&
+      typeof lastReadRecord === "undefined"
+    ) {
+      unreadThreads.push(thread);
     } else if (
       thread.messages.length === 1 &&
       typeof lastReadRecord === "undefined"
