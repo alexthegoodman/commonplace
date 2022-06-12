@@ -18,7 +18,7 @@ export const useUnreadThreads = (threads = [], currentUsername) => {
     );
     lastReadRecord = lastReadRecord[lastReadRecord.length - 1];
 
-    // console.info("lastReadRecord", i, lastMessage, lastReadRecord);
+    console.info("lastReadRecord", i, lastMessage, lastReadRecord);
 
     if (
       typeof lastMessage !== "undefined" &&
@@ -32,6 +32,12 @@ export const useUnreadThreads = (threads = [], currentUsername) => {
         isRead = false;
         unreadThreads.push(thread);
       }
+    } else if (
+      thread.messages.length === 1 &&
+      typeof lastReadRecord === "undefined"
+    ) {
+      // NOTE: brand new convresation
+      unreadThreads.push(thread);
     }
   });
 

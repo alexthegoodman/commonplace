@@ -229,7 +229,7 @@ const QueueContent = () => {
     data?.currentUser?.user?.chosenUsername
   );
 
-  console.info("unreadThreads", unreadThreads);
+  console.info("unreadThreads", data?.threads, unreadThreads);
 
   const onSelectInterestClick = () => {
     setShowInterestsModal(true);
