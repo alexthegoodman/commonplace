@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import Link from "next/link";
 import * as React from "react";
+import { cpDomain } from "../../def/urls";
 import ContentViewer from "../ContentViewer/ContentViewer";
 
 import { ProfilePostProps } from "./ProfilePost.d";
@@ -16,13 +17,20 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
   // TODO: alt -
   const displayDate = DateTime.fromISO(post?.createdAt).toFormat("D");
   const contentSEOStatement = `${post?.title} Post in ${post?.interest?.name} Interest - Created by ${creator.chosenUsername} - ${displayDate}`;
+  const postUrl =
+    "http://" +
+    cpDomain +
+    "/post/" +
+    post?.interest?.generatedInterestSlug +
+    "/" +
+    post?.generatedTitleSlug;
 
   // console.info("contentSEOStatement", contentSEOStatement);
 
   return (
     <div className="profilePost">
       <div className="profilePostInner">
-        <Link href={`/post/${post?.interest?.name}/${post.generatedTitleSlug}`}>
+        <Link href={postUrl}>
           <a>
             <div className="postContent">
               {/* <img alt="" title="" src={post.content} /> */}

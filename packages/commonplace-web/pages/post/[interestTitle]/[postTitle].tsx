@@ -12,6 +12,7 @@ import { cpDomain, cpGraphqlUrl } from "../../../def/urls";
 import { postImpressionsQuery } from "../../../graphql/queries/message";
 import { postByPostTitleQuery } from "../../../graphql/queries/post";
 import { userByPostTitleQuery } from "../../../graphql/queries/user";
+import { useImageUrl } from "../../../hooks/useImageUrl";
 
 const getPostAndUserData = async (postTitle) => {
   const postData = await request(cpGraphqlUrl, postByPostTitleQuery, {
@@ -47,11 +48,13 @@ const PostContent = ({ data }) => {
   const displayDate = DateTime.fromISO(currentPost?.createdAt).toFormat("D");
   const contentSEOStatement = `${currentPost?.title} Post in ${currentPost?.interest?.name} Interest - Created by ${currentPost?.creator?.chosenUsername} - ${displayDate}`;
   const canonicalUrl =
+    "http://" +
     cpDomain +
-    "/" +
+    "/post/" +
     currentPost?.interest?.generatedInterestSlug +
     "/" +
     currentPost?.generatedTitleSlug;
+  const { imageUrl: mainImageUrl } = useImageUrl(currentPost?.content);
 
   console.info("currentUrl", canonicalUrl);
 
@@ -66,24 +69,7 @@ const PostContent = ({ data }) => {
             url: canonicalUrl,
             title: `Find ${currentPost?.title} and more like it on CommonPlace`,
             description: "CommonPlace has content from people like yourself",
-            // images: [
-            //   {
-            //     url: "https://www.example.ie/og-image-01.jpg",
-            //     width: 800,
-            //     height: 600,
-            //     alt: "Og Image Alt",
-            //     type: "image/jpeg",
-            //   },
-            //   {
-            //     url: "https://www.example.ie/og-image-02.jpg",
-            //     width: 900,
-            //     height: 800,
-            //     alt: "Og Image Alt Second",
-            //     type: "image/jpeg",
-            //   },
-            //   { url: "https://www.example.ie/og-image-03.jpg" },
-            //   { url: "https://www.example.ie/og-image-04.jpg" },
-            // ],
+            images: [{ url: mainImageUrl }],
             site_name: "CommonPlace",
           }}
         />

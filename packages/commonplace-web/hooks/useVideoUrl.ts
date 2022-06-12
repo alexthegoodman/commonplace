@@ -21,7 +21,7 @@ export const useVideoUrl = (sourceUrl = "") => {
 
   const requestData = Buffer.from(videoRequest).toString("base64");
 
-  const videoUrl = `${cloudfrontUrl}/${requestData}`;
+  const videoUrl = `${cloudfrontUrl}${requestData}`;
 
   return {
     videoUrl,

@@ -21,7 +21,7 @@ export const useImageUrl = (sourceUrl = "", size = { width: 800 }) => {
 
   const requestData = Buffer.from(imageRequest).toString("base64");
 
-  const imageUrl = `${cloudfrontUrl}/${requestData}`;
+  const imageUrl = `${cloudfrontUrl}${requestData}`;
 
   return {
     imageUrl,

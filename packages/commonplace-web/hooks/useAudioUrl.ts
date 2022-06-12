@@ -21,7 +21,7 @@ export const useAudioUrl = (sourceUrl = "") => {
 
   const requestData = Buffer.from(audioRequest).toString("base64");
 
-  const audioUrl = `${cloudfrontUrl}/${requestData}`;
+  const audioUrl = `${cloudfrontUrl}${requestData}`;
 
   return {
     audioUrl,
