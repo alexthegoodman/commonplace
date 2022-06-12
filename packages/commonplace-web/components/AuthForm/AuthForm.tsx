@@ -63,7 +63,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
       setCookie("coUserId", userId, {
         sameSite: "strict",
-        domain: cpDomain, // TODO: set by production or development
+        domain: cpDomain,
         expires: expireCookie,
         // secure: true // only accessible via https
       });

@@ -20,6 +20,7 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
   const postUrl =
     "http://" +
     cpDomain +
+    ":3000" +
     "/post/" +
     post?.interest?.generatedInterestSlug +
     "/" +

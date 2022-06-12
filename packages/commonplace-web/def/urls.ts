@@ -3,7 +3,7 @@ export const env = process.env.NEXT_PUBLIC_APP_ENV;
 export const cpDomain =
   env === "production"
     ? "commonplaceapi-env.eba-u9h46njg.us-east-2.elasticbeanstalk.com"
-    : "localhost:3000";
+    : "localhost";
 
 export const cpGraphqlUrl =
   env === "production"

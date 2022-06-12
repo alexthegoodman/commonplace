@@ -44,6 +44,7 @@ export const userQuery = gql`
         }
         interest {
           name
+          generatedInterestSlug
         }
 
         createdAt
