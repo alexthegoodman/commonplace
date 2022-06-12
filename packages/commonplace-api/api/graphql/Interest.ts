@@ -8,6 +8,7 @@ export const InterestType = objectType({
   definition(t) {
     t.model.id();
     t.model.name();
+    t.model.generatedInterestSlug();
     t.model.categories();
   },
 });

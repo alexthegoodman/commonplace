@@ -88,6 +88,7 @@ input IntFilter {
 
 type Interest {
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
+  generatedInterestSlug: String!
   id: String!
   name: String!
 }

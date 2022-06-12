@@ -919,6 +919,7 @@ export interface NexusGenObjects {
     name: string; // String!
   }
   Interest: { // root type
+    generatedInterestSlug: string; // String!
     id: string; // String!
     name: string; // String!
   }
@@ -1005,6 +1006,7 @@ export interface NexusGenFieldTypes {
   }
   Interest: { // field return type
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
+    generatedInterestSlug: string; // String!
     id: string; // String!
     name: string; // String!
   }
@@ -1111,6 +1113,7 @@ export interface NexusGenFieldTypeNames {
   }
   Interest: { // field return type name
     categories: 'Category'
+    generatedInterestSlug: 'String'
     id: 'String'
     name: 'String'
   }

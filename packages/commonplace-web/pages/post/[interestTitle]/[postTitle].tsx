@@ -1,13 +1,14 @@
 import request from "graphql-request";
 import { DateTime } from "luxon";
 import type { NextPage } from "next";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import useSWR, { SWRConfig } from "swr";
 import ContentInformation from "../../../components/ContentInformation/ContentInformation";
 import ContentViewer from "../../../components/ContentViewer/ContentViewer";
 import PostImpressions from "../../../components/PostImpressions/PostImpressions";
 import PrimaryHeader from "../../../components/PrimaryHeader/PrimaryHeader";
-import { cpGraphqlUrl } from "../../../def/urls";
+import { cpDomain, cpGraphqlUrl } from "../../../def/urls";
 import { postImpressionsQuery } from "../../../graphql/queries/message";
 import { postByPostTitleQuery } from "../../../graphql/queries/post";
 import { userByPostTitleQuery } from "../../../graphql/queries/user";
@@ -45,10 +46,47 @@ const PostContent = ({ data }) => {
 
   const displayDate = DateTime.fromISO(currentPost?.createdAt).toFormat("D");
   const contentSEOStatement = `${currentPost?.title} Post in ${currentPost?.interest?.name} Interest - Created by ${currentPost?.creator?.chosenUsername} - ${displayDate}`;
+  const canonicalUrl =
+    cpDomain +
+    "/" +
+    currentPost?.interest?.generatedInterestSlug +
+    "/" +
+    currentPost?.generatedTitleSlug;
+
+  console.info("currentUrl", canonicalUrl);
 
   return (
     <section className="post">
       <div className="postInner">
+        <NextSeo
+          title={`${currentPost?.title} | Posts | CommonPlace`}
+          description={`${currentPost?.description}`}
+          canonical={canonicalUrl}
+          openGraph={{
+            url: canonicalUrl,
+            title: `Find ${currentPost?.title} and more like it on CommonPlace`,
+            description: "CommonPlace has content from people like yourself",
+            // images: [
+            //   {
+            //     url: "https://www.example.ie/og-image-01.jpg",
+            //     width: 800,
+            //     height: 600,
+            //     alt: "Og Image Alt",
+            //     type: "image/jpeg",
+            //   },
+            //   {
+            //     url: "https://www.example.ie/og-image-02.jpg",
+            //     width: 900,
+            //     height: 800,
+            //     alt: "Og Image Alt Second",
+            //     type: "image/jpeg",
+            //   },
+            //   { url: "https://www.example.ie/og-image-03.jpg" },
+            //   { url: "https://www.example.ie/og-image-04.jpg" },
+            // ],
+            site_name: "CommonPlace",
+          }}
+        />
         <PrimaryHeader
           inline={true}
           leftIcon={

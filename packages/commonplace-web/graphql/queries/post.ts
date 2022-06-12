@@ -47,6 +47,7 @@ const PublicPostFieldsFragment = gql`
 
     interest {
       name
+      generatedInterestSlug
     }
 
     createdAt
