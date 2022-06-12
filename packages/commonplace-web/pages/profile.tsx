@@ -9,7 +9,9 @@ import ProfileIntro from "../components/ProfileIntro/ProfileIntro";
 import ProfilePosts from "../components/ProfilePosts/ProfilePosts";
 import { userQuery } from "../graphql/queries/user";
 import Utilities from "../../commonplace-utilities";
-import { cpGraphqlUrl } from "../def/urls";
+import { cpDomain, cpGraphqlUrl } from "../def/urls";
+import { NextSeo } from "next-seo";
+import { useImageUrl } from "../hooks/useImageUrl";
 
 const getUserData = async (userId) => {
   const userData = await request(cpGraphqlUrl, userQuery, {
@@ -23,9 +25,25 @@ export const ProfileContent = ({ data }) => {
   const profileSEOStatement =
     data?.user?.chosenUsername + "'s Profile on CommonPlace";
 
+  const canonicalUrl =
+    "http://" + cpDomain + "/co/" + data?.user?.chosenUsername;
+  const { imageUrl: profileImageUrl } = useImageUrl(data?.user?.profileImage);
+
   return (
     <section className="profile">
       <div className="profileInner">
+        <NextSeo
+          title={`${data?.user?.chosenUsername} | User | CommonPlace`}
+          description={`Learn more about ${data?.user?.chosenUsername} and their content on CommonPlace`}
+          canonical={canonicalUrl}
+          openGraph={{
+            url: canonicalUrl,
+            title: `Find ${data?.user?.chosenUsername} and their content on CommonPlace`,
+            description: "CommonPlace has content from people like yourself",
+            images: [{ url: profileImageUrl }],
+            site_name: "CommonPlace",
+          }}
+        />
         <PrimaryHeader
           className="whiteHeader"
           leftIcon={
