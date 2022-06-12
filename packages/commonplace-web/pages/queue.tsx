@@ -26,10 +26,20 @@ import { getUserThreadData } from "./updates";
 import { useUnreadThreads } from "../hooks/useUnreadThreads";
 import { InterestsContent } from "./interests";
 
-const getPostsAndUserData = async (userId) => {
+const getPostsAndUserData = async (userId, interestId = null) => {
   const userData = await request(cpGraphqlUrl, userQuery, {
     id: userId,
   });
+
+  let addtPostFilter = {};
+
+  if (interestId) {
+    addtPostFilter = {
+      interestId: {
+        equals: interestId,
+      },
+    };
+  }
 
   const postsData = await request(cpGraphqlUrl, postsQuery, {
     where: {
@@ -52,6 +62,7 @@ const getPostsAndUserData = async (userId) => {
           },
         },
       },
+      ...addtPostFilter,
     },
     orderBy: {
       createdAt: "desc",
@@ -78,10 +89,18 @@ const QueueContent = () => {
   const [cookies] = useCookies(["coUserId"]);
   const userId = cookies.coUserId;
 
-  const { data } = useSWR("queueKey", () => getPostsAndUserData(userId), {
-    revalidateIfStale: true,
-    // refreshInterval: 10000,
-  });
+  const [selectedInterest, setSelectedInterest] = useState<any>(null);
+
+  const { data, mutate } = useSWR(
+    "queueKey",
+    () => getPostsAndUserData(userId, selectedInterest?.id),
+    {
+      revalidateIfStale: true,
+      revalidateOnFocus: true,
+      revalidateOnMount: true,
+      // refreshInterval: 10000,
+    }
+  );
 
   // const { state, dispatch } = useContext(QueueContext);
 
@@ -96,8 +115,35 @@ const QueueContent = () => {
   const [queueFinished, setQueueFinished] = useState(firstId ? false : true);
   const [currentImpression, setCurrentImpression] = useState("");
   const [showInterestsModal, setShowInterestsModal] = useState(false);
-  const [selectedInterest, setSelectedInterest] = useState<any>(null);
   const [creditUi, setCreditUi] = useState(data?.currentUser?.user?.credit);
+
+  const postAnimation = useAnimation();
+  const betweenPostAnimation = useAnimation();
+
+  useEffect(() => {
+    // TODO: wrap up animations into hookss
+    betweenPostAnimation.set((i) => ({
+      opacity: 0,
+      y: -5,
+      // transition: { delay: i * 1.5 - 1 },
+    }));
+    postAnimation.set((i) => ({
+      opacity: 0,
+      y: 5,
+      // transition: { delay: i * 1.5 - 1 },
+    }));
+
+    postAnimation.start((i) => ({
+      opacity: 1,
+      y: 0,
+      // transition: { delay: i * 1.5 - 1 },
+    }));
+  }, []);
+
+  useEffect(() => {
+    setQueuePostId(firstId);
+    setQueueFinished(firstId ? false : true);
+  }, [firstId]);
 
   // TODO: get currentPost via id
   const currentPost = data?.posts?.filter(
@@ -108,10 +154,14 @@ const QueueContent = () => {
     (post, x) => post.id === currentPost?.id
   );
 
+  console.info("currentPost", queuePostId, currentPost);
+
   useEffect(() => {
     if (typeof currentPost?.id === "undefined") {
       // reached end of queue
       setQueueFinished(true);
+    } else {
+      setQueueFinished(false);
     }
   }, [currentPostIndex]);
 
@@ -173,29 +223,6 @@ const QueueContent = () => {
     }));
   };
 
-  const postAnimation = useAnimation();
-  const betweenPostAnimation = useAnimation();
-
-  useEffect(() => {
-    // TODO: wrap up animations into hookss
-    betweenPostAnimation.set((i) => ({
-      opacity: 0,
-      y: -5,
-      // transition: { delay: i * 1.5 - 1 },
-    }));
-    postAnimation.set((i) => ({
-      opacity: 0,
-      y: 5,
-      // transition: { delay: i * 1.5 - 1 },
-    }));
-
-    postAnimation.start((i) => ({
-      opacity: 1,
-      y: 0,
-      // transition: { delay: i * 1.5 - 1 },
-    }));
-  }, []);
-
   const { unreadThreads, unreadThreadCount } = useUnreadThreads(
     data?.threads,
     data?.currentUser?.user?.chosenUsername
@@ -211,10 +238,31 @@ const QueueContent = () => {
     setShowInterestsModal(false);
   };
 
-  const onConfirmInterest = (category, interest) => {
+  const onConfirmInterest = async (category, interest) => {
     console.info("confirm interest", category, interest);
+
+    // await postAnimation.set((i) => ({
+    //   opacity: 0,
+    //   y: 0,
+    //   // transition: { delay: i * 1.5 - 1 },
+    // }));
+
+    // await postAnimation.start((i) => ({
+    //   opacity: 0,
+    //   y: 5,
+    //   transition: { duration: 4.5, delay: 4 },
+    // }));
+
     setShowInterestsModal(false);
     setSelectedInterest(interest);
+    mutate(() => getPostsAndUserData(userId, selectedInterest?.id)); // refresh swrr
+
+    // await postAnimation.start((i) => ({
+    //   opacity: 1,
+    //   y: 0,
+    //   transition: { duration: 0.5 },
+    // }));
+
     // TODO: set selectedInterest as cookie?
     // need to refresh data with new interest
   };
