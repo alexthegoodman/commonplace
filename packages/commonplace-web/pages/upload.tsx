@@ -156,7 +156,7 @@ const UploadContent = () => {
             <PrimaryHeader
               inline={true}
               leftIcon={
-                <a onClick={goBack}>
+                <a onClick={goBack} href="#!" aria-label="Go Back">
                   <i className="typcn typcn-arrow-left"></i>
                 </a>
               }
@@ -164,190 +164,219 @@ const UploadContent = () => {
               rightIcon={<></>}
             />
 
-            <StepCounter step={step} />
+            <main>
+              <StepCounter step={step} />
 
-            <FormProvider {...methods}>
-              <form className="form" onSubmit={handleSubmit(onSubmit, onError)}>
-                <FormMessage type="error" message={formErrorMessage} />
+              <FormProvider {...methods}>
+                <form
+                  className="form"
+                  onSubmit={handleSubmit(onSubmit, onError)}
+                >
+                  <FormMessage type="error" message={formErrorMessage} />
 
-                {step === 1 ? (
-                  <>
-                    <div className="uploadSection">
-                      <div className="uploadSectionInner">
-                        <span>What do you want to share?</span>
-                        <button
-                          className="button secondaryButton"
-                          onClick={onPickInterest}
-                        >
-                          {selectedInterest?.name ? (
-                            <>{selectedInterest?.name}</>
-                          ) : (
-                            <>Pick Interest</>
-                          )}
-                        </button>
+                  {step === 1 ? (
+                    <>
+                      <div className="uploadSection">
+                        <div className="uploadSectionInner">
+                          <span>What do you want to share?</span>
+                          <button
+                            className="button secondaryButton"
+                            onClick={onPickInterest}
+                            aria-label="Pick Interest"
+                          >
+                            {selectedInterest?.name ? (
+                              <>{selectedInterest?.name}</>
+                            ) : (
+                              <>Pick Interest</>
+                            )}
+                          </button>
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="uploadSection">
-                      <div className="uploadSectionInner">
-                        <span>What kind of content is it?</span>
-                        <div className="contentTypePicker">
-                          <div className="contentTypePickerInner">
-                            {contentTypes.map((type, i) => {
-                              return (
-                                <div
-                                  className={`contentTypeOption ${
-                                    contentType === type ? "selectedOption" : ""
-                                  }`}
-                                  onClick={() => onSelectType(type)}
-                                >
-                                  <div className="option">
-                                    {contentType === type ? (
-                                      <div className="feather-icon icon-check"></div>
-                                    ) : (
-                                      <></>
-                                    )}
-                                  </div>
-                                  <span>{type}</span>
-                                </div>
-                              );
-                            })}
+                      <div className="uploadSection">
+                        <div className="uploadSectionInner">
+                          <span>What kind of content is it?</span>
+                          <div className="contentTypePicker">
+                            <div className="contentTypePickerInner">
+                              {contentTypes.map((type, i) => {
+                                return (
+                                  <a
+                                    className={`contentTypeOption ${
+                                      contentType === type
+                                        ? "selectedOption"
+                                        : ""
+                                    }`}
+                                    href="#!"
+                                    onClick={() => onSelectType(type)}
+                                    aria-label={`Select ${type} Content Type`}
+                                  >
+                                    <div className="option">
+                                      {contentType === type ? (
+                                        <div className="feather-icon icon-check"></div>
+                                      ) : (
+                                        <></>
+                                      )}
+                                    </div>
+                                    <span>{type}</span>
+                                  </a>
+                                );
+                              })}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                    {/** TODO: step by step validation */}
-                    <a className="button" onClick={onNextClick}>
-                      Next
-                    </a>
-                  </>
-                ) : (
-                  <></>
-                )}
+                      {/** TODO: step by step validation */}
+                      <a
+                        className="button"
+                        onClick={onNextClick}
+                        aria-label="Next"
+                        href="#!"
+                      >
+                        Next
+                      </a>
+                    </>
+                  ) : (
+                    <></>
+                  )}
 
-                {step === 2 ? (
-                  <>
-                    <div className="uploadSection">
-                      <div className="uploadSectionInner">
-                        <span>Select your content</span>
-                        <div className="contentUpload">
-                          <div className="contentUploadInner">
-                            {contentType === "image" ? (
-                              <FormUpload
-                                name="file1"
-                                placeholder="Upload Image"
-                                register={register}
-                                errors={errors}
-                                validation={{
-                                  required: contentType === "image",
-                                }}
-                              />
-                            ) : (
-                              <></>
-                            )}
-                            {contentType === "video" ? (
-                              <FormUpload
-                                name="file1"
-                                placeholder="Upload Video"
-                                register={register}
-                                errors={errors}
-                                validation={{
-                                  required: contentType === "video",
-                                }}
-                              />
-                            ) : (
-                              <></>
-                            )}
-                            {contentType === "audio" ? (
-                              <>
+                  {step === 2 ? (
+                    <>
+                      <div className="uploadSection">
+                        <div className="uploadSectionInner">
+                          <span>Select your content</span>
+                          <div className="contentUpload">
+                            <div className="contentUploadInner">
+                              {contentType === "image" ? (
                                 <FormUpload
                                   name="file1"
-                                  placeholder="Upload Audio"
+                                  placeholder="Upload Image"
+                                  aria-label="Upload Image"
                                   register={register}
                                   errors={errors}
                                   validation={{
-                                    required: contentType === "audio",
+                                    required: contentType === "image",
                                   }}
                                 />
+                              ) : (
+                                <></>
+                              )}
+                              {contentType === "video" ? (
                                 <FormUpload
-                                  name="file2"
-                                  placeholder="Upload Art"
+                                  name="file1"
+                                  placeholder="Upload Video"
+                                  aria-label="Upload Video"
                                   register={register}
                                   errors={errors}
                                   validation={{
-                                    required: contentType === "audio",
+                                    required: contentType === "video",
                                   }}
                                 />
-                              </>
-                            ) : (
-                              <></>
-                            )}
-                            {contentType === "text" ? (
-                              <>
-                                <FormTextarea
-                                  name="text"
-                                  rows={8}
-                                  placeholder="Type here..."
-                                  register={register}
-                                  errors={errors}
-                                  validation={{
-                                    required: contentType === "text",
-                                  }}
-                                />
-                              </>
-                            ) : (
-                              <></>
-                            )}
+                              ) : (
+                                <></>
+                              )}
+                              {contentType === "audio" ? (
+                                <>
+                                  <FormUpload
+                                    name="file1"
+                                    placeholder="Upload Audio"
+                                    aria-label="Upload Audio"
+                                    register={register}
+                                    errors={errors}
+                                    validation={{
+                                      required: contentType === "audio",
+                                    }}
+                                  />
+                                  <FormUpload
+                                    name="file2"
+                                    placeholder="Upload Art"
+                                    aria-label="Upload Art"
+                                    register={register}
+                                    errors={errors}
+                                    validation={{
+                                      required: contentType === "audio",
+                                    }}
+                                  />
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                              {contentType === "text" ? (
+                                <>
+                                  <FormTextarea
+                                    name="text"
+                                    rows={8}
+                                    placeholder="Type here..."
+                                    aria-label="Type Text Here"
+                                    register={register}
+                                    errors={errors}
+                                    validation={{
+                                      required: contentType === "text",
+                                    }}
+                                  />
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                    <a className="button" onClick={onNextClick}>
-                      Next
-                    </a>
-                  </>
-                ) : (
-                  <></>
-                )}
+                      <a
+                        className="button"
+                        onClick={onNextClick}
+                        aria-label="Next"
+                        href="#!"
+                      >
+                        Next
+                      </a>
+                    </>
+                  ) : (
+                    <></>
+                  )}
 
-                {step === 3 ? (
-                  <>
-                    <div className="uploadSection">
-                      <div className="uploadSectionInner">
-                        <span>Describe and Share!</span>
-                        <FormInput
-                          type="title"
-                          name="title"
-                          placeholder="Add Title..."
-                          register={register}
-                          errors={errors}
-                          validation={{ required: "Title is required." }}
-                        />
-                        <FormTextarea
-                          name="description"
-                          placeholder="Add Description..."
-                          register={register}
-                          errors={errors}
-                          validation={{ required: false }}
-                        />
+                  {step === 3 ? (
+                    <>
+                      <div className="uploadSection">
+                        <div className="uploadSectionInner">
+                          <span>Describe and Share!</span>
+                          <FormInput
+                            type="title"
+                            name="title"
+                            placeholder="Add Title..."
+                            register={register}
+                            errors={errors}
+                            validation={{ required: "Title is required." }}
+                          />
+                          <FormTextarea
+                            name="description"
+                            placeholder="Add Description..."
+                            register={register}
+                            errors={errors}
+                            validation={{ required: false }}
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    {/* <div className="uploadSection">
+                      {/* <div className="uploadSection">
                       <div className="uploadSectionInner"></div>
                     </div> */}
 
-                    <button className="button" type="submit">
-                      Post for 3CC
-                    </button>
-                  </>
-                ) : (
-                  <></>
-                )}
-              </form>
-            </FormProvider>
+                      <button
+                        className="button"
+                        type="submit"
+                        aria-label="Post for 3CC"
+                      >
+                        Post for 3CC
+                      </button>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </form>
+              </FormProvider>
+            </main>
           </div>
         </section>
       )}

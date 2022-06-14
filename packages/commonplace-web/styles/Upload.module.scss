@@ -57,6 +57,7 @@
               display: flex;
               flex-direction: column;
               align-items: center;
+              text-decoration: none;
 
               .option {
                 width: 55px;
@@ -66,7 +67,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin-bottom: 5px;
+                margin-bottom: 7px;
 
                 .feather-icon {
                   font-size: 32px;
@@ -75,6 +76,12 @@
               span {
                 text-transform: capitalize;
                 font-weight: 600;
+              }
+
+              &:focus {
+                .option {
+                  outline: 2px rgba($red, 0.5) solid;
+                }
               }
 
               &.selectedOption {

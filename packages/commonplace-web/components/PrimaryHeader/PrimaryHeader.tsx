@@ -21,13 +21,7 @@ const PrimaryHeader: React.FC<PrimaryHeaderProps> = ({
       <div className="primaryHeaderInner">
         <div className="headerIcon headerLeftIcon">{leftIcon}</div>
         <div className="headerTitleWrapper">
-          {title ? (
-            <h1 className="title" aria-label="Title">
-              {title}
-            </h1>
-          ) : (
-            <></>
-          )}
+          {title ? <h1 className="title">{title}</h1> : <></>}
           {titleComponent ? (
             <div className="titleComponent">{titleComponent}</div>
           ) : (

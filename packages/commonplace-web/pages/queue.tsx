@@ -304,7 +304,7 @@ const QueueContent = () => {
               }
               rightIcon={<PrimaryNavigation threadCount={unreadThreadCount} />}
             />
-            <div className="scrollContainer queueScrollContainer">
+            <main className="scrollContainer queueScrollContainer">
               {!queueFinished ? (
                 <div className="displayPost currentPost">
                   <motion.div
@@ -327,7 +327,7 @@ const QueueContent = () => {
                   <span>Check out other interests or upload a post!</span>
                 </div>
               )}
-            </div>
+            </main>
 
             <ImpressionGrid
               creditCount={creditUi}
