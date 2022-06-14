@@ -62,6 +62,9 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
           {/** Clickable link to user profile? */}
           {/** Grid of other user posts? */}
           <p>
+            <i className="typcn typcn-link"></i> {post?.contentType}
+          </p>
+          <p>
             <i className="typcn typcn-point-of-interest"></i>{" "}
             {post?.interest?.name}
           </p>

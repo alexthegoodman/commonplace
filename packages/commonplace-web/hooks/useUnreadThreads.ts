@@ -27,7 +27,7 @@ export const useUnreadThreads = (threads = [], currentUsername) => {
       const lastMessageTime = lastMessage.createdAt;
       const lastReadTime = lastReadRecord.createdAt;
 
-      console.info("compare times", i, lastReadTime, lastMessageTime);
+      // console.info("compare times", i, lastReadTime, lastMessageTime);
 
       let isRead = true;
       if (lastReadTime < lastMessageTime) {

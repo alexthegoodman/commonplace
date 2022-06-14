@@ -35,11 +35,14 @@
       // margin: 15px 0;
       font-family: system-ui;
       // margin-top: 25px;
-      margin-bottom: 15px;
+      margin-bottom: 5px;
 
       &:last-of-type {
         margin-bottom: 0;
       }
+    }
+    .contentDescription {
+      margin-bottom: 15px;
     }
     .contentAuthor {
       // margin: 15px 0;
