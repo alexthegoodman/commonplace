@@ -25,7 +25,10 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
   }, []);
 
   return (
-    <section className="impressionGridWrapper darkMode">
+    <section
+      className="impressionGridWrapper darkMode"
+      aria-label="Impression Board"
+    >
       <div className="creditCounter">
         <span>{creditCount} Credits</span>
       </div>
@@ -101,6 +104,7 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
                       <a
                         href="#!"
                         onClick={() => impressionClickHandler(impression.name)}
+                        aria-label={impression.name}
                       >
                         {impression.name}
                       </a>

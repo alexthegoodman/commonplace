@@ -294,6 +294,7 @@ const QueueContent = () => {
                   className="pickerButton"
                   href="#!"
                   onClick={onSelectInterestClick}
+                  aria-label="Select Interest"
                 >
                   <i className="typcn typcn-point-of-interest"></i>
                   {selectedInterest === null

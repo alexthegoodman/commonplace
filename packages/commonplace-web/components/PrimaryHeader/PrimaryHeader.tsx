@@ -14,11 +14,20 @@ const PrimaryHeader: React.FC<PrimaryHeaderProps> = ({
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
   return (
-    <header className={`primaryHeader ${inline ? "inline" : ""} ${className}`}>
+    <header
+      className={`primaryHeader ${inline ? "inline" : ""} ${className}`}
+      aria-label="Primary Header"
+    >
       <div className="primaryHeaderInner">
         <div className="headerIcon headerLeftIcon">{leftIcon}</div>
         <div className="headerTitleWrapper">
-          {title ? <h1 className="title">{title}</h1> : <></>}
+          {title ? (
+            <h1 className="title" aria-label="Title">
+              {title}
+            </h1>
+          ) : (
+            <></>
+          )}
           {titleComponent ? (
             <div className="titleComponent">{titleComponent}</div>
           ) : (
