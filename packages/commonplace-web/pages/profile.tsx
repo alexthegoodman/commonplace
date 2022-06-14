@@ -64,16 +64,18 @@ export const ProfileContent = ({ data }) => {
             </Link>
           }
         />
-        <div className="scrollContainer">
-          <ProfileIntro
-            alt={profileSEOStatement}
-            profileImage={data?.user?.profileImage}
-            coverImage={data?.user?.coverImage}
-            title={data?.user?.chosenUsername}
-            subTitle={`${data?.user?.posts?.length} Creations`}
-          />
-          <ProfilePosts creator={data?.user} posts={data?.user?.posts} />
-        </div>
+        <main>
+          <div className="scrollContainer">
+            <ProfileIntro
+              alt={profileSEOStatement}
+              profileImage={data?.user?.profileImage}
+              coverImage={data?.user?.coverImage}
+              title={data?.user?.chosenUsername}
+              subTitle={`${data?.user?.posts?.length} Creations`}
+            />
+            <ProfilePosts creator={data?.user} posts={data?.user?.posts} />
+          </div>
+        </main>
       </div>
     </section>
   );

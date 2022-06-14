@@ -29,7 +29,7 @@ const ProfileIntro: React.FC<ProfileIntroProps> = ({
     <section className="profileIntro">
       <div className="profileIntroInner">
         <div className="coverPhoto">
-          <img src={coverImageUrl} />
+          <img title="Cover Photo" src={coverImageUrl} />
         </div>
         <div className="profilePhoto">
           <img alt={alt} title={alt} src={profileImageUrl} />

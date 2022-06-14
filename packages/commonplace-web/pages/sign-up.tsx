@@ -13,17 +13,19 @@ const SignUp: NextPage = () => {
           title="Sign Up"
           rightIcon={<></>}
         />
-        <div className="formWrapper">
-          <AuthForm type="sign-up" />
-        </div>
-        <div className="otherLinks">
-          <span>
-            Or you may{" "}
-            <Link href="/sign-in">
-              <a>Sign In</a>
-            </Link>
-          </span>
-        </div>
+        <main>
+          <div className="formWrapper">
+            <AuthForm type="sign-up" />
+          </div>
+          <div className="otherLinks">
+            <span>
+              Or you may{" "}
+              <Link href="/sign-in">
+                <a>Sign In</a>
+              </Link>
+            </span>
+          </div>
+        </main>
       </div>
     </section>
   );
