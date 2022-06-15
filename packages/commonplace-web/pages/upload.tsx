@@ -143,6 +143,11 @@ const UploadContent = () => {
 
   const contentTypes = ["image", "video", "audio", "text"];
 
+  console.info("sel interest length", selectedInterest?.posts?.length);
+
+  const submitButtonLabel =
+    selectedInterest?.posts?.length > 5 ? "Post for 3CC" : "Post for 0CC";
+
   return (
     <>
       {showInterestsModal ? (
@@ -366,9 +371,9 @@ const UploadContent = () => {
                       <button
                         className="button"
                         type="submit"
-                        aria-label="Post for 3CC"
+                        aria-label={submitButtonLabel}
                       >
-                        Post for 3CC
+                        {submitButtonLabel}
                       </button>
                     </>
                   ) : (
