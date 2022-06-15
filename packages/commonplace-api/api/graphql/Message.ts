@@ -143,6 +143,43 @@ export const CreateMessageMutation = extendType({
               },
             });
 
+            // TODO: add impressions to previous thread if exists
+            const threadExists = await prisma.thread.findFirst({
+              where: {
+                users: {
+                  every: {
+                    id: {
+                      in: [author?.id, postCreator?.id],
+                    },
+                  },
+                },
+              },
+            });
+
+            console.info("threadExists", threadExists);
+
+            let addtData = {};
+            if (threadExists) {
+              addtData = {
+                thread: {
+                  connect: {
+                    id: threadExists?.id,
+                  },
+                },
+              };
+            } else {
+              addtData = {
+                thread: {
+                  create: {
+                    repliesAllowed: true,
+                    users: {
+                      connect: [{ id: author?.id }, { id: postCreator?.id }],
+                    },
+                  },
+                },
+              };
+            }
+
             message = await prisma.message.create({
               data: {
                 type,
@@ -152,19 +189,12 @@ export const CreateMessageMutation = extendType({
                     id: postId,
                   },
                 },
-                thread: {
-                  create: {
-                    repliesAllowed: true,
-                    users: {
-                      connect: [{ id: author?.id }, { id: postCreator?.id }],
-                    },
-                  },
-                },
                 user: {
                   connect: {
                     id: author?.id,
                   },
                 },
+                ...addtData,
               },
             });
           } else {
