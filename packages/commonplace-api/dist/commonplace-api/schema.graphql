@@ -13,6 +13,25 @@ type Category {
   name: String!
 }
 
+input CategoryCreateNestedManyWithoutInterestsInput {
+  connect: [CategoryWhereUniqueInput!]
+  connectOrCreate: [CategoryCreateOrConnectWithoutInterestsInput!]
+  create: [CategoryCreateWithoutInterestsInput!]
+}
+
+input CategoryCreateOrConnectWithoutInterestsInput {
+  create: CategoryCreateWithoutInterestsInput!
+  where: CategoryWhereUniqueInput!
+}
+
+input CategoryCreateWithoutInterestsInput {
+  createdAt: DateTime
+  generatedCategorySlug: String
+  id: String
+  name: String!
+  updatedAt: DateTime
+}
+
 input CategoryListRelationFilter {
   every: CategoryWhereInput
   none: CategoryWhereInput
@@ -28,6 +47,7 @@ input CategoryWhereInput {
   NOT: [CategoryWhereInput!]
   OR: [CategoryWhereInput!]
   createdAt: DateTimeFilter
+  generatedCategorySlug: StringFilter
   id: StringFilter
   interests: InterestListRelationFilter
   name: StringFilter
@@ -35,6 +55,7 @@ input CategoryWhereInput {
 }
 
 input CategoryWhereUniqueInput {
+  generatedCategorySlug: String
   id: String
 }
 
@@ -67,8 +88,53 @@ input IntFilter {
 
 type Interest {
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
+  generatedInterestSlug: String!
   id: String!
   name: String!
+}
+
+input InterestCreateNestedManyWithoutModifiersInput {
+  connect: [InterestWhereUniqueInput!]
+  connectOrCreate: [InterestCreateOrConnectWithoutModifiersInput!]
+  create: [InterestCreateWithoutModifiersInput!]
+}
+
+input InterestCreateNestedOneWithoutPostsInput {
+  connect: InterestWhereUniqueInput
+  connectOrCreate: InterestCreateOrConnectWithoutPostsInput
+  create: InterestCreateWithoutPostsInput
+}
+
+input InterestCreateOrConnectWithoutModifiersInput {
+  create: InterestCreateWithoutModifiersInput!
+  where: InterestWhereUniqueInput!
+}
+
+input InterestCreateOrConnectWithoutPostsInput {
+  create: InterestCreateWithoutPostsInput!
+  where: InterestWhereUniqueInput!
+}
+
+input InterestCreateWithoutModifiersInput {
+  categories: CategoryCreateNestedManyWithoutInterestsInput
+  contentType: String!
+  createdAt: DateTime
+  generatedInterestSlug: String
+  id: String
+  name: String!
+  posts: PostCreateNestedManyWithoutInterestInput
+  updatedAt: DateTime
+}
+
+input InterestCreateWithoutPostsInput {
+  categories: CategoryCreateNestedManyWithoutInterestsInput
+  contentType: String!
+  createdAt: DateTime
+  generatedInterestSlug: String
+  id: String
+  modifiers: ModifierCreateNestedManyWithoutInterestsInput
+  name: String!
+  updatedAt: DateTime
 }
 
 input InterestListRelationFilter {
@@ -81,6 +147,7 @@ input InterestOrderByWithRelationInput {
   categories: CategoryOrderByRelationAggregateInput
   contentType: SortOrder
   createdAt: SortOrder
+  generatedInterestSlug: SortOrder
   id: SortOrder
   modifiers: ModifierOrderByRelationAggregateInput
   name: SortOrder
@@ -95,6 +162,7 @@ input InterestWhereInput {
   categories: CategoryListRelationFilter
   contentType: StringFilter
   createdAt: DateTimeFilter
+  generatedInterestSlug: StringFilter
   id: StringFilter
   modifiers: ModifierListRelationFilter
   name: StringFilter
@@ -103,6 +171,7 @@ input InterestWhereInput {
 }
 
 input InterestWhereUniqueInput {
+  generatedInterestSlug: String
   id: String
 }
 
@@ -114,11 +183,122 @@ scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publicati
 type Message {
   content: String!
   createdAt: DateTime!
+  id: String!
   post: Post
-  readBy(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
   type: String!
   updatedAt: DateTime!
   user: User!
+}
+
+input MessageCreateManyPostInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  threadId: String!
+  type: String!
+  updatedAt: DateTime
+  userId: String!
+}
+
+input MessageCreateManyPostInputEnvelope {
+  data: [MessageCreateManyPostInput!]
+  skipDuplicates: Boolean
+}
+
+input MessageCreateManyThreadInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  postId: String
+  type: String!
+  updatedAt: DateTime
+  userId: String!
+}
+
+input MessageCreateManyThreadInputEnvelope {
+  data: [MessageCreateManyThreadInput!]
+  skipDuplicates: Boolean
+}
+
+input MessageCreateManyUserInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  postId: String
+  threadId: String!
+  type: String!
+  updatedAt: DateTime
+}
+
+input MessageCreateManyUserInputEnvelope {
+  data: [MessageCreateManyUserInput!]
+  skipDuplicates: Boolean
+}
+
+input MessageCreateNestedManyWithoutPostInput {
+  connect: [MessageWhereUniqueInput!]
+  connectOrCreate: [MessageCreateOrConnectWithoutPostInput!]
+  create: [MessageCreateWithoutPostInput!]
+  createMany: MessageCreateManyPostInputEnvelope
+}
+
+input MessageCreateNestedManyWithoutThreadInput {
+  connect: [MessageWhereUniqueInput!]
+  connectOrCreate: [MessageCreateOrConnectWithoutThreadInput!]
+  create: [MessageCreateWithoutThreadInput!]
+  createMany: MessageCreateManyThreadInputEnvelope
+}
+
+input MessageCreateNestedManyWithoutUserInput {
+  connect: [MessageWhereUniqueInput!]
+  connectOrCreate: [MessageCreateOrConnectWithoutUserInput!]
+  create: [MessageCreateWithoutUserInput!]
+  createMany: MessageCreateManyUserInputEnvelope
+}
+
+input MessageCreateOrConnectWithoutPostInput {
+  create: MessageCreateWithoutPostInput!
+  where: MessageWhereUniqueInput!
+}
+
+input MessageCreateOrConnectWithoutThreadInput {
+  create: MessageCreateWithoutThreadInput!
+  where: MessageWhereUniqueInput!
+}
+
+input MessageCreateOrConnectWithoutUserInput {
+  create: MessageCreateWithoutUserInput!
+  where: MessageWhereUniqueInput!
+}
+
+input MessageCreateWithoutPostInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  thread: ThreadCreateNestedOneWithoutMessagesInput!
+  type: String!
+  updatedAt: DateTime
+  user: UserCreateNestedOneWithoutMessagesInput!
+}
+
+input MessageCreateWithoutThreadInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  post: PostCreateNestedOneWithoutMessagesInput
+  type: String!
+  updatedAt: DateTime
+  user: UserCreateNestedOneWithoutMessagesInput!
+}
+
+input MessageCreateWithoutUserInput {
+  content: String!
+  createdAt: DateTime
+  id: String
+  post: PostCreateNestedOneWithoutMessagesInput
+  thread: ThreadCreateNestedOneWithoutMessagesInput!
+  type: String!
+  updatedAt: DateTime
 }
 
 input MessageListRelationFilter {
@@ -137,7 +317,6 @@ input MessageOrderByWithRelationInput {
   id: SortOrder
   post: PostOrderByWithRelationInput
   postId: SortOrder
-  readBy: UserOrderByRelationAggregateInput
   thread: ThreadOrderByWithRelationInput
   threadId: SortOrder
   type: SortOrder
@@ -155,7 +334,6 @@ input MessageWhereInput {
   id: StringFilter
   post: PostWhereInput
   postId: StringNullableFilter
-  readBy: UserListRelationFilter
   thread: ThreadWhereInput
   threadId: StringFilter
   type: StringFilter
@@ -166,6 +344,46 @@ input MessageWhereInput {
 
 input MessageWhereUniqueInput {
   id: String
+}
+
+input ModifierCreateNestedManyWithoutInterestsInput {
+  connect: [ModifierWhereUniqueInput!]
+  connectOrCreate: [ModifierCreateOrConnectWithoutInterestsInput!]
+  create: [ModifierCreateWithoutInterestsInput!]
+}
+
+input ModifierCreateNestedManyWithoutPostsInput {
+  connect: [ModifierWhereUniqueInput!]
+  connectOrCreate: [ModifierCreateOrConnectWithoutPostsInput!]
+  create: [ModifierCreateWithoutPostsInput!]
+}
+
+input ModifierCreateOrConnectWithoutInterestsInput {
+  create: ModifierCreateWithoutInterestsInput!
+  where: ModifierWhereUniqueInput!
+}
+
+input ModifierCreateOrConnectWithoutPostsInput {
+  create: ModifierCreateWithoutPostsInput!
+  where: ModifierWhereUniqueInput!
+}
+
+input ModifierCreateWithoutInterestsInput {
+  createdAt: DateTime
+  generatedModifierSlug: String
+  id: String
+  name: String!
+  posts: PostCreateNestedManyWithoutModifiersInput
+  updatedAt: DateTime
+}
+
+input ModifierCreateWithoutPostsInput {
+  createdAt: DateTime
+  generatedModifierSlug: String
+  id: String
+  interests: InterestCreateNestedManyWithoutModifiersInput
+  name: String!
+  updatedAt: DateTime
 }
 
 input ModifierListRelationFilter {
@@ -183,6 +401,7 @@ input ModifierWhereInput {
   NOT: [ModifierWhereInput!]
   OR: [ModifierWhereInput!]
   createdAt: DateTimeFilter
+  generatedModifierSlug: StringFilter
   id: StringFilter
   interests: InterestListRelationFilter
   name: StringFilter
@@ -190,9 +409,16 @@ input ModifierWhereInput {
   updatedAt: DateTimeFilter
 }
 
+input ModifierWhereUniqueInput {
+  generatedModifierSlug: String
+  id: String
+}
+
 type Mutation {
   createMessage(authorEmail: String!, content: String!, postCreatorEmail: String, postId: String, threadId: String, type: String!): Message!
-  createPost(contentType: String!, creatorId: String!, description: String!, file1Data: String!, file1Name: String!, file1Size: Int!, file1Type: String!, file2Data: String, file2Name: String, file2Size: Int, file2Type: String, interestId: String!, title: String!): Post!
+  createOneRecord(data: RecordCreateInput!): Record!
+  createPost(contentType: String!, creatorId: String!, description: String!, file1Data: String, file1Name: String, file1Size: Int, file1Type: String, file2Data: String, file2Name: String, file2Size: Int, file2Type: String, interestId: String!, text: String, title: String!): Post!
+  updateProfile(coverImageData: String, coverImageName: String, coverImageSize: Int, coverImageType: String, profileImageData: String, profileImageName: String, profileImageSize: Int, profileImageType: String, userId: String!, username: String!): String!
 }
 
 input NestedBoolFilter {
@@ -264,6 +490,148 @@ type Post {
   updatedAt: DateTime!
 }
 
+input PostCreateManyCreatorInput {
+  content: String!
+  contentPreview: String!
+  contentType: String!
+  createdAt: DateTime
+  description: String!
+  generatedTitleSlug: String
+  id: String
+  interestId: String!
+  title: String!
+  updatedAt: DateTime
+}
+
+input PostCreateManyCreatorInputEnvelope {
+  data: [PostCreateManyCreatorInput!]
+  skipDuplicates: Boolean
+}
+
+input PostCreateManyInterestInput {
+  content: String!
+  contentPreview: String!
+  contentType: String!
+  createdAt: DateTime
+  creatorId: String!
+  description: String!
+  generatedTitleSlug: String
+  id: String
+  title: String!
+  updatedAt: DateTime
+}
+
+input PostCreateManyInterestInputEnvelope {
+  data: [PostCreateManyInterestInput!]
+  skipDuplicates: Boolean
+}
+
+input PostCreateNestedManyWithoutCreatorInput {
+  connect: [PostWhereUniqueInput!]
+  connectOrCreate: [PostCreateOrConnectWithoutCreatorInput!]
+  create: [PostCreateWithoutCreatorInput!]
+  createMany: PostCreateManyCreatorInputEnvelope
+}
+
+input PostCreateNestedManyWithoutInterestInput {
+  connect: [PostWhereUniqueInput!]
+  connectOrCreate: [PostCreateOrConnectWithoutInterestInput!]
+  create: [PostCreateWithoutInterestInput!]
+  createMany: PostCreateManyInterestInputEnvelope
+}
+
+input PostCreateNestedManyWithoutModifiersInput {
+  connect: [PostWhereUniqueInput!]
+  connectOrCreate: [PostCreateOrConnectWithoutModifiersInput!]
+  create: [PostCreateWithoutModifiersInput!]
+}
+
+input PostCreateNestedOneWithoutMessagesInput {
+  connect: PostWhereUniqueInput
+  connectOrCreate: PostCreateOrConnectWithoutMessagesInput
+  create: PostCreateWithoutMessagesInput
+}
+
+input PostCreateOrConnectWithoutCreatorInput {
+  create: PostCreateWithoutCreatorInput!
+  where: PostWhereUniqueInput!
+}
+
+input PostCreateOrConnectWithoutInterestInput {
+  create: PostCreateWithoutInterestInput!
+  where: PostWhereUniqueInput!
+}
+
+input PostCreateOrConnectWithoutMessagesInput {
+  create: PostCreateWithoutMessagesInput!
+  where: PostWhereUniqueInput!
+}
+
+input PostCreateOrConnectWithoutModifiersInput {
+  create: PostCreateWithoutModifiersInput!
+  where: PostWhereUniqueInput!
+}
+
+input PostCreateWithoutCreatorInput {
+  content: String!
+  contentPreview: String!
+  contentType: String!
+  createdAt: DateTime
+  description: String!
+  generatedTitleSlug: String
+  id: String
+  interest: InterestCreateNestedOneWithoutPostsInput!
+  messages: MessageCreateNestedManyWithoutPostInput
+  modifiers: ModifierCreateNestedManyWithoutPostsInput
+  title: String!
+  updatedAt: DateTime
+}
+
+input PostCreateWithoutInterestInput {
+  content: String!
+  contentPreview: String!
+  contentType: String!
+  createdAt: DateTime
+  creator: UserCreateNestedOneWithoutPostsInput!
+  description: String!
+  generatedTitleSlug: String
+  id: String
+  messages: MessageCreateNestedManyWithoutPostInput
+  modifiers: ModifierCreateNestedManyWithoutPostsInput
+  title: String!
+  updatedAt: DateTime
+}
+
+input PostCreateWithoutMessagesInput {
+  content: String!
+  contentPreview: String!
+  contentType: String!
+  createdAt: DateTime
+  creator: UserCreateNestedOneWithoutPostsInput!
+  description: String!
+  generatedTitleSlug: String
+  id: String
+  interest: InterestCreateNestedOneWithoutPostsInput!
+  modifiers: ModifierCreateNestedManyWithoutPostsInput
+  title: String!
+  updatedAt: DateTime
+}
+
+input PostCreateWithoutModifiersInput {
+  content: String!
+  contentPreview: String!
+  contentType: String!
+  createdAt: DateTime
+  creator: UserCreateNestedOneWithoutPostsInput!
+  description: String!
+  generatedTitleSlug: String
+  id: String
+  interest: InterestCreateNestedOneWithoutPostsInput!
+  messages: MessageCreateNestedManyWithoutPostInput
+  title: String!
+  updatedAt: DateTime
+}
+
 input PostListRelationFilter {
   every: PostWhereInput
   none: PostWhereInput
@@ -326,6 +694,7 @@ type PublicPost {
   description: String
   generatedTitleSlug: String
   id: String
+  interest: Interest
   title: String
   updatedAt: DateTime
 }
@@ -343,7 +712,9 @@ type Query {
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
   getPostByPostTitle(postTitle: String!): PublicPost
   getPostImpressions(postTitle: String!): [Message]!
+  getPostURLs: [String]
   getPostsByUsername(chosenUsername: String!): [PublicPost]
+  getProfileURLs: [String]
   getUserByPostTitle(postTitle: String!): PublicUser
   getUserByUsername(chosenUsername: String!): PublicUser
   interests(after: InterestWhereUniqueInput, before: InterestWhereUniqueInput, first: Int, last: Int): [Interest!]!
@@ -357,6 +728,93 @@ type Query {
 enum QueryMode {
   default
   insensitive
+}
+
+type Record {
+  content: String
+  createdAt: DateTime!
+  id: String!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input RecordCreateInput {
+  content: String
+  createdAt: DateTime
+  id: String
+  name: String!
+  thread: ThreadCreateNestedOneWithoutReadHistoryInput
+  updatedAt: DateTime
+}
+
+input RecordCreateManyThreadInput {
+  content: String
+  createdAt: DateTime
+  id: String
+  name: String!
+  updatedAt: DateTime
+}
+
+input RecordCreateManyThreadInputEnvelope {
+  data: [RecordCreateManyThreadInput!]
+  skipDuplicates: Boolean
+}
+
+input RecordCreateNestedManyWithoutThreadInput {
+  connect: [RecordWhereUniqueInput!]
+  connectOrCreate: [RecordCreateOrConnectWithoutThreadInput!]
+  create: [RecordCreateWithoutThreadInput!]
+  createMany: RecordCreateManyThreadInputEnvelope
+}
+
+input RecordCreateOrConnectWithoutThreadInput {
+  create: RecordCreateWithoutThreadInput!
+  where: RecordWhereUniqueInput!
+}
+
+input RecordCreateWithoutThreadInput {
+  content: String
+  createdAt: DateTime
+  id: String
+  name: String!
+  updatedAt: DateTime
+}
+
+input RecordListRelationFilter {
+  every: RecordWhereInput
+  none: RecordWhereInput
+  some: RecordWhereInput
+}
+
+input RecordOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input RecordOrderByWithRelationInput {
+  content: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  name: SortOrder
+  thread: ThreadOrderByWithRelationInput
+  threadId: SortOrder
+  updatedAt: SortOrder
+}
+
+input RecordWhereInput {
+  AND: [RecordWhereInput!]
+  NOT: [RecordWhereInput!]
+  OR: [RecordWhereInput!]
+  content: StringNullableFilter
+  createdAt: DateTimeFilter
+  id: StringFilter
+  name: StringFilter
+  thread: ThreadWhereInput
+  threadId: StringNullableFilter
+  updatedAt: DateTimeFilter
+}
+
+input RecordWhereUniqueInput {
+  id: String
 }
 
 enum SortOrder {
@@ -398,9 +856,70 @@ type Thread {
   createdAt: DateTime!
   id: String!
   messages(after: MessageWhereUniqueInput, before: MessageWhereUniqueInput, first: Int, last: Int, orderBy: [MessageOrderByWithRelationInput!]): [Message!]!
+  readHistory(after: RecordWhereUniqueInput, before: RecordWhereUniqueInput, first: Int, last: Int, orderBy: [RecordOrderByWithRelationInput!]): [Record!]!
   repliesAllowed: Boolean!
   updatedAt: DateTime!
   users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
+}
+
+input ThreadCreateNestedManyWithoutUsersInput {
+  connect: [ThreadWhereUniqueInput!]
+  connectOrCreate: [ThreadCreateOrConnectWithoutUsersInput!]
+  create: [ThreadCreateWithoutUsersInput!]
+}
+
+input ThreadCreateNestedOneWithoutMessagesInput {
+  connect: ThreadWhereUniqueInput
+  connectOrCreate: ThreadCreateOrConnectWithoutMessagesInput
+  create: ThreadCreateWithoutMessagesInput
+}
+
+input ThreadCreateNestedOneWithoutReadHistoryInput {
+  connect: ThreadWhereUniqueInput
+  connectOrCreate: ThreadCreateOrConnectWithoutReadHistoryInput
+  create: ThreadCreateWithoutReadHistoryInput
+}
+
+input ThreadCreateOrConnectWithoutMessagesInput {
+  create: ThreadCreateWithoutMessagesInput!
+  where: ThreadWhereUniqueInput!
+}
+
+input ThreadCreateOrConnectWithoutReadHistoryInput {
+  create: ThreadCreateWithoutReadHistoryInput!
+  where: ThreadWhereUniqueInput!
+}
+
+input ThreadCreateOrConnectWithoutUsersInput {
+  create: ThreadCreateWithoutUsersInput!
+  where: ThreadWhereUniqueInput!
+}
+
+input ThreadCreateWithoutMessagesInput {
+  createdAt: DateTime
+  id: String
+  readHistory: RecordCreateNestedManyWithoutThreadInput
+  repliesAllowed: Boolean!
+  updatedAt: DateTime
+  users: UserCreateNestedManyWithoutThreadsInput
+}
+
+input ThreadCreateWithoutReadHistoryInput {
+  createdAt: DateTime
+  id: String
+  messages: MessageCreateNestedManyWithoutThreadInput
+  repliesAllowed: Boolean!
+  updatedAt: DateTime
+  users: UserCreateNestedManyWithoutThreadsInput
+}
+
+input ThreadCreateWithoutUsersInput {
+  createdAt: DateTime
+  id: String
+  messages: MessageCreateNestedManyWithoutThreadInput
+  readHistory: RecordCreateNestedManyWithoutThreadInput
+  repliesAllowed: Boolean!
+  updatedAt: DateTime
 }
 
 input ThreadListRelationFilter {
@@ -417,6 +936,7 @@ input ThreadOrderByWithRelationInput {
   createdAt: SortOrder
   id: SortOrder
   messages: MessageOrderByRelationAggregateInput
+  readHistory: RecordOrderByRelationAggregateInput
   repliesAllowed: SortOrder
   updatedAt: SortOrder
   users: UserOrderByRelationAggregateInput
@@ -429,6 +949,7 @@ input ThreadWhereInput {
   createdAt: DateTimeFilter
   id: StringFilter
   messages: MessageListRelationFilter
+  readHistory: RecordListRelationFilter
   repliesAllowed: BoolFilter
   updatedAt: DateTimeFilter
   users: UserListRelationFilter
@@ -437,6 +958,9 @@ input ThreadWhereInput {
 input ThreadWhereUniqueInput {
   id: String
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 type User {
   chosenUsername: String
@@ -450,6 +974,87 @@ type User {
   profileImage: String!
   threads(after: ThreadWhereUniqueInput, before: ThreadWhereUniqueInput, first: Int, last: Int, orderBy: [ThreadOrderByWithRelationInput!], where: ThreadWhereInput): [Thread!]!
   updatedAt: DateTime!
+}
+
+input UserCreateNestedManyWithoutThreadsInput {
+  connect: [UserWhereUniqueInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutThreadsInput!]
+  create: [UserCreateWithoutThreadsInput!]
+}
+
+input UserCreateNestedOneWithoutMessagesInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutMessagesInput
+  create: UserCreateWithoutMessagesInput
+}
+
+input UserCreateNestedOneWithoutPostsInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutPostsInput
+  create: UserCreateWithoutPostsInput
+}
+
+input UserCreateOrConnectWithoutMessagesInput {
+  create: UserCreateWithoutMessagesInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateOrConnectWithoutPostsInput {
+  create: UserCreateWithoutPostsInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateOrConnectWithoutThreadsInput {
+  create: UserCreateWithoutThreadsInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateWithoutMessagesInput {
+  chosenUsername: String
+  coverImage: String
+  createdAt: DateTime
+  credit: Int
+  email: String!
+  generatedUsername: String
+  id: String
+  name: String
+  password: String!
+  posts: PostCreateNestedManyWithoutCreatorInput
+  profileImage: String
+  threads: ThreadCreateNestedManyWithoutUsersInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutPostsInput {
+  chosenUsername: String
+  coverImage: String
+  createdAt: DateTime
+  credit: Int
+  email: String!
+  generatedUsername: String
+  id: String
+  messages: MessageCreateNestedManyWithoutUserInput
+  name: String
+  password: String!
+  profileImage: String
+  threads: ThreadCreateNestedManyWithoutUsersInput
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutThreadsInput {
+  chosenUsername: String
+  coverImage: String
+  createdAt: DateTime
+  credit: Int
+  email: String!
+  generatedUsername: String
+  id: String
+  messages: MessageCreateNestedManyWithoutUserInput
+  name: String
+  password: String!
+  posts: PostCreateNestedManyWithoutCreatorInput
+  profileImage: String
+  updatedAt: DateTime
 }
 
 input UserListRelationFilter {
@@ -475,7 +1080,6 @@ input UserOrderByWithRelationInput {
   password: SortOrder
   posts: PostOrderByRelationAggregateInput
   profileImage: SortOrder
-  readMessages: MessageOrderByRelationAggregateInput
   threads: ThreadOrderByRelationAggregateInput
   updatedAt: SortOrder
 }
@@ -496,7 +1100,6 @@ input UserWhereInput {
   password: StringFilter
   posts: PostListRelationFilter
   profileImage: StringFilter
-  readMessages: MessageListRelationFilter
   threads: ThreadListRelationFilter
   updatedAt: DateTimeFilter
 }

@@ -7,6 +7,8 @@ var Helpers_1 = __importDefault(require("./lib/Helpers"));
 var Logs_1 = __importDefault(require("./lib/Logs"));
 var AWS_1 = __importDefault(require("./lib/AWS"));
 var ERROR_CODES_1 = __importDefault(require("./lib/ERROR_CODES"));
+var dotenv = require("dotenv");
+dotenv.config();
 var Utilities = /** @class */ (function () {
     function Utilities() {
         this.helpers = new Helpers_1.default();

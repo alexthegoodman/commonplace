@@ -13,7 +13,7 @@ var ERROR_CODES = {
     C009: "C009. No hash provided",
     C010: "C010. Cannot find user with associated hash",
     B001: "B001. The files provided are not the correct size",
-    D001: "C010. Cannot upload the pods banner image",
+    D001: "C010. Upload not properly attached.",
 };
 exports.default = ERROR_CODES;
 //# sourceMappingURL=ERROR_CODES.js.map

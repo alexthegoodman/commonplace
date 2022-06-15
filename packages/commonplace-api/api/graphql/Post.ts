@@ -173,7 +173,7 @@ export const CreatePostMutation = extendType({
           content: upload1Path,
         };
 
-        if (contentType === "text") {
+        if (contentType === "text" && text) {
           contentData = {
             contentPreview: "",
             content: text,

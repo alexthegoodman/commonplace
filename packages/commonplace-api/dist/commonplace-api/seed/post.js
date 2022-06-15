@@ -92,6 +92,11 @@ function seedPosts(users, interests) {
                                 getDefaultPost(),
                                 getDefaultPost(),
                                 getDefaultPost(),
+                                getDefaultPost(),
+                                getDefaultPost(),
+                                getDefaultPost(),
+                                getDefaultPost(),
+                                getDefaultPost(),
                             ],
                         })];
                 case 1:

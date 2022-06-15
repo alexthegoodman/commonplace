@@ -59,7 +59,7 @@ function clean() {
                 //     console.info("data", data);
                 //   });
                 // await prisma.raw("TRUNCATE AnnotationMeta;");
-                return [4 /*yield*/, prisma.message.deleteMany({
+                return [4 /*yield*/, prisma.record.deleteMany({
                         where: { id: { not: "" } },
                     })];
                 case 1:
@@ -80,30 +80,35 @@ function clean() {
                     //   });
                     // await prisma.raw("TRUNCATE AnnotationMeta;");
                     _a.sent();
-                    return [4 /*yield*/, prisma.thread.deleteMany({
+                    return [4 /*yield*/, prisma.message.deleteMany({
                             where: { id: { not: "" } },
                         })];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, prisma.post.deleteMany({
+                    return [4 /*yield*/, prisma.thread.deleteMany({
                             where: { id: { not: "" } },
                         })];
                 case 3:
                     _a.sent();
-                    return [4 /*yield*/, prisma.category.deleteMany({
+                    return [4 /*yield*/, prisma.post.deleteMany({
                             where: { id: { not: "" } },
                         })];
                 case 4:
                     _a.sent();
-                    return [4 /*yield*/, prisma.interest.deleteMany({
+                    return [4 /*yield*/, prisma.category.deleteMany({
                             where: { id: { not: "" } },
                         })];
                 case 5:
                     _a.sent();
-                    return [4 /*yield*/, prisma.user.deleteMany({
+                    return [4 /*yield*/, prisma.interest.deleteMany({
                             where: { id: { not: "" } },
                         })];
                 case 6:
+                    _a.sent();
+                    return [4 /*yield*/, prisma.user.deleteMany({
+                            where: { id: { not: "" } },
+                        })];
+                case 7:
                     _a.sent();
                     return [2 /*return*/];
             }

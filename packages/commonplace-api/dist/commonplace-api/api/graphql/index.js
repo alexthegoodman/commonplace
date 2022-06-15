@@ -20,6 +20,7 @@ __exportStar(require("./Thread"), exports);
 __exportStar(require("./Message"), exports);
 __exportStar(require("./Category"), exports);
 __exportStar(require("./Interest"), exports);
+__exportStar(require("./Record"), exports);
 __exportStar(require("./Query"), exports);
-// export * from "./Mutation";
+__exportStar(require("./Mutation"), exports);
 //# sourceMappingURL=index.js.map

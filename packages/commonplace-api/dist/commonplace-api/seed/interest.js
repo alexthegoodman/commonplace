@@ -41,6 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var client_1 = require("@prisma/client");
 var faker_1 = __importDefault(require("@faker-js/faker"));
+var slugify_1 = __importDefault(require("slugify"));
 var prisma = new client_1.PrismaClient();
 function seedInterests() {
     return __awaiter(this, void 0, void 0, function () {
@@ -50,8 +51,10 @@ function seedInterests() {
                 case 0:
                     getDefaultCategory = function () {
                         var name = faker_1.default.lorem.words();
+                        var generatedCategorySlug = (0, slugify_1.default)(name);
                         return {
                             name: name,
+                            generatedCategorySlug: generatedCategorySlug,
                         };
                     };
                     return [4 /*yield*/, prisma.category.create({
@@ -71,8 +74,10 @@ function seedInterests() {
                     category3 = _a.sent();
                     getDefaultInterest = function (category) {
                         var name = faker_1.default.lorem.words();
+                        var generatedInterestSlug = (0, slugify_1.default)(name);
                         return {
                             name: name,
+                            generatedInterestSlug: generatedInterestSlug,
                             contentType: "",
                             categories: {
                                 connect: {

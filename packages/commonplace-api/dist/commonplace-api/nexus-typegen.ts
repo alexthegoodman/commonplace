@@ -45,6 +45,22 @@ export interface NexusGenInputs {
     equals?: boolean | null; // Boolean
     not?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
   }
+  CategoryCreateNestedManyWithoutInterestsInput: { // input type
+    connect?: NexusGenInputs['CategoryWhereUniqueInput'][] | null; // [CategoryWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['CategoryCreateOrConnectWithoutInterestsInput'][] | null; // [CategoryCreateOrConnectWithoutInterestsInput!]
+    create?: NexusGenInputs['CategoryCreateWithoutInterestsInput'][] | null; // [CategoryCreateWithoutInterestsInput!]
+  }
+  CategoryCreateOrConnectWithoutInterestsInput: { // input type
+    create: NexusGenInputs['CategoryCreateWithoutInterestsInput']; // CategoryCreateWithoutInterestsInput!
+    where: NexusGenInputs['CategoryWhereUniqueInput']; // CategoryWhereUniqueInput!
+  }
+  CategoryCreateWithoutInterestsInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    generatedCategorySlug?: string | null; // String
+    id?: string | null; // String
+    name: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   CategoryListRelationFilter: { // input type
     every?: NexusGenInputs['CategoryWhereInput'] | null; // CategoryWhereInput
     none?: NexusGenInputs['CategoryWhereInput'] | null; // CategoryWhereInput
@@ -58,12 +74,14 @@ export interface NexusGenInputs {
     NOT?: NexusGenInputs['CategoryWhereInput'][] | null; // [CategoryWhereInput!]
     OR?: NexusGenInputs['CategoryWhereInput'][] | null; // [CategoryWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    generatedCategorySlug?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     interests?: NexusGenInputs['InterestListRelationFilter'] | null; // InterestListRelationFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
   }
   CategoryWhereUniqueInput: { // input type
+    generatedCategorySlug?: string | null; // String
     id?: string | null; // String
   }
   DateTimeFilter: { // input type
@@ -86,6 +104,44 @@ export interface NexusGenInputs {
     not?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
     notIn?: number[] | null; // [Int!]
   }
+  InterestCreateNestedManyWithoutModifiersInput: { // input type
+    connect?: NexusGenInputs['InterestWhereUniqueInput'][] | null; // [InterestWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['InterestCreateOrConnectWithoutModifiersInput'][] | null; // [InterestCreateOrConnectWithoutModifiersInput!]
+    create?: NexusGenInputs['InterestCreateWithoutModifiersInput'][] | null; // [InterestCreateWithoutModifiersInput!]
+  }
+  InterestCreateNestedOneWithoutPostsInput: { // input type
+    connect?: NexusGenInputs['InterestWhereUniqueInput'] | null; // InterestWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['InterestCreateOrConnectWithoutPostsInput'] | null; // InterestCreateOrConnectWithoutPostsInput
+    create?: NexusGenInputs['InterestCreateWithoutPostsInput'] | null; // InterestCreateWithoutPostsInput
+  }
+  InterestCreateOrConnectWithoutModifiersInput: { // input type
+    create: NexusGenInputs['InterestCreateWithoutModifiersInput']; // InterestCreateWithoutModifiersInput!
+    where: NexusGenInputs['InterestWhereUniqueInput']; // InterestWhereUniqueInput!
+  }
+  InterestCreateOrConnectWithoutPostsInput: { // input type
+    create: NexusGenInputs['InterestCreateWithoutPostsInput']; // InterestCreateWithoutPostsInput!
+    where: NexusGenInputs['InterestWhereUniqueInput']; // InterestWhereUniqueInput!
+  }
+  InterestCreateWithoutModifiersInput: { // input type
+    categories?: NexusGenInputs['CategoryCreateNestedManyWithoutInterestsInput'] | null; // CategoryCreateNestedManyWithoutInterestsInput
+    contentType: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    generatedInterestSlug?: string | null; // String
+    id?: string | null; // String
+    name: string; // String!
+    posts?: NexusGenInputs['PostCreateNestedManyWithoutInterestInput'] | null; // PostCreateNestedManyWithoutInterestInput
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  InterestCreateWithoutPostsInput: { // input type
+    categories?: NexusGenInputs['CategoryCreateNestedManyWithoutInterestsInput'] | null; // CategoryCreateNestedManyWithoutInterestsInput
+    contentType: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    generatedInterestSlug?: string | null; // String
+    id?: string | null; // String
+    modifiers?: NexusGenInputs['ModifierCreateNestedManyWithoutInterestsInput'] | null; // ModifierCreateNestedManyWithoutInterestsInput
+    name: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   InterestListRelationFilter: { // input type
     every?: NexusGenInputs['InterestWhereInput'] | null; // InterestWhereInput
     none?: NexusGenInputs['InterestWhereInput'] | null; // InterestWhereInput
@@ -95,6 +151,7 @@ export interface NexusGenInputs {
     categories?: NexusGenInputs['CategoryOrderByRelationAggregateInput'] | null; // CategoryOrderByRelationAggregateInput
     contentType?: NexusGenEnums['SortOrder'] | null; // SortOrder
     createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    generatedInterestSlug?: NexusGenEnums['SortOrder'] | null; // SortOrder
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     modifiers?: NexusGenInputs['ModifierOrderByRelationAggregateInput'] | null; // ModifierOrderByRelationAggregateInput
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -108,6 +165,7 @@ export interface NexusGenInputs {
     categories?: NexusGenInputs['CategoryListRelationFilter'] | null; // CategoryListRelationFilter
     contentType?: NexusGenInputs['StringFilter'] | null; // StringFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    generatedInterestSlug?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     modifiers?: NexusGenInputs['ModifierListRelationFilter'] | null; // ModifierListRelationFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -115,7 +173,104 @@ export interface NexusGenInputs {
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
   }
   InterestWhereUniqueInput: { // input type
+    generatedInterestSlug?: string | null; // String
     id?: string | null; // String
+  }
+  MessageCreateManyPostInput: { // input type
+    content: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    threadId: string; // String!
+    type: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    userId: string; // String!
+  }
+  MessageCreateManyPostInputEnvelope: { // input type
+    data?: NexusGenInputs['MessageCreateManyPostInput'][] | null; // [MessageCreateManyPostInput!]
+    skipDuplicates?: boolean | null; // Boolean
+  }
+  MessageCreateManyThreadInput: { // input type
+    content: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    postId?: string | null; // String
+    type: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    userId: string; // String!
+  }
+  MessageCreateManyThreadInputEnvelope: { // input type
+    data?: NexusGenInputs['MessageCreateManyThreadInput'][] | null; // [MessageCreateManyThreadInput!]
+    skipDuplicates?: boolean | null; // Boolean
+  }
+  MessageCreateManyUserInput: { // input type
+    content: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    postId?: string | null; // String
+    threadId: string; // String!
+    type: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  MessageCreateManyUserInputEnvelope: { // input type
+    data?: NexusGenInputs['MessageCreateManyUserInput'][] | null; // [MessageCreateManyUserInput!]
+    skipDuplicates?: boolean | null; // Boolean
+  }
+  MessageCreateNestedManyWithoutPostInput: { // input type
+    connect?: NexusGenInputs['MessageWhereUniqueInput'][] | null; // [MessageWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['MessageCreateOrConnectWithoutPostInput'][] | null; // [MessageCreateOrConnectWithoutPostInput!]
+    create?: NexusGenInputs['MessageCreateWithoutPostInput'][] | null; // [MessageCreateWithoutPostInput!]
+    createMany?: NexusGenInputs['MessageCreateManyPostInputEnvelope'] | null; // MessageCreateManyPostInputEnvelope
+  }
+  MessageCreateNestedManyWithoutThreadInput: { // input type
+    connect?: NexusGenInputs['MessageWhereUniqueInput'][] | null; // [MessageWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['MessageCreateOrConnectWithoutThreadInput'][] | null; // [MessageCreateOrConnectWithoutThreadInput!]
+    create?: NexusGenInputs['MessageCreateWithoutThreadInput'][] | null; // [MessageCreateWithoutThreadInput!]
+    createMany?: NexusGenInputs['MessageCreateManyThreadInputEnvelope'] | null; // MessageCreateManyThreadInputEnvelope
+  }
+  MessageCreateNestedManyWithoutUserInput: { // input type
+    connect?: NexusGenInputs['MessageWhereUniqueInput'][] | null; // [MessageWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['MessageCreateOrConnectWithoutUserInput'][] | null; // [MessageCreateOrConnectWithoutUserInput!]
+    create?: NexusGenInputs['MessageCreateWithoutUserInput'][] | null; // [MessageCreateWithoutUserInput!]
+    createMany?: NexusGenInputs['MessageCreateManyUserInputEnvelope'] | null; // MessageCreateManyUserInputEnvelope
+  }
+  MessageCreateOrConnectWithoutPostInput: { // input type
+    create: NexusGenInputs['MessageCreateWithoutPostInput']; // MessageCreateWithoutPostInput!
+    where: NexusGenInputs['MessageWhereUniqueInput']; // MessageWhereUniqueInput!
+  }
+  MessageCreateOrConnectWithoutThreadInput: { // input type
+    create: NexusGenInputs['MessageCreateWithoutThreadInput']; // MessageCreateWithoutThreadInput!
+    where: NexusGenInputs['MessageWhereUniqueInput']; // MessageWhereUniqueInput!
+  }
+  MessageCreateOrConnectWithoutUserInput: { // input type
+    create: NexusGenInputs['MessageCreateWithoutUserInput']; // MessageCreateWithoutUserInput!
+    where: NexusGenInputs['MessageWhereUniqueInput']; // MessageWhereUniqueInput!
+  }
+  MessageCreateWithoutPostInput: { // input type
+    content: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    thread: NexusGenInputs['ThreadCreateNestedOneWithoutMessagesInput']; // ThreadCreateNestedOneWithoutMessagesInput!
+    type: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    user: NexusGenInputs['UserCreateNestedOneWithoutMessagesInput']; // UserCreateNestedOneWithoutMessagesInput!
+  }
+  MessageCreateWithoutThreadInput: { // input type
+    content: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    post?: NexusGenInputs['PostCreateNestedOneWithoutMessagesInput'] | null; // PostCreateNestedOneWithoutMessagesInput
+    type: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    user: NexusGenInputs['UserCreateNestedOneWithoutMessagesInput']; // UserCreateNestedOneWithoutMessagesInput!
+  }
+  MessageCreateWithoutUserInput: { // input type
+    content: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    post?: NexusGenInputs['PostCreateNestedOneWithoutMessagesInput'] | null; // PostCreateNestedOneWithoutMessagesInput
+    thread: NexusGenInputs['ThreadCreateNestedOneWithoutMessagesInput']; // ThreadCreateNestedOneWithoutMessagesInput!
+    type: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   MessageListRelationFilter: { // input type
     every?: NexusGenInputs['MessageWhereInput'] | null; // MessageWhereInput
@@ -131,7 +286,6 @@ export interface NexusGenInputs {
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     post?: NexusGenInputs['PostOrderByWithRelationInput'] | null; // PostOrderByWithRelationInput
     postId?: NexusGenEnums['SortOrder'] | null; // SortOrder
-    readBy?: NexusGenInputs['UserOrderByRelationAggregateInput'] | null; // UserOrderByRelationAggregateInput
     thread?: NexusGenInputs['ThreadOrderByWithRelationInput'] | null; // ThreadOrderByWithRelationInput
     threadId?: NexusGenEnums['SortOrder'] | null; // SortOrder
     type?: NexusGenEnums['SortOrder'] | null; // SortOrder
@@ -148,7 +302,6 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     post?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
     postId?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
-    readBy?: NexusGenInputs['UserListRelationFilter'] | null; // UserListRelationFilter
     thread?: NexusGenInputs['ThreadWhereInput'] | null; // ThreadWhereInput
     threadId?: NexusGenInputs['StringFilter'] | null; // StringFilter
     type?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -158,6 +311,40 @@ export interface NexusGenInputs {
   }
   MessageWhereUniqueInput: { // input type
     id?: string | null; // String
+  }
+  ModifierCreateNestedManyWithoutInterestsInput: { // input type
+    connect?: NexusGenInputs['ModifierWhereUniqueInput'][] | null; // [ModifierWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['ModifierCreateOrConnectWithoutInterestsInput'][] | null; // [ModifierCreateOrConnectWithoutInterestsInput!]
+    create?: NexusGenInputs['ModifierCreateWithoutInterestsInput'][] | null; // [ModifierCreateWithoutInterestsInput!]
+  }
+  ModifierCreateNestedManyWithoutPostsInput: { // input type
+    connect?: NexusGenInputs['ModifierWhereUniqueInput'][] | null; // [ModifierWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['ModifierCreateOrConnectWithoutPostsInput'][] | null; // [ModifierCreateOrConnectWithoutPostsInput!]
+    create?: NexusGenInputs['ModifierCreateWithoutPostsInput'][] | null; // [ModifierCreateWithoutPostsInput!]
+  }
+  ModifierCreateOrConnectWithoutInterestsInput: { // input type
+    create: NexusGenInputs['ModifierCreateWithoutInterestsInput']; // ModifierCreateWithoutInterestsInput!
+    where: NexusGenInputs['ModifierWhereUniqueInput']; // ModifierWhereUniqueInput!
+  }
+  ModifierCreateOrConnectWithoutPostsInput: { // input type
+    create: NexusGenInputs['ModifierCreateWithoutPostsInput']; // ModifierCreateWithoutPostsInput!
+    where: NexusGenInputs['ModifierWhereUniqueInput']; // ModifierWhereUniqueInput!
+  }
+  ModifierCreateWithoutInterestsInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    generatedModifierSlug?: string | null; // String
+    id?: string | null; // String
+    name: string; // String!
+    posts?: NexusGenInputs['PostCreateNestedManyWithoutModifiersInput'] | null; // PostCreateNestedManyWithoutModifiersInput
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  ModifierCreateWithoutPostsInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    generatedModifierSlug?: string | null; // String
+    id?: string | null; // String
+    interests?: NexusGenInputs['InterestCreateNestedManyWithoutModifiersInput'] | null; // InterestCreateNestedManyWithoutModifiersInput
+    name: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   ModifierListRelationFilter: { // input type
     every?: NexusGenInputs['ModifierWhereInput'] | null; // ModifierWhereInput
@@ -172,11 +359,16 @@ export interface NexusGenInputs {
     NOT?: NexusGenInputs['ModifierWhereInput'][] | null; // [ModifierWhereInput!]
     OR?: NexusGenInputs['ModifierWhereInput'][] | null; // [ModifierWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    generatedModifierSlug?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     interests?: NexusGenInputs['InterestListRelationFilter'] | null; // InterestListRelationFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     posts?: NexusGenInputs['PostListRelationFilter'] | null; // PostListRelationFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
+  ModifierWhereUniqueInput: { // input type
+    generatedModifierSlug?: string | null; // String
+    id?: string | null; // String
   }
   NestedBoolFilter: { // input type
     equals?: boolean | null; // Boolean
@@ -228,6 +420,132 @@ export interface NexusGenInputs {
     notIn?: string[] | null; // [String!]
     startsWith?: string | null; // String
   }
+  PostCreateManyCreatorInput: { // input type
+    content: string; // String!
+    contentPreview: string; // String!
+    contentType: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description: string; // String!
+    generatedTitleSlug?: string | null; // String
+    id?: string | null; // String
+    interestId: string; // String!
+    title: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PostCreateManyCreatorInputEnvelope: { // input type
+    data?: NexusGenInputs['PostCreateManyCreatorInput'][] | null; // [PostCreateManyCreatorInput!]
+    skipDuplicates?: boolean | null; // Boolean
+  }
+  PostCreateManyInterestInput: { // input type
+    content: string; // String!
+    contentPreview: string; // String!
+    contentType: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    creatorId: string; // String!
+    description: string; // String!
+    generatedTitleSlug?: string | null; // String
+    id?: string | null; // String
+    title: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PostCreateManyInterestInputEnvelope: { // input type
+    data?: NexusGenInputs['PostCreateManyInterestInput'][] | null; // [PostCreateManyInterestInput!]
+    skipDuplicates?: boolean | null; // Boolean
+  }
+  PostCreateNestedManyWithoutCreatorInput: { // input type
+    connect?: NexusGenInputs['PostWhereUniqueInput'][] | null; // [PostWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['PostCreateOrConnectWithoutCreatorInput'][] | null; // [PostCreateOrConnectWithoutCreatorInput!]
+    create?: NexusGenInputs['PostCreateWithoutCreatorInput'][] | null; // [PostCreateWithoutCreatorInput!]
+    createMany?: NexusGenInputs['PostCreateManyCreatorInputEnvelope'] | null; // PostCreateManyCreatorInputEnvelope
+  }
+  PostCreateNestedManyWithoutInterestInput: { // input type
+    connect?: NexusGenInputs['PostWhereUniqueInput'][] | null; // [PostWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['PostCreateOrConnectWithoutInterestInput'][] | null; // [PostCreateOrConnectWithoutInterestInput!]
+    create?: NexusGenInputs['PostCreateWithoutInterestInput'][] | null; // [PostCreateWithoutInterestInput!]
+    createMany?: NexusGenInputs['PostCreateManyInterestInputEnvelope'] | null; // PostCreateManyInterestInputEnvelope
+  }
+  PostCreateNestedManyWithoutModifiersInput: { // input type
+    connect?: NexusGenInputs['PostWhereUniqueInput'][] | null; // [PostWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['PostCreateOrConnectWithoutModifiersInput'][] | null; // [PostCreateOrConnectWithoutModifiersInput!]
+    create?: NexusGenInputs['PostCreateWithoutModifiersInput'][] | null; // [PostCreateWithoutModifiersInput!]
+  }
+  PostCreateNestedOneWithoutMessagesInput: { // input type
+    connect?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['PostCreateOrConnectWithoutMessagesInput'] | null; // PostCreateOrConnectWithoutMessagesInput
+    create?: NexusGenInputs['PostCreateWithoutMessagesInput'] | null; // PostCreateWithoutMessagesInput
+  }
+  PostCreateOrConnectWithoutCreatorInput: { // input type
+    create: NexusGenInputs['PostCreateWithoutCreatorInput']; // PostCreateWithoutCreatorInput!
+    where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
+  }
+  PostCreateOrConnectWithoutInterestInput: { // input type
+    create: NexusGenInputs['PostCreateWithoutInterestInput']; // PostCreateWithoutInterestInput!
+    where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
+  }
+  PostCreateOrConnectWithoutMessagesInput: { // input type
+    create: NexusGenInputs['PostCreateWithoutMessagesInput']; // PostCreateWithoutMessagesInput!
+    where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
+  }
+  PostCreateOrConnectWithoutModifiersInput: { // input type
+    create: NexusGenInputs['PostCreateWithoutModifiersInput']; // PostCreateWithoutModifiersInput!
+    where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
+  }
+  PostCreateWithoutCreatorInput: { // input type
+    content: string; // String!
+    contentPreview: string; // String!
+    contentType: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description: string; // String!
+    generatedTitleSlug?: string | null; // String
+    id?: string | null; // String
+    interest: NexusGenInputs['InterestCreateNestedOneWithoutPostsInput']; // InterestCreateNestedOneWithoutPostsInput!
+    messages?: NexusGenInputs['MessageCreateNestedManyWithoutPostInput'] | null; // MessageCreateNestedManyWithoutPostInput
+    modifiers?: NexusGenInputs['ModifierCreateNestedManyWithoutPostsInput'] | null; // ModifierCreateNestedManyWithoutPostsInput
+    title: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PostCreateWithoutInterestInput: { // input type
+    content: string; // String!
+    contentPreview: string; // String!
+    contentType: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenInputs['UserCreateNestedOneWithoutPostsInput']; // UserCreateNestedOneWithoutPostsInput!
+    description: string; // String!
+    generatedTitleSlug?: string | null; // String
+    id?: string | null; // String
+    messages?: NexusGenInputs['MessageCreateNestedManyWithoutPostInput'] | null; // MessageCreateNestedManyWithoutPostInput
+    modifiers?: NexusGenInputs['ModifierCreateNestedManyWithoutPostsInput'] | null; // ModifierCreateNestedManyWithoutPostsInput
+    title: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PostCreateWithoutMessagesInput: { // input type
+    content: string; // String!
+    contentPreview: string; // String!
+    contentType: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenInputs['UserCreateNestedOneWithoutPostsInput']; // UserCreateNestedOneWithoutPostsInput!
+    description: string; // String!
+    generatedTitleSlug?: string | null; // String
+    id?: string | null; // String
+    interest: NexusGenInputs['InterestCreateNestedOneWithoutPostsInput']; // InterestCreateNestedOneWithoutPostsInput!
+    modifiers?: NexusGenInputs['ModifierCreateNestedManyWithoutPostsInput'] | null; // ModifierCreateNestedManyWithoutPostsInput
+    title: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PostCreateWithoutModifiersInput: { // input type
+    content: string; // String!
+    contentPreview: string; // String!
+    contentType: string; // String!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenInputs['UserCreateNestedOneWithoutPostsInput']; // UserCreateNestedOneWithoutPostsInput!
+    description: string; // String!
+    generatedTitleSlug?: string | null; // String
+    id?: string | null; // String
+    interest: NexusGenInputs['InterestCreateNestedOneWithoutPostsInput']; // InterestCreateNestedOneWithoutPostsInput!
+    messages?: NexusGenInputs['MessageCreateNestedManyWithoutPostInput'] | null; // MessageCreateNestedManyWithoutPostInput
+    title: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   PostListRelationFilter: { // input type
     every?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
     none?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
@@ -277,6 +595,74 @@ export interface NexusGenInputs {
     generatedTitleSlug?: string | null; // String
     id?: string | null; // String
   }
+  RecordCreateInput: { // input type
+    content?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    name: string; // String!
+    thread?: NexusGenInputs['ThreadCreateNestedOneWithoutReadHistoryInput'] | null; // ThreadCreateNestedOneWithoutReadHistoryInput
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  RecordCreateManyThreadInput: { // input type
+    content?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    name: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  RecordCreateManyThreadInputEnvelope: { // input type
+    data?: NexusGenInputs['RecordCreateManyThreadInput'][] | null; // [RecordCreateManyThreadInput!]
+    skipDuplicates?: boolean | null; // Boolean
+  }
+  RecordCreateNestedManyWithoutThreadInput: { // input type
+    connect?: NexusGenInputs['RecordWhereUniqueInput'][] | null; // [RecordWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['RecordCreateOrConnectWithoutThreadInput'][] | null; // [RecordCreateOrConnectWithoutThreadInput!]
+    create?: NexusGenInputs['RecordCreateWithoutThreadInput'][] | null; // [RecordCreateWithoutThreadInput!]
+    createMany?: NexusGenInputs['RecordCreateManyThreadInputEnvelope'] | null; // RecordCreateManyThreadInputEnvelope
+  }
+  RecordCreateOrConnectWithoutThreadInput: { // input type
+    create: NexusGenInputs['RecordCreateWithoutThreadInput']; // RecordCreateWithoutThreadInput!
+    where: NexusGenInputs['RecordWhereUniqueInput']; // RecordWhereUniqueInput!
+  }
+  RecordCreateWithoutThreadInput: { // input type
+    content?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    name: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  RecordListRelationFilter: { // input type
+    every?: NexusGenInputs['RecordWhereInput'] | null; // RecordWhereInput
+    none?: NexusGenInputs['RecordWhereInput'] | null; // RecordWhereInput
+    some?: NexusGenInputs['RecordWhereInput'] | null; // RecordWhereInput
+  }
+  RecordOrderByRelationAggregateInput: { // input type
+    _count?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  RecordOrderByWithRelationInput: { // input type
+    content?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    id?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    name?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    thread?: NexusGenInputs['ThreadOrderByWithRelationInput'] | null; // ThreadOrderByWithRelationInput
+    threadId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  RecordWhereInput: { // input type
+    AND?: NexusGenInputs['RecordWhereInput'][] | null; // [RecordWhereInput!]
+    NOT?: NexusGenInputs['RecordWhereInput'][] | null; // [RecordWhereInput!]
+    OR?: NexusGenInputs['RecordWhereInput'][] | null; // [RecordWhereInput!]
+    content?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    thread?: NexusGenInputs['ThreadWhereInput'] | null; // ThreadWhereInput
+    threadId?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
+  RecordWhereUniqueInput: { // input type
+    id?: string | null; // String
+  }
   StringFilter: { // input type
     contains?: string | null; // String
     endsWith?: string | null; // String
@@ -305,6 +691,57 @@ export interface NexusGenInputs {
     notIn?: string[] | null; // [String!]
     startsWith?: string | null; // String
   }
+  ThreadCreateNestedManyWithoutUsersInput: { // input type
+    connect?: NexusGenInputs['ThreadWhereUniqueInput'][] | null; // [ThreadWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['ThreadCreateOrConnectWithoutUsersInput'][] | null; // [ThreadCreateOrConnectWithoutUsersInput!]
+    create?: NexusGenInputs['ThreadCreateWithoutUsersInput'][] | null; // [ThreadCreateWithoutUsersInput!]
+  }
+  ThreadCreateNestedOneWithoutMessagesInput: { // input type
+    connect?: NexusGenInputs['ThreadWhereUniqueInput'] | null; // ThreadWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['ThreadCreateOrConnectWithoutMessagesInput'] | null; // ThreadCreateOrConnectWithoutMessagesInput
+    create?: NexusGenInputs['ThreadCreateWithoutMessagesInput'] | null; // ThreadCreateWithoutMessagesInput
+  }
+  ThreadCreateNestedOneWithoutReadHistoryInput: { // input type
+    connect?: NexusGenInputs['ThreadWhereUniqueInput'] | null; // ThreadWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['ThreadCreateOrConnectWithoutReadHistoryInput'] | null; // ThreadCreateOrConnectWithoutReadHistoryInput
+    create?: NexusGenInputs['ThreadCreateWithoutReadHistoryInput'] | null; // ThreadCreateWithoutReadHistoryInput
+  }
+  ThreadCreateOrConnectWithoutMessagesInput: { // input type
+    create: NexusGenInputs['ThreadCreateWithoutMessagesInput']; // ThreadCreateWithoutMessagesInput!
+    where: NexusGenInputs['ThreadWhereUniqueInput']; // ThreadWhereUniqueInput!
+  }
+  ThreadCreateOrConnectWithoutReadHistoryInput: { // input type
+    create: NexusGenInputs['ThreadCreateWithoutReadHistoryInput']; // ThreadCreateWithoutReadHistoryInput!
+    where: NexusGenInputs['ThreadWhereUniqueInput']; // ThreadWhereUniqueInput!
+  }
+  ThreadCreateOrConnectWithoutUsersInput: { // input type
+    create: NexusGenInputs['ThreadCreateWithoutUsersInput']; // ThreadCreateWithoutUsersInput!
+    where: NexusGenInputs['ThreadWhereUniqueInput']; // ThreadWhereUniqueInput!
+  }
+  ThreadCreateWithoutMessagesInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    readHistory?: NexusGenInputs['RecordCreateNestedManyWithoutThreadInput'] | null; // RecordCreateNestedManyWithoutThreadInput
+    repliesAllowed: boolean; // Boolean!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    users?: NexusGenInputs['UserCreateNestedManyWithoutThreadsInput'] | null; // UserCreateNestedManyWithoutThreadsInput
+  }
+  ThreadCreateWithoutReadHistoryInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    messages?: NexusGenInputs['MessageCreateNestedManyWithoutThreadInput'] | null; // MessageCreateNestedManyWithoutThreadInput
+    repliesAllowed: boolean; // Boolean!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    users?: NexusGenInputs['UserCreateNestedManyWithoutThreadsInput'] | null; // UserCreateNestedManyWithoutThreadsInput
+  }
+  ThreadCreateWithoutUsersInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
+    messages?: NexusGenInputs['MessageCreateNestedManyWithoutThreadInput'] | null; // MessageCreateNestedManyWithoutThreadInput
+    readHistory?: NexusGenInputs['RecordCreateNestedManyWithoutThreadInput'] | null; // RecordCreateNestedManyWithoutThreadInput
+    repliesAllowed: boolean; // Boolean!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   ThreadListRelationFilter: { // input type
     every?: NexusGenInputs['ThreadWhereInput'] | null; // ThreadWhereInput
     none?: NexusGenInputs['ThreadWhereInput'] | null; // ThreadWhereInput
@@ -317,6 +754,7 @@ export interface NexusGenInputs {
     createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     messages?: NexusGenInputs['MessageOrderByRelationAggregateInput'] | null; // MessageOrderByRelationAggregateInput
+    readHistory?: NexusGenInputs['RecordOrderByRelationAggregateInput'] | null; // RecordOrderByRelationAggregateInput
     repliesAllowed?: NexusGenEnums['SortOrder'] | null; // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
     users?: NexusGenInputs['UserOrderByRelationAggregateInput'] | null; // UserOrderByRelationAggregateInput
@@ -328,12 +766,85 @@ export interface NexusGenInputs {
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     messages?: NexusGenInputs['MessageListRelationFilter'] | null; // MessageListRelationFilter
+    readHistory?: NexusGenInputs['RecordListRelationFilter'] | null; // RecordListRelationFilter
     repliesAllowed?: NexusGenInputs['BoolFilter'] | null; // BoolFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     users?: NexusGenInputs['UserListRelationFilter'] | null; // UserListRelationFilter
   }
   ThreadWhereUniqueInput: { // input type
     id?: string | null; // String
+  }
+  UserCreateNestedManyWithoutThreadsInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['UserCreateOrConnectWithoutThreadsInput'][] | null; // [UserCreateOrConnectWithoutThreadsInput!]
+    create?: NexusGenInputs['UserCreateWithoutThreadsInput'][] | null; // [UserCreateWithoutThreadsInput!]
+  }
+  UserCreateNestedOneWithoutMessagesInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['UserCreateOrConnectWithoutMessagesInput'] | null; // UserCreateOrConnectWithoutMessagesInput
+    create?: NexusGenInputs['UserCreateWithoutMessagesInput'] | null; // UserCreateWithoutMessagesInput
+  }
+  UserCreateNestedOneWithoutPostsInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['UserCreateOrConnectWithoutPostsInput'] | null; // UserCreateOrConnectWithoutPostsInput
+    create?: NexusGenInputs['UserCreateWithoutPostsInput'] | null; // UserCreateWithoutPostsInput
+  }
+  UserCreateOrConnectWithoutMessagesInput: { // input type
+    create: NexusGenInputs['UserCreateWithoutMessagesInput']; // UserCreateWithoutMessagesInput!
+    where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+  }
+  UserCreateOrConnectWithoutPostsInput: { // input type
+    create: NexusGenInputs['UserCreateWithoutPostsInput']; // UserCreateWithoutPostsInput!
+    where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+  }
+  UserCreateOrConnectWithoutThreadsInput: { // input type
+    create: NexusGenInputs['UserCreateWithoutThreadsInput']; // UserCreateWithoutThreadsInput!
+    where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+  }
+  UserCreateWithoutMessagesInput: { // input type
+    chosenUsername?: string | null; // String
+    coverImage?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    credit?: number | null; // Int
+    email: string; // String!
+    generatedUsername?: string | null; // String
+    id?: string | null; // String
+    name?: string | null; // String
+    password: string; // String!
+    posts?: NexusGenInputs['PostCreateNestedManyWithoutCreatorInput'] | null; // PostCreateNestedManyWithoutCreatorInput
+    profileImage?: string | null; // String
+    threads?: NexusGenInputs['ThreadCreateNestedManyWithoutUsersInput'] | null; // ThreadCreateNestedManyWithoutUsersInput
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  UserCreateWithoutPostsInput: { // input type
+    chosenUsername?: string | null; // String
+    coverImage?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    credit?: number | null; // Int
+    email: string; // String!
+    generatedUsername?: string | null; // String
+    id?: string | null; // String
+    messages?: NexusGenInputs['MessageCreateNestedManyWithoutUserInput'] | null; // MessageCreateNestedManyWithoutUserInput
+    name?: string | null; // String
+    password: string; // String!
+    profileImage?: string | null; // String
+    threads?: NexusGenInputs['ThreadCreateNestedManyWithoutUsersInput'] | null; // ThreadCreateNestedManyWithoutUsersInput
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  UserCreateWithoutThreadsInput: { // input type
+    chosenUsername?: string | null; // String
+    coverImage?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    credit?: number | null; // Int
+    email: string; // String!
+    generatedUsername?: string | null; // String
+    id?: string | null; // String
+    messages?: NexusGenInputs['MessageCreateNestedManyWithoutUserInput'] | null; // MessageCreateNestedManyWithoutUserInput
+    name?: string | null; // String
+    password: string; // String!
+    posts?: NexusGenInputs['PostCreateNestedManyWithoutCreatorInput'] | null; // PostCreateNestedManyWithoutCreatorInput
+    profileImage?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   UserListRelationFilter: { // input type
     every?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
@@ -356,7 +867,6 @@ export interface NexusGenInputs {
     password?: NexusGenEnums['SortOrder'] | null; // SortOrder
     posts?: NexusGenInputs['PostOrderByRelationAggregateInput'] | null; // PostOrderByRelationAggregateInput
     profileImage?: NexusGenEnums['SortOrder'] | null; // SortOrder
-    readMessages?: NexusGenInputs['MessageOrderByRelationAggregateInput'] | null; // MessageOrderByRelationAggregateInput
     threads?: NexusGenInputs['ThreadOrderByRelationAggregateInput'] | null; // ThreadOrderByRelationAggregateInput
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
@@ -376,7 +886,6 @@ export interface NexusGenInputs {
     password?: NexusGenInputs['StringFilter'] | null; // StringFilter
     posts?: NexusGenInputs['PostListRelationFilter'] | null; // PostListRelationFilter
     profileImage?: NexusGenInputs['StringFilter'] | null; // StringFilter
-    readMessages?: NexusGenInputs['MessageListRelationFilter'] | null; // MessageListRelationFilter
     threads?: NexusGenInputs['ThreadListRelationFilter'] | null; // ThreadListRelationFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
   }
@@ -401,6 +910,7 @@ export interface NexusGenScalars {
   ID: string
   DateTime: any
   JSONObject: any
+  Upload: any
 }
 
 export interface NexusGenObjects {
@@ -409,12 +919,14 @@ export interface NexusGenObjects {
     name: string; // String!
   }
   Interest: { // root type
+    generatedInterestSlug: string; // String!
     id: string; // String!
     name: string; // String!
   }
   Message: { // root type
     content: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
     type: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
@@ -438,6 +950,7 @@ export interface NexusGenObjects {
     description?: string | null; // String
     generatedTitleSlug?: string | null; // String
     id?: string | null; // String
+    interest?: NexusGenRootTypes['Interest'] | null; // Interest
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
@@ -449,6 +962,13 @@ export interface NexusGenObjects {
     profileImage?: string | null; // String
   }
   Query: {};
+  Record: { // root type
+    content?: string | null; // String
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
+    name: string; // String!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+  }
   Thread: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: string; // String!
@@ -486,21 +1006,24 @@ export interface NexusGenFieldTypes {
   }
   Interest: { // field return type
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
+    generatedInterestSlug: string; // String!
     id: string; // String!
     name: string; // String!
   }
   Message: { // field return type
     content: string; // String!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
     post: NexusGenRootTypes['Post'] | null; // Post
-    readBy: NexusGenRootTypes['User'][]; // [User!]!
     type: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     user: NexusGenRootTypes['User']; // User!
   }
   Mutation: { // field return type
     createMessage: NexusGenRootTypes['Message']; // Message!
+    createOneRecord: NexusGenRootTypes['Record']; // Record!
     createPost: NexusGenRootTypes['Post']; // Post!
+    updateProfile: string; // String!
   }
   Post: { // field return type
     content: string; // String!
@@ -523,6 +1046,7 @@ export interface NexusGenFieldTypes {
     description: string | null; // String
     generatedTitleSlug: string | null; // String
     id: string | null; // String
+    interest: NexusGenRootTypes['Interest'] | null; // Interest
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
@@ -538,7 +1062,9 @@ export interface NexusGenFieldTypes {
     categories: NexusGenRootTypes['Category'][]; // [Category!]!
     getPostByPostTitle: NexusGenRootTypes['PublicPost'] | null; // PublicPost
     getPostImpressions: Array<NexusGenRootTypes['Message'] | null>; // [Message]!
+    getPostURLs: Array<string | null> | null; // [String]
     getPostsByUsername: Array<NexusGenRootTypes['PublicPost'] | null> | null; // [PublicPost]
+    getProfileURLs: Array<string | null> | null; // [String]
     getUserByPostTitle: NexusGenRootTypes['PublicUser'] | null; // PublicUser
     getUserByUsername: NexusGenRootTypes['PublicUser'] | null; // PublicUser
     interests: NexusGenRootTypes['Interest'][]; // [Interest!]!
@@ -548,10 +1074,18 @@ export interface NexusGenFieldTypes {
     thread: NexusGenRootTypes['Thread'] | null; // Thread
     user: NexusGenRootTypes['User'] | null; // User
   }
+  Record: { // field return type
+    content: string | null; // String
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // String!
+    name: string; // String!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+  }
   Thread: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: string; // String!
     messages: NexusGenRootTypes['Message'][]; // [Message!]!
+    readHistory: NexusGenRootTypes['Record'][]; // [Record!]!
     repliesAllowed: boolean; // Boolean!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     users: NexusGenRootTypes['User'][]; // [User!]!
@@ -579,21 +1113,24 @@ export interface NexusGenFieldTypeNames {
   }
   Interest: { // field return type name
     categories: 'Category'
+    generatedInterestSlug: 'String'
     id: 'String'
     name: 'String'
   }
   Message: { // field return type name
     content: 'String'
     createdAt: 'DateTime'
+    id: 'String'
     post: 'Post'
-    readBy: 'User'
     type: 'String'
     updatedAt: 'DateTime'
     user: 'User'
   }
   Mutation: { // field return type name
     createMessage: 'Message'
+    createOneRecord: 'Record'
     createPost: 'Post'
+    updateProfile: 'String'
   }
   Post: { // field return type name
     content: 'String'
@@ -616,6 +1153,7 @@ export interface NexusGenFieldTypeNames {
     description: 'String'
     generatedTitleSlug: 'String'
     id: 'String'
+    interest: 'Interest'
     title: 'String'
     updatedAt: 'DateTime'
   }
@@ -631,7 +1169,9 @@ export interface NexusGenFieldTypeNames {
     categories: 'Category'
     getPostByPostTitle: 'PublicPost'
     getPostImpressions: 'Message'
+    getPostURLs: 'String'
     getPostsByUsername: 'PublicPost'
+    getProfileURLs: 'String'
     getUserByPostTitle: 'PublicUser'
     getUserByUsername: 'PublicUser'
     interests: 'Interest'
@@ -641,10 +1181,18 @@ export interface NexusGenFieldTypeNames {
     thread: 'Thread'
     user: 'User'
   }
+  Record: { // field return type name
+    content: 'String'
+    createdAt: 'DateTime'
+    id: 'String'
+    name: 'String'
+    updatedAt: 'DateTime'
+  }
   Thread: { // field return type name
     createdAt: 'DateTime'
     id: 'String'
     messages: 'Message'
+    readHistory: 'Record'
     repliesAllowed: 'Boolean'
     updatedAt: 'DateTime'
     users: 'User'
@@ -681,14 +1229,6 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
     }
   }
-  Message: {
-    readBy: { // args
-      after?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
-      before?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
-      first?: number | null; // Int
-      last?: number | null; // Int
-    }
-  }
   Mutation: {
     createMessage: { // args
       authorEmail: string; // String!
@@ -698,20 +1238,36 @@ export interface NexusGenArgTypes {
       threadId?: string | null; // String
       type: string; // String!
     }
+    createOneRecord: { // args
+      data: NexusGenInputs['RecordCreateInput']; // RecordCreateInput!
+    }
     createPost: { // args
       contentType: string; // String!
       creatorId: string; // String!
       description: string; // String!
-      file1Data: string; // String!
-      file1Name: string; // String!
-      file1Size: number; // Int!
-      file1Type: string; // String!
+      file1Data?: string | null; // String
+      file1Name?: string | null; // String
+      file1Size?: number | null; // Int
+      file1Type?: string | null; // String
       file2Data?: string | null; // String
       file2Name?: string | null; // String
       file2Size?: number | null; // Int
       file2Type?: string | null; // String
       interestId: string; // String!
+      text?: string | null; // String
       title: string; // String!
+    }
+    updateProfile: { // args
+      coverImageData?: string | null; // String
+      coverImageName?: string | null; // String
+      coverImageSize?: number | null; // Int
+      coverImageType?: string | null; // String
+      profileImageData?: string | null; // String
+      profileImageName?: string | null; // String
+      profileImageSize?: number | null; // Int
+      profileImageType?: string | null; // String
+      userId: string; // String!
+      username: string; // String!
     }
   }
   Query: {
@@ -775,6 +1331,13 @@ export interface NexusGenArgTypes {
       first?: number | null; // Int
       last?: number | null; // Int
       orderBy?: NexusGenInputs['MessageOrderByWithRelationInput'][] | null; // [MessageOrderByWithRelationInput!]
+    }
+    readHistory: { // args
+      after?: NexusGenInputs['RecordWhereUniqueInput'] | null; // RecordWhereUniqueInput
+      before?: NexusGenInputs['RecordWhereUniqueInput'] | null; // RecordWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+      orderBy?: NexusGenInputs['RecordOrderByWithRelationInput'][] | null; // [RecordOrderByWithRelationInput!]
     }
     users: { // args
       after?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput

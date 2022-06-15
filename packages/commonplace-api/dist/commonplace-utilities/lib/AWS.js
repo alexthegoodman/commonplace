@@ -46,7 +46,15 @@ var DateTime = require("luxon").DateTime;
 var AWS = /** @class */ (function () {
     function AWS() {
         this.REGION = "us-east-2";
-        this.s3Client = new client_s3_1.S3Client({ region: this.REGION });
+        if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
+            this.s3Client = new client_s3_1.S3Client({
+                region: this.REGION,
+                credentials: {
+                    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+                },
+            });
+        }
     }
     AWS.prototype.getUploadDirectory = function () {
         var year = DateTime.now().toFormat("yyyy");
@@ -58,41 +66,57 @@ var AWS = /** @class */ (function () {
         var size = length * (3 / 4);
         return size;
     };
-    AWS.prototype.uploadAsset = function (filename, fileType, fileSize, base64) {
+    AWS.prototype.uploadAsset = function (contentType, filename, fileType, fileSize, base64) {
         return __awaiter(this, void 0, void 0, function () {
-            var sizeLimit, calculatedFileSize, dotIndex, fileExtension, fileTitle, uniqueFileTitle, bucketUploadDirectory, key, buffer, bucketParams;
+            var sizeLimit, calculatedFileSize, dotIndex, fileExtension, fileTitle, uniqueFileTitle, bucketUploadDirectory, key, buffer, bucketParams, data, err_1;
             return __generator(this, function (_a) {
-                sizeLimit = 10000000;
-                calculatedFileSize = this.getSizeBase64(base64.length);
-                if (calculatedFileSize < sizeLimit && fileSize < sizeLimit) {
-                    dotIndex = filename.lastIndexOf(".");
-                    fileExtension = filename.substring(dotIndex);
-                    fileTitle = filename.substring(0, dotIndex);
-                    uniqueFileTitle = fileTitle + "-" + (0, nanoid_1.nanoid)(10);
-                    bucketUploadDirectory = this.getUploadDirectory();
-                    key = bucketUploadDirectory + uniqueFileTitle + fileExtension;
-                    console.info("uploadAsset", key, fileType);
-                    buffer = Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ""), "base64");
-                    bucketParams = {
-                        Bucket: "cp-aws-assets",
-                        Key: key,
-                        ContentEncoding: "base64",
-                        ContentType: fileType,
-                        Body: buffer,
-                    };
-                    try {
-                        //   const data = await this.s3Client.send(new PutObjectCommand(bucketParams));
-                        console.info("uploadAsset complete");
+                switch (_a.label) {
+                    case 0:
+                        sizeLimit = 10000000;
+                        calculatedFileSize = this.getSizeBase64(base64.length);
+                        if (!(calculatedFileSize < sizeLimit && fileSize < sizeLimit)) return [3 /*break*/, 5];
+                        dotIndex = filename.lastIndexOf(".");
+                        fileExtension = filename.substring(dotIndex);
+                        fileTitle = filename.substring(0, dotIndex);
+                        uniqueFileTitle = fileTitle + "-" + (0, nanoid_1.nanoid)(10);
+                        bucketUploadDirectory = this.getUploadDirectory();
+                        key = bucketUploadDirectory + uniqueFileTitle + fileExtension;
+                        console.info("uploadAsset", key, fileType);
+                        buffer = void 0;
+                        if (contentType === "image") {
+                            buffer = Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ""), "base64");
+                        }
+                        else if (contentType === "video") {
+                            buffer = Buffer.from(base64.replace(/^data:video\/\w+;base64,/, ""), "base64");
+                        }
+                        else if (contentType === "audio") {
+                            buffer = Buffer.from(base64.replace(/^data:audio\/\w+;base64,/, ""), "base64");
+                        }
+                        bucketParams = {
+                            Bucket: "cp-aws-assets",
+                            Key: key,
+                            ContentEncoding: "base64",
+                            ContentType: fileType,
+                            Body: buffer,
+                        };
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.s3Client.send(new client_s3_1.PutObjectCommand(bucketParams))];
+                    case 2:
+                        data = _a.sent();
+                        console.info("uploadAsset complete", data, key);
                         return [2 /*return*/, key];
-                    }
-                    catch (err) {
-                        console.log("Error", err);
-                    }
+                    case 3:
+                        err_1 = _a.sent();
+                        console.error("Error", err_1);
+                        return [3 /*break*/, 4];
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
+                        console.error(ERROR_CODES_1.default.B001);
+                        _a.label = 6;
+                    case 6: return [2 /*return*/];
                 }
-                else {
-                    console.error(ERROR_CODES_1.default.B001);
-                }
-                return [2 /*return*/];
             });
         });
     };

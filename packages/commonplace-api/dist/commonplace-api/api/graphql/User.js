@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -39,7 +50,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RegisterUserQuery = exports.AuthenticateQuery = exports.UserByPostTitleQuery = exports.UserByUsernameQuery = exports.UserQuery = exports.UserType = exports.PublicUserType = void 0;
+exports.UpdateProfileMutation = exports.RegisterUserQuery = exports.AuthenticateQuery = exports.UserByPostTitleQuery = exports.UserByUsernameQuery = exports.ProfileURLsQuery = exports.UserQuery = exports.UserType = exports.PublicUserType = void 0;
 var client_1 = require("@prisma/client");
 var nexus_1 = require("nexus");
 var bcryptjs_1 = __importDefault(require("bcryptjs"));
@@ -111,6 +122,38 @@ exports.UserQuery = (0, nexus_1.extendType)({
                                 user = _c.sent();
                                 console.info("Get user", id, user);
                                 return [2 /*return*/, user];
+                        }
+                    });
+                });
+            },
+        });
+    },
+});
+exports.ProfileURLsQuery = (0, nexus_1.extendType)({
+    type: "Query",
+    definition: function (t) {
+        var _this = this;
+        t.list.field("getProfileURLs", {
+            type: "String",
+            args: {},
+            resolve: function (_, _a, _b) {
+                var PrismaClient = _b.prisma;
+                return __awaiter(_this, void 0, void 0, function () {
+                    var userNames, urls;
+                    return __generator(this, function (_c) {
+                        switch (_c.label) {
+                            case 0: return [4 /*yield*/, prisma.user.findMany({
+                                    select: {
+                                        chosenUsername: true,
+                                    },
+                                })];
+                            case 1:
+                                userNames = _c.sent();
+                                urls = userNames.map(function (user, i) {
+                                    return "/co/" + user.chosenUsername;
+                                });
+                                console.info("getProfileURLs", userNames, urls);
+                                return [2 /*return*/, urls];
                         }
                     });
                 });
@@ -343,6 +386,70 @@ exports.RegisterUserQuery = (0, nexus_1.extendType)({
                                 // TODO: encrypt with JWT
                                 // TODO: set secure cookie tied to origin
                                 return [2 /*return*/, user.id];
+                        }
+                    });
+                });
+            },
+        });
+    },
+});
+exports.UpdateProfileMutation = (0, nexus_1.extendType)({
+    type: "Mutation",
+    definition: function (t) {
+        var _this = this;
+        t.nonNull.field("updateProfile", {
+            type: "String",
+            args: {
+                userId: (0, nexus_1.nonNull)((0, nexus_1.stringArg)()),
+                username: (0, nexus_1.nonNull)((0, nexus_1.stringArg)()),
+                profileImageName: (0, nexus_1.nullable)((0, nexus_1.stringArg)()),
+                profileImageSize: (0, nexus_1.nullable)((0, nexus_1.intArg)()),
+                profileImageType: (0, nexus_1.nullable)((0, nexus_1.stringArg)()),
+                profileImageData: (0, nexus_1.nullable)((0, nexus_1.stringArg)()),
+                coverImageName: (0, nexus_1.nullable)((0, nexus_1.stringArg)()),
+                coverImageSize: (0, nexus_1.nullable)((0, nexus_1.intArg)()),
+                coverImageType: (0, nexus_1.nullable)((0, nexus_1.stringArg)()),
+                coverImageData: (0, nexus_1.nullable)((0, nexus_1.stringArg)()),
+            },
+            resolve: function (_, _a) {
+                var userId = _a.userId, username = _a.username, profileImageName = _a.profileImageName, profileImageSize = _a.profileImageSize, profileImageType = _a.profileImageType, profileImageData = _a.profileImageData, coverImageName = _a.coverImageName, coverImageSize = _a.coverImageSize, coverImageType = _a.coverImageType, coverImageData = _a.coverImageData;
+                return __awaiter(_this, void 0, void 0, function () {
+                    var utilities, upload1Path, upload2Path, addtData, updatedUser;
+                    return __generator(this, function (_b) {
+                        switch (_b.label) {
+                            case 0:
+                                utilities = new commonplace_utilities_1.default();
+                                upload1Path = "";
+                                if (!(profileImageName && profileImageData)) return [3 /*break*/, 2];
+                                return [4 /*yield*/, utilities.AWS.uploadAsset("image", profileImageName, profileImageType, profileImageSize, profileImageData)];
+                            case 1:
+                                upload1Path = _b.sent();
+                                _b.label = 2;
+                            case 2:
+                                upload2Path = "";
+                                if (!(coverImageName && coverImageData)) return [3 /*break*/, 4];
+                                return [4 /*yield*/, utilities.AWS.uploadAsset("image", // file2 is always image
+                                    coverImageName, coverImageType, coverImageSize, coverImageData)];
+                            case 3:
+                                upload2Path = _b.sent();
+                                _b.label = 4;
+                            case 4:
+                                addtData = {};
+                                if (upload1Path !== "") {
+                                    addtData = __assign(__assign({}, addtData), { profileImage: upload1Path });
+                                }
+                                if (upload2Path !== "") {
+                                    addtData = __assign(__assign({}, addtData), { coverImage: upload2Path });
+                                }
+                                return [4 /*yield*/, prisma.user.update({
+                                        where: {
+                                            id: userId,
+                                        },
+                                        data: __assign({ chosenUsername: username }, addtData),
+                                    })];
+                            case 5:
+                                updatedUser = _b.sent();
+                                return [2 /*return*/, updatedUser === null || updatedUser === void 0 ? void 0 : updatedUser.id];
                         }
                     });
                 });

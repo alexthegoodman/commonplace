@@ -58,6 +58,12 @@ function seedThreads(users, posts) {
                     getDefaultThread = function () {
                         return {
                             repliesAllowed: true,
+                            readHistory: {
+                                create: {
+                                    name: "readBy",
+                                    content: users[1].chosenUsername,
+                                },
+                            },
                             users: {
                                 connect: [{ id: users[0].id }, { id: users[1].id }],
                             },
@@ -70,7 +76,7 @@ function seedThreads(users, posts) {
                                             type: "impression",
                                             content: "Dazzling",
                                             user: { connect: { id: users[0].id } },
-                                            readBy: { connect: { id: users[1].id } },
+                                            // readBy: { connect: { id: users[1].id } }, // include author?
                                             post: {
                                                 connect: { id: posts[0].id },
                                             },
@@ -92,7 +98,7 @@ function seedThreads(users, posts) {
                                             type: "impression",
                                             content: "Original",
                                             user: { connect: { id: users[0].id } },
-                                            readBy: { connect: { id: users[1].id } },
+                                            // readBy: { connect: { id: users[1].id } }, // include author?
                                             post: {
                                                 connect: { id: posts[1].id },
                                             },

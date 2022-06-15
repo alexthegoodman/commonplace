@@ -14,6 +14,9 @@ exports.ThreadType = (0, nexus_1.objectType)({
         t.model.messages({
             ordering: true,
         });
+        t.model.readHistory({
+            ordering: true,
+        });
         t.model.updatedAt();
         t.model.createdAt();
     },

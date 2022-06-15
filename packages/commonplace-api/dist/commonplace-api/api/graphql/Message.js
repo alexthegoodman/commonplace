@@ -43,12 +43,13 @@ var prisma = new client_1.PrismaClient();
 exports.MessageType = (0, nexus_1.objectType)({
     name: "Message",
     definition: function (t) {
+        t.model.id();
         t.model.type();
         t.model.content();
         t.model.user();
         t.model.post();
         // t.model.thread();
-        t.model.readBy();
+        // t.model.readBy();
         t.model.updatedAt();
         t.model.createdAt();
     },
@@ -113,7 +114,7 @@ exports.CreateMessageMutation = (0, nexus_1.extendType)({
                 var type = _a.type, content = _a.content, authorEmail = _a.authorEmail, postCreatorEmail = _a.postCreatorEmail, postId = _a.postId, threadId = _a.threadId;
                 var PrismaClient = _b.prisma;
                 return __awaiter(_this, void 0, void 0, function () {
-                    var author, postCreator, message;
+                    var author, postCreator, message, checkMessage, newCredit;
                     return __generator(this, function (_c) {
                         switch (_c.label) {
                             case 0:
@@ -154,9 +155,35 @@ exports.CreateMessageMutation = (0, nexus_1.extendType)({
                                     })];
                             case 4:
                                 message = _c.sent();
-                                return [3 /*break*/, 7];
+                                return [3 /*break*/, 10];
                             case 5:
-                                if (!(type === "impression" && postCreatorEmail && postId)) return [3 /*break*/, 7];
+                                if (!(type === "impression" && postCreatorEmail && postId)) return [3 /*break*/, 10];
+                                return [4 /*yield*/, prisma.message.findFirst({
+                                        where: {
+                                            type: type,
+                                            post: {
+                                                id: postId,
+                                            },
+                                            user: {
+                                                id: author === null || author === void 0 ? void 0 : author.id,
+                                            },
+                                        },
+                                    })];
+                            case 6:
+                                checkMessage = _c.sent();
+                                console.info("checkMessage", checkMessage);
+                                if (!(checkMessage === null)) return [3 /*break*/, 9];
+                                newCredit = (author === null || author === void 0 ? void 0 : author.credit) + 1;
+                                return [4 /*yield*/, prisma.user.update({
+                                        where: {
+                                            id: author === null || author === void 0 ? void 0 : author.id,
+                                        },
+                                        data: {
+                                            credit: newCredit,
+                                        },
+                                    })];
+                            case 7:
+                                _c.sent();
                                 return [4 /*yield*/, prisma.message.create({
                                         data: {
                                             type: type,
@@ -181,10 +208,11 @@ exports.CreateMessageMutation = (0, nexus_1.extendType)({
                                             },
                                         },
                                     })];
-                            case 6:
+                            case 8:
                                 message = _c.sent();
-                                _c.label = 7;
-                            case 7:
+                                return [3 /*break*/, 10];
+                            case 9: throw Error("Cannot give impression to same post twice");
+                            case 10:
                                 console.info("Created message", message);
                                 return [2 /*return*/, message];
                         }
