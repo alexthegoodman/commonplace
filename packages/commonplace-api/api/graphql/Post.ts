@@ -227,6 +227,11 @@ export const CreatePostMutation = extendType({
           });
 
           const newCredit = (creator?.credit as number) - 3;
+
+          if (newCredit < 0) {
+            throw Error("Not enough Credits");
+          }
+
           await prisma.user.update({
             where: {
               id: creatorId,

@@ -40,6 +40,7 @@ const UploadContent = () => {
   const [showInterestsModal, setShowInterestsModal] = useState(false);
   const [selectedInterest, setSelectedInterest] = useState<any>(null);
   const [formErrorMessage, setFormErrorMessage] = useState("");
+  const [hasEnoughCredits, setHasEnoughCredits] = useState(true);
 
   const methods = useForm();
 
@@ -135,6 +136,13 @@ const UploadContent = () => {
     setSelectedInterest(interest);
     setStep(1);
     setShowInterestsModal(false);
+
+    // show credit warning if needed
+    if (interest?.posts?.length > 5 && data?.user?.credit < 3) {
+      setHasEnoughCredits(false);
+    } else {
+      setHasEnoughCredits(true);
+    }
   };
 
   const onSelectType = (type) => {
@@ -143,7 +151,11 @@ const UploadContent = () => {
 
   const contentTypes = ["image", "video", "audio", "text"];
 
-  console.info("sel interest length", selectedInterest?.posts?.length);
+  console.info(
+    "sel interest length",
+    selectedInterest,
+    selectedInterest?.posts?.length
+  );
 
   const submitButtonLabel =
     selectedInterest?.posts?.length > 5 ? "Post for 3CC" : "Post for 0CC";
@@ -198,48 +210,59 @@ const UploadContent = () => {
                         </div>
                       </div>
 
-                      <div className="uploadSection">
-                        <div className="uploadSectionInner">
-                          <span>What kind of content is it?</span>
-                          <div className="contentTypePicker">
-                            <div className="contentTypePickerInner">
-                              {contentTypes.map((type, i) => {
-                                return (
-                                  <a
-                                    className={`contentTypeOption ${
-                                      contentType === type
-                                        ? "selectedOption"
-                                        : ""
-                                    }`}
-                                    href="#!"
-                                    onClick={() => onSelectType(type)}
-                                    aria-label={`Select ${type} Content Type`}
-                                  >
-                                    <div className="option">
-                                      {contentType === type ? (
-                                        <div className="feather-icon icon-check"></div>
-                                      ) : (
-                                        <></>
-                                      )}
-                                    </div>
-                                    <span>{type}</span>
-                                  </a>
-                                );
-                              })}
+                      {hasEnoughCredits ? (
+                        <>
+                          <div className="uploadSection">
+                            <div className="uploadSectionInner">
+                              <span>What kind of content is it?</span>
+                              <div className="contentTypePicker">
+                                <div className="contentTypePickerInner">
+                                  {contentTypes.map((type, i) => {
+                                    return (
+                                      <a
+                                        className={`contentTypeOption ${
+                                          contentType === type
+                                            ? "selectedOption"
+                                            : ""
+                                        }`}
+                                        href="#!"
+                                        onClick={() => onSelectType(type)}
+                                        aria-label={`Select ${type} Content Type`}
+                                      >
+                                        <div className="option">
+                                          {contentType === type ? (
+                                            <div className="feather-icon icon-check"></div>
+                                          ) : (
+                                            <></>
+                                          )}
+                                        </div>
+                                        <span>{type}</span>
+                                      </a>
+                                    );
+                                  })}
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
 
-                      {/** TODO: step by step validation */}
-                      <a
-                        className="button"
-                        onClick={onNextClick}
-                        aria-label="Next"
-                        href="#!"
-                      >
-                        Next
-                      </a>
+                          {/** TODO: step by step validation */}
+                          <a
+                            className="button"
+                            onClick={onNextClick}
+                            aria-label="Next"
+                            href="#!"
+                          >
+                            Next
+                          </a>
+                        </>
+                      ) : (
+                        <FormMessage
+                          type="error"
+                          message={
+                            "You need at least 3 Credits to post to this interest"
+                          }
+                        />
+                      )}
                     </>
                   ) : (
                     <></>
