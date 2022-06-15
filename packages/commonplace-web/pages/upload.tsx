@@ -182,7 +182,7 @@ const UploadContent = () => {
             />
 
             <main>
-              <StepCounter step={step} />
+              <StepCounter step={step} creditCount={data?.user?.credit} />
 
               <FormProvider {...methods}>
                 <form

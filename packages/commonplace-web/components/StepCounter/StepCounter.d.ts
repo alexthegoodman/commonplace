@@ -3,4 +3,5 @@ export interface StepCounterProps {
   className?: string;
   onClick?: (e: MouseEvent) => void;
   step: number;
+  creditCount: number;
 }

@@ -7,6 +7,7 @@ const StepCounter: React.FC<StepCounterProps> = ({
   className = "",
   onClick = (e) => console.info("Click StepCounter"),
   step = 0,
+  creditCount = 0,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
   return (
@@ -17,7 +18,7 @@ const StepCounter: React.FC<StepCounterProps> = ({
         </div>
         <div className="creditCounterWrapper">
           <div className="creditCounter">
-            <span className="creditLabel">100CC</span>
+            <span className="creditLabel">{creditCount}CC</span>
           </div>
         </div>
       </div>
