@@ -200,6 +200,43 @@ export const CreatePostMutation = extendType({
           },
         });
 
+        // deduct credits if interest allows
+
+        const interest = await prisma.interest.findFirst({
+          where: {
+            id: interestId,
+          },
+          include: {
+            posts: true,
+          },
+        });
+
+        console.info(
+          "create post, intersts",
+          interestId,
+          interest,
+          interest?.posts?.length
+        );
+
+        // more than 5 posts in selected interst
+        if (interest && interest?.posts?.length > 5) {
+          const creator = await prisma.user.findFirst({
+            where: {
+              id: creatorId,
+            },
+          });
+
+          const newCredit = (creator?.credit as number) - 3;
+          await prisma.user.update({
+            where: {
+              id: creatorId,
+            },
+            data: {
+              credit: newCredit,
+            },
+          });
+        }
+
         console.info("Created post", post);
 
         return post;
