@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 import { MessageItemProps } from "./MessageItem.d";
 import { DateTime } from "luxon";
+import { useImageUrl } from "../../hooks/useImageUrl";
 
 const MessageItem: React.FC<MessageItemProps> = ({
   ref = null,
@@ -17,11 +18,14 @@ const MessageItem: React.FC<MessageItemProps> = ({
     onClick();
   };
   const displayDate = DateTime.fromISO(message?.createdAt).toFormat("DDD");
+  const { imageUrl: profileImageUrl } = useImageUrl(
+    message?.user?.profileImage
+  );
 
   const authorAttribution = (
     <div className="itemAuthor">
       <div className="authorPhoto">
-        <img title="" alt="" src={message?.user?.profileImage} />
+        <img title="" alt="" src={profileImageUrl} />
       </div>
     </div>
   );

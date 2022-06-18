@@ -1,5 +1,6 @@
 import Link from "next/link";
 import * as React from "react";
+import { useImageUrl } from "../../hooks/useImageUrl";
 const { DateTime } = require("luxon");
 
 import { ContentInformationProps } from "./ContentInformation.d";
@@ -14,6 +15,10 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
   const displayDate = DateTime.fromISO(post?.createdAt).toFormat("DDD");
   const prrofileSEOStatement =
     post?.creator?.chosenUsername + " on CommonPlace";
+
+  const { imageUrl: profileImageUrl } = useImageUrl(
+    post?.creator?.profileImage
+  );
 
   return (
     <section className="contentInformation">
@@ -30,7 +35,7 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
                   <img
                     alt={prrofileSEOStatement}
                     title={prrofileSEOStatement}
-                    src={post?.creator?.profileImage}
+                    src={profileImageUrl}
                   />
                 </div>
                 <div className="authorInformationWrapper">

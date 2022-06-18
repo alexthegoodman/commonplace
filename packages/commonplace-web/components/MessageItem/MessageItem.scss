@@ -1,4 +1,5 @@
 .messageItem {
+  max-width: 100%;
   margin-top: 25px;
 
   &.impression {
@@ -20,7 +21,8 @@
 
   .contentViewerWrapper {
     display: flex;
-    width: 100%;
+    // width: 100%;
+    width: calc(100% - 60px);
 
     &.left {
       justify-content: flex-end;

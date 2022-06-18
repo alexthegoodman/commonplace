@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import * as React from "react";
+import { useImageUrl } from "../../hooks/useImageUrl";
 
 // TODO: set ESLint ignore for `next build` type check
 import { UpdateItemProps } from "./UpdateItem.d";
@@ -21,11 +22,13 @@ const UpdateItem: React.FC<UpdateItemProps> = ({
     router.push(`/updates/${id}`);
   };
 
+  const { imageUrl: profileImageUrl } = useImageUrl(author?.profileImage);
+
   return (
     <div className="updateItem" onClick={goToThead}>
       <div className="updateItemInner">
         <div className="itemImageWrapper">
-          <img src={author?.profileImage} />
+          <img src={profileImageUrl} />
         </div>
         <div className="itemInformation">
           <span className="itemLabel">{label}</span>

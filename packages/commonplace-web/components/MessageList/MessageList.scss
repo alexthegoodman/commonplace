@@ -2,7 +2,8 @@
   position: relative;
   // margin-top: 100px;
   height: calc(100vh - 450px);
-  margin-bottom: 15px;
+  width: 80%;
+  margin: 0 auto 15px auto;
 
   .messageListInner {
     display: flex;
