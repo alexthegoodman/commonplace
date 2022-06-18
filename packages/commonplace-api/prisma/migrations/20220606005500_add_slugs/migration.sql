@@ -20,7 +20,7 @@ ALTER TABLE "Interest" ADD COLUMN "generatedInterestSlug" TEXT NOT NULL DEFAULT 
 ALTER TABLE "Modifier" ADD COLUMN "generatedModifierSlug" TEXT NOT NULL DEFAULT E'';
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Category_generatedCategorySlug_key" ON "Category"("generatedCategorySlug");
+-- CREATE UNIQUE INDEX "Category_generatedCategorySlug_key" ON "Category"("generatedCategorySlug");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Interest_generatedInterestSlug_key" ON "Interest"("generatedInterestSlug");
