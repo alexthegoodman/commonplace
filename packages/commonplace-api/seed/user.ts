@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import faker from "@faker-js/faker";
 import Utilities from "../../commonplace-utilities";
+import { testImages } from "./post";
 
 const prisma = new PrismaClient();
 
@@ -9,14 +10,16 @@ export default async function seedUsers() {
     const utilities = new Utilities();
     const email = providedEmail !== "" ? providedEmail : faker.internet.email();
     const generatedUsername = utilities.helpers.emailToUsername(email);
+    const randomInt1 = faker.random.numeric();
+    const randomInt2 = faker.random.numeric();
 
     return {
       email,
       // name: faker.name.findName(), // NOTE: not currently set on frontend
       generatedUsername,
       chosenUsername: generatedUsername,
-      profileImage: faker.image.imageUrl(1200, 800, "me"),
-      coverImage: faker.image.imageUrl(800, 800, "travel"),
+      profileImage: testImages[randomInt1],
+      coverImage: testImages[randomInt2],
       password: "$2a$12$QG3qjuizq4bb24Gl2hhhSegdv7XHpv0nJrc1Fw/920gOMNSzn80A.", // testing
     };
   };
