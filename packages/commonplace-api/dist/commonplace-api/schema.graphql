@@ -91,6 +91,7 @@ type Interest {
   generatedInterestSlug: String!
   id: String!
   name: String!
+  posts(after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int): [Post!]!
 }
 
 input InterestCreateNestedManyWithoutModifiersInput {

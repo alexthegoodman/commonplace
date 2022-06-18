@@ -11,6 +11,7 @@ exports.InterestType = (0, nexus_1.objectType)({
         t.model.name();
         t.model.generatedInterestSlug();
         t.model.categories();
+        t.model.posts();
     },
 });
 //# sourceMappingURL=Interest.js.map

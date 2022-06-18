@@ -128,9 +128,10 @@ exports.CreatePostMutation = (0, nexus_1.extendType)({
                 var creatorId = _a.creatorId, interestId = _a.interestId, contentType = _a.contentType, title = _a.title, description = _a.description, text = _a.text, file1Name = _a.file1Name, file1Size = _a.file1Size, file1Type = _a.file1Type, file1Data = _a.file1Data, file2Name = _a.file2Name, file2Size = _a.file2Size, file2Type = _a.file2Type, file2Data = _a.file2Data;
                 var PrismaClient = _b.prisma;
                 return __awaiter(_this, void 0, void 0, function () {
-                    var utilities, upload1Path, upload2Path, generatedTitleSlug, contentData, post;
-                    return __generator(this, function (_c) {
-                        switch (_c.label) {
+                    var utilities, upload1Path, upload2Path, generatedTitleSlug, contentData, post, interest, creator, newCredit;
+                    var _c, _d;
+                    return __generator(this, function (_e) {
+                        switch (_e.label) {
                             case 0:
                                 console.info("Create Post", creatorId, interestId, contentType, title, description, text, file1Name, file1Size, file1Type, file2Name, file2Size, file2Type);
                                 utilities = new commonplace_utilities_1.default();
@@ -138,16 +139,16 @@ exports.CreatePostMutation = (0, nexus_1.extendType)({
                                 if (!(file1Name && file1Data)) return [3 /*break*/, 2];
                                 return [4 /*yield*/, utilities.AWS.uploadAsset(contentType, file1Name, file1Type, file1Size, file1Data)];
                             case 1:
-                                upload1Path = _c.sent();
-                                _c.label = 2;
+                                upload1Path = _e.sent();
+                                _e.label = 2;
                             case 2:
                                 upload2Path = "";
                                 if (!(file2Name && file2Data)) return [3 /*break*/, 4];
                                 return [4 /*yield*/, utilities.AWS.uploadAsset("image", // file2 is always image
                                     file2Name, file2Type, file2Size, file2Data)];
                             case 3:
-                                upload2Path = _c.sent();
-                                _c.label = 4;
+                                upload2Path = _e.sent();
+                                _e.label = 4;
                             case 4:
                                 generatedTitleSlug = (0, slugify_1.default)(title) + "-" + (0, nanoid_1.nanoid)(10);
                                 console.info("generatedTitleSlug", upload1Path, upload2Path, generatedTitleSlug);
@@ -173,7 +174,42 @@ exports.CreatePostMutation = (0, nexus_1.extendType)({
                                             } }),
                                     })];
                             case 5:
-                                post = _c.sent();
+                                post = _e.sent();
+                                return [4 /*yield*/, prisma.interest.findFirst({
+                                        where: {
+                                            id: interestId,
+                                        },
+                                        include: {
+                                            posts: true,
+                                        },
+                                    })];
+                            case 6:
+                                interest = _e.sent();
+                                console.info("create post, intersts", interestId, interest, (_c = interest === null || interest === void 0 ? void 0 : interest.posts) === null || _c === void 0 ? void 0 : _c.length);
+                                if (!(interest && ((_d = interest === null || interest === void 0 ? void 0 : interest.posts) === null || _d === void 0 ? void 0 : _d.length) > 5)) return [3 /*break*/, 9];
+                                return [4 /*yield*/, prisma.user.findFirst({
+                                        where: {
+                                            id: creatorId,
+                                        },
+                                    })];
+                            case 7:
+                                creator = _e.sent();
+                                newCredit = (creator === null || creator === void 0 ? void 0 : creator.credit) - 3;
+                                if (newCredit < 0) {
+                                    throw Error("Not enough Credits");
+                                }
+                                return [4 /*yield*/, prisma.user.update({
+                                        where: {
+                                            id: creatorId,
+                                        },
+                                        data: {
+                                            credit: newCredit,
+                                        },
+                                    })];
+                            case 8:
+                                _e.sent();
+                                _e.label = 9;
+                            case 9:
                                 console.info("Created post", post);
                                 return [2 /*return*/, post];
                         }

@@ -1009,6 +1009,7 @@ export interface NexusGenFieldTypes {
     generatedInterestSlug: string; // String!
     id: string; // String!
     name: string; // String!
+    posts: NexusGenRootTypes['Post'][]; // [Post!]!
   }
   Message: { // field return type
     content: string; // String!
@@ -1116,6 +1117,7 @@ export interface NexusGenFieldTypeNames {
     generatedInterestSlug: 'String'
     id: 'String'
     name: 'String'
+    posts: 'Post'
   }
   Message: { // field return type name
     content: 'String'
@@ -1225,6 +1227,12 @@ export interface NexusGenArgTypes {
     categories: { // args
       after?: NexusGenInputs['CategoryWhereUniqueInput'] | null; // CategoryWhereUniqueInput
       before?: NexusGenInputs['CategoryWhereUniqueInput'] | null; // CategoryWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+    posts: { // args
+      after?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
+      before?: NexusGenInputs['PostWhereUniqueInput'] | null; // PostWhereUniqueInput
       first?: number | null; // Int
       last?: number | null; // Int
     }

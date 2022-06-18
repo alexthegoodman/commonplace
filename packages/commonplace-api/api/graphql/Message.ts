@@ -158,7 +158,9 @@ export const CreateMessageMutation = extendType({
 
             console.info("threadExists", threadExists);
 
-            let addtData = {};
+            let addtData = {
+              thread: {},
+            };
             if (threadExists) {
               addtData = {
                 thread: {

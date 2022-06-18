@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -50,10 +39,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.testImages = exports.cloudfrontUrl = void 0;
 var client_1 = require("@prisma/client");
 var faker_1 = __importDefault(require("@faker-js/faker"));
 var slugify_1 = __importDefault(require("slugify"));
 var prisma = new client_1.PrismaClient();
+exports.cloudfrontUrl = "https://d3ubks77jdbtp7.cloudfront.net";
+exports.testImages = [
+    "2022/06/courtney-cook-SsIIw_MET0E-unsplash-JzSY6496hv.jpg",
+    "2022/06/jr-korpa-ma_PlENP8RE-unsplash-G3eVlSq2RL.jpg",
+    "2022/06/melanie-kreutz-IFnknR2Mv5o-unsplash-C3wXqnvF55.jpg",
+    "2022/06/nicola-powys-oz7w_okbI0Q-unsplash-OamYSkHP4H.jpg",
+    "2022/06/xiaolong-wong-nibgG33H0F8-unsplash-6qv5c390cP.jpg",
+    "2022/06/courtney-cook-SsIIw_MET0E-unsplash-JzSY6496hv.jpg",
+    "2022/06/jr-korpa-ma_PlENP8RE-unsplash-G3eVlSq2RL.jpg",
+    "2022/06/melanie-kreutz-IFnknR2Mv5o-unsplash-C3wXqnvF55.jpg",
+    "2022/06/nicola-powys-oz7w_okbI0Q-unsplash-OamYSkHP4H.jpg",
+    "2022/06/xiaolong-wong-nibgG33H0F8-unsplash-6qv5c390cP.jpg",
+];
 function seedPosts(users, interests) {
     return __awaiter(this, void 0, void 0, function () {
         var getDefaultPost, posts;
@@ -65,27 +68,53 @@ function seedPosts(users, interests) {
                         if (rep2 === void 0) { rep2 = -1; }
                         var randomInt1 = rep1 !== -1 ? rep1 : faker_1.default.random.numeric();
                         var randomInt2 = rep2 !== -1 ? rep2 : faker_1.default.random.numeric();
-                        var contentSearch = "design";
-                        var contentHeight = parseInt(faker_1.default.random.numeric(3)) + 300;
+                        // const contentSearch = "design";
+                        // const contentHeight = parseInt(faker.random.numeric(3)) + 300;
                         var title = faker_1.default.lorem.words();
                         var generatedTitleSlug = (0, slugify_1.default)(title);
+                        var content = exports.testImages[randomInt2];
                         return {
                             title: title,
                             description: faker_1.default.lorem.lines(),
                             contentType: "image",
                             contentPreview: "",
                             generatedTitleSlug: generatedTitleSlug,
-                            content: faker_1.default.image.imageUrl(800, contentHeight, contentSearch),
+                            // content: faker.image.imageUrl(800, contentHeight, contentSearch),
+                            content: content,
                             interestId: interests[randomInt1].id,
                             creatorId: users[randomInt2].id,
                         };
                     };
                     return [4 /*yield*/, prisma.post.createMany({
                             data: [
-                                __assign(__assign({}, getDefaultPost(0, 0)), { contentType: "video", contentPreview: "", content: "http://localhost:3000/test/cheetah.mp4" }),
-                                __assign(__assign({}, getDefaultPost(1, 0)), { contentType: "image", contentPreview: "", content: "http://localhost:3000/test/cheetahPoster.jpeg" }),
-                                __assign(__assign({}, getDefaultPost(1, 0)), { contentType: "audio", contentPreview: "http://localhost:3000/test/cheetahPoster.jpeg", content: "http://localhost:3000/test/cheetah.mp3" }),
-                                __assign(__assign({}, getDefaultPost()), { contentType: "text", contentPreview: "", content: "greetings \n\nthis is a poem \n\nwith many words of kindness and wishes of wisdom \nand good things \n\nthank you" }),
+                                getDefaultPost(),
+                                getDefaultPost(),
+                                getDefaultPost(),
+                                getDefaultPost(),
+                                // {
+                                //   ...getDefaultPost(0, 0),
+                                //   contentType: "video",
+                                //   contentPreview: "", // TODO: add for video?
+                                //   content: "http://localhost:3000/test/cheetah.mp4",
+                                // },
+                                // {
+                                //   ...getDefaultPost(1, 0),
+                                //   contentType: "image",
+                                //   contentPreview: "",
+                                //   content: "http://localhost:3000/test/cheetahPoster.jpeg",
+                                // },
+                                // {
+                                //   ...getDefaultPost(1, 0),
+                                //   contentType: "audio",
+                                //   contentPreview: "http://localhost:3000/test/cheetahPoster.jpeg",
+                                //   content: "http://localhost:3000/test/cheetah.mp3",
+                                // },
+                                // {
+                                //   ...getDefaultPost(),
+                                //   contentType: "text",
+                                //   contentPreview: "",
+                                //   content: `greetings \n\nthis is a poem \n\nwith many words of kindness and wishes of wisdom \nand good things \n\nthank you`,
+                                // },
                                 getDefaultPost(),
                                 getDefaultPost(),
                                 getDefaultPost(),

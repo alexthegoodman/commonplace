@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -114,7 +125,7 @@ exports.CreateMessageMutation = (0, nexus_1.extendType)({
                 var type = _a.type, content = _a.content, authorEmail = _a.authorEmail, postCreatorEmail = _a.postCreatorEmail, postId = _a.postId, threadId = _a.threadId;
                 var PrismaClient = _b.prisma;
                 return __awaiter(_this, void 0, void 0, function () {
-                    var author, postCreator, message, checkMessage, newCredit;
+                    var author, postCreator, message, checkMessage, newCredit, threadExists, addtData;
                     return __generator(this, function (_c) {
                         switch (_c.label) {
                             case 0:
@@ -155,9 +166,9 @@ exports.CreateMessageMutation = (0, nexus_1.extendType)({
                                     })];
                             case 4:
                                 message = _c.sent();
-                                return [3 /*break*/, 10];
+                                return [3 /*break*/, 11];
                             case 5:
-                                if (!(type === "impression" && postCreatorEmail && postId)) return [3 /*break*/, 10];
+                                if (!(type === "impression" && postCreatorEmail && postId)) return [3 /*break*/, 11];
                                 return [4 /*yield*/, prisma.message.findFirst({
                                         where: {
                                             type: type,
@@ -172,7 +183,7 @@ exports.CreateMessageMutation = (0, nexus_1.extendType)({
                             case 6:
                                 checkMessage = _c.sent();
                                 console.info("checkMessage", checkMessage);
-                                if (!(checkMessage === null)) return [3 /*break*/, 9];
+                                if (!(checkMessage === null)) return [3 /*break*/, 10];
                                 newCredit = (author === null || author === void 0 ? void 0 : author.credit) + 1;
                                 return [4 /*yield*/, prisma.user.update({
                                         where: {
@@ -184,35 +195,60 @@ exports.CreateMessageMutation = (0, nexus_1.extendType)({
                                     })];
                             case 7:
                                 _c.sent();
-                                return [4 /*yield*/, prisma.message.create({
-                                        data: {
-                                            type: type,
-                                            content: content,
-                                            post: {
-                                                connect: {
-                                                    id: postId,
-                                                },
-                                            },
-                                            thread: {
-                                                create: {
-                                                    repliesAllowed: true,
-                                                    users: {
-                                                        connect: [{ id: author === null || author === void 0 ? void 0 : author.id }, { id: postCreator === null || postCreator === void 0 ? void 0 : postCreator.id }],
+                                return [4 /*yield*/, prisma.thread.findFirst({
+                                        where: {
+                                            users: {
+                                                every: {
+                                                    id: {
+                                                        in: [author === null || author === void 0 ? void 0 : author.id, postCreator === null || postCreator === void 0 ? void 0 : postCreator.id],
                                                     },
-                                                },
-                                            },
-                                            user: {
-                                                connect: {
-                                                    id: author === null || author === void 0 ? void 0 : author.id,
                                                 },
                                             },
                                         },
                                     })];
                             case 8:
+                                threadExists = _c.sent();
+                                console.info("threadExists", threadExists);
+                                addtData = {
+                                    thread: {},
+                                };
+                                if (threadExists) {
+                                    addtData = {
+                                        thread: {
+                                            connect: {
+                                                id: threadExists === null || threadExists === void 0 ? void 0 : threadExists.id,
+                                            },
+                                        },
+                                    };
+                                }
+                                else {
+                                    addtData = {
+                                        thread: {
+                                            create: {
+                                                repliesAllowed: true,
+                                                users: {
+                                                    connect: [{ id: author === null || author === void 0 ? void 0 : author.id }, { id: postCreator === null || postCreator === void 0 ? void 0 : postCreator.id }],
+                                                },
+                                            },
+                                        },
+                                    };
+                                }
+                                return [4 /*yield*/, prisma.message.create({
+                                        data: __assign({ type: type, content: content, post: {
+                                                connect: {
+                                                    id: postId,
+                                                },
+                                            }, user: {
+                                                connect: {
+                                                    id: author === null || author === void 0 ? void 0 : author.id,
+                                                },
+                                            } }, addtData),
+                                    })];
+                            case 9:
                                 message = _c.sent();
-                                return [3 /*break*/, 10];
-                            case 9: throw Error("Cannot give impression to same post twice");
-                            case 10:
+                                return [3 /*break*/, 11];
+                            case 10: throw Error("Cannot give impression to same post twice");
+                            case 11:
                                 console.info("Created message", message);
                                 return [2 /*return*/, message];
                         }

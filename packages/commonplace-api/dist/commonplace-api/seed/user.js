@@ -53,6 +53,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var client_1 = require("@prisma/client");
 var faker_1 = __importDefault(require("@faker-js/faker"));
 var commonplace_utilities_1 = __importDefault(require("../../commonplace-utilities"));
+var post_1 = require("./post");
 var prisma = new client_1.PrismaClient();
 function seedUsers() {
     return __awaiter(this, void 0, void 0, function () {
@@ -65,13 +66,15 @@ function seedUsers() {
                         var utilities = new commonplace_utilities_1.default();
                         var email = providedEmail !== "" ? providedEmail : faker_1.default.internet.email();
                         var generatedUsername = utilities.helpers.emailToUsername(email);
+                        var randomInt1 = faker_1.default.random.numeric();
+                        var randomInt2 = faker_1.default.random.numeric();
                         return {
                             email: email,
                             // name: faker.name.findName(), // NOTE: not currently set on frontend
                             generatedUsername: generatedUsername,
                             chosenUsername: generatedUsername,
-                            profileImage: faker_1.default.image.imageUrl(1200, 800, "me"),
-                            coverImage: faker_1.default.image.imageUrl(800, 800, "travel"),
+                            profileImage: post_1.testImages[randomInt1],
+                            coverImage: post_1.testImages[randomInt2],
                             password: "$2a$12$QG3qjuizq4bb24Gl2hhhSegdv7XHpv0nJrc1Fw/920gOMNSzn80A.", // testing
                         };
                     };

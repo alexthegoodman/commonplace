@@ -64,13 +64,12 @@ function seedThreads(users, posts) {
                                     content: users[1].chosenUsername,
                                 },
                             },
-                            users: {
-                                connect: [{ id: users[0].id }, { id: users[1].id }],
-                            },
                         };
                     };
                     return [4 /*yield*/, prisma.thread.create({
-                            data: __assign(__assign({}, getDefaultThread()), { messages: {
+                            data: __assign(__assign({}, getDefaultThread()), { users: {
+                                    connect: [{ id: users[0].id }, { id: users[1].id }],
+                                }, messages: {
                                     create: [
                                         {
                                             type: "impression",
@@ -92,7 +91,9 @@ function seedThreads(users, posts) {
                 case 1:
                     thread1 = _a.sent();
                     return [4 /*yield*/, prisma.thread.create({
-                            data: __assign(__assign({}, getDefaultThread()), { messages: {
+                            data: __assign(__assign({}, getDefaultThread()), { users: {
+                                    connect: [{ id: users[0].id }, { id: users[2].id }],
+                                }, messages: {
                                     create: [
                                         {
                                             type: "impression",
@@ -106,7 +107,7 @@ function seedThreads(users, posts) {
                                         {
                                             type: "reply",
                                             content: "This will stick with me",
-                                            user: { connect: { id: users[1].id } },
+                                            user: { connect: { id: users[2].id } },
                                         },
                                     ],
                                 } }),
