@@ -4,14 +4,30 @@ import slugify from "slugify";
 
 const prisma = new PrismaClient();
 
+export const cloudfrontUrl = "https://d3ubks77jdbtp7.cloudfront.net";
+
+const testImages = [
+  "2022/06/courtney-cook-SsIIw_MET0E-unsplash-JzSY6496hv.jpg",
+  "2022/06/jr-korpa-ma_PlENP8RE-unsplash-G3eVlSq2RL.jpg",
+  "2022/06/melanie-kreutz-IFnknR2Mv5o-unsplash-C3wXqnvF55.jpg",
+  "2022/06/nicola-powys-oz7w_okbI0Q-unsplash-OamYSkHP4H.jpg",
+  "2022/06/xiaolong-wong-nibgG33H0F8-unsplash-6qv5c390cP.jpg",
+  "2022/06/courtney-cook-SsIIw_MET0E-unsplash-JzSY6496hv.jpg",
+  "2022/06/jr-korpa-ma_PlENP8RE-unsplash-G3eVlSq2RL.jpg",
+  "2022/06/melanie-kreutz-IFnknR2Mv5o-unsplash-C3wXqnvF55.jpg",
+  "2022/06/nicola-powys-oz7w_okbI0Q-unsplash-OamYSkHP4H.jpg",
+  "2022/06/xiaolong-wong-nibgG33H0F8-unsplash-6qv5c390cP.jpg",
+];
+
 export default async function seedPosts(users, interests) {
   const getDefaultPost = (rep1 = -1, rep2 = -1) => {
     const randomInt1 = rep1 !== -1 ? rep1 : faker.random.numeric();
     const randomInt2 = rep2 !== -1 ? rep2 : faker.random.numeric();
-    const contentSearch = "design";
-    const contentHeight = parseInt(faker.random.numeric(3)) + 300;
+    // const contentSearch = "design";
+    // const contentHeight = parseInt(faker.random.numeric(3)) + 300;
     const title = faker.lorem.words();
     const generatedTitleSlug = slugify(title);
+    const content = testImages[randomInt2];
 
     return {
       title,
@@ -19,7 +35,8 @@ export default async function seedPosts(users, interests) {
       contentType: "image",
       contentPreview: "",
       generatedTitleSlug,
-      content: faker.image.imageUrl(800, contentHeight, contentSearch),
+      // content: faker.image.imageUrl(800, contentHeight, contentSearch),
+      content,
       interestId: interests[randomInt1].id,
       creatorId: users[randomInt2].id,
     };

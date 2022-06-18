@@ -13,15 +13,15 @@ export default async function seedThreads(users, posts) {
           content: users[1].chosenUsername,
         },
       },
-      users: {
-        connect: [{ id: users[0].id }, { id: users[1].id }],
-      },
     };
   };
 
   const thread1 = await prisma.thread.create({
     data: {
       ...getDefaultThread(),
+      users: {
+        connect: [{ id: users[0].id }, { id: users[1].id }],
+      },
 
       messages: {
         create: [
@@ -47,6 +47,10 @@ export default async function seedThreads(users, posts) {
   const thread2 = await prisma.thread.create({
     data: {
       ...getDefaultThread(),
+      users: {
+        connect: [{ id: users[0].id }, { id: users[2].id }],
+      },
+
       messages: {
         create: [
           {
@@ -61,7 +65,7 @@ export default async function seedThreads(users, posts) {
           {
             type: "reply",
             content: "This will stick with me",
-            user: { connect: { id: users[1].id } },
+            user: { connect: { id: users[2].id } },
           },
         ],
       },
