@@ -5,8 +5,22 @@
 
     .primaryHeaderInner {
       .headerIcon {
-        width: auto;
+        // width: auto;
         padding: 0 15px;
+
+        .brandnameWrapper {
+          position: relative;
+          left: -85px;
+
+          // left: -150px;
+          // width: auto;
+          // padding: 0 20px;
+
+          .brandname {
+            width: 50px;
+            text-align: center;
+          }
+        }
       }
     }
   }

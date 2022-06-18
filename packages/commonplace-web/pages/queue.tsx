@@ -26,6 +26,7 @@ import { getUserThreadData } from "./updates";
 import { useUnreadThreads } from "../hooks/useUnreadThreads";
 import { InterestsContent } from "./interests";
 import { NextSeo } from "next-seo";
+import BrandName from "../components/BrandName/BrandName";
 
 const getPostsAndUserData = async (userId, interestId = null) => {
   const userData = await request(cpGraphqlUrl, userQuery, {
@@ -283,12 +284,7 @@ const QueueContent = () => {
           <div className="queueInner">
             <NextSeo title={`Queue | CommonPlace`} />
             <PrimaryHeader
-              leftIcon={
-                <div className="brandnameWrapper">
-                  <span className="brandname mobileOnly">Co</span>
-                  <span className="brandname desktopOnly">CommonPlace</span>
-                </div>
-              }
+              leftIcon={<BrandName />}
               titleComponent={
                 <a
                   className="pickerButton"

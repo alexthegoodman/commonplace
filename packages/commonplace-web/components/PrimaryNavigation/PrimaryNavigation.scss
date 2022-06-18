@@ -1,22 +1,41 @@
 @media screen and (min-width: $desktopWidth) {
   nav.primaryNavigation {
+    position: relative;
+    right: -115px;
+    // position: absolute;
+    // left: -930px;
+    // top: 00px;
+
     .primaryNavigationInner {
-      align-items: flex-end;
+      align-items: flex-start;
 
       .navOption {
         width: auto;
         height: auto;
-        padding: 7px 15px;
+        padding: 7px 7px;
+        background: transparent;
+        margin-bottom: 6px;
 
         .navLabel {
           font-size: 18px;
           margin-right: 7px;
+          text-align: left;
+        }
+
+        .typcn {
+          width: 35px;
         }
 
         &.primaryNavOption {
           width: auto;
           height: auto;
-          font-size: 20px;
+          font-size: 18px;
+          background: transparent;
+          color: $red;
+
+          .typcn {
+            color: $red;
+          }
         }
       }
     }
