@@ -93,9 +93,7 @@
 }
 
 .queueScrollContainer {
-  // height: calc(100vh - 210px);
-  height: 100vh;
-  padding-bottom: 200px;
+  height: calc(100vh - 210px);
 }
 
 .grid {
