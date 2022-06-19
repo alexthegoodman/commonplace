@@ -40,6 +40,9 @@ const Settings: NextPage = () => {
             <Link href="/settings/change-password/">
               <a>Change Password</a>
             </Link>
+            <Link href="/policies/">
+              <a>Policies</a>
+            </Link>
             <a href="mailto:support@commonplace.social">Contact Support</a>
             <div className="bottomLinks">
               <a href="#!" onClick={signOut}>
