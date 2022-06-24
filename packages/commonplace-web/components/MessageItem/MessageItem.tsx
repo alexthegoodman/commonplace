@@ -19,7 +19,12 @@ const MessageItem: React.FC<MessageItemProps> = ({
   };
   const displayDate = DateTime.fromISO(message?.createdAt).toFormat("DDD");
   const { imageUrl: profileImageUrl } = useImageUrl(
-    message?.user?.profileImage
+    message?.user?.profileImage,
+    {
+      fit: "cover",
+      width: 100,
+      height: 100,
+    }
   );
 
   const authorAttribution = (

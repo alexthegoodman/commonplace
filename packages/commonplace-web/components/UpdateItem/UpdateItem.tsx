@@ -22,7 +22,11 @@ const UpdateItem: React.FC<UpdateItemProps> = ({
     router.push(`/updates/${id}`);
   };
 
-  const { imageUrl: profileImageUrl } = useImageUrl(author?.profileImage);
+  const { imageUrl: profileImageUrl } = useImageUrl(author?.profileImage, {
+    fit: "cover",
+    width: 100,
+    height: 100,
+  });
 
   return (
     <div className="updateItem" onClick={goToThead}>

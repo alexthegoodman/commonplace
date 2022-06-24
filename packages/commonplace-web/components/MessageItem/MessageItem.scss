@@ -25,11 +25,13 @@
     width: calc(100% - 60px);
 
     &.left {
+      width: 100%;
       justify-content: flex-end;
     }
 
     .contentViewer {
       width: calc(100vw - 140px);
+      min-height: auto;
 
       .contentViewerInner {
         .textViewer {
@@ -52,7 +54,7 @@
         overflow: hidden;
 
         img {
-          max-height: 100%;
+          width: 100%;
         }
       }
     }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 import { cloudfrontUrl } from "../def/urls";
 
-export const useImageUrl = (sourceUrl = "", size = { width: 800 }) => {
+export const useImageUrl = (sourceUrl = "", size = { width: 800 } as any) => {
   //   const [json, setJson] = useState(null);
 
   //   useEffect(() => {});
