@@ -21,7 +21,7 @@ const getUserData = async (userId) => {
   return userData;
 };
 
-export const ProfileContent = ({ data }) => {
+export const ProfileContent = ({ data, usersOwnProfile = false }) => {
   const profileSEOStatement =
     data?.user?.chosenUsername + "'s Profile on CommonPlace";
 
@@ -73,7 +73,11 @@ export const ProfileContent = ({ data }) => {
               title={data?.user?.chosenUsername}
               subTitle={`${data?.user?.posts?.length} Creations`}
             />
-            <ProfilePosts creator={data?.user} posts={data?.user?.posts} />
+            <ProfilePosts
+              creator={data?.user}
+              posts={data?.user?.posts}
+              usersOwnProfile={usersOwnProfile}
+            />
           </div>
         </main>
       </div>
@@ -89,7 +93,7 @@ const ProfileDataWrapper = () => {
 
   console.info("ProfileContent", userId, data);
 
-  return <ProfileContent data={data} />;
+  return <ProfileContent data={data} usersOwnProfile={true} />;
 };
 
 const Profile: NextPage<{ fallback: any }> = ({ fallback }) => {

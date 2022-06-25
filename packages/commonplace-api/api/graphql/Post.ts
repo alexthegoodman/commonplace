@@ -268,9 +268,20 @@ export const UpdatePostMutation = extendType({
       ) => {
         console.info("Update Post", title, description);
 
-        const post = await prisma.post.update({
+        const userPost = await prisma.post.findFirst({
           where: {
             generatedTitleSlug: postTitleSlug,
+            creator: {
+              id: creatorId,
+            },
+          },
+        });
+
+        console.info("userPost", userPost);
+
+        const post = await prisma.post.update({
+          where: {
+            id: userPost?.id,
           },
           data: {
             title,

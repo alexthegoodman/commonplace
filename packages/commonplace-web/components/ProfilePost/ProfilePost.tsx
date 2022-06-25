@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import Link from "next/link";
 import * as React from "react";
+import { useCookies } from "react-cookie";
 import { cpDomain } from "../../def/urls";
 import ContentViewer from "../ContentViewer/ContentViewer";
 
@@ -12,6 +13,7 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
   onClick = (e) => console.info("Click ProfilePost"),
   creator = null,
   post = {},
+  usersOwnProfile = false,
 }) => {
   const [displayOptionsMenu, setDisplayOptionsMenu] = React.useState(false);
 
@@ -49,32 +51,36 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
             </div>
           </a>
         </Link>
-        <div className="postControls">
-          <div className="controlItems">
-            <a
-              href="#!"
-              onClick={() => setDisplayOptionsMenu(!displayOptionsMenu)}
+        {usersOwnProfile ? (
+          <div className="postControls">
+            <div className="controlItems">
+              <a
+                href="#!"
+                onClick={() => setDisplayOptionsMenu(!displayOptionsMenu)}
+              >
+                <i className="mu mu-opts-v"></i>
+              </a>
+            </div>
+            <div
+              className={`menu optionsMenu ${
+                displayOptionsMenu ? "displayed" : ""
+              }`}
             >
-              <i className="mu mu-opts-v"></i>
-            </a>
-          </div>
-          <div
-            className={`menu optionsMenu ${
-              displayOptionsMenu ? "displayed" : ""
-            }`}
-          >
-            <div className="optionsMenuInner">
-              <ul>
-                <li>
-                  <Link href={`${postUrl}/edit`}>Edit Post</Link>
-                </li>
-                <li>
-                  <a href="#!">Delete Post</a>
-                </li>
-              </ul>
+              <div className="optionsMenuInner">
+                <ul>
+                  <li>
+                    <Link href={`${postUrl}/edit`}>Edit Post</Link>
+                  </li>
+                  <li>
+                    <a href="#!">Delete Post</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
