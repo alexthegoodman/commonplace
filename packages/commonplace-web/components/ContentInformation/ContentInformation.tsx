@@ -17,7 +17,12 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
     post?.creator?.chosenUsername + " on CommonPlace";
 
   const { imageUrl: profileImageUrl } = useImageUrl(
-    post?.creator?.profileImage
+    post?.creator?.profileImage,
+    {
+      fit: "cover",
+      width: 100,
+      height: 100,
+    }
   );
 
   return (
