@@ -67,7 +67,9 @@ const UploadContent = () => {
       createdPost.createPost.generatedTitleSlug
     );
 
-    router.push(`/post/interest/${createdPost.createPost.generatedTitleSlug}`);
+    router.push(
+      `/post/interest/${createdPost.createPost.generatedTitleSlug}/?backPath=/profile/`
+    );
   };
 
   const onError = (error) => console.error(error);
@@ -231,7 +233,7 @@ const UploadContent = () => {
                                       >
                                         <div className="option">
                                           {contentType === type ? (
-                                            <div className="feather-icon icon-check"></div>
+                                            <div className="mu mu-i-tick"></div>
                                           ) : (
                                             <></>
                                           )}
