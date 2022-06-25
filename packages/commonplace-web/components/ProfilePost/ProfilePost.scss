@@ -59,18 +59,49 @@
       top: 5px;
       right: 5px;
 
-      a {
-        text-decoration: none;
-        width: 25px;
-        height: 25px;
-        background: white;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      .controlItems {
+        a {
+          text-decoration: none;
+          width: 25px;
+          height: 25px;
+          background: white;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
 
-        i {
-          color: black;
+          i {
+            color: black;
+          }
+        }
+      }
+      .optionsMenu {
+        display: none;
+        position: absolute;
+        background: white;
+        width: 125px;
+        top: 30px;
+        right: 0px;
+        border-radius: 10px;
+
+        &.displayed {
+          display: block;
+        }
+
+        .optionsMenuInner {
+          ul {
+            list-style: none;
+            margin: 5px 0;
+
+            li {
+              a {
+                display: block;
+                padding: 7px 10px;
+                font-size: 14px;
+                color: black;
+              }
+            }
+          }
         }
       }
     }

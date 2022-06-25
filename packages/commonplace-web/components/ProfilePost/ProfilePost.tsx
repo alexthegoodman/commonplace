@@ -13,8 +13,8 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
   creator = null,
   post = {},
 }) => {
-  const clickHandler = (e: MouseEvent) => onClick(e);
-  // TODO: alt -
+  const [displayOptionsMenu, setDisplayOptionsMenu] = React.useState(false);
+
   const displayDate = DateTime.fromISO(post?.createdAt).toFormat("D");
   const contentSEOStatement = `${post?.title} Post in ${post?.interest?.name} Interest - Created by ${creator.chosenUsername} - ${displayDate}`;
   const postUrl =
@@ -50,9 +50,30 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
           </a>
         </Link>
         <div className="postControls">
-          <a href="#!">
-            <i className="mu mu-opts-v"></i>
-          </a>
+          <div className="controlItems">
+            <a
+              href="#!"
+              onClick={() => setDisplayOptionsMenu(!displayOptionsMenu)}
+            >
+              <i className="mu mu-opts-v"></i>
+            </a>
+          </div>
+          <div
+            className={`menu optionsMenu ${
+              displayOptionsMenu ? "displayed" : ""
+            }`}
+          >
+            <div className="optionsMenuInner">
+              <ul>
+                <li>
+                  <a href="#!">Edit Post</a>
+                </li>
+                <li>
+                  <a href="#!">Delete Post</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
