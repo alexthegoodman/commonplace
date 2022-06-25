@@ -66,7 +66,7 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
             <div className="optionsMenuInner">
               <ul>
                 <li>
-                  <a href="#!">Edit Post</a>
+                  <Link href={`${postUrl}/edit`}>Edit Post</Link>
                 </li>
                 <li>
                   <a href="#!">Delete Post</a>

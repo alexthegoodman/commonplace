@@ -77,10 +77,10 @@ const PostContent = ({ data }) => {
           inline={true}
           leftIcon={
             <a onClick={goBack}>
-              <div className="feather-icon icon-arrow-left"></div>
+              <div className="typcn typcn-arrow-left"></div>
             </a>
           }
-          title={`Interest Post`}
+          title={`Creation`}
           rightIcon={<></>}
         />
         <div className="scrollContainer">
