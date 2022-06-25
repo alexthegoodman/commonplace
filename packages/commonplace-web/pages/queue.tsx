@@ -142,10 +142,10 @@ const QueueContent = () => {
     }));
   }, []);
 
-  useEffect(() => {
-    setQueuePostId(firstId);
-    setQueueFinished(firstId ? false : true);
-  }, [firstId]);
+  // useEffect(() => {
+  //   setQueuePostId(firstId);
+  //   setQueueFinished(firstId ? false : true);
+  // }, [firstId]);
 
   // TODO: get currentPost via id
   const currentPost = data?.posts?.filter(
@@ -306,7 +306,7 @@ const QueueContent = () => {
                   <motion.div
                     custom={0}
                     animate={postAnimation}
-                    initial={{ opacity: 0 }}
+                    // initial={{ opacity: 0 }}
                   >
                     <ContentViewer
                       type={currentPost?.contentType}
