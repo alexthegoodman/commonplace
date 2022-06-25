@@ -49,6 +49,11 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
             </div>
           </a>
         </Link>
+        <div className="postControls">
+          <a href="#!">
+            <i className="mu mu-opts-v"></i>
+          </a>
+        </div>
       </div>
     </div>
   );

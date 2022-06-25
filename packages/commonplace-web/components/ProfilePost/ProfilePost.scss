@@ -3,6 +3,8 @@
   overflow: hidden;
 
   .profilePostInner {
+    position: relative;
+
     a {
       text-decoration: none;
     }
@@ -43,12 +45,33 @@
       border-radius: 10px;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
+      position: relative;
 
       span {
         color: black;
         font-weight: 400;
         font-size: 15px;
         line-height: 18px;
+      }
+    }
+    .postControls {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+
+      a {
+        text-decoration: none;
+        width: 25px;
+        height: 25px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        i {
+          color: black;
+        }
       }
     }
   }
