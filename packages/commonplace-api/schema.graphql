@@ -419,6 +419,7 @@ type Mutation {
   createMessage(authorEmail: String!, content: String!, postCreatorEmail: String, postId: String, threadId: String, type: String!): Message!
   createOneRecord(data: RecordCreateInput!): Record!
   createPost(contentType: String!, creatorId: String!, description: String!, file1Data: String, file1Name: String, file1Size: Int, file1Type: String, file2Data: String, file2Name: String, file2Size: Int, file2Type: String, interestId: String!, text: String, title: String!): Post!
+  updatePost(creatorId: String!, description: String!, postTitleSlug: String!, title: String!): Post!
   updateProfile(coverImageData: String, coverImageName: String, coverImageSize: Int, coverImageType: String, profileImageData: String, profileImageName: String, profileImageSize: Int, profileImageType: String, userId: String!, username: String!): String!
 }
 

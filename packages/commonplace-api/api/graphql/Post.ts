@@ -250,6 +250,42 @@ export const CreatePostMutation = extendType({
   },
 });
 
+export const UpdatePostMutation = extendType({
+  type: "Mutation",
+  definition(t) {
+    t.nonNull.field("updatePost", {
+      type: "Post",
+      args: {
+        creatorId: nonNull(stringArg()),
+        postTitleSlug: nonNull(stringArg()),
+        title: nonNull(stringArg()),
+        description: nonNull(stringArg()),
+      },
+      resolve: async (
+        _,
+        { creatorId, postTitleSlug, title, description },
+        { prisma: PrismaClient }
+      ) => {
+        console.info("Update Post", title, description);
+
+        const post = await prisma.post.update({
+          where: {
+            generatedTitleSlug: postTitleSlug,
+          },
+          data: {
+            title,
+            description,
+          },
+        });
+
+        console.info("Updated post", post);
+
+        return post;
+      },
+    });
+  },
+});
+
 export const PostURLsQuery = extendType({
   type: "Query",
   definition(t) {

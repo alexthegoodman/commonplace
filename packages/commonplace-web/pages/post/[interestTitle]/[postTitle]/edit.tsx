@@ -2,8 +2,10 @@ import request from "graphql-request";
 import { DateTime } from "luxon";
 import type { NextPage } from "next";
 import { NextSeo } from "next-seo";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { FormProvider, useForm } from "react-hook-form";
 import useSWR, { SWRConfig } from "swr";
 import FormInput from "../../../../components/FormInput/FormInput";
@@ -11,6 +13,7 @@ import FormMessage from "../../../../components/FormMessage/FormMessage";
 import FormTextarea from "../../../../components/FormTextarea/FormTextarea";
 import PrimaryHeader from "../../../../components/PrimaryHeader/PrimaryHeader";
 import { cpDomain, cpGraphqlUrl } from "../../../../def/urls";
+import { updatePostMutation } from "../../../../graphql/mutations/post";
 import { postImpressionsQuery } from "../../../../graphql/queries/message";
 import { postByPostTitleQuery } from "../../../../graphql/queries/post";
 import { userByPostTitleQuery } from "../../../../graphql/queries/user";
@@ -32,7 +35,7 @@ const getPostAndUserData = async (postTitle) => {
   return returnData;
 };
 
-const PostContent = ({ data }) => {
+const EditPostContent = ({ data }) => {
   const currentPost = data;
 
   console.info("currentPost", currentPost);
@@ -51,11 +54,26 @@ const PostContent = ({ data }) => {
     formState: { errors },
   } = methods;
 
-  const onSubmit = () => {};
+  const onSubmit = async (formValues) => {
+    console.info("onSubmit", formValues, data);
+
+    const updatedPost = await request(cpGraphqlUrl, updatePostMutation, {
+      creatorId: userId,
+      postTitleSlug: data?.generatedTitleSlug, //protected public fields
+      ...formValues,
+    });
+
+    console.info("createdPost", updatedPost, updatedPost.generatedTitleSlug);
+
+    router.push(`/profile/`);
+  };
 
   const onError = () => {};
 
   const displayDate = DateTime.fromISO(currentPost?.createdAt).toFormat("D");
+
+  const [cookies] = useCookies(["coUserId"]);
+  const userId = cookies.coUserId;
 
   return (
     <section className="upload">
@@ -67,9 +85,9 @@ const PostContent = ({ data }) => {
         <PrimaryHeader
           inline={true}
           leftIcon={
-            <a onClick={goBack}>
+            <Link href="/profile/">
               <div className="typcn typcn-arrow-left"></div>
-            </a>
+            </Link>
           }
           title={`Edit Creation`}
           rightIcon={<></>}
@@ -118,23 +136,37 @@ const PostContent = ({ data }) => {
   );
 };
 
-const PostDataWrapper = () => {
+const EditPostDataWrapper = () => {
   const router = useRouter();
   const { postTitle } = router.query;
 
-  const { data } = useSWR("postKey", () => getPostAndUserData(postTitle));
+  const { data, mutate } = useSWR(
+    "editPostKey",
+    () => getPostAndUserData(postTitle),
+    {
+      revalidateIfStale: true,
+      revalidateOnFocus: true,
+      refreshWhenHidden: true,
+      revalidateOnMount: true,
+    }
+  );
+
+  useEffect(() => {
+    console.info("Edit Post mount");
+    mutate(); // TODO: refresh defaultValue
+  }, []);
 
   console.info("PostDataWrapper", data);
 
-  return <PostContent data={data} />;
+  return <EditPostContent data={data} />;
 };
 
-const Post: NextPage<{ fallback: any }> = ({ fallback }) => {
+const EditPost: NextPage<{ fallback: any }> = ({ fallback }) => {
   return (
     <SWRConfig
       value={{ fallback, revalidateOnMount: true, refreshWhenHidden: true }}
     >
-      <PostDataWrapper />
+      <EditPostDataWrapper />
     </SWRConfig>
   );
 };
@@ -143,15 +175,15 @@ export async function getServerSideProps({ query }) {
   const { postTitle } = query;
   const postAndUserData = await getPostAndUserData(postTitle);
 
-  console.info("Post postAndUserData", query, postAndUserData);
+  console.info("EditPost postAndUserData", query, postAndUserData);
 
   return {
     props: {
       fallback: {
-        postKey: postAndUserData,
+        editPostKey: postAndUserData,
       },
     },
   };
 }
 
-export default Post;
+export default EditPost;

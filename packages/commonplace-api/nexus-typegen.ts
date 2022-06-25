@@ -1024,6 +1024,7 @@ export interface NexusGenFieldTypes {
     createMessage: NexusGenRootTypes['Message']; // Message!
     createOneRecord: NexusGenRootTypes['Record']; // Record!
     createPost: NexusGenRootTypes['Post']; // Post!
+    updatePost: NexusGenRootTypes['Post']; // Post!
     updateProfile: string; // String!
   }
   Post: { // field return type
@@ -1132,6 +1133,7 @@ export interface NexusGenFieldTypeNames {
     createMessage: 'Message'
     createOneRecord: 'Record'
     createPost: 'Post'
+    updatePost: 'Post'
     updateProfile: 'String'
   }
   Post: { // field return type name
@@ -1263,6 +1265,12 @@ export interface NexusGenArgTypes {
       file2Type?: string | null; // String
       interestId: string; // String!
       text?: string | null; // String
+      title: string; // String!
+    }
+    updatePost: { // args
+      creatorId: string; // String!
+      description: string; // String!
+      postTitleSlug: string; // String!
       title: string; // String!
     }
     updateProfile: { // args
