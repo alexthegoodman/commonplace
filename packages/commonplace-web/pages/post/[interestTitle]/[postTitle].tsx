@@ -13,6 +13,7 @@ import { postImpressionsQuery } from "../../../graphql/queries/message";
 import { postByPostTitleQuery } from "../../../graphql/queries/post";
 import { userByPostTitleQuery } from "../../../graphql/queries/user";
 import { useImageUrl } from "../../../hooks/useImageUrl";
+import { useRouterBack } from "../../../hooks/useRouterBack";
 
 const getPostAndUserData = async (postTitle) => {
   const postData = await request(cpGraphqlUrl, postByPostTitleQuery, {
@@ -42,8 +43,7 @@ const PostContent = ({ data }) => {
   console.info("currentPost", currentPost);
 
   const router = useRouter();
-
-  const goBack = () => router.back();
+  const { goBack } = useRouterBack(router);
 
   const displayDate = DateTime.fromISO(currentPost?.createdAt).toFormat("D");
   const contentSEOStatement = `${currentPost?.title} Post in ${currentPost?.interest?.name} Interest - Created by ${currentPost?.creator?.chosenUsername} - ${displayDate}`;
