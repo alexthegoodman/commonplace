@@ -11,6 +11,7 @@ import { threadsQuery } from "../../graphql/queries/thread";
 import { cpGraphqlUrl } from "../../def/urls";
 import { useUnreadThreads } from "../../hooks/useUnreadThreads";
 import { NextSeo } from "next-seo";
+import InviteFriends from "../../components/InviteFriends/InviteFriends";
 
 export const getUserThreadData = async (userId) => {
   const userThreadData = await request(cpGraphqlUrl, threadsQuery, {
@@ -70,6 +71,7 @@ const UpdatesContent: NextPage = () => {
           title="Updates"
           rightIcon={<></>}
         />
+        <InviteFriends />
         <div className="scrollContainer updatesContainer">
           {data?.user?.threads?.length > 0 ? (
             data?.user?.threads?.map((thread, i) => {
