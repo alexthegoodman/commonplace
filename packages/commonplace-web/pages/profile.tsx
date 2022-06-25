@@ -47,12 +47,18 @@ export const ProfileContent = ({ data, usersOwnProfile = false }) => {
         <PrimaryHeader
           className="whiteHeader"
           leftIcon={
-            <Link href="/settings">
-              <a>
-                {/* <div className="feather-icon icon-settings"></div> */}
-                <i className="typcn typcn-cog"></i>
-              </a>
-            </Link>
+            <>
+              {usersOwnProfile ? (
+                <Link href="/settings">
+                  <a>
+                    {/* <div className="feather-icon icon-settings"></div> */}
+                    <i className="typcn typcn-cog"></i>
+                  </a>
+                </Link>
+              ) : (
+                <></>
+              )}
+            </>
           }
           title={""}
           rightIcon={
