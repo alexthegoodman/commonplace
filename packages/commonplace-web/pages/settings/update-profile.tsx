@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { FormProvider, useForm } from "react-hook-form";
 import useSWR, { SWRConfig } from "swr";
@@ -29,23 +29,32 @@ const SettingsContent = () => {
   const [cookies] = useCookies(["coUserId"]);
   const userId = cookies.coUserId;
 
-  const { data } = useSWR("settingsKey", () => getUserData(userId), {
-    revalidateIfStale: true,
-    revalidateOnFocus: true,
-    refreshWhenHidden: true,
-  });
+  const { data } = useSWR("settingsKey", () => getUserData(userId));
 
   console.info("SettingsContent", userId, data);
 
   const [formErrorMessage, setFormErrorMessage] = useState("");
 
-  const methods = useForm();
+  const methods = useForm({
+    defaultValues: {
+      username: data?.user?.chosenUsername,
+    },
+  });
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = methods;
+
+  useEffect(() => {
+    console.info("data change");
+    reset(
+      { username: data?.user?.chosenUsername },
+      { keepDefaultValues: false }
+    );
+  }, [data]);
 
   const onSubmit = async (formValues) => {
     await request(cpGraphqlUrl, updateProfileMutation, {
@@ -84,7 +93,7 @@ const SettingsContent = () => {
               placeholder="Username"
               register={register}
               errors={errors}
-              defaultValue={data?.user?.chosenUsername}
+              // defaultValue={data?.user?.chosenUsername}
               validation={{ required: "Username is required." }}
             />
 

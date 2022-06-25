@@ -46,13 +46,27 @@ const EditPostContent = ({ data }) => {
 
   const goBack = () => router.back();
 
-  const methods = useForm();
+  const methods = useForm({
+    defaultValues: {
+      title: currentPost?.title,
+      description: currentPost?.description,
+    },
+  });
 
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = methods;
+
+  useEffect(() => {
+    console.info("currentPost change");
+    reset(
+      { title: currentPost?.title, description: currentPost?.description },
+      { keepDefaultValues: false }
+    );
+  }, [currentPost]);
 
   const onSubmit = async (formValues) => {
     console.info("onSubmit", formValues, data);
@@ -107,7 +121,7 @@ const EditPostContent = ({ data }) => {
                       register={register}
                       errors={errors}
                       validation={{ required: "Title is required." }}
-                      defaultValue={currentPost?.title}
+                      //   defaultValue={currentPost?.title}
                     />
                     <FormTextarea
                       name="description"
@@ -115,7 +129,7 @@ const EditPostContent = ({ data }) => {
                       register={register}
                       errors={errors}
                       validation={{ required: false }}
-                      defaultValue={currentPost?.description}
+                      //   defaultValue={currentPost?.description}
                     />
                   </div>
                 </div>
@@ -140,21 +154,7 @@ const EditPostDataWrapper = () => {
   const router = useRouter();
   const { postTitle } = router.query;
 
-  const { data, mutate } = useSWR(
-    "editPostKey",
-    () => getPostAndUserData(postTitle),
-    {
-      revalidateIfStale: true,
-      revalidateOnFocus: true,
-      refreshWhenHidden: true,
-      revalidateOnMount: true,
-    }
-  );
-
-  useEffect(() => {
-    console.info("Edit Post mount");
-    mutate(); // TODO: refresh defaultValue
-  }, []);
+  const { data } = useSWR("editPostKey", () => getPostAndUserData(postTitle));
 
   console.info("PostDataWrapper", data);
 
