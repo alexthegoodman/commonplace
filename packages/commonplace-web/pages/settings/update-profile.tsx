@@ -24,12 +24,12 @@ const getUserData = async (userId) => {
   return userData;
 };
 
-const SettingsContent = () => {
+const SettingsContent = ({ data }) => {
   const router = useRouter();
   const [cookies] = useCookies(["coUserId"]);
   const userId = cookies.coUserId;
 
-  const { data } = useSWR("settingsKey", () => getUserData(userId));
+  // const { data } = useSWR("settingsKey", () => getUserData(userId));
 
   console.info("SettingsContent", userId, data);
 
@@ -125,12 +125,21 @@ const SettingsContent = () => {
   );
 };
 
+const SettingsContentWrapper = () => {
+  const [cookies] = useCookies(["coUserId"]);
+  const userId = cookies.coUserId;
+
+  const { data } = useSWR("settingsKey", () => getUserData(userId));
+
+  return <SettingsContent data={data} />;
+};
+
 const Settings: NextPage<{ fallback: any }> = ({ fallback }) => {
   return (
     <SWRConfig
       value={{ fallback, revalidateOnMount: true, refreshWhenHidden: true }}
     >
-      <SettingsContent />
+      <SettingsContentWrapper />
     </SWRConfig>
   );
 };
