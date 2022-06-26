@@ -180,14 +180,7 @@ const QueueContent = () => {
   // TODO: preload video
   // TODO: preload audio
 
-  const impressionClickHandler = async (impression) => {
-    if (queueFinished) {
-      return;
-    }
-
-    setCreditUi(creditUi + 1);
-    setCurrentImpression(impression);
-
+  const closeQueueItemAnimation = async () => {
     await postAnimation.start((i) => ({
       opacity: 0,
       y: 5,
@@ -199,6 +192,30 @@ const QueueContent = () => {
       y: 0,
       transition: { duration: 0.5 }, // TODO: FLASHES at end
     }));
+  };
+
+  const openQueueItemAnimation = async () => {
+    await betweenPostAnimation.start((i) => ({
+      opacity: 0,
+      y: -5,
+      transition: { duration: 0.5 },
+    }));
+    await postAnimation.start((i) => ({
+      opacity: 1,
+      y: 0,
+      // transition: { delay: i * 1.5 - 1 },
+    }));
+  };
+
+  const impressionClickHandler = async (impression) => {
+    if (queueFinished) {
+      return;
+    }
+
+    setCreditUi(creditUi + 1);
+    setCurrentImpression(impression);
+
+    await closeQueueItemAnimation();
 
     // setQueueIndex(queueIndex + 1);
 
@@ -217,16 +234,7 @@ const QueueContent = () => {
 
     console.info("savedImpression", savedImpression);
 
-    await betweenPostAnimation.start((i) => ({
-      opacity: 0,
-      y: -5,
-      transition: { duration: 0.5 },
-    }));
-    await postAnimation.start((i) => ({
-      opacity: 1,
-      y: 0,
-      // transition: { delay: i * 1.5 - 1 },
-    }));
+    await openQueueItemAnimation();
   };
 
   const { unreadThreads, unreadThreadCount } = useUnreadThreads(
