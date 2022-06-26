@@ -1,0 +1,61 @@
+.popupModal {
+  position: absolute;
+  width: calc(100% - 60px);
+  top: 35vh;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+
+  .popupModalInner {
+    .modalHeader {
+      padding: 15px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .headerInformation {
+        .headerTitle {
+          font-weight: 600;
+        }
+      }
+      .headerControls {
+        .closeModal {
+          background: none;
+          border: none;
+
+          i {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+    .modalBody {
+      padding: 15px;
+
+      p {
+        font-size: 15px;
+        line-height: 24px;
+        margin-bottom: 10px;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+    }
+    .modalControls {
+      padding: 15px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .secondaryButton,
+      .button {
+        font-size: 15px;
+        padding: 10px;
+        width: 48%;
+      }
+    }
+  }
+}
