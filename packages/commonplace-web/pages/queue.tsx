@@ -181,6 +181,10 @@ const QueueContent = () => {
   // TODO: preload audio
 
   const impressionClickHandler = async (impression) => {
+    if (queueFinished) {
+      return;
+    }
+
     setCreditUi(creditUi + 1);
     setCurrentImpression(impression);
 
