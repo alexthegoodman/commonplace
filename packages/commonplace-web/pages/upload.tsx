@@ -41,6 +41,7 @@ const UploadContent = () => {
   const [selectedInterest, setSelectedInterest] = useState<any>(null);
   const [formErrorMessage, setFormErrorMessage] = useState("");
   const [hasEnoughCredits, setHasEnoughCredits] = useState(true);
+  const [submitLoading, setSubmitLoading] = useState(false);
 
   const methods = useForm();
 
@@ -53,6 +54,8 @@ const UploadContent = () => {
   const onSubmit = async (formValues) => {
     console.log("onSubmit", formValues, contentType);
 
+    setSubmitLoading(true);
+
     // TODO: send data to API
     const createdPost = await request(cpGraphqlUrl, createPostMutation, {
       creatorId: userId,
@@ -60,6 +63,8 @@ const UploadContent = () => {
       contentType,
       ...formValues,
     });
+
+    setSubmitLoading(false);
 
     console.info(
       "createdPost",
@@ -397,8 +402,9 @@ const UploadContent = () => {
                         className="button"
                         type="submit"
                         aria-label={submitButtonLabel}
+                        disabled={submitLoading}
                       >
-                        {submitButtonLabel}
+                        {submitLoading ? "Uploading..." : submitButtonLabel}
                       </button>
                     </>
                   ) : (
