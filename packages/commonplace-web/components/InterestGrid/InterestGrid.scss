@@ -12,6 +12,17 @@
     }
   }
 
+  &.mediumGrid {
+    height: auto;
+
+    .interestGridInner {
+      .pillGrid {
+        height: auto;
+        width: 2000px;
+      }
+    }
+  }
+
   .interestGridInner {
     .pillGrid {
       // height: 145px;

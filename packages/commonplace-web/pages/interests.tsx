@@ -72,7 +72,13 @@ export const InterestsContent = ({
           title="Pick Interest"
           rightIcon={<></>}
         />
-        <InterestPreview selectedInterest={displayInterest?.name} />
+        <InterestPreview
+          selectedInterest={
+            displayInterest?.name
+              ? displayInterest?.name
+              : "No Interest Selected"
+          }
+        />
         <section className="interestPicker">
           <div className="interestPickerInner">
             {/* <div className="pickerSearch">
@@ -98,7 +104,7 @@ export const InterestsContent = ({
                   <span className="selectorLabel">Interest</span>
                   <div className="selectorGridWrapper">
                     <InterestGrid
-                      className="smallGrid"
+                      className="mediumGrid"
                       data={displayInterests}
                       selectedItemId={selectedInterest}
                       onItemSelect={setSelectedInterest}
