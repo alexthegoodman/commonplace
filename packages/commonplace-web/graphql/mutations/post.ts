@@ -58,3 +58,9 @@ export const updatePostMutation = gql`
     }
   }
 `;
+
+export const deletePostMutation = gql`
+  mutation DeletePost($creatorId: String!, $postTitleSlug: String!) {
+    deletePost(creatorId: $creatorId, postTitleSlug: $postTitleSlug)
+  }
+`;

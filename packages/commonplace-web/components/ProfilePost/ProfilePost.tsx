@@ -1,8 +1,10 @@
+import request from "graphql-request";
 import { DateTime } from "luxon";
 import Link from "next/link";
 import * as React from "react";
 import { useCookies } from "react-cookie";
-import { cpDomain } from "../../def/urls";
+import { cpDomain, cpGraphqlUrl } from "../../def/urls";
+import { deletePostMutation } from "../../graphql/mutations/post";
 import ContentViewer from "../ContentViewer/ContentViewer";
 import PopupModal from "../PopupModal/PopupModal";
 
@@ -15,7 +17,11 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
   creator = null,
   post = {},
   usersOwnProfile = false,
+  mutate = null,
 }) => {
+  const [cookies] = useCookies(["coUserId"]);
+  const userId = cookies.coUserId;
+
   const [displayOptionsMenu, setDisplayOptionsMenu] = React.useState(false);
   const [deletePostId, setDeletePostId] = React.useState(null);
 
@@ -30,46 +36,18 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
     "/" +
     post?.generatedTitleSlug;
 
-  // console.info("contentSEOStatement", contentSEOStatement);
+  const deletePost = async () => {
+    await request(cpGraphqlUrl, deletePostMutation, {
+      creatorId: userId,
+      postTitleSlug: post?.generatedTitleSlug,
+    });
+
+    setDeletePostId(null);
+    mutate();
+  };
 
   return (
     <>
-      {usersOwnProfile ? (
-        <>
-          {deletePostId === post?.id ? (
-            <PopupModal
-              onCancel={() => setDeletePostId(null)}
-              title={`Delete ${post?.title}`}
-              description={
-                <>
-                  <p>Are you sure that you would like to delete this post?</p>
-                  <p>This action cannot be undone.</p>
-                </>
-              }
-              controls={
-                <>
-                  <button
-                    className="secondaryButton"
-                    onClick={() => setDeletePostId(null)}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="button"
-                    onClick={() => console.info("delete post")}
-                  >
-                    Delete Post
-                  </button>
-                </>
-              }
-            />
-          ) : (
-            <></>
-          )}
-        </>
-      ) : (
-        <></>
-      )}
       <div className="profilePost">
         <div className="profilePostInner">
           <Link href={postUrl}>
@@ -131,6 +109,39 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
           )}
         </div>
       </div>
+      {usersOwnProfile ? (
+        <>
+          {deletePostId === post?.id ? (
+            <PopupModal
+              onCancel={() => setDeletePostId(null)}
+              title={`Delete ${post?.title}`}
+              description={
+                <>
+                  <p>Are you sure that you would like to delete this post?</p>
+                  <p>This action cannot be undone.</p>
+                </>
+              }
+              controls={
+                <>
+                  <button
+                    className="secondaryButton"
+                    onClick={() => setDeletePostId(null)}
+                  >
+                    Cancel
+                  </button>
+                  <button className="button" onClick={deletePost}>
+                    Delete Post
+                  </button>
+                </>
+              }
+            />
+          ) : (
+            <></>
+          )}
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

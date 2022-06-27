@@ -32,7 +32,7 @@
       }
     }
     .modalBody {
-      padding: 15px;
+      padding: 0 15px;
 
       p {
         font-size: 15px;
@@ -55,6 +55,14 @@
         font-size: 15px;
         padding: 10px;
         width: 48%;
+      }
+
+      .button {
+        background: $red;
+
+        &.secondaryButton {
+          background: $cancelGrey;
+        }
       }
     }
   }

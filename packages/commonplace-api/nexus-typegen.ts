@@ -1024,6 +1024,7 @@ export interface NexusGenFieldTypes {
     createMessage: NexusGenRootTypes['Message']; // Message!
     createOneRecord: NexusGenRootTypes['Record']; // Record!
     createPost: NexusGenRootTypes['Post']; // Post!
+    deletePost: string; // String!
     updatePost: NexusGenRootTypes['Post']; // Post!
     updateProfile: string; // String!
   }
@@ -1133,6 +1134,7 @@ export interface NexusGenFieldTypeNames {
     createMessage: 'Message'
     createOneRecord: 'Record'
     createPost: 'Post'
+    deletePost: 'String'
     updatePost: 'Post'
     updateProfile: 'String'
   }
@@ -1266,6 +1268,10 @@ export interface NexusGenArgTypes {
       interestId: string; // String!
       text?: string | null; // String
       title: string; // String!
+    }
+    deletePost: { // args
+      creatorId: string; // String!
+      postTitleSlug: string; // String!
     }
     updatePost: { // args
       creatorId: string; // String!

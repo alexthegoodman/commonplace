@@ -21,7 +21,7 @@ const getUserData = async (userId) => {
   return userData;
 };
 
-export const ProfileContent = ({ data, usersOwnProfile = false }) => {
+export const ProfileContent = ({ data, mutate, usersOwnProfile = false }) => {
   const profileSEOStatement =
     data?.user?.chosenUsername + "'s Profile on CommonPlace";
 
@@ -83,6 +83,7 @@ export const ProfileContent = ({ data, usersOwnProfile = false }) => {
               creator={data?.user}
               posts={data?.user?.posts}
               usersOwnProfile={usersOwnProfile}
+              mutate={mutate}
             />
           </div>
         </main>
@@ -95,11 +96,11 @@ const ProfileDataWrapper = () => {
   const [cookies] = useCookies(["coUserId"]);
   const userId = cookies.coUserId;
 
-  const { data } = useSWR("profileKey", () => getUserData(userId));
+  const { data, mutate } = useSWR("profileKey", () => getUserData(userId));
 
   console.info("ProfileContent", userId, data);
 
-  return <ProfileContent data={data} usersOwnProfile={true} />;
+  return <ProfileContent data={data} mutate={mutate} usersOwnProfile={true} />;
 };
 
 const Profile: NextPage<{ fallback: any }> = ({ fallback }) => {

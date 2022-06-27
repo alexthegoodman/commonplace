@@ -297,6 +297,47 @@ export const UpdatePostMutation = extendType({
   },
 });
 
+export const DeletePostMutation = extendType({
+  type: "Mutation",
+  definition(t) {
+    t.nonNull.field("deletePost", {
+      type: "String",
+      args: {
+        creatorId: nonNull(stringArg()),
+        postTitleSlug: nonNull(stringArg()),
+      },
+      resolve: async (
+        _,
+        { creatorId, postTitleSlug },
+        { prisma: PrismaClient }
+      ) => {
+        console.info("Delete Post", creatorId, postTitleSlug);
+
+        const userPost = await prisma.post.findFirst({
+          where: {
+            generatedTitleSlug: postTitleSlug,
+            creator: {
+              id: creatorId,
+            },
+          },
+        });
+
+        console.info("userPost", userPost);
+
+        const post = await prisma.post.delete({
+          where: {
+            id: userPost?.id,
+          },
+        });
+
+        console.info("Deleted post", post);
+
+        return "deleted";
+      },
+    });
+  },
+});
+
 export const PostURLsQuery = extendType({
   type: "Query",
   definition(t) {

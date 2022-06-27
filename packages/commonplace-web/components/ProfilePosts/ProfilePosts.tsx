@@ -10,6 +10,7 @@ const ProfilePosts: React.FC<ProfilePostsProps> = ({
   creator = null,
   posts = [],
   usersOwnProfile = false,
+  mutate = null,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
   return (
@@ -21,6 +22,7 @@ const ProfilePosts: React.FC<ProfilePostsProps> = ({
               creator={creator}
               post={post}
               usersOwnProfile={usersOwnProfile}
+              mutate={mutate}
             />
           );
         })}
