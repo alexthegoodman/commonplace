@@ -1,8 +1,26 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "lib": ["es5", "dom"],
-    "types": ["cypress", "node"]
+  "ts-node": {
+    "files": true
   },
-  "include": ["**/*.ts"]
+  "compilerOptions": {
+    "declaration": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "target": "ES2017",
+    "module": "CommonJS",
+    "types": ["node", "cypress"],
+    "lib": ["dom", "ES2019"]
+  },
+  "include": [
+    "lib/**/*.ts",
+    "test/**/*.ts",
+    "methods.ts",
+    "declarations.d.ts",
+    "browserify.ts",
+    "esbuild.ts",
+    "webpack.ts"
+  ]
 }
