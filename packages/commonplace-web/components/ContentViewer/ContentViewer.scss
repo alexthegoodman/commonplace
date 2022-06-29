@@ -25,3 +25,13 @@
     }
   }
 }
+
+@media screen and (min-width: $desktopWidth) {
+  .contentViewer {
+    .contentViewerInner {
+      img {
+        max-height: calc(100vh - 300px);
+      }
+    }
+  }
+}
