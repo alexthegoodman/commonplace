@@ -1,5 +1,6 @@
 import express from "express";
 import { startApolloServer } from "./api";
+import { setupMixpanel } from "./mixpanel";
 
 const app = express();
 const port = 3001;

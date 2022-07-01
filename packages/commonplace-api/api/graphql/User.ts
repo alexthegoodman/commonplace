@@ -9,6 +9,7 @@ import {
 } from "nexus";
 import bcrypt from "bcryptjs";
 import Utilities from "../../../commonplace-utilities";
+import * as mixpanel from "mixpanel";
 
 const prisma = new PrismaClient();
 
@@ -181,7 +182,7 @@ export const AuthenticateQuery = extendType({
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
       },
-      resolve: async (_, { email, password }) => {
+      resolve: async (_, { email, password }, context) => {
         const utilities = new Utilities();
 
         const user: User = await new Promise(async (resolve, reject) => {
@@ -220,6 +221,8 @@ export const AuthenticateQuery = extendType({
         // TODO: encrypt with JWT
         // TODO: set secure cookie tied to origin
 
+        context.mixpanel.track("Sign In - Complete");
+
         return user.id;
       },
     });
@@ -235,7 +238,7 @@ export const RegisterUserQuery = extendType({
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
       },
-      resolve: async (_, { email, password }) => {
+      resolve: async (_, { email, password }, context) => {
         const utilities = new Utilities();
 
         const user: User = await new Promise(async (resolve, reject) => {
@@ -275,6 +278,8 @@ export const RegisterUserQuery = extendType({
 
         // TODO: encrypt with JWT
         // TODO: set secure cookie tied to origin
+
+        context.mixpanel.track("Sign Up - Complete");
 
         return user.id;
       },

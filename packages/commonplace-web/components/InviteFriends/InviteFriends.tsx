@@ -1,5 +1,6 @@
 import Image from "next/image";
 import * as React from "react";
+import mixpanel from "mixpanel-browser";
 
 import { InviteFriendsProps } from "./InviteFriends.d";
 
@@ -9,6 +10,8 @@ const InviteFriends: React.FC<InviteFriendsProps> = ({
   onClick = (e) => console.info("Click InviteFriends"),
 }) => {
   const shareToFacebook = () => {
+    mixpanel.track("Invite via Facebook");
+
     FB.ui(
       {
         method: "share",
@@ -21,12 +24,16 @@ const InviteFriends: React.FC<InviteFriendsProps> = ({
   };
 
   const sendOnWhatsapp = () => {
+    mixpanel.track("Invite via WhatsApp");
+
     const message = "Get Feedback on CommonPlace!";
 
     window.open("whatsapp://send?text=" + message, "_blank");
   };
 
   const sendViaEmail = () => {
+    mixpanel.track("Invite via Email");
+
     const message = "Get Feedback on CommonPlace!";
 
     window.open("mailto:?body=" + encodeURIComponent(message), "_blank");

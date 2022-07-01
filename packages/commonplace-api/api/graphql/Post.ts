@@ -113,7 +113,7 @@ export const CreatePostMutation = extendType({
           file2Type,
           file2Data,
         },
-        { prisma: PrismaClient }
+        { prisma: PrismaClient, mixpanel }
       ) => {
         console.info(
           "Create Post",
@@ -242,6 +242,8 @@ export const CreatePostMutation = extendType({
           });
         }
 
+        mixpanel.track("Post Created");
+
         console.info("Created post", post);
 
         return post;
@@ -264,7 +266,7 @@ export const UpdatePostMutation = extendType({
       resolve: async (
         _,
         { creatorId, postTitleSlug, title, description },
-        { prisma: PrismaClient }
+        { prisma: PrismaClient, mixpanel }
       ) => {
         console.info("Update Post", title, description);
 
@@ -289,6 +291,8 @@ export const UpdatePostMutation = extendType({
           },
         });
 
+        mixpanel.track("Post Updated");
+
         console.info("Updated post", post);
 
         return post;
@@ -309,7 +313,7 @@ export const DeletePostMutation = extendType({
       resolve: async (
         _,
         { creatorId, postTitleSlug },
-        { prisma: PrismaClient }
+        { prisma: PrismaClient, mixpanel }
       ) => {
         console.info("Delete Post", creatorId, postTitleSlug);
 
@@ -329,6 +333,8 @@ export const DeletePostMutation = extendType({
             id: userPost?.id,
           },
         });
+
+        mixpanel.track("Post Deleted");
 
         console.info("Deleted post", post);
 

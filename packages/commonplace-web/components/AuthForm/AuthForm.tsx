@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
+import mixpanel from "mixpanel-browser";
 import { cpDomain, cpGraphqlUrl } from "../../def/urls";
 const { DateTime } = require("luxon");
 
@@ -40,12 +41,16 @@ const AuthForm: React.FC<AuthFormProps> = ({
       var userIdData, userId;
 
       if (type === "sign-in") {
+        mixpanel.track("Sign In - Attempt");
+
         userIdData = await request(cpGraphqlUrl, authenticateQuery, {
           email: data.email,
           password: data.password,
         });
         userId = userIdData.authenticate;
       } else if (type === "sign-up") {
+        mixpanel.track("Sign Up - Attempt");
+
         userIdData = await request(cpGraphqlUrl, registerQuery, {
           email: data.email,
           password: data.password,

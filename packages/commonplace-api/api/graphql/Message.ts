@@ -69,7 +69,7 @@ export const CreateMessageMutation = extendType({
       resolve: async (
         _,
         { type, content, authorEmail, postCreatorEmail, postId, threadId },
-        { prisma: PrismaClient }
+        { prisma: PrismaClient, mixpanel }
       ) => {
         console.info(
           "createMessage",
@@ -114,6 +114,8 @@ export const CreateMessageMutation = extendType({
               },
             },
           });
+
+          mixpanel.track("Reply Sent");
         } else if (type === "impression" && postCreatorEmail && postId) {
           // TODO: securely add credit to currentUser when creaating impression
           // best to check that impression has not been given by this user on this posts
@@ -202,6 +204,8 @@ export const CreateMessageMutation = extendType({
           } else {
             throw Error("Cannot give impression to same post twice");
           }
+
+          mixpanel.track("Impression Sent");
         }
 
         console.info("Created message", message);
