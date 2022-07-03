@@ -50,7 +50,7 @@ export const ProfileContent = ({ data, mutate, usersOwnProfile = false }) => {
             <>
               {usersOwnProfile ? (
                 <Link href="/settings">
-                  <a>
+                  <a aria-label="Go to Settings">
                     {/* <div className="feather-icon icon-settings"></div> */}
                     <i className="typcn typcn-cog"></i>
                   </a>
@@ -63,7 +63,7 @@ export const ProfileContent = ({ data, mutate, usersOwnProfile = false }) => {
           title={""}
           rightIcon={
             <Link href="/queue">
-              <a>
+              <a aria-label="Go to Queue">
                 {/* <div className="feather-icon icon-list"></div> */}
                 <i className="typcn typcn-equals"></i>
               </a>

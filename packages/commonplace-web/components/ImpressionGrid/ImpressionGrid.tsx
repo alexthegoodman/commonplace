@@ -91,6 +91,8 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
             className={`pillGrid ${
               selectedCategory !== "all" ? "smallGrid" : ""
             }`}
+            role="list"
+            tabIndex={4}
           >
             {impressions.map((category, x) => {
               const categoryName = category.name.toLowerCase();
@@ -104,7 +106,9 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
                       <a
                         href="#!"
                         onClick={() => impressionClickHandler(impression.name)}
+                        role="listitem"
                         aria-label={impression.name}
+                        tabIndex={5}
                       >
                         {impression.name}
                       </a>
