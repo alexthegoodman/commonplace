@@ -65,7 +65,7 @@ export const InterestsContent = ({
       <div className="interestsInner">
         <PrimaryHeader
           leftIcon={
-            <a href="#!" onClick={goBack}>
+            <a href="#!" onClick={goBack} aria-label="Go Back">
               <i className="typcn typcn-arrow-left"></i>
             </a>
           }
@@ -115,7 +115,12 @@ export const InterestsContent = ({
             </div>
             <div className="pickerControls">
               <div className="pickerControlsInner">
-                <a className="button" onClick={onSelectorConfirm}>
+                <a
+                  className="button"
+                  onClick={onSelectorConfirm}
+                  tabIndex={0}
+                  role="button"
+                >
                   Confirm
                 </a>
               </div>

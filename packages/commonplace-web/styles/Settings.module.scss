@@ -16,6 +16,10 @@
       text-decoration: none;
       color: black;
       margin-bottom: 35px;
+
+      &:focus {
+        text-decoration: underline;
+      }
     }
 
     .bottomLinks {

@@ -13,7 +13,12 @@ const InterestGrid: React.FC<InterestGridProps> = ({
   return (
     <section className={`interestGrid ${className}`}>
       <div className="interestGridInner">
-        <ul className="pillGrid">
+        <ul
+          className="pillGrid"
+          role="list"
+          aria-label="Interest Grid"
+          tabIndex={0}
+        >
           {data?.map((item, i) => {
             const itemSelectHandler = () => onItemSelect(item.id);
 
@@ -21,9 +26,10 @@ const InterestGrid: React.FC<InterestGridProps> = ({
               <li
                 key={`interestGridItem${i}`}
                 className={item.id === selectedItemId ? "selected" : ""}
-                onClick={itemSelectHandler}
               >
-                <a>{item.name}</a>
+                <a onClick={itemSelectHandler} role="listitem" tabIndex={1}>
+                  {item.name}
+                </a>
               </li>
             );
           })}
