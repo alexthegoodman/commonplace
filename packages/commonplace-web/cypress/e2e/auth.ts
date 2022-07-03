@@ -1,5 +1,6 @@
 import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
+import { nanoid } from "nanoid";
 
 When("I visit {string}", (route) => {
   cy.visit(`http://localhost:3000${route}`);
@@ -16,7 +17,7 @@ When("I enter {string} into {string}", (value: string, inputName) => {
 When("I enter random email into {string}", (inputName) => {
   const randomEmail = faker.internet.email(
     "Common",
-    "Tests",
+    nanoid(),
     "test.commonplace.dev"
   );
   cy.get(`input[name="${inputName}"]`).type(randomEmail);
