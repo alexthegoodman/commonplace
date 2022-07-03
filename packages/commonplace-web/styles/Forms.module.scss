@@ -74,6 +74,12 @@ $inputGrey: #ececec;
     font-size: 36px;
   }
 
+  .typcn {
+    font-size: 54px;
+    position: relative;
+    top: -2px;
+  }
+
   &:active {
     background: $midBlue;
   }

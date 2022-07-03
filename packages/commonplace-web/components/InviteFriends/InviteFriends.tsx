@@ -48,17 +48,25 @@ const InviteFriends: React.FC<InviteFriendsProps> = ({
         <div className="inviteButtons">
           <ul className="buttonList">
             <li className="listItem">
-              <a href="#!" onClick={shareToFacebook}>
+              <a
+                href="#!"
+                onClick={shareToFacebook}
+                aria-label="Share via Facebook"
+              >
                 <i className="typcn typcn-social-facebook"></i>
               </a>
             </li>
             <li className="listItem">
-              <a href="#!" onClick={sendOnWhatsapp}>
+              <a
+                href="#!"
+                onClick={sendOnWhatsapp}
+                aria-label="Share via WhatsApp"
+              >
                 <Image src="/whatsapp.svg" width="35" height="35" />
               </a>
             </li>
             <li className="listItem">
-              <a href="#!" onClick={sendViaEmail}>
+              <a href="#!" onClick={sendViaEmail} aria-label="Share via Email">
                 <i className="typcn typcn-mail"></i>
               </a>
             </li>

@@ -24,7 +24,12 @@ const MessageList: React.FC<MessageListProps> = ({
 
   return (
     <section className="messageList">
-      <div className="messageListInner">
+      <div
+        className="messageListInner"
+        role="list"
+        tabIndex={0}
+        aria-label="Message List"
+      >
         {messages?.map((message, i) => {
           const isCurrentUser =
             message?.user?.email === currentUser?.user?.email ? true : false;

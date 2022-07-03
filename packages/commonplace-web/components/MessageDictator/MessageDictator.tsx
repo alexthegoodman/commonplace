@@ -57,12 +57,17 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
                 register={register}
                 errors={errors}
                 validation={{ required: true }}
+                aria-label="Dictate Message"
               />
             </div>
           </div>
           <div className="dictatorControls">
-            <button className="circleButton" type="submit">
-              <div className="feather-icon icon-send"></div>
+            <button
+              className="circleButton"
+              type="submit"
+              aria-label="Send Message"
+            >
+              <div className="typcn typcn-chevron-right"></div>
             </button>
           </div>
         </form>

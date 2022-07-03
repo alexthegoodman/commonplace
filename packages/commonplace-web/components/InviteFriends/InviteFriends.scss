@@ -38,6 +38,10 @@
             align-items: center;
             background: rgba(255, 255, 255, 0.8);
 
+            &:focus {
+              outline: 1px $red solid;
+            }
+
             i {
               font-size: 26px;
               color: $red;

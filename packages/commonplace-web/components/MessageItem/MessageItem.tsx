@@ -36,7 +36,12 @@ const MessageItem: React.FC<MessageItemProps> = ({
   );
 
   return (
-    <div className={`messageItem ${message?.type}`} onClick={onMessageClick}>
+    <div
+      className={`messageItem ${message?.type}`}
+      onClick={onMessageClick}
+      role="listitem"
+      tabIndex={1}
+    >
       {message?.type === "impression" ? (
         <div className={`contentViewerWrapper ${authorSide}`}>
           <ContentViewer

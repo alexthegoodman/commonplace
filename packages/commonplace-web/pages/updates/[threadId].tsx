@@ -100,7 +100,7 @@ const ThreadContent = () => {
           inline={true}
           leftIcon={
             <Link href="/updates">
-              <a>
+              <a aria-label="Go Back to Updates">
                 <i className="typcn typcn-arrow-left"></i>
               </a>
             </Link>

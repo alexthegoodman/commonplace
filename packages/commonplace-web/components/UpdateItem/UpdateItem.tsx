@@ -29,7 +29,12 @@ const UpdateItem: React.FC<UpdateItemProps> = ({
   });
 
   return (
-    <div className="updateItem" onClick={goToThead}>
+    <a
+      href="#!"
+      className="updateItem"
+      onClick={goToThead}
+      aria-label={`Message from ${author?.chosenUsername}`}
+    >
       <div className="updateItemInner">
         <div className="itemImageWrapper">
           <img src={profileImageUrl} />
@@ -48,7 +53,7 @@ const UpdateItem: React.FC<UpdateItemProps> = ({
           )}
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 

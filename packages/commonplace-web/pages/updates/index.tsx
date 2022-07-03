@@ -62,7 +62,7 @@ const UpdatesContent: NextPage = () => {
           inline={true}
           leftIcon={
             <Link href="/queue">
-              <a>
+              <a aria-label="Go Back to Queue">
                 {/* <div className="feather-icon icon-list"></div> */}
                 <i className="typcn typcn-equals"></i>
               </a>
