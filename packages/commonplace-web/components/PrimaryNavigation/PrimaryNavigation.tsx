@@ -14,21 +14,25 @@ const PrimaryNavigation: React.FC<PrimaryNavigationProps> = ({
     <nav className="primaryNavigation" aria-label="Primary Navigation">
       <div className="primaryNavigationInner">
         <Link href="/upload">
-          <a className="navOption primaryNavOption" aria-label="Upload">
+          <a
+            className="navOption primaryNavOption"
+            aria-label="Upload"
+            tabIndex={1}
+          >
             {/* <div className="feather-icon icon-upload"></div> */}
             <i className="typcn typcn-plus"></i>
             <span className="navLabel desktopOnly">Upload</span>
           </a>
         </Link>
         <Link href="/profile">
-          <a className="navOption" aria-label="Profile">
+          <a className="navOption" aria-label="Profile" tabIndex={2}>
             {/* <div className="feather-icon icon-user"></div> */}
             <i className="typcn typcn-user-outline"></i>
             <span className="navLabel desktopOnly">Profile</span>
           </a>
         </Link>
         <Link href="/updates">
-          <a className="navOption" aria-label="Updates">
+          <a className="navOption" aria-label="Updates" tabIndex={3}>
             {/* <div className="feather-icon icon-message-square"></div> */}
             {threadCount > 0 ? (
               <span
