@@ -48,7 +48,26 @@ const Home: NextPage = () => {
           },
         ]}
       />
-      <PieViz width={300} height={300} />
+      <PieViz
+        analysisData={[
+          {
+            letter: "Test",
+            frequency: 1,
+          },
+          {
+            letter: "Test 2",
+            frequency: 2,
+          },
+          {
+            letter: "Test 3",
+            frequency: 3,
+          },
+          {
+            letter: "Test 4",
+            frequency: 5,
+          },
+        ]}
+      />
     </div>
   );
 };

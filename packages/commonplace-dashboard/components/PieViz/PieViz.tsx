@@ -13,43 +13,35 @@ import { PieVizProps } from "./PieViz.d";
 const accentColor = "#ff4040";
 const accentColorDark = "#8446ff";
 
-const letters: LetterFrequency[] = letterFrequency.slice(0, 4);
+// const letters: LetterFrequency[] = letterFrequency.slice(0, 4);
+
+// console.info("letters", letters);
 
 // accessor functions
 const frequency = (d: LetterFrequency) => d.frequency;
 
-// color scales
-const getLetterFrequencyColor = scaleOrdinal({
-  domain: letters.map((l) => l.letter),
-  range: [
-    "rgba(93,30,91,1)",
-    "rgba(93,30,91,0.8)",
-    "rgba(93,30,91,0.6)",
-    "rgba(93,30,91,0.4)",
-  ],
-});
-
 const defaultMargin = { top: 20, right: 20, bottom: 20, left: 20 };
 
-export type PieProps = {
-  width: number;
-  height: number;
-  margin?: typeof defaultMargin;
-  animate?: boolean;
-};
-
-const PieViz = ({
-  width,
-  height,
-  margin = defaultMargin,
-  animate = false,
-}: PieProps) => {
+const PieViz = ({ analysisData = null }: PieVizProps) => {
+  const width = 300;
+  const height = 300;
   const innerWidth = width;
   const innerHeight = height;
   const radius = Math.min(innerWidth, innerHeight) - 100;
   const centerY = innerHeight / 2;
   const centerX = innerWidth / 2;
   const donutThickness = 50;
+
+  // color scales
+  const getLetterFrequencyColor = scaleOrdinal({
+    domain: analysisData.map((l: any) => l.letter),
+    range: [
+      "rgba(93,30,91,1)",
+      "rgba(93,30,91,0.8)",
+      "rgba(93,30,91,0.6)",
+      "rgba(93,30,91,0.4)",
+    ],
+  });
 
   return (
     <svg width={width} height={height}>
@@ -59,10 +51,15 @@ const PieViz = ({
         to={accentColorDark}
         // toOpacity={0.1}
       />
-      <rect rx={14} width={width} height={height} fill="url('#pie-gradient')" />
+      <circle
+        cx={width / 2}
+        cy={width / 2}
+        r={width / 2}
+        fill="url('#pie-gradient')"
+      />
       <Group top={centerY} left={centerX}>
         <Pie
-          data={letters}
+          data={analysisData}
           pieValue={frequency}
           pieSortValues={() => -1}
           outerRadius={radius - donutThickness * 1.3}
@@ -70,7 +67,7 @@ const PieViz = ({
           {(pie) => (
             <AnimatedPie
               {...pie}
-              animate={animate}
+              animate={false}
               getKey={({ data: { letter } }) => letter}
               getColor={({ data: { letter } }) =>
                 getLetterFrequencyColor(letter)
