@@ -4,9 +4,6 @@ import { animated, useTransition, interpolate } from "@react-spring/web";
 import { scaleOrdinal } from "@visx/scale";
 import { Group } from "@visx/group";
 import { LinearGradient } from "@visx/gradient";
-import letterFrequency, {
-  LetterFrequency,
-} from "@visx/mock-data/lib/mocks/letterFrequency";
 
 import { PieVizProps } from "./PieViz.d";
 
@@ -18,9 +15,7 @@ const accentColorDark = "#8446ff";
 // console.info("letters", letters);
 
 // accessor functions
-const frequency = (d: LetterFrequency) => d.frequency;
-
-const defaultMargin = { top: 20, right: 20, bottom: 20, left: 20 };
+const frequency = (d: any) => d.value;
 
 const PieViz = ({ analysisData = null }: PieVizProps) => {
   const width = 300;
