@@ -3,6 +3,7 @@ import { Group } from "@visx/group";
 import { Bar } from "@visx/shape";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { scaleLinear, scaleBand } from "@visx/scale";
+import { LinearGradient } from "@visx/gradient";
 import { BarVizProps } from "./BarViz.d";
 import { maxBy } from "lodash";
 
@@ -13,6 +14,9 @@ import { maxBy } from "lodash";
 const graphWidthInPixels = 350;
 const graphHeightInPixels = 300;
 const graphMarginInPixels = { top: 0, bottom: 25, left: 25, right: 0 };
+
+const accentColor = "#ff4040";
+const accentColorDark = "#8446ff";
 
 // graph bounds
 const boundsWidthInPixels =
@@ -74,6 +78,12 @@ const BarViz: React.FC<BarVizProps> = ({ analysisData = null }) => {
             // width: "100%",
           }}
         >
+          <LinearGradient
+            id="bar-gradient"
+            from={accentColor}
+            to={accentColorDark}
+            // toOpacity={0.1}
+          />
           {analysisData ? (
             <>
               {/** Viz Data */}
@@ -98,7 +108,7 @@ const BarViz: React.FC<BarVizProps> = ({ analysisData = null }) => {
                         y={getYEntityPosition(entity)}
                         height={barHeight}
                         width={barWidth}
-                        fill="#E74E3F"
+                        fill="url(#bar-gradient)"
                       />
                     </Group>
                   );

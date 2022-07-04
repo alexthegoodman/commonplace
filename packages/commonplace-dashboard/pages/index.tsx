@@ -5,10 +5,17 @@ import BarViz from "../components/BarViz/BarViz";
 import LineViz from "../components/LineViz/LineViz";
 import styles from "../styles/Home.module.css";
 import { DateTime } from "luxon";
+import PieViz from "../components/PieViz/PieViz";
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+      }}
+    >
       <BarViz
         analysisData={[
           {
@@ -41,6 +48,7 @@ const Home: NextPage = () => {
           },
         ]}
       />
+      <PieViz width={300} height={300} />
     </div>
   );
 };
