@@ -147,7 +147,7 @@ const QueueContent = () => {
   //   setQueueFinished(firstId ? false : true);
   // }, [firstId]);
 
-  // TODO: get currentPost via id
+  // get currentPost via id
   const currentPost = data?.posts?.filter(
     (post, i) => post.id === queuePostId
   )[0];
