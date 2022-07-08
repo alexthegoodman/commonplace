@@ -33,7 +33,7 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
     const message = await request(cpGraphqlUrl, createMessageMutation, {
       type: "reply",
       content: data?.message,
-      authorEmail: author?.user?.email,
+      authorEmail: author?.getUser?.email,
       threadId: threadId,
     });
 

@@ -57,7 +57,7 @@ const ThreadContent = () => {
 
   // TODO: safe determination of otherUser
   const otherUser = data?.currentThread?.thread?.messages.filter(
-    (message, i) => message?.user?.email !== data?.currentUser?.user?.email
+    (message, i) => message?.user?.email !== data?.currentUser?.getUser?.email
   )[0].user;
   // const otherUserFirstName = otherUser?.name?.split(" ")[0];
 
@@ -67,7 +67,7 @@ const ThreadContent = () => {
     const readAt = await request(cpGraphqlUrl, createRecordMutation, {
       data: {
         name: "readBy",
-        content: data?.currentUser?.user?.chosenUsername,
+        content: data?.currentUser?.getUser?.chosenUsername,
         thread: {
           connect: {
             id: threadId,

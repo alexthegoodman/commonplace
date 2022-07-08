@@ -145,7 +145,7 @@ const UploadContent = () => {
     setShowInterestsModal(false);
 
     // show credit warning if needed
-    if (interest?.posts?.length > 5 && data?.user?.credit < 3) {
+    if (interest?.posts?.length > 5 && data?.getUser?.credit < 3) {
       setHasEnoughCredits(false);
     } else {
       setHasEnoughCredits(true);
@@ -189,7 +189,7 @@ const UploadContent = () => {
             />
 
             <main>
-              <StepCounter step={step} creditCount={data?.user?.credit} />
+              <StepCounter step={step} creditCount={data?.getUser?.credit} />
 
               <FormProvider {...methods}>
                 <form

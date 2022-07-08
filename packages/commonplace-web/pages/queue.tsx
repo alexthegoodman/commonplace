@@ -74,8 +74,8 @@ const getPostsAndUserData = async (userId, interestId = null) => {
   const userThreadData = await getUserThreadData(userId);
 
   let threads = [];
-  if (typeof userThreadData?.user?.threads !== "undefined") {
-    threads = userThreadData?.user?.threads;
+  if (typeof userThreadData?.getUser?.threads !== "undefined") {
+    threads = userThreadData?.getUser?.threads;
   }
 
   const returnData = {
@@ -117,7 +117,7 @@ const QueueContent = () => {
   const [queueFinished, setQueueFinished] = useState(firstId ? false : true);
   const [currentImpression, setCurrentImpression] = useState("");
   const [showInterestsModal, setShowInterestsModal] = useState(false);
-  const [creditUi, setCreditUi] = useState(data?.currentUser?.user?.credit);
+  const [creditUi, setCreditUi] = useState(data?.currentUser?.getUser?.credit);
 
   const postAnimation = useAnimation();
   const betweenPostAnimation = useAnimation();
@@ -221,7 +221,7 @@ const QueueContent = () => {
 
     setQueuePostId(nextPostId);
     // TODO: send impression message
-    const currentUserEmail = data?.currentUser?.user?.email;
+    const currentUserEmail = data?.currentUser?.getUser?.email;
     const postCreatorEmail = currentPost?.creator?.email;
 
     const savedImpression = await request(cpGraphqlUrl, createMessageMutation, {
@@ -239,7 +239,7 @@ const QueueContent = () => {
 
   const { unreadThreads, unreadThreadCount } = useUnreadThreads(
     data?.threads,
-    data?.currentUser?.user?.chosenUsername
+    data?.currentUser?.getUser?.chosenUsername
   );
 
   console.info("unreadThreads", data?.threads, unreadThreads);

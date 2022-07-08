@@ -18,7 +18,7 @@ const getUserAndPostsByUsernameData = async (chosenUsername) => {
 
   const returnData = {
     user: {
-      ...userData.getUserByUsername,
+      ...getUserData.getUserByUsername,
       posts: postsData.getPostsByUsername,
     },
   };

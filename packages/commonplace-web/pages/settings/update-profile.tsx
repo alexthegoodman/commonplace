@@ -37,7 +37,7 @@ const SettingsContent = ({ data }) => {
 
   const methods = useForm({
     defaultValues: {
-      username: data?.user?.chosenUsername,
+      username: data?.getUser?.chosenUsername,
     },
   });
 
@@ -51,7 +51,7 @@ const SettingsContent = ({ data }) => {
   useEffect(() => {
     console.info("data change");
     reset(
-      { username: data?.user?.chosenUsername },
+      { username: data?.getUser?.chosenUsername },
       { keepDefaultValues: false }
     );
   }, [data]);
@@ -93,7 +93,7 @@ const SettingsContent = ({ data }) => {
               placeholder="Username"
               register={register}
               errors={errors}
-              // defaultValue={data?.user?.chosenUsername}
+              // defaultValue={data?.getUser?.chosenUsername}
               validation={{ required: "Username is required." }}
             />
 

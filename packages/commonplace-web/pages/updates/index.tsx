@@ -48,8 +48,8 @@ const UpdatesContent: NextPage = () => {
   });
 
   const { unreadThreads, unreadThreadCount } = useUnreadThreads(
-    data?.user?.threads,
-    data?.user?.chosenUsername
+    data?.getUser?.threads,
+    data?.getUser?.chosenUsername
   );
 
   console.info("UpdatesContent", data);
@@ -73,8 +73,8 @@ const UpdatesContent: NextPage = () => {
         />
         <InviteFriends />
         <div className="scrollContainer updatesContainer">
-          {data?.user?.threads?.length > 0 ? (
-            data?.user?.threads?.map((thread, i) => {
+          {data?.getUser?.threads?.length > 0 ? (
+            data?.getUser?.threads?.map((thread, i) => {
               const previewMessage = thread.messages[0];
 
               const match = unreadThreads.find(

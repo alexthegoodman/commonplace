@@ -32,7 +32,7 @@ const MessageList: React.FC<MessageListProps> = ({
       >
         {messages?.map((message, i) => {
           const isCurrentUser =
-            message?.user?.email === currentUser?.user?.email ? true : false;
+            message?.user?.email === currentUser?.getUser?.email ? true : false;
 
           console.info("message", message);
 

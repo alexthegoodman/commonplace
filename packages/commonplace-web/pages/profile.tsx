@@ -23,22 +23,24 @@ const getUserData = async (userId) => {
 
 export const ProfileContent = ({ data, mutate, usersOwnProfile = false }) => {
   const profileSEOStatement =
-    data?.user?.chosenUsername + "'s Profile on CommonPlace";
+    data?.getUser?.chosenUsername + "'s Profile on CommonPlace";
 
   const canonicalUrl =
-    "http://" + cpDomain + "/co/" + data?.user?.chosenUsername;
-  const { imageUrl: profileImageUrl } = useImageUrl(data?.user?.profileImage);
+    "http://" + cpDomain + "/co/" + data?.getUser?.chosenUsername;
+  const { imageUrl: profileImageUrl } = useImageUrl(
+    data?.getUser?.profileImage
+  );
 
   return (
     <section className="profile">
       <div className="profileInner">
         <NextSeo
-          title={`${data?.user?.chosenUsername} | User | CommonPlace`}
-          description={`Learn more about ${data?.user?.chosenUsername} and their content on CommonPlace`}
+          title={`${data?.getUser?.chosenUsername} | User | CommonPlace`}
+          description={`Learn more about ${data?.getUser?.chosenUsername} and their content on CommonPlace`}
           canonical={canonicalUrl}
           openGraph={{
             url: canonicalUrl,
-            title: `Find ${data?.user?.chosenUsername} and their content on CommonPlace`,
+            title: `Find ${data?.getUser?.chosenUsername} and their content on CommonPlace`,
             description: "CommonPlace has content from people like yourself",
             images: [{ url: profileImageUrl }],
             site_name: "CommonPlace",
@@ -74,14 +76,14 @@ export const ProfileContent = ({ data, mutate, usersOwnProfile = false }) => {
           <div className="scrollContainer">
             <ProfileIntro
               alt={profileSEOStatement}
-              profileImage={data?.user?.profileImage}
-              coverImage={data?.user?.coverImage}
-              title={data?.user?.chosenUsername}
-              subTitle={`${data?.user?.posts?.length} Creations`}
+              profileImage={data?.getUser?.profileImage}
+              coverImage={data?.getUser?.coverImage}
+              title={data?.getUser?.chosenUsername}
+              subTitle={`${data?.getUser?.posts?.length} Creations`}
             />
             <ProfilePosts
-              creator={data?.user}
-              posts={data?.user?.posts}
+              creator={data?.getUser}
+              posts={data?.getUser?.posts}
               usersOwnProfile={usersOwnProfile}
               mutate={mutate}
             />
