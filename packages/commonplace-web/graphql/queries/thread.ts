@@ -46,7 +46,7 @@ export const threadsQuery = gql`
     $orderThreadsBy: [ThreadOrderByWithRelationInput!]
     $threadWhere: ThreadWhereInput
   ) {
-    user(id: $id) {
+    getUser(id: $id) {
       name
       chosenUsername
       email

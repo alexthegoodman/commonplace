@@ -718,6 +718,7 @@ type Query {
   getPostURLs: [String]
   getPostsByUsername(chosenUsername: String!): [PublicPost]
   getProfileURLs: [String]
+  getUser(id: String!): User
   getUserByPostTitle(postTitle: String!): PublicUser
   getUserByUsername(chosenUsername: String!): PublicUser
   interests(after: InterestWhereUniqueInput, before: InterestWhereUniqueInput, first: Int, last: Int): [Interest!]!
@@ -725,7 +726,6 @@ type Query {
   posts(after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int, orderBy: [PostOrderByWithRelationInput!], where: PostWhereInput): [Post!]!
   registerUser(email: String!, password: String!): String!
   thread(where: ThreadWhereUniqueInput!): Thread
-  user(id: String!): User
 }
 
 enum QueryMode {

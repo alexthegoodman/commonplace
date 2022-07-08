@@ -1,9 +1,4 @@
-import { PrismaClient, User } from "@prisma/client";
-import { extendType, nonNull, objectType, queryType, stringArg } from "nexus";
-import bcrypt from "bcryptjs";
-import Utilities from "../../../commonplace-utilities";
-
-const prisma = new PrismaClient();
+import { queryType } from "nexus";
 
 export const Query = queryType({
   definition(t) {

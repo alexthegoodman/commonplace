@@ -1,57 +1,5 @@
-import { PrismaClient, User } from "@prisma/client";
-import { extendType, nonNull, nullable, objectType, stringArg } from "nexus";
-
-const prisma = new PrismaClient();
-
-export const MessageType = objectType({
-  name: "Message",
-  definition(t) {
-    t.model.id();
-    t.model.type();
-    t.model.content();
-
-    t.model.user();
-    t.model.post();
-    // t.model.thread();
-
-    // t.model.readBy();
-
-    t.model.updatedAt();
-    t.model.createdAt();
-  },
-});
-
-export const PostImpressionsQuery = extendType({
-  type: "Query",
-  definition(t) {
-    t.nonNull.list.field("getPostImpressions", {
-      type: "Message",
-      args: {
-        postTitle: nonNull(stringArg()),
-      },
-      resolve: async (_, { postTitle }, { prisma: PrismaClient }) => {
-        const post = await prisma.post.findUnique({
-          where: {
-            generatedTitleSlug: postTitle,
-          },
-        });
-
-        const impressions = await prisma.message.findMany({
-          where: {
-            post: {
-              id: post?.id,
-            },
-            type: "impression",
-          },
-        });
-
-        console.info("Get impressions", postTitle, post, impressions);
-
-        return impressions;
-      },
-    });
-  },
-});
+import { extendType, nonNull, nullable, stringArg } from "nexus";
+import { Context } from "../../context";
 
 export const CreateMessageMutation = extendType({
   type: "Mutation",
@@ -69,7 +17,7 @@ export const CreateMessageMutation = extendType({
       resolve: async (
         _,
         { type, content, authorEmail, postCreatorEmail, postId, threadId },
-        { prisma: PrismaClient, mixpanel }
+        { prisma, mixpanel }: Context
       ) => {
         console.info(
           "createMessage",

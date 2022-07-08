@@ -1,7 +1,4 @@
-import { PrismaClient, User } from "@prisma/client";
-import { extendType, nonNull, objectType, stringArg } from "nexus";
-
-const prisma = new PrismaClient();
+import { objectType } from "nexus";
 
 export const RecordType = objectType({
   name: "Record",

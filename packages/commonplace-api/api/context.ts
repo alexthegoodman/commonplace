@@ -12,4 +12,4 @@ export interface Context {
 export const context = {
   prisma,
   mixpanel,
-};
+} as Context;
