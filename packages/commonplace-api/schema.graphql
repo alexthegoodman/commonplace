@@ -724,7 +724,7 @@ type Query {
   interests(after: InterestWhereUniqueInput, before: InterestWhereUniqueInput, first: Int, last: Int): [Interest!]!
   post(where: PostWhereUniqueInput!): Post
   posts(after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int, orderBy: [PostOrderByWithRelationInput!], where: PostWhereInput): [Post!]!
-  registerUser(email: String!, password: String!): String!
+  registerUser: String!
   thread(where: ThreadWhereUniqueInput!): Thread
 }
 

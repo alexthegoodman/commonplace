@@ -9,16 +9,15 @@ export const RegisterUserQuery = extendType({
   definition(t) {
     t.nonNull.field("registerUser", {
       type: "String",
-      args: {
-        email: nonNull(stringArg()),
-        password: nonNull(stringArg()),
-      },
-      resolve: async (
-        _,
-        { email, password },
-        { prisma, mixpanel }: Context
-      ) => {
+      args: {},
+      resolve: async (_, {}, { prisma, mixpanel, req }: Context) => {
         const utilities = new Utilities();
+
+        const credentials = utilities.helpers.parseAuthHeader(
+          req.headers.authorization
+        );
+        const email = credentials[0];
+        const password = credentials[1];
 
         const user: User = await new Promise(async (resolve, reject) => {
           utilities.logs.write(["Register User Incoming Request ", email]);

@@ -1334,10 +1334,6 @@ export interface NexusGenArgTypes {
       orderBy?: NexusGenInputs['PostOrderByWithRelationInput'][] | null; // [PostOrderByWithRelationInput!]
       where?: NexusGenInputs['PostWhereInput'] | null; // PostWhereInput
     }
-    registerUser: { // args
-      email: string; // String!
-      password: string; // String!
-    }
     thread: { // args
       where: NexusGenInputs['ThreadWhereUniqueInput']; // ThreadWhereUniqueInput!
     }

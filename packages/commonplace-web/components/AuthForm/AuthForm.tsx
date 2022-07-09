@@ -41,12 +41,12 @@ const AuthForm: React.FC<AuthFormProps> = ({
     try {
       var userIdData, userId;
 
+      const authorizationHeader = utilities.helpers.createAuthHeader(
+        `${data.email}:${data.password}`
+      );
+
       if (type === "sign-in") {
         mixpanel.track("Sign In - Attempt");
-
-        const authorizationHeader = utilities.helpers.createAuthHeader(
-          `${data.email}:${data.password}`
-        );
 
         userIdData = await request(
           cpGraphqlUrl,
@@ -61,11 +61,15 @@ const AuthForm: React.FC<AuthFormProps> = ({
       } else if (type === "sign-up") {
         mixpanel.track("Sign Up - Attempt");
 
-        // TODO: authorization header
-        userIdData = await request(cpGraphqlUrl, registerQuery, {
-          email: data.email,
-          password: data.password,
-        });
+        userIdData = await request(
+          cpGraphqlUrl,
+          registerQuery,
+          {},
+          {
+            Authorization: authorizationHeader,
+          }
+        );
+
         userId = userIdData.registerUser;
       }
 
