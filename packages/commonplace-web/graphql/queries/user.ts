@@ -1,8 +1,8 @@
 import { gql } from "graphql-request";
 
 export const authenticateQuery = gql`
-  query AuthenticateUser($email: String!, $password: String!) {
-    authenticate(email: $email, password: $password)
+  query AuthenticateUser {
+    authenticate
   }
 `;
 

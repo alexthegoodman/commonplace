@@ -1,10 +1,12 @@
 import { ApolloServer } from "apollo-server-express";
 import { schema } from "./schema";
-import { context } from "./context";
+import { Context, context } from "./context";
 
 export const server = new ApolloServer({
   schema,
-  context,
+  context: ({ req }) => {
+    return { req, ...context } as Context;
+  },
   // TODO: set csrfPrevention as true
   //   csrfPrevention: true,
 });

@@ -9,7 +9,6 @@ export * from "./types/Record";
 export * from "./types/Query";
 export * from "./types/Mutation";
 
-export * from "./mutations/authenticate";
 export * from "./mutations/createMessage";
 export * from "./mutations/createPost";
 export * from "./mutations/deletePost";
@@ -17,6 +16,7 @@ export * from "./mutations/registerUser";
 export * from "./mutations/updatePost";
 export * from "./mutations/updateProfile";
 
+export * from "./queries/authenticate";
 export * from "./queries/getPostByPostTitle";
 export * from "./queries/getPostImpressions";
 export * from "./queries/getPostsByUsername";

@@ -1293,10 +1293,6 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
-    authenticate: { // args
-      email: string; // String!
-      password: string; // String!
-    }
     categories: { // args
       after?: NexusGenInputs['CategoryWhereUniqueInput'] | null; // CategoryWhereUniqueInput
       before?: NexusGenInputs['CategoryWhereUniqueInput'] | null; // CategoryWhereUniqueInput

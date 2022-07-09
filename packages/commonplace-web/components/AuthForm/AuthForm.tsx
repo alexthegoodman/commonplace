@@ -12,6 +12,7 @@ import FormInput from "../FormInput/FormInput";
 import FormMessage from "../FormMessage/FormMessage";
 
 import { AuthFormProps } from "./AuthForm.d";
+import Utilities from "../../../commonplace-utilities";
 
 const AuthForm: React.FC<AuthFormProps> = ({
   ref = null,
@@ -19,7 +20,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
   onClick = (e) => console.info("Click AuthForm"),
   type = "sign-in",
 }) => {
-  const clickHandler = (e: MouseEvent) => onClick(e);
+  const utilities = new Utilities();
 
   const router = useRouter();
 
@@ -43,14 +44,24 @@ const AuthForm: React.FC<AuthFormProps> = ({
       if (type === "sign-in") {
         mixpanel.track("Sign In - Attempt");
 
-        userIdData = await request(cpGraphqlUrl, authenticateQuery, {
-          email: data.email,
-          password: data.password,
-        });
+        const authorizationHeader = utilities.helpers.createAuthHeader(
+          `${data.email}:${data.password}`
+        );
+
+        userIdData = await request(
+          cpGraphqlUrl,
+          authenticateQuery,
+          {},
+          {
+            Authorization: authorizationHeader,
+          }
+        );
+
         userId = userIdData.authenticate;
       } else if (type === "sign-up") {
         mixpanel.track("Sign Up - Attempt");
 
+        // TODO: authorization header
         userIdData = await request(cpGraphqlUrl, registerQuery, {
           email: data.email,
           password: data.password,

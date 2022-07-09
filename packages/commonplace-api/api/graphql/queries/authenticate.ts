@@ -10,16 +10,15 @@ export const AuthenticateQuery = extendType({
   definition(t) {
     t.nonNull.field("authenticate", {
       type: "String",
-      args: {
-        email: nonNull(stringArg()),
-        password: nonNull(stringArg()),
-      },
-      resolve: async (
-        _,
-        { email, password },
-        { prisma, mixpanel }: Context
-      ) => {
+      args: {},
+      resolve: async (_, {}, { prisma, mixpanel, req }: Context, x) => {
         const utilities = new Utilities();
+
+        const credentials = utilities.helpers.parseAuthHeader(
+          req.headers.authorization
+        );
+        const email = credentials[0];
+        const password = credentials[1];
 
         const user: User = await new Promise(async (resolve, reject) => {
           utilities.logs.write(["Authentication Request ", email]);

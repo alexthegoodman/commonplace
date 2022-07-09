@@ -711,7 +711,7 @@ type PublicUser {
 }
 
 type Query {
-  authenticate(email: String!, password: String!): String!
+  authenticate: String!
   categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int): [Category!]!
   getPostByPostTitle(postTitle: String!): PublicPost
   getPostImpressions(postTitle: String!): [Message]!
