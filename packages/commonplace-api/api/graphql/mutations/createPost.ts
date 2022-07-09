@@ -66,6 +66,41 @@ export const CreatePostMutation = extendType({
 
         const utilities = new Utilities();
 
+        // deduct credits if interest allows
+
+        const interest = await prisma.interest.findFirst({
+          where: {
+            id: interestId,
+          },
+          include: {
+            posts: true,
+          },
+        });
+
+        // more than 5 posts in selected interst
+        if (interest && interest?.posts?.length > 5) {
+          const creator = await prisma.user.findFirst({
+            where: {
+              id: creatorId,
+            },
+          });
+
+          const newCredit = (creator?.credit as number) - 3;
+
+          if (newCredit < 0) {
+            throw Error("Not enough Credits");
+          }
+
+          await prisma.user.update({
+            where: {
+              id: creatorId,
+            },
+            data: {
+              credit: newCredit,
+            },
+          });
+        }
+
         let upload1Path = "";
         if (file1Name && file1Data) {
           upload1Path = await utilities.AWS.uploadAsset(
@@ -133,47 +168,12 @@ export const CreatePostMutation = extendType({
           },
         });
 
-        // deduct credits if interest allows
-
-        const interest = await prisma.interest.findFirst({
-          where: {
-            id: interestId,
-          },
-          include: {
-            posts: true,
-          },
-        });
-
         console.info(
           "create post, intersts",
           interestId,
           interest,
           interest?.posts?.length
         );
-
-        // more than 5 posts in selected interst
-        if (interest && interest?.posts?.length > 5) {
-          const creator = await prisma.user.findFirst({
-            where: {
-              id: creatorId,
-            },
-          });
-
-          const newCredit = (creator?.credit as number) - 3;
-
-          if (newCredit < 0) {
-            throw Error("Not enough Credits");
-          }
-
-          await prisma.user.update({
-            where: {
-              id: creatorId,
-            },
-            data: {
-              credit: newCredit,
-            },
-          });
-        }
 
         mixpanel.track("Post Created");
 
