@@ -13,10 +13,15 @@ import { cpDomain, cpGraphqlUrl } from "../def/urls";
 import { NextSeo } from "next-seo";
 import { useImageUrl } from "../hooks/useImageUrl";
 
-const getUserData = async (userId) => {
-  const userData = await request(cpGraphqlUrl, userQuery, {
-    id: userId,
-  });
+const getUserData = async (token) => {
+  const userData = await request(
+    cpGraphqlUrl,
+    userQuery,
+    {},
+    {
+      commonplace_jwt_header: token,
+    }
+  );
 
   return userData;
 };
@@ -95,12 +100,12 @@ export const ProfileContent = ({ data, mutate, usersOwnProfile = false }) => {
 };
 
 const ProfileDataWrapper = () => {
-  const [cookies] = useCookies(["coUserId"]);
-  const userId = cookies.coUserId;
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
 
-  const { data, mutate } = useSWR("profileKey", () => getUserData(userId));
+  const { data, mutate } = useSWR("profileKey", () => getUserData(token));
 
-  console.info("ProfileContent", userId, data);
+  console.info("ProfileContent", token, data);
 
   return <ProfileContent data={data} mutate={mutate} usersOwnProfile={true} />;
 };
@@ -118,13 +123,11 @@ const Profile: NextPage<{ fallback: any }> = ({ fallback }) => {
 export async function getServerSideProps(context) {
   const utilities = new Utilities();
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
-  const userId = cookieData.coUserId;
+  const token = cookieData.coUserToken;
 
-  console.info("coUserId", userId);
+  const userData = await getUserData(token);
 
-  const userData = await getUserData(userId);
-
-  console.info("getServerSideProps", userId, userData);
+  console.info("getServerSideProps", token, userData);
 
   return {
     props: {

@@ -27,6 +27,7 @@ import { useUnreadThreads } from "../hooks/useUnreadThreads";
 import { InterestsContent } from "./interests";
 import { NextSeo } from "next-seo";
 import BrandName from "../components/BrandName/BrandName";
+import { userThreadsQuery } from "../graphql/queries/thread";
 
 const getPostsAndUserData = async (token, interestId = null) => {
   const userData = await request(
@@ -59,7 +60,14 @@ const getPostsAndUserData = async (token, interestId = null) => {
     }
   );
 
-  const userThreadData = await getUserThreadData(token);
+  const userThreadData = await request(
+    cpGraphqlUrl,
+    userThreadsQuery,
+    {},
+    {
+      commonplace_jwt_header: token,
+    }
+  );
 
   let threads = [];
   if (typeof userThreadData?.getUserThreads !== "undefined") {
@@ -229,7 +237,7 @@ const QueueContent = () => {
 
   const { unreadThreads, unreadThreadCount } = useUnreadThreads(
     data?.threads,
-    data?.currentUser?.getUser?.chosenUsername
+    data?.currentUser?.chosenUsername
   );
 
   console.info("unreadThreads", data?.threads, unreadThreads);
