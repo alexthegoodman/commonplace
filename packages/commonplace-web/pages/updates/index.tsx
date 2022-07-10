@@ -7,34 +7,21 @@ import { useCookies } from "react-cookie";
 import Utilities from "../../../commonplace-utilities";
 import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
 import UpdateItem from "../../components/UpdateItem/UpdateItem";
-import { threadsQuery } from "../../graphql/queries/thread";
+import { threadsQuery, userThreadsQuery } from "../../graphql/queries/thread";
 import { cpGraphqlUrl } from "../../def/urls";
 import { useUnreadThreads } from "../../hooks/useUnreadThreads";
 import { NextSeo } from "next-seo";
 import InviteFriends from "../../components/InviteFriends/InviteFriends";
 
-export const getUserThreadData = async (userId) => {
-  const userThreadData = await request(cpGraphqlUrl, threadsQuery, {
-    id: userId,
-    orderMessagesBy: {
-      createdAt: "desc",
-    },
-    orderThreadsBy: {
-      createdAt: "desc",
-    },
-    // EXCLUDE threads where messages are only from currentUser
-    threadWhere: {
-      messages: {
-        some: {
-          userId: {
-            not: {
-              equals: userId,
-            },
-          },
-        },
-      },
-    },
-  });
+export const getUserThreadData = async (token) => {
+  const userThreadData = await request(
+    cpGraphqlUrl,
+    userThreadsQuery,
+    {},
+    {
+      commonplace_jwt_header: token,
+    }
+  );
 
   return userThreadData;
 };

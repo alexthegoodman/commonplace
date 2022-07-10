@@ -22,6 +22,8 @@ export * from "./queries/getPostImpressions";
 export * from "./queries/getPostsByUsername";
 export * from "./queries/getPostURLs";
 export * from "./queries/getProfileURLs";
+export * from "./queries/getQueuePosts";
 export * from "./queries/getUser";
 export * from "./queries/getUserByPostTitle";
 export * from "./queries/getUserByUsername";
+export * from "./queries/getUserThreads";

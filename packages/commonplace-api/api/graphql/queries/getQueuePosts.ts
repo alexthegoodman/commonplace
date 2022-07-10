@@ -6,11 +6,11 @@ export const QueuePostsQuery = extendType({
   type: "Query",
   definition(t) {
     t.list.field("getQueuePosts", {
-      type: "PublicPost",
+      type: "Post",
       args: {
-        interestId: nonNull(stringArg()),
+        interestId: nullable(stringArg()),
       },
-      resolve: async (_, { interestId }, { prisma }: Context) => {
+      resolve: async (_, { interestId }, { prisma, currentUser }: Context) => {
         let addtPostFilter = {};
 
         if (interestId) {
@@ -26,7 +26,7 @@ export const QueuePostsQuery = extendType({
             // NOT currentUser's posts
             creatorId: {
               not: {
-                equals: userId,
+                equals: currentUser.id,
               },
             },
             // NOT posts with impression from currentUser
@@ -34,7 +34,7 @@ export const QueuePostsQuery = extendType({
               none: {
                 user: {
                   id: {
-                    equals: userId,
+                    equals: currentUser.id,
                   },
                 },
                 type: {

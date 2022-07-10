@@ -35,6 +35,38 @@ export const postsQuery = gql`
   }
 `;
 
+export const queuePostsQuery = gql`
+  query GetQueuePosts($interestId: String) {
+    getQueuePosts(interestId: $interestId) {
+      id
+      title
+      description
+      generatedTitleSlug
+
+      contentType
+      contentPreview
+      content
+
+      creator {
+        name
+        chosenUsername
+        profileImage
+        email
+
+        posts {
+          title
+        }
+      }
+      interest {
+        name
+      }
+
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
 const PublicPostFieldsFragment = gql`
   fragment PublicPostFieldsFragment on PublicPost {
     title

@@ -18,7 +18,7 @@ import {
 } from "../context/QueueContext/QueueContext";
 import { cloudfrontUrl, cpGraphqlUrl } from "../def/urls";
 import { createMessageMutation } from "../graphql/mutations/message";
-import { postsQuery } from "../graphql/queries/post";
+import { postsQuery, queuePostsQuery } from "../graphql/queries/post";
 import { userQuery } from "../graphql/queries/user";
 import { useImageUrl } from "../hooks/useImageUrl";
 import { usePreloadImage } from "../hooks/usePreloadImage";
@@ -59,18 +59,20 @@ const getPostsAndUserData = async (token, interestId = null) => {
     }
   );
 
-  const userThreadData = await getUserThreadData(userId);
+  const userThreadData = await getUserThreadData(token);
 
   let threads = [];
-  if (typeof userThreadData?.getUser?.threads !== "undefined") {
-    threads = userThreadData?.getUser?.threads;
+  if (typeof userThreadData?.getUserThreads !== "undefined") {
+    threads = userThreadData?.getUserThreads;
   }
 
   const returnData = {
-    currentUser: userData,
-    posts: postsData.posts,
+    currentUser: userData.getUser,
+    posts: postsData.getQueuePosts,
     threads,
   };
+
+  // console.info("returnData", returnData);
 
   return returnData;
 };

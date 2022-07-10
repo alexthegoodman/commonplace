@@ -1068,9 +1068,11 @@ export interface NexusGenFieldTypes {
     getPostURLs: Array<string | null> | null; // [String]
     getPostsByUsername: Array<NexusGenRootTypes['PublicPost'] | null> | null; // [PublicPost]
     getProfileURLs: Array<string | null> | null; // [String]
+    getQueuePosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     getUser: NexusGenRootTypes['User'] | null; // User
     getUserByPostTitle: NexusGenRootTypes['PublicUser'] | null; // PublicUser
     getUserByUsername: NexusGenRootTypes['PublicUser'] | null; // PublicUser
+    getUserThreads: Array<NexusGenRootTypes['Thread'] | null> | null; // [Thread]
     interests: NexusGenRootTypes['Interest'][]; // [Interest!]!
     post: NexusGenRootTypes['Post'] | null; // Post
     posts: NexusGenRootTypes['Post'][]; // [Post!]!
@@ -1178,9 +1180,11 @@ export interface NexusGenFieldTypeNames {
     getPostURLs: 'String'
     getPostsByUsername: 'PublicPost'
     getProfileURLs: 'String'
+    getQueuePosts: 'Post'
     getUser: 'User'
     getUserByPostTitle: 'PublicUser'
     getUserByUsername: 'PublicUser'
+    getUserThreads: 'Thread'
     interests: 'Interest'
     post: 'Post'
     posts: 'Post'
@@ -1308,8 +1312,8 @@ export interface NexusGenArgTypes {
     getPostsByUsername: { // args
       chosenUsername: string; // String!
     }
-    getUser: { // args
-      id: string; // String!
+    getQueuePosts: { // args
+      interestId?: string | null; // String
     }
     getUserByPostTitle: { // args
       postTitle: string; // String!

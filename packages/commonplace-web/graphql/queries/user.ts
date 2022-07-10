@@ -13,8 +13,8 @@ export const registerQuery = gql`
 `;
 
 export const userQuery = gql`
-  query GetUser($id: String!) {
-    getUser(id: $id) {
+  query GetUser {
+    getUser {
       name
       email
 

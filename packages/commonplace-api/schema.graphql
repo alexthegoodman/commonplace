@@ -718,9 +718,11 @@ type Query {
   getPostURLs: [String]
   getPostsByUsername(chosenUsername: String!): [PublicPost]
   getProfileURLs: [String]
-  getUser(id: String!): User
+  getQueuePosts(interestId: String): [Post]
+  getUser: User
   getUserByPostTitle(postTitle: String!): PublicUser
   getUserByUsername(chosenUsername: String!): PublicUser
+  getUserThreads: [Thread]
   interests(after: InterestWhereUniqueInput, before: InterestWhereUniqueInput, first: Int, last: Int): [Interest!]!
   post(where: PostWhereUniqueInput!): Post
   posts(after: PostWhereUniqueInput, before: PostWhereUniqueInput, first: Int, last: Int, orderBy: [PostOrderByWithRelationInput!], where: PostWhereInput): [Post!]!
