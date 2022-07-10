@@ -31,7 +31,7 @@ export const server = new ApolloServer({
         console.warn("Token Could Not Be Verified");
       }
     } catch (error) {
-      return res.status(401).send(error);
+      console.error(error);
     }
 
     return { req, currentUser, ...context } as Context;
