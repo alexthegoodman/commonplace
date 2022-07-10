@@ -7,4 +7,5 @@ export interface UpdateItemProps {
   label?: string;
   attribution?: string;
   author?: any;
+  isRead: boolean;
 }

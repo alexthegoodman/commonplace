@@ -30,14 +30,15 @@ export const UserThreadsQuery = extendType({
               },
             },
           },
-          // orderBy: {
-          //   messages: {
-          //     createdAt: "desc",
-          //   },
-          //   threads: {
-          //     createdAt: "desc",
-          //   },
-          // }
+          orderBy: {
+            createdAt: "desc",
+            // messages: {
+            //   createdAt: "desc",
+            // },
+            // threads: {
+            //   createdAt: "desc",
+            // },
+          },
         });
 
         console.info("getUserThreads", threads);

@@ -12,8 +12,18 @@ import { cpGraphqlUrl } from "../../def/urls";
 import { useUnreadThreads } from "../../hooks/useUnreadThreads";
 import { NextSeo } from "next-seo";
 import InviteFriends from "../../components/InviteFriends/InviteFriends";
+import { userQuery } from "../../graphql/queries/user";
 
 export const getUserThreadData = async (token) => {
+  const userData = await request(
+    cpGraphqlUrl,
+    userQuery,
+    {},
+    {
+      commonplace_jwt_header: token,
+    }
+  );
+
   const userThreadData = await request(
     cpGraphqlUrl,
     userThreadsQuery,
@@ -23,20 +33,23 @@ export const getUserThreadData = async (token) => {
     }
   );
 
-  return userThreadData;
+  return {
+    user: userData?.getUser,
+    threads: userThreadData?.getUserThreads,
+  };
 };
 
 const UpdatesContent: NextPage = () => {
-  const [cookies] = useCookies(["coUserId"]);
-  const userId = cookies.coUserId;
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
 
-  const { data } = useSWR("updatesKey", () => getUserThreadData(userId), {
+  const { data } = useSWR("updatesKey", () => getUserThreadData(token), {
     revalidateIfStale: true,
   });
 
   const { unreadThreads, unreadThreadCount } = useUnreadThreads(
-    data?.getUser?.threads,
-    data?.getUser?.chosenUsername
+    data?.threads,
+    data?.user?.chosenUsername
   );
 
   console.info("UpdatesContent", data);
@@ -60,8 +73,8 @@ const UpdatesContent: NextPage = () => {
         />
         <InviteFriends />
         <div className="scrollContainer updatesContainer">
-          {data?.getUser?.threads?.length > 0 ? (
-            data?.getUser?.threads?.map((thread, i) => {
+          {data?.threads?.length > 0 ? (
+            data?.threads?.map((thread, i) => {
               const previewMessage = thread.messages[0];
 
               const match = unreadThreads.find(
@@ -102,11 +115,11 @@ const Updates: NextPage<{ fallback: any }> = ({ fallback }) => {
 export async function getServerSideProps(context) {
   const utilities = new Utilities();
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
-  const userId = cookieData.coUserId;
+  const token = cookieData.coUserToken;
 
-  console.info("coUserId", userId);
+  console.info("coUserId", token);
 
-  const userThreadData = await getUserThreadData(userId);
+  const userThreadData = await getUserThreadData(token);
 
   console.info("getServerSideProps", userThreadData);
 
