@@ -18,21 +18,26 @@ import { createPostMutation } from "../graphql/mutations/post";
 import { userQuery } from "../graphql/queries/user";
 import { InterestsContent } from "./interests";
 
-const getUserData = async (userId) => {
-  const userData = await request(cpGraphqlUrl, userQuery, {
-    id: userId,
-  });
+const getUserData = async (token) => {
+  const userData = await request(
+    cpGraphqlUrl,
+    userQuery,
+    {},
+    {
+      commonplace_jwt_header: token,
+    }
+  );
 
   return userData;
 };
 
 const UploadContent = () => {
-  const [cookies] = useCookies(["coUserId"]);
-  const userId = cookies.coUserId;
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
 
-  const { data } = useSWR("profileKey", () => getUserData(userId));
+  const { data } = useSWR("profileKey", () => getUserData(token));
 
-  console.info("UploadContent", userId, data);
+  console.info("UploadContent", token, data);
 
   const router = useRouter();
   const [step, setStep] = useState(1);
@@ -57,12 +62,19 @@ const UploadContent = () => {
     setSubmitLoading(true);
 
     // TODO: send data to API
-    const createdPost = await request(cpGraphqlUrl, createPostMutation, {
-      creatorId: userId,
-      interestId: selectedInterest?.id,
-      contentType,
-      ...formValues,
-    });
+    const createdPost = await request(
+      cpGraphqlUrl,
+      createPostMutation,
+      {
+        // creatorId: userId,
+        interestId: selectedInterest?.id,
+        contentType,
+        ...formValues,
+      },
+      {
+        commonplace_jwt_header: token,
+      }
+    );
 
     setSubmitLoading(false);
 
@@ -433,13 +445,20 @@ const Upload: NextPage<{ fallback: any }> = ({ fallback }) => {
 export async function getServerSideProps(context) {
   const utilities = new Utilities();
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
-  const userId = cookieData.coUserId;
+  const token = cookieData.coUserToken;
 
-  console.info("coUserId", userId);
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
 
-  const userData = await getUserData(userId);
+  const userData = await getUserData(token);
 
-  console.info("getServerSideProps", userId, userData);
+  console.info("getServerSideProps", token, userData);
 
   return {
     props: {

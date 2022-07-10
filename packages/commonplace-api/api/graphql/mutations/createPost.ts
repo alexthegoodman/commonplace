@@ -10,7 +10,6 @@ export const CreatePostMutation = extendType({
     t.nonNull.field("createPost", {
       type: "Post",
       args: {
-        creatorId: nonNull(stringArg()),
         interestId: nonNull(stringArg()),
         contentType: nonNull(stringArg()),
         title: nonNull(stringArg()),
@@ -31,7 +30,6 @@ export const CreatePostMutation = extendType({
       resolve: async (
         _,
         {
-          creatorId,
           interestId,
           contentType,
           title,
@@ -46,11 +44,10 @@ export const CreatePostMutation = extendType({
           file2Type,
           file2Data,
         },
-        { prisma, mixpanel }: Context
+        { prisma, mixpanel, currentUser }: Context
       ) => {
         console.info(
           "Create Post",
-          creatorId,
           interestId,
           contentType,
           title,
@@ -79,13 +76,7 @@ export const CreatePostMutation = extendType({
 
         // more than 5 posts in selected interst
         if (interest && interest?.posts?.length > 5) {
-          const creator = await prisma.user.findFirst({
-            where: {
-              id: creatorId,
-            },
-          });
-
-          const newCredit = (creator?.credit as number) - 3;
+          const newCredit = (currentUser?.credit as number) - 3;
 
           if (newCredit < 0) {
             throw Error("Not enough Credits");
@@ -93,7 +84,7 @@ export const CreatePostMutation = extendType({
 
           await prisma.user.update({
             where: {
-              id: creatorId,
+              id: currentUser.id,
             },
             data: {
               credit: newCredit,
@@ -162,7 +153,7 @@ export const CreatePostMutation = extendType({
             },
             creator: {
               connect: {
-                id: creatorId,
+                id: currentUser.id,
               },
             },
           },

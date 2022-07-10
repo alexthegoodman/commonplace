@@ -2,7 +2,6 @@ import { gql } from "graphql-request";
 
 export const createPostMutation = gql`
   mutation CreatePost(
-    $creatorId: String!
     $interestId: String!
     $contentType: String!
     $title: String!
@@ -18,7 +17,6 @@ export const createPostMutation = gql`
     $file2Data: String
   ) {
     createPost(
-      creatorId: $creatorId
       interestId: $interestId
       contentType: $contentType
       title: $title

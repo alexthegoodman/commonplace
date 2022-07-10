@@ -1259,7 +1259,6 @@ export interface NexusGenArgTypes {
     }
     createPost: { // args
       contentType: string; // String!
-      creatorId: string; // String!
       description: string; // String!
       file1Data?: string | null; // String
       file1Name?: string | null; // String
