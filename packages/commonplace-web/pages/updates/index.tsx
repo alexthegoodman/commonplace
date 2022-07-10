@@ -117,7 +117,7 @@ export async function getServerSideProps(context) {
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
   const token = cookieData.coUserToken;
 
-  console.info("coUserId", token);
+  console.info("token", token);
 
   const userThreadData = await getUserThreadData(token);
 

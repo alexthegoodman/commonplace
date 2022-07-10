@@ -151,7 +151,7 @@ export async function getServerSideProps(context) {
 
   const { threadId } = context.query;
 
-  console.info("coUserId threadId", token, threadId);
+  console.info("token threadId", token, threadId);
 
   const threadData = await getUserAndThreadData(token, threadId);
 
