@@ -9,7 +9,6 @@ const prisma = new PrismaClient();
 export const server = new ApolloServer({
   schema,
   context: async ({ req, res }) => {
-    // TODO: verify jwt?
     const tokenHeaderKey = process.env.TOKEN_HEADER_KEY as string;
     const jwtSecretKey = process.env.JWT_SECRET_KEY;
     let currentUser;
