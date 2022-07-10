@@ -53,12 +53,17 @@ export const AuthenticateQuery = extendType({
 
         utilities.logs.write(["Authenticate user", user]);
 
-        // TODO: encrypt with JWT
         // TODO: set secure cookie tied to origin
 
         mixpanel.track("Sign In - Complete");
 
-        return user.id;
+        const data = {
+          userId: user.id,
+        };
+
+        const token = utilities.helpers.createJWT(data);
+
+        return token;
       },
     });
   },

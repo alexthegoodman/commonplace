@@ -59,7 +59,13 @@ export const RegisterUserQuery = extendType({
 
         mixpanel.track("Sign Up - Complete");
 
-        return user.id;
+        const data = {
+          userId: user.id,
+        };
+
+        const token = utilities.helpers.createJWT(data);
+
+        return token;
       },
     });
   },

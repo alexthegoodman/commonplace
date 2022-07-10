@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import jwt from "jsonwebtoken";
 import { cloudfrontUrl } from "../../commonplace-web/def/urls";
 export default class Helpers {
   constructor() {}
@@ -36,6 +37,21 @@ export default class Helpers {
   createAuthHeader(str) {
     const authPayload = Buffer.from(`${str}`, "utf8").toString("base64");
     return `Basic ${authPayload}`;
+  }
+
+  createJWT(data) {
+    const jwtSecretKey = process.env.JWT_SECRET_KEY;
+    const jwtData = {
+      time: Date(),
+      ...data,
+    };
+    const jwtOptions = {
+      expiresIn: "7d",
+    };
+
+    const token = jwt.sign(jwtData, jwtSecretKey, jwtOptions);
+
+    return token;
   }
 
   emailToUsername(email) {

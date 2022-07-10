@@ -24,7 +24,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
   const router = useRouter();
 
-  const [cookies, setCookie, removeCookie] = useCookies(["coUserId"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["coUserToken"]);
   const [formErrorMessage, setFormErrorMessage] = React.useState("");
 
   console.info("cookies", cookies);
@@ -39,7 +39,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
     console.log("onSubmit", data);
 
     try {
-      var userIdData, userId;
+      var userIdData, token;
 
       const authorizationHeader = utilities.helpers.createAuthHeader(
         `${data.email}:${data.password}`
@@ -57,7 +57,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
           }
         );
 
-        userId = userIdData.authenticate;
+        token = userIdData.authenticate;
       } else if (type === "sign-up") {
         mixpanel.track("Sign Up - Attempt");
 
@@ -70,7 +70,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
           }
         );
 
-        userId = userIdData.registerUser;
+        token = userIdData.registerUser;
       }
 
       const expireCookie = DateTime.now()
@@ -79,9 +79,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
         .toUTC()
         .toJSDate();
 
-      console.info("userId", userId, expireCookie);
+      console.info("token", token, expireCookie);
 
-      setCookie("coUserId", userId, {
+      setCookie("coUserToken", token, {
         sameSite: "strict",
         domain: cpDomain,
         expires: expireCookie,
