@@ -76,8 +76,40 @@ export const threadQuery = gql`
     $orderMessagesBy: [MessageOrderByWithRelationInput!]
   ) {
     thread(where: $where) {
-      ...ThreadFieldsFragment
+      id
+      repliesAllowed
+      users {
+        name
+        chosenUsername
+      }
+      readHistory {
+        name
+        content
+        createdAt
+      }
+      messages(orderBy: $orderMessagesBy) {
+        user {
+          name
+          email
+          chosenUsername
+          profileImage
+        }
+        post {
+          title
+          contentType
+          contentPreview
+          content
+        }
+        id
+        type
+        content
+
+        createdAt
+        updatedAt
+      }
+
+      createdAt
+      updatedAt
     }
   }
-  ${ThreadFieldsFragment}
 `;
