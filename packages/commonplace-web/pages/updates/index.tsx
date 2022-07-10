@@ -119,6 +119,15 @@ export async function getServerSideProps(context) {
 
   console.info("token", token);
 
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+
   const userThreadData = await getUserThreadData(token);
 
   console.info("getServerSideProps", userThreadData);

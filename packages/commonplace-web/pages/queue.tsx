@@ -373,6 +373,15 @@ export async function getServerSideProps(context) {
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
   const token = cookieData.coUserToken;
 
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+
   const returnData = await getPostsAndUserData(token);
 
   console.info("getServerSideProps", returnData);
