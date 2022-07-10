@@ -28,48 +28,36 @@ import { InterestsContent } from "./interests";
 import { NextSeo } from "next-seo";
 import BrandName from "../components/BrandName/BrandName";
 
-const getPostsAndUserData = async (userId, interestId = null) => {
-  const userData = await request(cpGraphqlUrl, userQuery, {
-    id: userId,
-  });
+const getPostsAndUserData = async (token, interestId = null) => {
+  const userData = await request(
+    cpGraphqlUrl,
+    userQuery,
+    {},
+    {
+      commonplace_jwt_header: token,
+    }
+  );
 
-  let addtPostFilter = {};
+  // let addtPostFilter = {};
 
-  if (interestId) {
-    addtPostFilter = {
-      interestId: {
-        equals: interestId,
-      },
-    };
-  }
+  // if (interestId) {
+  //   addtPostFilter = {
+  //     interestId: {
+  //       equals: interestId,
+  //     },
+  //   };
+  // }
 
-  const postsData = await request(cpGraphqlUrl, postsQuery, {
-    where: {
-      // NOT currentUser's posts
-      creatorId: {
-        not: {
-          equals: userId,
-        },
-      },
-      // NOT posts with impression from currentUser
-      messages: {
-        none: {
-          user: {
-            id: {
-              equals: userId,
-            },
-          },
-          type: {
-            equals: "impression",
-          },
-        },
-      },
-      ...addtPostFilter,
+  const postsData = await request(
+    cpGraphqlUrl,
+    queuePostsQuery,
+    {
+      interestId,
     },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+    {
+      commonplace_jwt_header: token,
+    }
+  );
 
   const userThreadData = await getUserThreadData(userId);
 
@@ -88,14 +76,14 @@ const getPostsAndUserData = async (userId, interestId = null) => {
 };
 
 const QueueContent = () => {
-  const [cookies] = useCookies(["coUserId"]);
-  const userId = cookies.coUserId;
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
 
   const [selectedInterest, setSelectedInterest] = useState<any>(null);
 
   const { data, mutate } = useSWR(
     "queueKey",
-    () => getPostsAndUserData(userId, selectedInterest?.id),
+    () => getPostsAndUserData(token, selectedInterest?.id),
     {
       revalidateIfStale: true,
       revalidateOnFocus: true,
@@ -269,7 +257,7 @@ const QueueContent = () => {
 
     setShowInterestsModal(false);
     setSelectedInterest(interest);
-    mutate(() => getPostsAndUserData(userId, selectedInterest?.id)); // refresh swrr
+    mutate(() => getPostsAndUserData(token, selectedInterest?.id)); // refresh swrr
 
     // await postAnimation.start((i) => ({
     //   opacity: 1,
@@ -373,9 +361,9 @@ export default Queue;
 export async function getServerSideProps(context) {
   const utilities = new Utilities();
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
-  const userId = cookieData.coUserId;
+  const token = cookieData.coUserToken;
 
-  const returnData = await getPostsAndUserData(userId);
+  const returnData = await getPostsAndUserData(token);
 
   console.info("getServerSideProps", returnData);
 
