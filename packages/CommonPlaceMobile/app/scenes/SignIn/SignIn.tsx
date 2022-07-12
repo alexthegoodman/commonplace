@@ -5,6 +5,7 @@ import {
   StatusBar,
   Text,
 } from 'react-native';
+import AuthForm from '../../components/AuthForm/AuthForm';
 import InlineHeader from '../../components/InlineHeader/InlineHeader';
 
 const SignIn = () => {
@@ -13,7 +14,7 @@ const SignIn = () => {
       <StatusBar barStyle={'light-content'} />
       <KeyboardAvoidingView>
         <InlineHeader title="Sign In" />
-        <Text>Sign In</Text>
+        <AuthForm />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
