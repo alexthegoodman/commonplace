@@ -1,9 +1,11 @@
 import React from 'react';
-import {Button, Text, View} from 'react-native';
+import {Button, Pressable, Text, TouchableHighlight, View} from 'react-native';
 import {useForm} from 'react-hook-form';
 
 import AuthFormStyles from './AuthForm.scss';
+import FormStyles from '../../../styles/forms.scss';
 import FormTextInput from '../FormTextInput/FormTextInput';
+import CircleButton from '../CircleButton/CircleButton';
 
 const AuthForm = () => {
   const {
@@ -19,7 +21,7 @@ const AuthForm = () => {
   const onSubmit = data => console.log(data);
 
   return (
-    <View>
+    <View style={FormStyles.form}>
       <FormTextInput
         name="email"
         placeholder="Email"
@@ -33,7 +35,7 @@ const AuthForm = () => {
         control={control}
         errors={errors}
       />
-      <Button title="Go" onPress={handleSubmit(onSubmit)} />
+      <CircleButton onPress={handleSubmit(onSubmit)} />
     </View>
   );
 };

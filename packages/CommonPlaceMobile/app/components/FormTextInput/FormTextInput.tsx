@@ -18,13 +18,15 @@ const FormTextInput = ({
           required: true,
         }}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
-            style={{}}
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            {...props}
-          />
+          <View style={FormTextInputStyles.textInputWrapper}>
+            <TextInput
+              style={FormTextInputStyles.textInput}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              {...props}
+            />
+          </View>
         )}
         name={name}
       />
