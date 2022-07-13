@@ -18,13 +18,13 @@ const SignIn = ({navigation}) => {
     <SafeAreaView>
       <StatusBar barStyle={'light-content'} />
       <KeyboardAvoidingView>
-        <InlineHeader title="Sign In" />
-        <AuthForm type="sign-in" />
+        <InlineHeader title="Sign Up" />
+        <AuthForm type="sign-up" />
         <View style={{...TextStyles.inlineText, marginTop: 25}}>
           <Text style={TextStyles.mediumText}>Or you may </Text>
           <TextLink
-            onPress={() => navigation.navigate('sign-up')}
-            text="Sign Up"
+            onPress={() => navigation.navigate('sign-in')}
+            text="Sign In"
           />
         </View>
       </KeyboardAvoidingView>

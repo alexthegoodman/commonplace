@@ -1,0 +1,17 @@
+@import './variables';
+
+.inlineText {
+  width: 80%;
+  margin: 0 auto;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.mediumText {
+  font-size: 18px;
+}
+
+.linkText {
+  color: $lightBlue;
+  font-style: italic;
+}
