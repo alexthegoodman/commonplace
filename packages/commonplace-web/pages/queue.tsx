@@ -115,7 +115,7 @@ const QueueContent = () => {
   const [queueFinished, setQueueFinished] = useState(firstId ? false : true);
   const [currentImpression, setCurrentImpression] = useState("");
   const [showInterestsModal, setShowInterestsModal] = useState(false);
-  const [creditUi, setCreditUi] = useState(data?.currentUser?.getUser?.credit);
+  const [creditUi, setCreditUi] = useState(data?.currentUser?.credit);
 
   const postAnimation = useAnimation();
   const betweenPostAnimation = useAnimation();
@@ -219,7 +219,7 @@ const QueueContent = () => {
 
     setQueuePostId(nextPostId);
     // TODO: send impression message
-    const currentUserEmail = data?.currentUser?.getUser?.email;
+    const currentUserEmail = data?.currentUser?.email;
     const postCreatorEmail = currentPost?.creator?.email;
 
     const savedImpression = await request(cpGraphqlUrl, createMessageMutation, {
