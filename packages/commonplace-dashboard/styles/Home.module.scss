@@ -9,4 +9,16 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  min-height: 400px;
+}
+
+.kpiStat {
+  font-size: 28px;
+  margin-right: 50px;
+
+  span {
+    font-size: 48px;
+    display: block;
+    text-align: center;
+  }
 }

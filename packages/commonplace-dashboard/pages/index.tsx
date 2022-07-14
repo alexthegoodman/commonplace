@@ -63,7 +63,9 @@ const Home: NextPage = () => {
       <div className="container">
         <section className="leftColumn">
           <section className="kpi dau">
-            <div className="dauDaily">{dauData?.dau} DAU</div>
+            <div className="kpiStat">
+              <span>{dauData?.dau}</span> DAU
+            </div>
             {dauMonthlyData ? (
               <LineViz title="DAU Monthly" analysisData={dauMonthlyData} />
             ) : (
@@ -72,7 +74,9 @@ const Home: NextPage = () => {
           </section>
 
           <section className="kpi mau">
-            <div className="mauDaily">{mauData?.mau} MAU</div>
+            <div className="kpiStat">
+              <span>{mauData?.mau}</span> MAU
+            </div>
             {mauYearlyData ? (
               <LineViz title="MAU Yearly" analysisData={mauYearlyData} />
             ) : (
@@ -83,7 +87,9 @@ const Home: NextPage = () => {
 
         <section className="rightColumn">
           <section className="kpi">
-            <div className="">{totalPostsData?.totalPosts} Total Posts</div>
+            <div className="kpiStat">
+              <span>{totalPostsData?.totalPosts}</span> Total Posts
+            </div>
             {totalPostsByInterestData ? (
               <PieViz
                 analysisData={totalPostsByInterestData?.postsByInterest}
@@ -93,18 +99,23 @@ const Home: NextPage = () => {
             )}
           </section>
 
-          <BarViz
-            analysisData={[
-              {
-                title: "Title 1",
-                value: 2,
-              },
-              {
-                title: "Title 2",
-                value: 5,
-              },
-            ]}
-          />
+          <section className="kpi">
+            <div className="kpiStat">
+              <span></span>Daily Impressions
+            </div>
+            <BarViz
+              analysisData={[
+                {
+                  title: "Title 1",
+                  value: 2,
+                },
+                {
+                  title: "Title 2",
+                  value: 5,
+                },
+              ]}
+            />
+          </section>
         </section>
       </div>
     </>
