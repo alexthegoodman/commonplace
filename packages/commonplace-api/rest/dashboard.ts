@@ -175,7 +175,7 @@ export const dashboardRoutes = (app) => {
       console.info("key", key);
       const set = getUniquePropertyOfArray(impressionsByDate[key], "userId");
       const mau = set.size;
-      const mauDate = { date: key, mau };
+      const mauDate = { date: key, value: mau };
       dauByDate.push(mauDate);
     });
 
@@ -219,13 +219,13 @@ export const dashboardRoutes = (app) => {
       });
 
       if (itemExists < 0) {
-        postsByInterest.push({ label: post.interest.name, count: 1 });
+        postsByInterest.push({ label: post.interest.name, value: 1 });
       } else {
         const deletedItem = postsByInterest.splice(itemExists, 1);
 
         postsByInterest.push({
           label: post.interest.name,
-          count: deletedItem[0].count + 1,
+          value: deletedItem[0].value + 1,
         });
       }
     });

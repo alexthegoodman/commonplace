@@ -29,7 +29,7 @@ const PieViz = ({ analysisData = null }: PieVizProps) => {
 
   // color scales
   const getLetterFrequencyColor = scaleOrdinal({
-    domain: analysisData.map((l: any) => l.letter),
+    domain: analysisData.map((l: any) => l.label),
     range: [
       "rgba(93,30,91,1)",
       "rgba(93,30,91,0.8)",
@@ -63,10 +63,8 @@ const PieViz = ({ analysisData = null }: PieVizProps) => {
             <AnimatedPie
               {...pie}
               animate={false}
-              getKey={({ data: { letter } }) => letter}
-              getColor={({ data: { letter } }) =>
-                getLetterFrequencyColor(letter)
-              }
+              getKey={({ data: { label } }) => label}
+              getColor={({ data: { label } }) => getLetterFrequencyColor(label)}
             />
           )}
         </Pie>

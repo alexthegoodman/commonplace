@@ -22,6 +22,12 @@ const Home: NextPage = () => {
   const [dauData, setDauData] = useState();
   const [dauMonthlyData, setDauMonthlyData] = useState();
 
+  const [mauData, setMauData] = useState();
+  const [mauYearlyData, setMauYearlyData] = useState();
+
+  const [totalPostsData, setTotalPostsData] = useState();
+  const [totalPostsByInterestData, setTotalPostsByInterestData] = useState();
+
   useEffect(() => {
     instance.get("/dau").then((response) => {
       console.info("/dau", response);
@@ -30,6 +36,24 @@ const Home: NextPage = () => {
     instance.get("/dau/monthly").then((response) => {
       console.info("/dau/monthly", response);
       setDauMonthlyData(response.data);
+    });
+
+    instance.get("/mau").then((response) => {
+      console.info("/mau", response);
+      setMauData(response.data);
+    });
+    instance.get("/mau/yearly").then((response) => {
+      console.info("/mau/yearly", response);
+      setMauYearlyData(response.data);
+    });
+
+    instance.get("/total-posts").then((response) => {
+      console.info("/total-posts", response);
+      setTotalPostsData(response.data);
+    });
+    instance.get("/total-posts/interest").then((response) => {
+      console.info("/total-posts/interest", response);
+      setTotalPostsByInterestData(response.data);
     });
   }, []);
 
@@ -47,30 +71,28 @@ const Home: NextPage = () => {
             )}
           </section>
 
-          <section className="mau"></section>
+          <section className="kpi mau">
+            <div className="mauDaily">{mauData?.mau} MAU</div>
+            {mauYearlyData ? (
+              <LineViz title="MAU Yearly" analysisData={mauYearlyData} />
+            ) : (
+              <></>
+            )}
+          </section>
         </section>
 
         <section className="rightColumn">
-          <PieViz
-            analysisData={[
-              {
-                letter: "Test",
-                value: 1,
-              },
-              {
-                letter: "Test 2",
-                value: 2,
-              },
-              {
-                letter: "Test 3",
-                value: 3,
-              },
-              {
-                letter: "Test 4",
-                value: 5,
-              },
-            ]}
-          />
+          <section className="kpi">
+            <div className="">{totalPostsData?.totalPosts} Total Posts</div>
+            {totalPostsByInterestData ? (
+              <PieViz
+                analysisData={totalPostsByInterestData?.postsByInterest}
+              />
+            ) : (
+              <></>
+            )}
+          </section>
+
           <BarViz
             analysisData={[
               {
