@@ -6,7 +6,6 @@ import axios from "axios";
 
 import BarViz from "../components/BarViz/BarViz";
 import LineViz from "../components/LineViz/LineViz";
-import styles from "../styles/Home.module.css";
 import PieViz from "../components/PieViz/PieViz";
 import { useEffect, useState } from "react";
 
@@ -20,9 +19,14 @@ const instance = axios.create({
 });
 
 const Home: NextPage = () => {
+  const [dauData, setDauData] = useState();
   const [dauMonthlyData, setDauMonthlyData] = useState();
 
   useEffect(() => {
+    instance.get("/dau").then((response) => {
+      console.info("/dau", response);
+      setDauData(response.data);
+    });
     instance.get("/dau/monthly").then((response) => {
       console.info("/dau/monthly", response);
       setDauMonthlyData(response.data);
@@ -32,46 +36,54 @@ const Home: NextPage = () => {
   return (
     <>
       <h1>CommonPlace Dashboard</h1>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-      >
-        <BarViz
-          analysisData={[
-            {
-              title: "Title 1",
-              value: 2,
-            },
-            {
-              title: "Title 2",
-              value: 5,
-            },
-          ]}
-        />
-        <LineViz title="DAU Monthly" analysisData={dauMonthlyData} />
-        <PieViz
-          analysisData={[
-            {
-              letter: "Test",
-              value: 1,
-            },
-            {
-              letter: "Test 2",
-              value: 2,
-            },
-            {
-              letter: "Test 3",
-              value: 3,
-            },
-            {
-              letter: "Test 4",
-              value: 5,
-            },
-          ]}
-        />
+      <div className="container">
+        <section className="leftColumn">
+          <section className="kpi dau">
+            <div className="dauDaily">{dauData?.dau} DAU</div>
+            {dauMonthlyData ? (
+              <LineViz title="DAU Monthly" analysisData={dauMonthlyData} />
+            ) : (
+              <></>
+            )}
+          </section>
+
+          <section className="mau"></section>
+        </section>
+
+        <section className="rightColumn">
+          <PieViz
+            analysisData={[
+              {
+                letter: "Test",
+                value: 1,
+              },
+              {
+                letter: "Test 2",
+                value: 2,
+              },
+              {
+                letter: "Test 3",
+                value: 3,
+              },
+              {
+                letter: "Test 4",
+                value: 5,
+              },
+            ]}
+          />
+          <BarViz
+            analysisData={[
+              {
+                title: "Title 1",
+                value: 2,
+              },
+              {
+                title: "Title 2",
+                value: 5,
+              },
+            ]}
+          />
+        </section>
       </div>
     </>
   );
