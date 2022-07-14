@@ -182,13 +182,55 @@ export const dashboardRoutes = (app) => {
     res.send(dauByDate);
   });
 
-  app.get("/dashboard/total-posts", (req, res) => {
+  app.get("/dashboard/total-posts", async (req, res) => {
     // count all posts from database
+    const totalPosts = await prisma.post.count({
+      where: {
+        id: {
+          not: "",
+        },
+      },
+    });
+
+    res.send({ totalPosts });
   });
 
-  app.get("/dashboard/total-posts/interest", (req, res) => {
-    // count all posts from database
+  app.get("/dashboard/total-posts/interest", async (req, res) => {
+    // get all posts from database
     // categorize by unique interest
+
+    const allPosts = await prisma.post.findMany({
+      where: {
+        id: {
+          not: "",
+        },
+      },
+      include: {
+        interest: true,
+      },
+    });
+
+    console.info("allPosts", allPosts);
+
+    const postsByInterest = []; // { label: "", count: 0 }
+    allPosts.forEach((post) => {
+      const itemExists = postsByInterest.findIndex((item) => {
+        return item.label === post.interest.name;
+      });
+
+      if (itemExists < 0) {
+        postsByInterest.push({ label: post.interest.name, count: 1 });
+      } else {
+        const deletedItem = postsByInterest.splice(itemExists, 1);
+
+        postsByInterest.push({
+          label: post.interest.name,
+          count: deletedItem[0].count + 1,
+        });
+      }
+    });
+
+    res.send({ postsByInterest });
   });
 
   app.get("/dashboard/daily-impressions", (req, res) => {
