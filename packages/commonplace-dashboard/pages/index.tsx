@@ -1,13 +1,34 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { DateTime } from "luxon";
+import axios from "axios";
+
 import BarViz from "../components/BarViz/BarViz";
 import LineViz from "../components/LineViz/LineViz";
 import styles from "../styles/Home.module.css";
-import { DateTime } from "luxon";
 import PieViz from "../components/PieViz/PieViz";
+import { useEffect, useState } from "react";
+
+const instance = axios.create({
+  baseURL: "http://localhost:3001/dashboard",
+  // TODO: auth
+  // headers: {
+  //   Authorization:
+  //     "Basic ",
+  // },
+});
 
 const Home: NextPage = () => {
+  const [dauMonthlyData, setDauMonthlyData] = useState();
+
+  useEffect(() => {
+    instance.get("/dau/monthly").then((response) => {
+      console.info("/dau/monthly", response);
+      setDauMonthlyData(response.data);
+    });
+  }, []);
+
   return (
     <>
       <h1>CommonPlace Dashboard</h1>
@@ -30,26 +51,7 @@ const Home: NextPage = () => {
             },
           ]}
         />
-        <LineViz
-          analysisData={[
-            {
-              date: DateTime.now().toISO(),
-              value: 3,
-            },
-            {
-              date: DateTime.now().plus({ days: 1 }).toISO(),
-              value: 7,
-            },
-            {
-              date: DateTime.now().plus({ days: 2 }).toISO(),
-              value: 5,
-            },
-            {
-              date: DateTime.now().plus({ days: 3 }).toISO(),
-              value: 9,
-            },
-          ]}
-        />
+        <LineViz title="DAU Monthly" analysisData={dauMonthlyData} />
         <PieViz
           analysisData={[
             {

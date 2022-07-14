@@ -13,6 +13,8 @@ export const dashboardRoutes = (app) => {
     },
   });
 
+  // TODO: protect routes
+
   app.set("json spaces", 2);
 
   app.get("/dashboard/events", (req, res) => {
@@ -111,7 +113,7 @@ export const dashboardRoutes = (app) => {
       console.info("key", key);
       const set = getUniquePropertyOfArray(impressionsByDate[key], "userId");
       const dau = set.size;
-      const dauDate = { date: key, dau };
+      const dauDate = { date: key, value: dau };
       dauByDate.push(dauDate);
     });
 
