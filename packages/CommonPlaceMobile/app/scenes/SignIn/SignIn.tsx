@@ -12,6 +12,7 @@ import InlineHeader from '../../components/InlineHeader/InlineHeader';
 
 import TextStyles from '../../../styles/text.scss';
 import TextLink from '../../components/TextLink/TextLink';
+import {ApolloConsumer} from '@apollo/client';
 
 const SignIn = ({navigation}) => {
   return (
@@ -19,7 +20,9 @@ const SignIn = ({navigation}) => {
       <StatusBar barStyle={'light-content'} />
       <KeyboardAvoidingView>
         <InlineHeader title="Sign In" />
-        <AuthForm type="sign-in" />
+        <ApolloConsumer>
+          {client => <AuthForm type="sign-in" client={client} />}
+        </ApolloConsumer>
         <View style={{...TextStyles.inlineText, marginTop: 25}}>
           <Text style={TextStyles.mediumText}>Or you may </Text>
           <TextLink
