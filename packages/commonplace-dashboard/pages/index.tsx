@@ -19,6 +19,8 @@ const instance = axios.create({
 });
 
 const Home: NextPage = () => {
+  const [totalUsersData, setTotalUsersData] = useState();
+
   const [dauData, setDauData] = useState();
   const [dauMonthlyData, setDauMonthlyData] = useState();
 
@@ -29,6 +31,11 @@ const Home: NextPage = () => {
   const [totalPostsByInterestData, setTotalPostsByInterestData] = useState();
 
   useEffect(() => {
+    instance.get("/total-users").then((response) => {
+      console.info("/total-users", response);
+      setTotalUsersData(response.data);
+    });
+
     instance.get("/dau").then((response) => {
       console.info("/dau", response);
       setDauData(response.data);
@@ -59,7 +66,15 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <h1>CommonPlace Dashboard</h1>
+      <header className="header">
+        <div className="headerInner">
+          <h1>CommonPlace Dashboard</h1>
+          <div className="headerKpi">
+            <span>{totalUsersData?.totalUsers} Total Users</span>
+          </div>
+        </div>
+      </header>
+
       <div className="container">
         <section className="leftColumn">
           <section className="kpi dau">

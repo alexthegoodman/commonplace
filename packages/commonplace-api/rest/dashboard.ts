@@ -54,6 +54,18 @@ export const dashboardRoutes = (app) => {
     return set;
   };
 
+  app.get("/dashboard/total-users", async (req, res) => {
+    const totalUsers = await prisma.user.count({
+      where: {
+        id: {
+          not: "",
+        },
+      },
+    });
+
+    res.send({ totalUsers });
+  });
+
   app.get("/dashboard/dau", async (req, res) => {
     // get impressions over last 24 hours
     // find total unique users

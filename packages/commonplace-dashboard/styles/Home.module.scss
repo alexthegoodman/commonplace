@@ -1,3 +1,19 @@
+.header {
+  .headerInner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 25px;
+
+    h1 {
+      margin: 0;
+    }
+    .headerKpi {
+      font-size: 24px;
+    }
+  }
+}
+
 .container {
   display: flex;
   flex-direction: row;
