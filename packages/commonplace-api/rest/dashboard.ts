@@ -158,14 +158,14 @@ export const dashboardRoutes = (app) => {
     // count total records per month
 
     const today = DateTime.now().toISO();
-    const lastMonth = DateTime.now().minus({ months: 1 }).toISO();
+    const lastYear = DateTime.now().minus({ years: 1 }).toISO();
 
     const totalImpressions = await prisma.message.findMany({
       where: {
         type: "impression",
         createdAt: {
           lte: today,
-          gt: lastMonth,
+          gt: lastYear,
         },
       },
     });
@@ -174,6 +174,8 @@ export const dashboardRoutes = (app) => {
     totalImpressions.forEach((impression, i) => {
       const jsDate = new Date(impression.createdAt);
       const impressionDate = DateTime.fromJSDate(jsDate).toFormat("yyyy-MM");
+
+      console.info("impression", impression, impressionDate);
 
       if (typeof impressionsByDate[impressionDate] === "undefined") {
         impressionsByDate[impressionDate] = [];
