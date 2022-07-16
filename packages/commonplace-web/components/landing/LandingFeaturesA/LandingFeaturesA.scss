@@ -1,0 +1,122 @@
+.landingFeatures {
+  background: #f6f6f6;
+
+  .contain {
+    width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 50px;
+
+    .info {
+      padding: 100px 0;
+      width: 860px;
+      margin: 0 auto;
+
+      h2 {
+        margin: 0;
+        padding: 0;
+        color: #4a4a4a;
+        font-family: "Playfair Display", serif;
+        font-size: 48px;
+        font-style: normal;
+        font-weight: bold;
+        line-height: 125%;
+        letter-spacing: normal;
+        text-align: center;
+        margin-bottom: 45px;
+      }
+      p {
+        padding: 0px 9px 9px;
+        line-height: 150%;
+        word-break: break-word;
+        flex-flow: column;
+        color: #686868;
+        font-family: "Playfair Display", serif;
+        font-size: 22px;
+        text-align: center;
+      }
+    }
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-column-gap: 35px;
+
+      .feature {
+        .featureContain {
+          img {
+            display: block;
+            max-width: 100%;
+            margin-bottom: 15px;
+          }
+          span {
+            margin: 0;
+            padding: 0;
+            color: #2a2a2a;
+            font-family: "Playfair Display", serif;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: bold;
+            line-height: 200%;
+            letter-spacing: normal;
+            text-align: center;
+            display: block;
+          }
+          p {
+            padding: 0px 9px;
+            font-size: 18px;
+            text-align: center;
+            word-break: break-word;
+            flex-flow: column;
+            color: #686868;
+            font-family: "Playfair Display", serif;
+            line-height: 150%;
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1000px) {
+    .contain {
+      width: 100%;
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+  }
+  @media only screen and (max-width: 860px) {
+    .contain {
+      .info {
+        width: 100%;
+      }
+    }
+  }
+  @media only screen and (max-width: 720px) {
+    .contain {
+      .info {
+        h2 {
+          font-size: 30px !important;
+          line-height: 150% !important;
+        }
+        p {
+          font-size: 16px !important;
+          line-height: 150% !important;
+        }
+      }
+      .features {
+        display: block;
+
+        .feature {
+          margin-bottom: 25px;
+
+          span {
+            font-size: 20px !important;
+            line-height: 200% !important;
+          }
+          p {
+            font-size: 16px !important;
+            line-height: 150% !important;
+          }
+        }
+      }
+    }
+  }
+}

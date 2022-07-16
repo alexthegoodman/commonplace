@@ -1,0 +1,13 @@
+/** Variables **/
+
+/** Component Imports **/
+@import "../components/landing/LandingBlockA/LandingBlockA";
+@import "../components/landing/LandingFeaturesA/LandingFeaturesA";
+@import "../components/landing/LandingHeroA/LandingHeroA";
+
+/** Page Styles **/
+.landingContainer {
+  overflow-y: scroll;
+  height: 100vh;
+  width: 100vw;
+}

@@ -114,7 +114,7 @@ const Home: NextPage = () => {
             )}
           </section>
 
-          <section className="kpi">
+          {/* <section className="kpi">
             <div className="kpiStat">
               <span></span>Daily Impressions
             </div>
@@ -130,7 +130,7 @@ const Home: NextPage = () => {
                 },
               ]}
             />
-          </section>
+          </section> */}
         </section>
       </div>
     </>

@@ -96,6 +96,13 @@ main {
   overflow: scroll;
 }
 
+@media screen and (min-width: $desktopWidth) {
+  .scrollContainer {
+    width: $desktopWidth;
+    margin: 0 auto;
+  }
+}
+
 .fullscreenMessage {
   position: absolute;
   width: 100%;
@@ -123,5 +130,6 @@ main {
 @import "./Interests.module";
 @import "./SignInSignUp.module";
 @import "./Settings.module";
+@import "./Landing.module";
 
 @import "../components/PopupModal/PopupModal";

@@ -2,6 +2,8 @@
   section.impressionGridWrapper {
     width: $desktopWidth - 80px;
     margin-left: 40px;
+    margin: 0 auto;
+    position: relative;
   }
 }
 
@@ -96,7 +98,7 @@
 }
 
 .queueScrollContainer {
-  height: calc(100vh - 210px);
+  height: calc(100vh - 280px);
 }
 
 .grid {

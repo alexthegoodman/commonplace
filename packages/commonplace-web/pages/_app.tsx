@@ -27,11 +27,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   `;
 
   return (
-    <section className="globalContainer">
+    <>
+      {/* <section className="globalContainer"> */}
       <Script dangerouslySetInnerHTML={{ __html: initializeFacebookSDK }} />
       <Script async defer src="https://connect.facebook.net/en_US/sdk.js" />
       <Component {...pageProps} />
-    </section>
+      {/* </section> */}
+    </>
   );
 }
 
