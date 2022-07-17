@@ -6,6 +6,16 @@
 @import "../components/ProfilePost/ProfilePost";
 
 /** Page Styles **/
+@media screen and (min-width: $desktopWidth) {
+  .profile {
+    .profileInner {
+      .scrollContainer {
+        top: -75px;
+      }
+    }
+  }
+}
+
 .profile {
   // background: #e5e5e5;
 
