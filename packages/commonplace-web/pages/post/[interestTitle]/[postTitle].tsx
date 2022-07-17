@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import useSWR, { SWRConfig } from "swr";
 import ContentInformation from "../../../components/ContentInformation/ContentInformation";
 import ContentViewer from "../../../components/ContentViewer/ContentViewer";
+import DesktopNavigation from "../../../components/DesktopNavigation/DesktopNavigation";
 import PostImpressions from "../../../components/PostImpressions/PostImpressions";
 import PrimaryHeader from "../../../components/PrimaryHeader/PrimaryHeader";
 import { cpDomain, cpGraphqlUrl } from "../../../def/urls";
@@ -76,9 +77,12 @@ const PostContent = ({ data }) => {
         <PrimaryHeader
           inline={true}
           leftIcon={
-            <a onClick={goBack}>
-              <div className="typcn typcn-arrow-left"></div>
-            </a>
+            <>
+              <DesktopNavigation />
+              <a className="mobileOnly" onClick={goBack}>
+                <div className="typcn typcn-arrow-left"></div>
+              </a>
+            </>
           }
           title={`Creation`}
           rightIcon={<></>}
