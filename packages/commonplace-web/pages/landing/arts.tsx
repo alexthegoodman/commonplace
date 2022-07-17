@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import * as React from "react";
+import AuthForm from "../../components/AuthForm/AuthForm";
 
 // import SignUpForm from "../../../forms/SignUpForm/SignUpForm";
 import LandingBlockA from "../../components/landing/LandingBlockA/LandingBlockA";
@@ -11,7 +12,9 @@ import LandingHeroA from "../../components/landing/LandingHeroA/LandingHeroA";
 const Arts: NextPage = () => {
   return (
     <main className="landingContainer">
-      <LandingHeroA>{/* <SignUpForm /> */}</LandingHeroA>
+      <LandingHeroA>
+        <AuthForm type="sign-up" />
+      </LandingHeroA>
       <LandingFeaturesA
         features={[
           {

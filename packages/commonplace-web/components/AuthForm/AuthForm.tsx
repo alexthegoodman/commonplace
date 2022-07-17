@@ -122,7 +122,11 @@ const AuthForm: React.FC<AuthFormProps> = ({
         validation={{ required: "Password is required." }}
       />
 
-      <input className="circleButton" type="submit" value="GO" />
+      <input
+        className="circleButton"
+        type="submit"
+        value={type === "sign-in" ? "Sign In" : "Sign Up"}
+      />
     </form>
   );
 };

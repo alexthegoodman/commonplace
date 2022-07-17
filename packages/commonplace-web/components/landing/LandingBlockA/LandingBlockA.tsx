@@ -12,7 +12,7 @@ const LandingBlockA: React.FC<LandingBlockAProps> = ({
     <section className="landingBlock landingBlockA">
       <div className="contain">
         <div className="visual">
-          {/* <img src="/public/img/mailchimp5-small.jpg" /> */}
+          <img src="/landing/mailchimp5-small.jpg" />
         </div>
         <div className="text">
           <div className="textContain">
