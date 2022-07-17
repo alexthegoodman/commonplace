@@ -13,6 +13,7 @@ import { useUnreadThreads } from "../../hooks/useUnreadThreads";
 import { NextSeo } from "next-seo";
 import InviteFriends from "../../components/InviteFriends/InviteFriends";
 import { userQuery } from "../../graphql/queries/user";
+import DesktopNavigation from "../../components/DesktopNavigation/DesktopNavigation";
 
 export const getUserThreadData = async (token) => {
   const userData = await request(
@@ -61,12 +62,15 @@ const UpdatesContent: NextPage = () => {
         <PrimaryHeader
           inline={true}
           leftIcon={
-            <Link href="/queue">
-              <a aria-label="Go Back to Queue">
-                {/* <div className="feather-icon icon-list"></div> */}
-                <i className="typcn typcn-equals"></i>
-              </a>
-            </Link>
+            <>
+              <DesktopNavigation />
+              <Link href="/queue">
+                <a className="mobileOnly" aria-label="Go Back to Queue">
+                  {/* <div className="feather-icon icon-list"></div> */}
+                  <i className="typcn typcn-equals"></i>
+                </a>
+              </Link>
+            </>
           }
           title="Updates"
           rightIcon={<></>}

@@ -12,6 +12,7 @@ import Utilities from "../../commonplace-utilities";
 import { cpDomain, cpGraphqlUrl } from "../def/urls";
 import { NextSeo } from "next-seo";
 import { useImageUrl } from "../hooks/useImageUrl";
+import DesktopNavigation from "../components/DesktopNavigation/DesktopNavigation";
 
 const getUserData = async (token) => {
   const userData = await request(
@@ -55,9 +56,10 @@ export const ProfileContent = ({ data, mutate, usersOwnProfile = false }) => {
           className="whiteHeader"
           leftIcon={
             <>
+              <DesktopNavigation />
               {usersOwnProfile ? (
                 <Link href="/settings">
-                  <a aria-label="Go to Settings">
+                  <a className="mobileOnly" aria-label="Go to Settings">
                     {/* <div className="feather-icon icon-settings"></div> */}
                     <i className="typcn typcn-cog"></i>
                   </a>
@@ -70,7 +72,7 @@ export const ProfileContent = ({ data, mutate, usersOwnProfile = false }) => {
           title={""}
           rightIcon={
             <Link href="/queue">
-              <a aria-label="Go to Queue">
+              <a className="mobileOnly" aria-label="Go to Queue">
                 {/* <div className="feather-icon icon-list"></div> */}
                 <i className="typcn typcn-equals"></i>
               </a>

@@ -294,7 +294,15 @@ const QueueContent = () => {
           <div className="queueInner">
             <NextSeo title={`Queue | CommonPlace`} />
             <PrimaryHeader
-              leftIcon={<BrandName />}
+              leftIcon={
+                <>
+                  <BrandName />
+                  <PrimaryNavigation
+                    className="desktopOnly"
+                    threadCount={unreadThreadCount}
+                  />
+                </>
+              }
               titleComponent={
                 <a
                   className="pickerButton"
@@ -308,7 +316,12 @@ const QueueContent = () => {
                     : selectedInterest?.name}
                 </a>
               }
-              rightIcon={<PrimaryNavigation threadCount={unreadThreadCount} />}
+              rightIcon={
+                <PrimaryNavigation
+                  className="mobileOnly"
+                  threadCount={unreadThreadCount}
+                />
+              }
             />
             <main className="scrollContainer queueScrollContainer">
               {!queueFinished ? (

@@ -100,6 +100,9 @@ main {
   .scrollContainer {
     width: $desktopWidth;
     margin: 0 auto;
+
+    right: -120px;
+    position: relative;
   }
 }
 

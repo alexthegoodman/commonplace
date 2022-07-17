@@ -7,6 +7,7 @@ import { useCookies } from "react-cookie";
 import { FormProvider, useForm } from "react-hook-form";
 import useSWR, { SWRConfig } from "swr";
 import Utilities from "../../commonplace-utilities";
+import DesktopNavigation from "../components/DesktopNavigation/DesktopNavigation";
 import FormInput from "../components/FormInput/FormInput";
 import FormMessage from "../components/FormMessage/FormMessage";
 import FormTextarea from "../components/FormTextarea/FormTextarea";
@@ -192,9 +193,17 @@ const UploadContent = () => {
             <PrimaryHeader
               inline={true}
               leftIcon={
-                <a onClick={goBack} href="#!" aria-label="Go Back">
-                  <i className="typcn typcn-arrow-left"></i>
-                </a>
+                <>
+                  <DesktopNavigation />
+                  <a
+                    className="mobileOnly"
+                    onClick={goBack}
+                    href="#!"
+                    aria-label="Go Back"
+                  >
+                    <i className="typcn typcn-arrow-left"></i>
+                  </a>
+                </>
               }
               title="Upload Creation"
               rightIcon={<></>}

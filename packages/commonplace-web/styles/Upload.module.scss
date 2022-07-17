@@ -3,6 +3,20 @@
 /** Component Imports **/
 @import "../components/StepCounter/StepCounter";
 
+@media screen and (min-width: $desktopWidth) {
+  .upload {
+    .uploadInner {
+      .form,
+      .stepCounter {
+        width: $desktopWidth;
+        margin: 0 auto;
+        position: relative;
+        left: 100px;
+      }
+    }
+  }
+}
+
 /** Page Styles **/
 .upload {
   width: 100%;
@@ -47,6 +61,7 @@
 
         .contentTypePicker {
           width: 100%;
+          max-width: 500px;
 
           .contentTypePickerInner {
             display: grid;

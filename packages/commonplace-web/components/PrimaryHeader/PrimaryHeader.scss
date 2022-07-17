@@ -1,26 +1,54 @@
 @media screen and (min-width: $desktopWidth) {
-  header.primaryHeader {
+  header.primaryHeader,
+  header.primaryHeader.whiteHeader {
     width: $desktopWidth;
     margin: 0 auto;
 
     position: relative;
+    right: -100px;
 
     .primaryHeaderInner {
       .headerIcon {
         // width: auto;
         padding: 0 15px;
 
+        a.navOption {
+          color: #737373;
+
+          &.primaryNavOption {
+            .typcn {
+              color: #737373;
+            }
+          }
+
+          &.current {
+            color: $red;
+
+            .typcn {
+              color: $red;
+            }
+
+            &.primaryNavOption {
+              .typcn {
+                color: $red;
+              }
+            }
+          }
+        }
+
         .brandnameWrapper {
           position: relative;
-          left: -85px;
+          left: -150px;
 
           // left: -150px;
-          // width: auto;
+          width: auto;
           // padding: 0 20px;
 
           .brandname {
             width: 50px;
             text-align: center;
+            width: auto;
+            padding: 0 25px;
           }
         }
       }
