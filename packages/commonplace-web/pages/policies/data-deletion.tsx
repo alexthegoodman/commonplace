@@ -3,11 +3,13 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
 
-const Data: NextPage = () => {
+const DataDeletion: NextPage = () => {
   return (
     <section className="settings">
       <div className="settingsInner">
-        <NextSeo title={`Data Policy | Policies | CommonPlace`} />
+        <NextSeo
+          title={`Data Deletion Instructions | Policies | CommonPlace`}
+        />
         <PrimaryHeader
           inline={true}
           leftIcon={
@@ -18,15 +20,23 @@ const Data: NextPage = () => {
               </a>
             </Link>
           }
-          title="Data Policy"
+          title="Data Deletion Instructions"
           rightIcon={<></>}
         />
         <section className="policyContent">
-          <div className="policyContentInner"></div>
+          <div className="policyContentInner">
+            <p>
+              If you require any data or Facebook-related data to be deleted
+              from our database, this can be done easily by emailing:
+              <a href="mailto:admin@commonplace.social">
+                admin@commonplace.social
+              </a>
+            </p>
+          </div>
         </section>
       </div>
     </section>
   );
 };
 
-export default Data;
+export default DataDeletion;

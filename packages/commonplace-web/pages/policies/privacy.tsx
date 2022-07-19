@@ -3,11 +3,11 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
 
-const Terms: NextPage = () => {
+const Privacy: NextPage = () => {
   return (
     <section className="settings">
       <div className="settingsInner">
-        <NextSeo title={`Terms of Service | Policies | CommonPlace`} />
+        <NextSeo title={`Privacy Policy | Policies | CommonPlace`} />
         <PrimaryHeader
           inline={true}
           leftIcon={
@@ -18,17 +18,15 @@ const Terms: NextPage = () => {
               </a>
             </Link>
           }
-          title="Terms of Service"
+          title="Privacy Policy"
           rightIcon={<></>}
         />
         <section className="policyContent">
-          <div className="policyContentInner">
-            <p>policy information will go here</p>
-          </div>
+          <div className="policyContentInner"></div>
         </section>
       </div>
     </section>
   );
 };
 
-export default Terms;
+export default Privacy;

@@ -1,0 +1,18 @@
+/** Variables **/
+
+/** Component Imports **/
+
+/** Page Styles **/
+.policyContent {
+  padding: 0 25px;
+
+  .policyContentInner {
+    p {
+      line-height: 24px;
+    }
+    ul li,
+    ol li {
+      margin-bottom: 6px;
+    }
+  }
+}
