@@ -3,38 +3,90 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     padding: 25px;
 
+    .headerBrand {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .logo {
+      width: 64px;
+      height: 64px;
+      margin-right: 20px;
+    }
     h1 {
       margin: 0;
+      color: $purple;
+      font-weight: 400;
+
+      strong {
+        font-weight: 700;
+      }
     }
     .headerKpi {
       font-size: 24px;
+      font-weight: 600;
     }
   }
 }
 
 .container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  // display: flex;
+  // flex-direction: row;
+  // justify-content: space-around;
+  padding: 0 25px 25px 25px;
+
+  .containerInner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 20px;
+    column-gap: 20px;
+  }
 }
 
 .kpi {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   min-height: 400px;
+  // width: 50vw;
+  background: #f7f7f7;
+  position: relative;
+}
+
+.kpiTitle {
+  width: 100%;
+  background: #e5e5e5;
+  // border-bottom: 1px #e5e5e5 solid;
+  padding: 15px;
+
+  span {
+    font-weight: 600;
+  }
 }
 
 .kpiStat {
   font-size: 28px;
-  margin-right: 50px;
+  // margin-right: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 
   span {
-    font-size: 48px;
+    font-size: 68px;
+    font-weight: 600;
     display: block;
     text-align: center;
   }
+}
+
+.kpiViz {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }

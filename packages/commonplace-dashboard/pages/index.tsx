@@ -68,7 +68,12 @@ const Home: NextPage = () => {
     <>
       <header className="header">
         <div className="headerInner">
-          <h1>CommonPlace Dashboard</h1>
+          <div className="headerBrand">
+            <img className="logo" src="/logo.png" />
+            <h1>
+              <strong>CommonPlace</strong> Dashboard
+            </h1>
+          </div>
           <div className="headerKpi">
             <span>{totalUsersData?.totalUsers} Total Users</span>
           </div>
@@ -76,42 +81,66 @@ const Home: NextPage = () => {
       </header>
 
       <div className="container">
-        <section className="leftColumn">
+        <div className="containerInner">
           <section className="kpi dau">
-            <div className="kpiStat">
-              <span>{dauData?.dau}</span> DAU
+            <div className="kpiTitle">
+              <span>DAU (Daily Active Users - last 24 hours)</span>
             </div>
-            {dauMonthlyData ? (
-              <LineViz title="DAU Monthly" analysisData={dauMonthlyData} />
-            ) : (
-              <></>
-            )}
+            <div className="kpiStat">
+              <span>{dauData?.dau}</span>
+            </div>
+          </section>
+          <section className="kpi dau">
+            <div className="kpiTitle">
+              <span>DAU Monthly (Daily Active Users by Day)</span>
+            </div>
+            <div className="kpiViz">
+              {dauMonthlyData ? (
+                <LineViz analysisData={dauMonthlyData} />
+              ) : (
+                <></>
+              )}
+            </div>
           </section>
 
           <section className="kpi mau">
-            <div className="kpiStat">
-              <span>{mauData?.mau}</span> MAU
+            <div className="kpiTitle">
+              <span>MAU (Monthly Active Users - last 30 days)</span>
             </div>
-            {mauYearlyData ? (
-              <LineViz title="MAU Yearly" analysisData={mauYearlyData} />
-            ) : (
-              <></>
-            )}
+            <div className="kpiStat">
+              <span>{mauData?.mau}</span>
+            </div>
           </section>
-        </section>
-
-        <section className="rightColumn">
-          <section className="kpi">
-            <div className="kpiStat">
-              <span>{totalPostsData?.totalPosts}</span> Total Posts
+          <section className="kpi mauYearly">
+            <div className="kpiTitle">
+              <span>MAU Yearly (Monthly Active Users by Month)</span>
             </div>
-            {totalPostsByInterestData ? (
-              <PieViz
-                analysisData={totalPostsByInterestData?.postsByInterest}
-              />
-            ) : (
-              <></>
-            )}
+            <div className="kpiViz">
+              {mauYearlyData ? <LineViz analysisData={mauYearlyData} /> : <></>}
+            </div>
+          </section>
+
+          <section className="kpi">
+            <div className="kpiTitle">
+              <span>Total Posts</span>
+            </div>
+            <div className="kpiStat">
+              <span>{totalPostsData?.totalPosts}</span>
+            </div>
+          </section>
+          <section className="kpi">
+            <div className="kpiTitle">
+              <span>Total Posts (by Interest)</span>
+            </div>
+            <div className="kpiViz">
+              {totalPostsByInterestData ? (
+                <PieViz
+                  analysisData={totalPostsByInterestData?.postsByInterest}
+                />
+              ) : (
+                <></>
+              )}
+            </div>
           </section>
 
           {/* <section className="kpi">
@@ -131,7 +160,7 @@ const Home: NextPage = () => {
               ]}
             />
           </section> */}
-        </section>
+        </div>
       </div>
     </>
   );
