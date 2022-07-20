@@ -5,9 +5,9 @@ import styles from './InlineHeader.scss';
 
 const InlineHeader = ({
   title = '',
-  leftComponent = null,
-  rightComponent = null,
-  centerComponent = null,
+  leftComponent = <></>,
+  rightComponent = <></>,
+  centerComponent = <></>,
 }) => {
   return (
     <View style={styles.inlineHeader}>

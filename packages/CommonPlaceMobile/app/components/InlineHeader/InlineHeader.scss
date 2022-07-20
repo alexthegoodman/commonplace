@@ -1,8 +1,9 @@
 .inlineHeader {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  padding: 25px 0;
+  justify-content: space-between;
+  align-content: space-between;
+  padding: 15px;
 }
 
 .headerTitle {

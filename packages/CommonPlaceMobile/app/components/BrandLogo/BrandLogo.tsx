@@ -1,13 +1,16 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 
 import {BrandLogoProps} from './BrandLogo.d';
 import styles from './BrandLogo.scss';
 
 const BrandLogo = ({}: BrandLogoProps) => {
   return (
-    <View>
-      <Text>BrandLogo</Text>
+    <View style={styles.logoWrapper}>
+      <Image
+        style={styles.logo}
+        source={require('../../assets/img/logo-192x192.png')}
+      />
     </View>
   );
 };
