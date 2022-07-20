@@ -25,13 +25,13 @@ const boundsHeightInPixels =
   graphHeightInPixels - graphMarginInPixels.top - graphMarginInPixels.bottom;
 
 // analysisData entity data selectors
-const getXDataEntity = (entity: any) => entity.title;
+const getXDataEntity = (entity: any) => entity.label;
 const getYDataEntity = (entity: any) => entity.value;
 
 const BarViz: React.FC<BarVizProps> = ({ analysisData = null }) => {
   const maxMetricEntity = maxBy(analysisData, getYDataEntity);
   const metricOptions = analysisData.map((dataPoint, i) => {
-    return dataPoint.title;
+    return dataPoint.label;
   });
   const maxMetricYTotal = getYDataEntity(maxMetricEntity);
 

@@ -30,6 +30,10 @@ const Home: NextPage = () => {
   const [totalPostsData, setTotalPostsData] = useState();
   const [totalPostsByInterestData, setTotalPostsByInterestData] = useState();
 
+  const [dailyImpressionsData, setDailyImpressionsData] = useState();
+  const [dailyImpressionsByInterestData, setDailyImpressionsByInterestData] =
+    useState();
+
   useEffect(() => {
     instance.get("/total-users").then((response) => {
       console.info("/total-users", response);
@@ -61,6 +65,15 @@ const Home: NextPage = () => {
     instance.get("/total-posts/interest").then((response) => {
       console.info("/total-posts/interest", response);
       setTotalPostsByInterestData(response.data);
+    });
+
+    instance.get("/daily-impressions").then((response) => {
+      console.info("/daily-impressions", response);
+      setDailyImpressionsData(response.data);
+    });
+    instance.get("/daily-impressions/interest").then((response) => {
+      console.info("/daily-impressions/interest", response);
+      setDailyImpressionsByInterestData(response.data);
     });
   }, []);
 
@@ -97,6 +110,31 @@ const Home: NextPage = () => {
             <div className="kpiViz">
               {dauMonthlyData ? (
                 <LineViz analysisData={dauMonthlyData} />
+              ) : (
+                <></>
+              )}
+            </div>
+          </section>
+
+          <section className="kpi">
+            <div className="kpiTitle">
+              <span>Daily Impressions (Last 24 Hours)</span>
+            </div>
+            <div className="kpiStat">
+              <span>{dailyImpressionsData?.dailyImpressions}</span>
+            </div>
+          </section>
+          <section className="kpi">
+            <div className="kpiTitle">
+              <span>Daily Impressions (Last 24 Hours) (by Interest)</span>
+            </div>
+            <div className="kpiViz">
+              {dailyImpressionsByInterestData ? (
+                <BarViz
+                  analysisData={
+                    dailyImpressionsByInterestData?.impressionsByInterest
+                  }
+                />
               ) : (
                 <></>
               )}
@@ -142,24 +180,6 @@ const Home: NextPage = () => {
               )}
             </div>
           </section>
-
-          {/* <section className="kpi">
-            <div className="kpiStat">
-              <span></span>Daily Impressions
-            </div>
-            <BarViz
-              analysisData={[
-                {
-                  title: "Title 1",
-                  value: 2,
-                },
-                {
-                  title: "Title 2",
-                  value: 5,
-                },
-              ]}
-            />
-          </section> */}
         </div>
       </div>
     </>

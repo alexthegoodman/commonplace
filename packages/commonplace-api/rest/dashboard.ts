@@ -70,7 +70,7 @@ export const dashboardRoutes = (app) => {
     // get impressions over last 24 hours
     // find total unique users
     const today = DateTime.now().toISO();
-    const yesterday = DateTime.now().minus({ days: 1 }).toISO();
+    const yesterday = DateTime.now().minus({ hours: 24 }).toISO();
 
     const totalImpressions = await prisma.message.findMany({
       where: {
@@ -247,13 +247,67 @@ export const dashboardRoutes = (app) => {
     res.send({ postsByInterest });
   });
 
-  app.get("/dashboard/daily-impressions", (req, res) => {
+  app.get("/dashboard/daily-impressions", async (req, res) => {
     // count all impressions over last 24 hours
+    const today = DateTime.now().toISO();
+    const yesterday = DateTime.now().minus({ hours: 24 }).toISO();
+
+    const dailyImpressions = await prisma.message.count({
+      where: {
+        type: "impression",
+        createdAt: {
+          lte: today,
+          gt: yesterday,
+        },
+      },
+    });
+
+    res.send({ dailyImpressions });
   });
 
-  app.get("/dashboard/daily-impressions/interest", (req, res) => {
+  app.get("/dashboard/daily-impressions/interest", async (req, res) => {
     // count all impressions over last 24 hours
     // categorize by unique interest
+    const today = DateTime.now().toISO();
+    const yesterday = DateTime.now().minus({ hours: 24 }).toISO();
+
+    const dailyImpressions = await prisma.message.findMany({
+      where: {
+        type: "impression",
+        createdAt: {
+          lte: today,
+          gt: yesterday,
+        },
+      },
+      include: {
+        post: {
+          include: {
+            interest: true,
+          },
+        },
+      },
+    });
+
+    const impressionsByInterest = []; // { label: "", count: 0 }
+    dailyImpressions.forEach((impression) => {
+      const interestName = impression.post?.interest.name;
+      const itemExists = impressionsByInterest.findIndex((item) => {
+        return item.label === interestName;
+      });
+
+      if (itemExists < 0) {
+        impressionsByInterest.push({ label: interestName, value: 1 });
+      } else {
+        const deletedItem = impressionsByInterest.splice(itemExists, 1);
+
+        impressionsByInterest.push({
+          label: interestName,
+          value: deletedItem[0].value + 1,
+        });
+      }
+    });
+
+    res.send({ impressionsByInterest });
   });
 
   app.get("/dashboard/total-users", (req, res) => {});
