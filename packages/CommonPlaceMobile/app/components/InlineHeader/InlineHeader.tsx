@@ -1,12 +1,25 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-import InlineHeaderStyles from './InlineHeader.scss';
+import styles from './InlineHeader.scss';
 
-const InlineHeader = ({title = ''}) => {
+const InlineHeader = ({
+  title = '',
+  leftComponent = null,
+  rightComponent = null,
+  centerComponent = null,
+}) => {
   return (
-    <View style={InlineHeaderStyles.inlineHeader}>
-      <Text style={InlineHeaderStyles.headerTitle}>{title}</Text>
+    <View style={styles.inlineHeader}>
+      {leftComponent ? <View>{leftComponent}</View> : <></>}
+
+      {centerComponent ? (
+        <View></View>
+      ) : (
+        <Text style={styles.headerTitle}>{title}</Text>
+      )}
+
+      {rightComponent ? <View>{rightComponent}</View> : <></>}
     </View>
   );
 };

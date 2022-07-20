@@ -14,9 +14,11 @@ import FormMessage from '../FormMessage/FormMessage';
 const AuthForm = ({
   type = 'sign-in',
   client = null,
+  navigation = null,
 }: {
   type: string;
   client: ApolloClient<any>;
+  navigation: any;
 }) => {
   const helpers = new Helpers();
 
@@ -63,9 +65,15 @@ const AuthForm = ({
         userIdData.data.authenticate,
       );
 
+      const coUserToken = await EncryptedStorage.getItem('coUserToken');
+
+      // TODO; dispatch token to context upon sign in
+
+      console.info('set token', coUserToken);
       // set via secure storage
       // navigate to queue
       setFormErrorMessage('');
+      navigation.navigate('queue');
     } catch (error: any) {
       // console.error('error', error);
       const errorMessage = error?.graphQLErrors[0].message;

@@ -21,7 +21,9 @@ const SignIn = ({navigation}) => {
       <KeyboardAvoidingView>
         <InlineHeader title="Sign In" />
         <ApolloConsumer>
-          {client => <AuthForm type="sign-in" client={client} />}
+          {client => (
+            <AuthForm type="sign-in" navigation={navigation} client={client} />
+          )}
         </ApolloConsumer>
         <View style={{...TextStyles.inlineText, marginTop: 25}}>
           <Text style={TextStyles.mediumText}>Or you may </Text>
