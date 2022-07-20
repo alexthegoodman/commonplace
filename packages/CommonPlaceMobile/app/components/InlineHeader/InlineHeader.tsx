@@ -14,7 +14,7 @@ const InlineHeader = ({
       {leftComponent ? <View>{leftComponent}</View> : <></>}
 
       {centerComponent ? (
-        <View></View>
+        <View>{centerComponent}</View>
       ) : (
         <Text style={styles.headerTitle}>{title}</Text>
       )}
