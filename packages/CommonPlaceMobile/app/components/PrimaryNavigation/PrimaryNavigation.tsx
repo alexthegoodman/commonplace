@@ -9,7 +9,6 @@ import Messages from '../../../assets/svg/messages.svg';
 import UserOutline from '../../../assets/svg/user-outline.svg';
 
 const PrimaryNavigation = ({}: PrimaryNavigationProps) => {
-  console.info('Plus', Plus);
   return (
     <View>
       <TouchableHighlight style={styles.primaryNavOption}>
