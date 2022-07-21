@@ -9,7 +9,7 @@ const BrandLogo = ({}: BrandLogoProps) => {
     <View style={styles.logoWrapper}>
       <Image
         style={styles.logo}
-        source={require('../../assets/img/logo-192x192.png')}
+        source={require('../../../assets/img/logo-192x192.png')}
       />
     </View>
   );

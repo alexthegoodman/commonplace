@@ -2,7 +2,7 @@ const {getDefaultConfig} = require('metro-config');
 
 module.exports = (async () => {
   const {
-    resolver: {sourceExts},
+    resolver: {sourceExts, assetExts},
   } = await getDefaultConfig();
   return {
     transformer: {
@@ -12,10 +12,11 @@ module.exports = (async () => {
           inlineRequires: true,
         },
       }),
-      babelTransformerPath: require.resolve('react-native-sass-transformer'),
+      babelTransformerPath: require.resolve('./metroTransformer.js'),
     },
     resolver: {
-      sourceExts: [...sourceExts, 'scss', 'sass'],
+      assetExts: assetExts.filter(ext => ext !== 'svg' && ext !== 'scss'),
+      sourceExts: [...sourceExts, 'svg', 'scss', 'sass'],
     },
   };
 })();
