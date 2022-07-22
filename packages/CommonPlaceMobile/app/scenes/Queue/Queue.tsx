@@ -92,6 +92,8 @@ const Queue = ({navigation}) => {
 
   // usePreloadImage(imageUrl);
 
+  const impressionClickHandler = () => {};
+
   if (userLoading || postsLoading) {
     return <></>;
   }
@@ -104,15 +106,18 @@ const Queue = ({navigation}) => {
         centerComponent={<InterestSelector />}
         rightComponent={<PrimaryNavigation />}
       />
-      <ScrollView>
+      <ScrollView style={{position: 'absolute', width: '100%'}}>
         <ContentViewer
           type={currentPost?.contentType}
           preview={currentPost?.contentPreview}
           content={currentPost?.content}
         />
-        <ContentInformation />
+        <ContentInformation post={currentPost} />
       </ScrollView>
-      <ImpressionBoard />
+      <ImpressionBoard
+        creditCount={creditUi}
+        onImpressionClick={impressionClickHandler}
+      />
     </SafeAreaView>
   );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, View} from 'react-native';
+import ImageViewer from '../ImageViewer/ImageViewer';
 
 import {ContentViewerProps} from './ContentViewer.d';
 import styles from './ContentViewer.scss';
@@ -10,8 +11,11 @@ const ContentViewer = ({
   content = '',
 }: ContentViewerProps) => {
   return (
-    <View>
-      <Text>{content}</Text>
+    <View style={styles.contentViewer}>
+      {type === 'image' ? <ImageViewer sourceUrl={content} /> : <></>}
+      {type === 'video' ? <></> : <></>}
+      {type === 'audio' ? <></> : <></>}
+      {type === 'text' ? <></> : <></>}
     </View>
   );
 };

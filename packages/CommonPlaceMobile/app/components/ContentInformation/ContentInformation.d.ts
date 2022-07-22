@@ -1,1 +1,3 @@
-export interface ContentInformationProps {}
+export interface ContentInformationProps {
+  post: any;
+}
