@@ -4,10 +4,14 @@ import {Text, View} from 'react-native';
 import {ContentViewerProps} from './ContentViewer.d';
 import styles from './ContentViewer.scss';
 
-const ContentViewer = ({}: ContentViewerProps) => {
+const ContentViewer = ({
+  type = 'image',
+  preview = '',
+  content = '',
+}: ContentViewerProps) => {
   return (
     <View>
-      <Text>ContentViewer</Text>
+      <Text>{content}</Text>
     </View>
   );
 };

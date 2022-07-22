@@ -1,4 +1,4 @@
-import React, {useState, type PropsWithChildren} from 'react';
+import React, {useEffect, useState, type PropsWithChildren} from 'react';
 import {SafeAreaView, ScrollView, StatusBar} from 'react-native';
 import {useQuery} from '@apollo/client';
 
@@ -13,6 +13,8 @@ import PrimaryNavigation from '../../components/PrimaryNavigation/PrimaryNavigat
 import {userQuery} from '../../graphql/queries/user';
 import {queuePostsQuery} from '../../graphql/queries/post';
 import {userThreadsQuery} from '../../graphql/queries/thread';
+import {useImageUrl} from '../../hooks/useImageUrl';
+import {usePreloadImage} from '../../hooks/usePreloadImage';
 
 const Queue = ({navigation}) => {
   const {
@@ -53,6 +55,47 @@ const Queue = ({navigation}) => {
   const [currentImpression, setCurrentImpression] = useState('');
   const [creditUi, setCreditUi] = useState(userData?.getUser?.credit);
 
+  useEffect(() => {
+    setQueuePostId(firstId);
+    setQueueFinished(firstId ? false : true);
+  }, [firstId]);
+
+  // get currentPost via id
+  const currentPost = postsData?.getQueuePosts?.filter(
+    (post, i) => post.id === queuePostId,
+  )[0];
+
+  const currentPostIndex = postsData?.getQueuePosts.findIndex(
+    (post, x) => post.id === currentPost?.id,
+  );
+
+  console.info('currentPost', queuePostId, currentPost);
+
+  useEffect(() => {
+    if (typeof currentPost?.id === 'undefined') {
+      // reached end of queue
+      setQueueFinished(true);
+    } else {
+      setQueueFinished(false);
+    }
+  }, [currentPostIndex]);
+
+  // preload next image
+  // const nextPost = postsData?.getQueuePosts[currentPostIndex + 1];
+  // const nextPostId = nextPost?.id;
+
+  // const {imageUrl} = useImageUrl(nextPost?.content, {
+  //   width: 800,
+  // });
+
+  // console.info('imageUrl', imageUrl);
+
+  // usePreloadImage(imageUrl);
+
+  if (userLoading || postsLoading) {
+    return <></>;
+  }
+
   return (
     <SafeAreaView>
       <StatusBar barStyle={'light-content'} />
@@ -62,7 +105,11 @@ const Queue = ({navigation}) => {
         rightComponent={<PrimaryNavigation />}
       />
       <ScrollView>
-        <ContentViewer />
+        <ContentViewer
+          type={currentPost?.contentType}
+          preview={currentPost?.contentPreview}
+          content={currentPost?.content}
+        />
         <ContentInformation />
       </ScrollView>
       <ImpressionBoard />
