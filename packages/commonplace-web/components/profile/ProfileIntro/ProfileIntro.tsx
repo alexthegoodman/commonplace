@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useImageUrl } from "../../hooks/useImageUrl";
+import { useImageUrl } from "../../../hooks/useImageUrl";
 
 import { ProfileIntroProps } from "./ProfileIntro.d";
 

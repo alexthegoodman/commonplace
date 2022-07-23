@@ -4,10 +4,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import InterestGrid from "../components/InterestGrid/InterestGrid";
-import InterestPreview from "../components/InterestPreview/InterestPreview";
-import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
-import SearchInput from "../components/SearchInput/SearchInput";
+import InterestGrid from "../components/interests/InterestGrid/InterestGrid";
+import InterestPreview from "../components/interests/InterestPreview/InterestPreview";
+import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
 import { cpGraphqlUrl } from "../def/urls";
 import { categoriesAndInterestsQuery } from "../graphql/queries/interest";
 

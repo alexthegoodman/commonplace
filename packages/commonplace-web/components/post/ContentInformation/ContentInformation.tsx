@@ -1,6 +1,6 @@
 import Link from "next/link";
 import * as React from "react";
-import { useImageUrl } from "../../hooks/useImageUrl";
+import { useImageUrl } from "../../../hooks/useImageUrl";
 const { DateTime } = require("luxon");
 
 import { ContentInformationProps } from "./ContentInformation.d";

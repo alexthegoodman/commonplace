@@ -1,5 +1,5 @@
 import * as React from "react";
-import { adjectives } from "../../def/adjectives";
+import { adjectives } from "../../../def/adjectives";
 
 import { InterestGridProps } from "./InterestGrid.d";
 

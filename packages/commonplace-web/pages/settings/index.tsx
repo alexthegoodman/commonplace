@@ -3,9 +3,9 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
-import DesktopNavigation from "../../components/DesktopNavigation/DesktopNavigation";
+import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
 
-import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
+import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 
 const Settings: NextPage = () => {
   const router = useRouter();

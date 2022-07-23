@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import * as React from "react";
-import { useImageUrl } from "../../hooks/useImageUrl";
+import { useImageUrl } from "../../../hooks/useImageUrl";
 
 // TODO: set ESLint ignore for `next build` type check
 import { UpdateItemProps } from "./UpdateItem.d";

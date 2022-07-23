@@ -1,7 +1,7 @@
 import * as React from "react";
-import Utilities from "../../../commonplace-utilities";
-import { cloudfrontUrl } from "../../def/urls";
-import { useImageUrl } from "../../hooks/useImageUrl";
+import Utilities from "../../../../commonplace-utilities";
+import { cloudfrontUrl } from "../../../def/urls";
+import { useImageUrl } from "../../../hooks/useImageUrl";
 
 // TODO: set ESLint ignore for `next build` type check
 import { ImageViewerProps } from "./ImageViewer.d";

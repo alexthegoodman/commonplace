@@ -5,9 +5,9 @@ import useSWR, { SWRConfig } from "swr";
 import { useCookies } from "react-cookie";
 
 import Utilities from "../../../commonplace-utilities";
-import MessageDictator from "../../components/MessageDictator/MessageDictator";
-import MessageList from "../../components/MessageList/MessageList";
-import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
+import MessageDictator from "../../components/updates/MessageDictator/MessageDictator";
+import MessageList from "../../components/updates/MessageList/MessageList";
+import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 import { threadQuery } from "../../graphql/queries/thread";
 import { useRouter } from "next/router";
 import { userQuery } from "../../graphql/queries/user";

@@ -5,15 +5,15 @@ import useSWR, { SWRConfig } from "swr";
 import { useCookies } from "react-cookie";
 
 import Utilities from "../../../commonplace-utilities";
-import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
-import UpdateItem from "../../components/UpdateItem/UpdateItem";
+import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
+import UpdateItem from "../../components/updates/UpdateItem/UpdateItem";
 import { threadsQuery, userThreadsQuery } from "../../graphql/queries/thread";
 import { cpGraphqlUrl } from "../../def/urls";
 import { useUnreadThreads } from "../../hooks/useUnreadThreads";
 import { NextSeo } from "next-seo";
-import InviteFriends from "../../components/InviteFriends/InviteFriends";
+import InviteFriends from "../../components/growth/InviteFriends/InviteFriends";
 import { userQuery } from "../../graphql/queries/user";
-import DesktopNavigation from "../../components/DesktopNavigation/DesktopNavigation";
+import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
 
 export const getUserThreadData = async (token) => {
   const userData = await request(

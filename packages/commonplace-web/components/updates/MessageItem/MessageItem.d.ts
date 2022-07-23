@@ -4,4 +4,5 @@ export interface MessageItemProps {
   onClick?: (e: MouseEvent) => void;
   message: any;
   authorSide?: string;
+  detailsOpen: boolean;
 }

@@ -4,15 +4,18 @@ import * as React from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import mixpanel from "mixpanel-browser";
-import { cpDomain, cpGraphqlUrl } from "../../def/urls";
+import { cpDomain, cpGraphqlUrl } from "../../../def/urls";
 const { DateTime } = require("luxon");
 
-import { authenticateQuery, registerQuery } from "../../graphql/queries/user";
-import FormInput from "../FormInput/FormInput";
-import FormMessage from "../FormMessage/FormMessage";
+import {
+  authenticateQuery,
+  registerQuery,
+} from "../../../graphql/queries/user";
+import FormInput from "../../fields/FormInput/FormInput";
+import FormMessage from "../../fields/FormMessage/FormMessage";
 
 import { AuthFormProps } from "./AuthForm.d";
-import Utilities from "../../../commonplace-utilities";
+import Utilities from "../../../../commonplace-utilities";
 
 const AuthForm: React.FC<AuthFormProps> = ({
   ref = null,

@@ -4,15 +4,15 @@ import Link from "next/link";
 import useSWR, { SWRConfig } from "swr";
 import { useCookies } from "react-cookie";
 
-import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
-import ProfileIntro from "../components/ProfileIntro/ProfileIntro";
-import ProfilePosts from "../components/ProfilePosts/ProfilePosts";
+import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
+import ProfileIntro from "../components/profile/ProfileIntro/ProfileIntro";
+import ProfilePosts from "../components/profile/ProfilePosts/ProfilePosts";
 import { userQuery } from "../graphql/queries/user";
 import Utilities from "../../commonplace-utilities";
 import { cpDomain, cpGraphqlUrl } from "../def/urls";
 import { NextSeo } from "next-seo";
 import { useImageUrl } from "../hooks/useImageUrl";
-import DesktopNavigation from "../components/DesktopNavigation/DesktopNavigation";
+import DesktopNavigation from "../components/layout/DesktopNavigation/DesktopNavigation";
 
 const getUserData = async (token) => {
   const userData = await request(

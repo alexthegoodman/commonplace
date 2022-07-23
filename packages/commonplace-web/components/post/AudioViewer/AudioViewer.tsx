@@ -1,6 +1,6 @@
 import * as React from "react";
-import { useAudioUrl } from "../../hooks/useAudioUrl";
-import { useImageUrl } from "../../hooks/useImageUrl";
+import { useAudioUrl } from "../../../hooks/useAudioUrl";
+import { useImageUrl } from "../../../hooks/useImageUrl";
 
 import { AudioViewerProps } from "./AudioViewer.d";
 

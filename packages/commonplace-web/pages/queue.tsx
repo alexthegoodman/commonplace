@@ -6,11 +6,11 @@ import { useCookies } from "react-cookie";
 import useSWR, { SWRConfig } from "swr";
 import { motion, useAnimation } from "framer-motion";
 import Utilities from "../../commonplace-utilities";
-import ContentInformation from "../components/ContentInformation/ContentInformation";
-import ContentViewer from "../components/ContentViewer/ContentViewer";
-import ImpressionGrid from "../components/ImpressionGrid/ImpressionGrid";
-import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
-import PrimaryNavigation from "../components/PrimaryNavigation/PrimaryNavigation";
+import ContentInformation from "../components/post/ContentInformation/ContentInformation";
+import ContentViewer from "../components/post/ContentViewer/ContentViewer";
+import ImpressionGrid from "../components/queue/ImpressionGrid/ImpressionGrid";
+import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
+import PrimaryNavigation from "../components/layout/PrimaryNavigation/PrimaryNavigation";
 import {
   QueueContext,
   QueueContextReducer,
@@ -26,7 +26,7 @@ import { getUserThreadData } from "./updates";
 import { useUnreadThreads } from "../hooks/useUnreadThreads";
 import { InterestsContent } from "./interests";
 import { NextSeo } from "next-seo";
-import BrandName from "../components/BrandName/BrandName";
+import BrandName from "../components/layout/BrandName/BrandName";
 import { userThreadsQuery } from "../graphql/queries/thread";
 
 const getPostsAndUserData = async (token, interestId = null) => {

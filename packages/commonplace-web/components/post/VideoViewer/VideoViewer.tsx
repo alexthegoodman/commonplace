@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cloudfrontUrl } from "../../def/urls";
-import { useVideoUrl } from "../../hooks/useVideoUrl";
+import { cloudfrontUrl } from "../../../def/urls";
+import { useVideoUrl } from "../../../hooks/useVideoUrl";
 
 import { VideoViewerProps } from "./VideoViewer.d";
 

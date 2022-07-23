@@ -1,10 +1,10 @@
 import * as React from "react";
-import ContentViewer from "../ContentViewer/ContentViewer";
+import ContentViewer from "../../post/ContentViewer/ContentViewer";
 import { motion } from "framer-motion";
 
 import { MessageItemProps } from "./MessageItem.d";
 import { DateTime } from "luxon";
-import { useImageUrl } from "../../hooks/useImageUrl";
+import { useImageUrl } from "../../../hooks/useImageUrl";
 
 const MessageItem: React.FC<MessageItemProps> = ({
   ref = null,
@@ -14,8 +14,8 @@ const MessageItem: React.FC<MessageItemProps> = ({
   authorSide = "left",
   detailsOpen = false,
 }) => {
-  const onMessageClick = () => {
-    onClick();
+  const onMessageClick = (e) => {
+    onClick(e);
   };
   const displayDate = DateTime.fromISO(message?.createdAt).toFormat("DDD");
   const { imageUrl: profileImageUrl } = useImageUrl(
