@@ -23,6 +23,7 @@ model User {
   credit       Int    @default(0)
   profileImage String @default("")
   coverImage   String @default("")
+  role         String @default("")
 
   posts        Post[]
   threads      Thread[]

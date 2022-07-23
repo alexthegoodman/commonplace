@@ -35,6 +35,7 @@ export const RegisterUserQuery = extendType({
                     password: hash,
                     generatedUsername,
                     chosenUsername: generatedUsername,
+                    role: "USER",
                   },
                 });
               } catch (error) {
