@@ -159,6 +159,7 @@ export interface NexusGenFieldTypes {
     createPost: NexusGenRootTypes['Post']; // Post!
     createReadRecord: NexusGenRootTypes['Record']; // Record!
     deletePost: string; // String!
+    registerUser: string; // String!
     updatePost: NexusGenRootTypes['Post']; // Post!
     updateProfile: string; // String!
   }
@@ -195,7 +196,7 @@ export interface NexusGenFieldTypes {
     profileImage: string | null; // String
   }
   Query: { // field return type
-    authenticate: string; // String!
+    authenticate: string | null; // String
     getPostByPostTitle: NexusGenRootTypes['PublicPost'] | null; // PublicPost
     getPostImpressions: Array<NexusGenRootTypes['Message'] | null>; // [Message]!
     getPostURLs: Array<string | null> | null; // [String]
@@ -207,7 +208,6 @@ export interface NexusGenFieldTypes {
     getUserByPostTitle: NexusGenRootTypes['PublicUser'] | null; // PublicUser
     getUserByUsername: NexusGenRootTypes['PublicUser'] | null; // PublicUser
     getUserThreads: Array<NexusGenRootTypes['Thread'] | null> | null; // [Thread]
-    registerUser: string; // String!
   }
   Record: { // field return type
     content: string | null; // String
@@ -263,6 +263,7 @@ export interface NexusGenFieldTypeNames {
     createPost: 'Post'
     createReadRecord: 'Record'
     deletePost: 'String'
+    registerUser: 'String'
     updatePost: 'Post'
     updateProfile: 'String'
   }
@@ -311,7 +312,6 @@ export interface NexusGenFieldTypeNames {
     getUserByPostTitle: 'PublicUser'
     getUserByUsername: 'PublicUser'
     getUserThreads: 'Thread'
-    registerUser: 'String'
   }
   Record: { // field return type name
     content: 'String'

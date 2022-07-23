@@ -1,3 +1,4 @@
+import { ApolloError } from "apollo-server";
 import { shield, allow, deny, rule, and, or, not } from "graphql-shield";
 
 const isAdmin = rule()(async (parent, args, ctx, info) => {
@@ -8,21 +9,35 @@ const isAdmin = rule()(async (parent, args, ctx, info) => {
 const isAuthenticated = rule()(async (parent, args, ctx, info) => {
   const allowed =
     ctx.currentUser !== null && typeof ctx.currentUser !== "undefined";
-  console.info("isAuthenticated", allowed);
   return allowed;
 });
 
-export const permissions = shield({
-  Query: {
-    // "*": deny,
-    authenticate: not(isAuthenticated),
-    // fruits: and(isAuthenticated, or(isAdmin, isEditor)),
-    getUser: and(isAuthenticated, isAdmin),
+export const permissions = shield(
+  {
+    Query: {
+      "*": isAuthenticated,
+      authenticate: not(isAuthenticated),
+    },
+    Mutation: {
+      "*": isAuthenticated,
+      registerUser: not(isAuthenticated),
+    },
+    //   Fruit: isAuthenticated,
+    //   Customer: isAdmin,
   },
-  Mutation: {
-    // "*": deny,
-    createMessage: isAuthenticated,
-  },
-  //   Fruit: isAuthenticated,
-  //   Customer: isAdmin,
-});
+  {
+    fallbackError: async (thrownThing, parent, args, context, info) => {
+      if (thrownThing instanceof ApolloError) {
+        return thrownThing;
+      } else if (thrownThing instanceof Error) {
+        console.error(thrownThing);
+        // TODO: await Sentry.report(thrownThing)
+        return new ApolloError("Internal server error", "ERR_INTERNAL_SERVER");
+      } else {
+        console.error("The resolver threw something that is not an error.");
+        console.error(thrownThing);
+        return new ApolloError("Not Authorized!", "ERR_INTERNAL_SERVER");
+      }
+    },
+  }
+);

@@ -4,8 +4,8 @@ import Utilities from "../../../../commonplace-utilities";
 import { Context } from "../../context";
 import bcrypt from "bcryptjs";
 
-export const RegisterUserQuery = extendType({
-  type: "Query",
+export const RegisterUserMutation = extendType({
+  type: "Mutation",
   definition(t) {
     t.nonNull.field("registerUser", {
       type: "String",

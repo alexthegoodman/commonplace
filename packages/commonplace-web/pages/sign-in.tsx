@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import AuthForm from "../components/AuthForm/AuthForm";
-import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
+import AuthForm from "../components/forms/AuthForm/AuthForm";
+import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
 
 const SignIn: NextPage = () => {
   return (

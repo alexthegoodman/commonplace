@@ -27,10 +27,11 @@ export const server = new ApolloServer({
 
         console.info("Verified Token", verified, "currentUser", currentUser);
       } else {
-        console.warn("Token Could Not Be Verified 1");
+        console.warn("Token Not Verified 1");
       }
     } catch (error) {
-      console.warn("Token Could Not Be Verified 2");
+      // ex. if token is not provided
+      console.warn("Token Not Verified 2");
     }
 
     return { req, currentUser, ...context } as Context;

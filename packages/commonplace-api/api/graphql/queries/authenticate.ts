@@ -8,7 +8,7 @@ import { Context } from "../../context";
 export const AuthenticateQuery = extendType({
   type: "Query",
   definition(t) {
-    t.nonNull.field("authenticate", {
+    t.field("authenticate", {
       type: "String",
       args: {},
       resolve: async (_, {}, { prisma, mixpanel, req }: Context, x) => {
