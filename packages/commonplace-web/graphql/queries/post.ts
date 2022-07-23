@@ -1,40 +1,5 @@
 import { gql } from "graphql-request";
 
-export const postsQuery = gql`
-  query Posts(
-    $where: PostWhereInput
-    $orderBy: [PostOrderByWithRelationInput!]
-  ) {
-    posts(where: $where, orderBy: $orderBy) {
-      id
-      title
-      description
-      generatedTitleSlug
-
-      contentType
-      contentPreview
-      content
-
-      creator {
-        name
-        chosenUsername
-        profileImage
-        email
-
-        posts {
-          title
-        }
-      }
-      interest {
-        name
-      }
-
-      createdAt
-      updatedAt
-    }
-  }
-`;
-
 export const queuePostsQuery = gql`
   query GetQueuePosts($interestId: String) {
     getQueuePosts(interestId: $interestId) {
@@ -49,13 +14,9 @@ export const queuePostsQuery = gql`
 
       creator {
         name
+        generatedUsername
         chosenUsername
         profileImage
-        email
-
-        posts {
-          title
-        }
       }
       interest {
         name

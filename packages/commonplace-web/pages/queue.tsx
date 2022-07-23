@@ -18,7 +18,7 @@ import {
 } from "../context/QueueContext/QueueContext";
 import { cloudfrontUrl, cpGraphqlUrl } from "../def/urls";
 import { createMessageMutation } from "../graphql/mutations/message";
-import { postsQuery, queuePostsQuery } from "../graphql/queries/post";
+import { queuePostsQuery } from "../graphql/queries/post";
 import { userQuery } from "../graphql/queries/user";
 import { useImageUrl } from "../hooks/useImageUrl";
 import { usePreloadImage } from "../hooks/usePreloadImage";
@@ -219,14 +219,14 @@ const QueueContent = () => {
 
     setQueuePostId(nextPostId);
     // TODO: send impression message
-    const currentUserEmail = data?.currentUser?.email;
-    const postCreatorEmail = currentPost?.creator?.email;
+    const authorUsername = data?.currentUser?.generatedUsername;
+    const postCreatorUsername = currentPost?.creator?.generatedUsername;
 
     const savedImpression = await request(cpGraphqlUrl, createMessageMutation, {
       type: "impression",
       content: impression,
-      authorEmail: currentUserEmail,
-      postCreatorEmail: postCreatorEmail,
+      authorUsername,
+      postCreatorUsername,
       postId: currentPost?.id,
     });
 

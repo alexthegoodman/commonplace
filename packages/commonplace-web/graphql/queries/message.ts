@@ -10,7 +10,6 @@ export const postImpressionsQuery = gql`
       user {
         name
         chosenUsername
-        email
       }
 
       updatedAt

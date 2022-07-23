@@ -16,7 +16,7 @@ const ThreadFieldsFragment = gql`
     messages {
       user {
         name
-        email
+        generatedUsername
         chosenUsername
         profileImage
       }
@@ -71,45 +71,10 @@ export const userThreadsQuery = gql`
 `;
 
 export const threadQuery = gql`
-  query Thread(
-    $where: ThreadWhereUniqueInput!
-    $orderMessagesBy: [MessageOrderByWithRelationInput!]
-  ) {
-    thread(where: $where) {
-      id
-      repliesAllowed
-      users {
-        name
-        chosenUsername
-      }
-      readHistory {
-        name
-        content
-        createdAt
-      }
-      messages(orderBy: $orderMessagesBy) {
-        user {
-          name
-          email
-          chosenUsername
-          profileImage
-        }
-        post {
-          title
-          contentType
-          contentPreview
-          content
-        }
-        id
-        type
-        content
-
-        createdAt
-        updatedAt
-      }
-
-      createdAt
-      updatedAt
+  query GetThreadById($threadId: String!) {
+    getThreadById(threadId: $threadId) {
+      ...ThreadFieldsFragment
     }
   }
+  ${ThreadFieldsFragment}
 `;

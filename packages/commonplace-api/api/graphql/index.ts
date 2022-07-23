@@ -11,6 +11,7 @@ export * from "./types/Mutation";
 
 export * from "./mutations/createMessage";
 export * from "./mutations/createPost";
+export * from "./mutations/createReadRecord";
 export * from "./mutations/deletePost";
 export * from "./mutations/registerUser";
 export * from "./mutations/updatePost";
@@ -23,6 +24,7 @@ export * from "./queries/getPostsByUsername";
 export * from "./queries/getPostURLs";
 export * from "./queries/getProfileURLs";
 export * from "./queries/getQueuePosts";
+export * from "./queries/getThreadById";
 export * from "./queries/getUser";
 export * from "./queries/getUserByPostTitle";
 export * from "./queries/getUserByUsername";

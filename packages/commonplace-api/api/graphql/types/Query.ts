@@ -4,21 +4,16 @@ export const Query = queryType({
   definition(t) {
     // NOTE: no filtering except by id, CRUD unnecessary
     // t.crud.user();
-
     // NOTE: not protected
-    t.crud.post();
-
+    // t.crud.post();
     // NOTE: only accesseble via id or user query
-    t.crud.thread();
-
+    // t.crud.thread();
     // NOTE: not protected, better accessed via interest query?
     // paginate?
-    t.crud.posts({ filtering: true, ordering: true });
-
+    // t.crud.posts({ filtering: true, ordering: true });
     // NOTE: not protected
-    t.crud.categories();
-
+    // t.crud.categories();
     // NOTE: not protected
-    t.crud.interests();
+    // t.crud.interests();
   },
 });

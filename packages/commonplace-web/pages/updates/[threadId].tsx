@@ -30,12 +30,7 @@ const getUserAndThreadData = async (token, threadId) => {
     cpGraphqlUrl,
     threadQuery,
     {
-      where: {
-        id: threadId, // TODO: from url slug
-      },
-      orderMessagesBy: {
-        createdAt: "desc",
-      },
+      threadId,
     },
     {
       commonplace_jwt_header: token,
@@ -68,7 +63,7 @@ const ThreadContent = () => {
   console.info("ThreadContent", data);
 
   // TODO: safe determination of otherUser
-  const otherUser = data?.currentThread?.thread?.messages.filter(
+  const otherUser = data?.currentThread?.getThreadById?.messages.filter(
     (message, i) => message?.user?.email !== data?.currentUser?.getUser?.email
   )[0].user;
   // const otherUserFirstName = otherUser?.name?.split(" ")[0];
@@ -77,15 +72,8 @@ const ThreadContent = () => {
 
   const setReadBy = async () => {
     const readAt = await request(cpGraphqlUrl, createRecordMutation, {
-      data: {
-        name: "readBy",
-        content: data?.currentUser?.getUser?.chosenUsername,
-        thread: {
-          connect: {
-            id: threadId,
-          },
-        },
-      },
+      username: data?.currentUser?.getUser?.chosenUsername,
+      threadId,
     });
 
     console.info("readAt", readAt);
@@ -123,7 +111,7 @@ const ThreadContent = () => {
         <MessageList
           currentUser={data?.currentUser}
           otherUser={otherUser}
-          messages={data?.currentThread?.thread?.messages}
+          messages={data?.currentThread?.getThreadById?.messages}
         />
         <MessageDictator
           author={data?.currentUser}

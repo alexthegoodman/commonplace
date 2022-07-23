@@ -1,4 +1,5 @@
 import { objectType } from "nexus";
+import { Context } from "../../context";
 
 export const publicUserFields = {
   name: true,
@@ -23,28 +24,37 @@ export const PublicUserType = objectType({
 export const UserType = objectType({
   name: "User",
   definition(t) {
-    t.model.name();
-    t.model.generatedUsername();
-    t.model.chosenUsername();
+    t.field("name", { type: "String" });
+    t.field("generatedUsername", { type: "String" });
+    t.field("chosenUsername", { type: "String" });
 
-    t.model.profileImage();
-    t.model.coverImage();
+    t.field("profileImage", { type: "String" });
+    t.field("coverImage", { type: "String" });
 
-    t.model.posts({
-      filtering: false,
-      ordering: false,
-      pagination: false,
+    t.list.field("posts", {
+      type: "Post",
+      resolve: async (user, __, context: Context) => {
+        return await context.prisma.post.findMany({
+          where: {
+            creator: {
+              generatedUsername: user.generatedUsername,
+            },
+          },
+        });
+      },
     });
 
-    t.model.updatedAt();
-    t.model.createdAt();
+    t.field("updatedAt", {
+      type: "DateTime",
+    });
 
-    // ** Protected **//
-    // t.string("id"); // do not expose
-    t.model.email();
-    t.model.credit();
-    t.model.threads({ ordering: true, filtering: true });
-    // t.model.messages();
-    // t.model.readMessages();
+    t.field("createdAt", {
+      type: "DateTime",
+    });
+
+    // // ** Protected **//
+    t.field("email", { type: "String" });
+    t.field("credit", { type: "Int" });
+    // t.model.threads({ ordering: true, filtering: true });
   },
 });

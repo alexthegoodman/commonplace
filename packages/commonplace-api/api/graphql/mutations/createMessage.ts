@@ -9,36 +9,43 @@ export const CreateMessageMutation = extendType({
       args: {
         type: nonNull(stringArg()),
         content: nonNull(stringArg()),
-        authorEmail: nonNull(stringArg()),
-        postCreatorEmail: nullable(stringArg()),
+        authorUsername: nonNull(stringArg()),
+        postCreatorUsername: nullable(stringArg()),
         postId: nullable(stringArg()),
         threadId: nullable(stringArg()),
       },
       resolve: async (
         _,
-        { type, content, authorEmail, postCreatorEmail, postId, threadId },
+        {
+          type,
+          content,
+          authorUsername,
+          postCreatorUsername,
+          postId,
+          threadId,
+        },
         { prisma, mixpanel }: Context
       ) => {
         console.info(
           "createMessage",
           type,
           content,
-          authorEmail,
-          postCreatorEmail,
+          authorUsername,
+          postCreatorUsername,
           threadId
         );
 
         const author = await prisma.user.findUnique({
           where: {
-            email: authorEmail,
+            generatedUsername: authorUsername,
           },
         });
 
         let postCreator;
-        if (postCreatorEmail) {
+        if (postCreatorUsername) {
           postCreator = await prisma.user.findUnique({
             where: {
-              email: postCreatorEmail,
+              generatedUsername: postCreatorUsername,
             },
           });
         }
@@ -64,7 +71,7 @@ export const CreateMessageMutation = extendType({
           });
 
           mixpanel.track("Reply Sent");
-        } else if (type === "impression" && postCreatorEmail && postId) {
+        } else if (type === "impression" && postCreatorUsername && postId) {
           // TODO: securely add credit to currentUser when creaating impression
           // best to check that impression has not been given by this user on this posts
           // before creating imp or credit (as 2 is not allowed anyway)
