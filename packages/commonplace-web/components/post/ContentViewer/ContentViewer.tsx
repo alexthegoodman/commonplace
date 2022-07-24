@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cloudfrontUrl } from "../../../def/urls";
+import { cloudfrontUrl } from "../../../../commonplace-utilities/def/urls";
 import AudioViewer from "../AudioViewer/AudioViewer";
 import ImageViewer from "../ImageViewer/ImageViewer";
 import TextViewer from "../TextViewer/TextViewer";

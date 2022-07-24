@@ -8,9 +8,9 @@ import useSWR from "swr";
 import InterestGrid from "../components/interests/InterestGrid/InterestGrid";
 import InterestPreview from "../components/interests/InterestPreview/InterestPreview";
 import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
-import { cpGraphqlUrl } from "../def/urls";
+import { cpGraphqlUrl } from "../../commonplace-utilities/def/urls";
 import { categoriesAndInterestsQuery } from "../graphql/queries/interest";
-import { GQLClient } from "../helpers/GQLClient";
+import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
 
 const getCategoriesAndInterestData = async (token) => {
   const gqlClient = new GQLClient(token);

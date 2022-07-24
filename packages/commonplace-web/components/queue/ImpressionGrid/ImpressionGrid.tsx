@@ -1,6 +1,6 @@
 import * as React from "react";
-import { adjectives } from "../../../def/adjectives";
-import impressions from "../../../def/impressions";
+import { adjectives } from "../../../../commonplace-utilities/def/adjectives";
+import impressions from "../../../../commonplace-utilities/def/impressions";
 
 import { ImpressionGridProps } from "./ImpressionGrid.d";
 

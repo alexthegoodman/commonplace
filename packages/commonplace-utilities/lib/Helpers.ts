@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import jwt from "jsonwebtoken";
-import { cloudfrontUrl } from "../../commonplace-web/def/urls";
+import { cloudfrontUrl } from "../def/urls";
 export default class Helpers {
   constructor() {}
 

@@ -11,11 +11,11 @@ import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 import { threadQuery } from "../../graphql/queries/thread";
 import { useRouter } from "next/router";
 import { userQuery } from "../../graphql/queries/user";
-import { cpGraphqlUrl } from "../../def/urls";
+import { cpGraphqlUrl } from "../../../commonplace-utilities/def/urls";
 import { useEffect } from "react";
 import { createRecordMutation } from "../../graphql/mutations/record";
 import { NextSeo } from "next-seo";
-import { GQLClient } from "../../helpers/GQLClient";
+import { GQLClient } from "../../../commonplace-utilities/lib/GQLClient";
 
 const getUserAndThreadData = async (token, threadId) => {
   const gqlClient = new GQLClient(token);

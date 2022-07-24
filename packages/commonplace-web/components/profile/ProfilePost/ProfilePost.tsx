@@ -3,7 +3,10 @@ import { DateTime } from "luxon";
 import Link from "next/link";
 import * as React from "react";
 import { useCookies } from "react-cookie";
-import { cpDomain, cpGraphqlUrl } from "../../../def/urls";
+import {
+  cpDomain,
+  cpGraphqlUrl,
+} from "../../../../commonplace-utilities/def/urls";
 import { deletePostMutation } from "../../../graphql/mutations/post";
 import ContentViewer from "../../post/ContentViewer/ContentViewer";
 import PopupModal from "../../utility/PopupModal/PopupModal";

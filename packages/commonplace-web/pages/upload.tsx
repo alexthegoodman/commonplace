@@ -14,11 +14,11 @@ import FormTextarea from "../components/fields/FormTextarea/FormTextarea";
 import FormUpload from "../components/fields/FormUpload/FormUpload";
 import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
 import StepCounter from "../components/forms/StepCounter/StepCounter";
-import { cpGraphqlUrl } from "../def/urls";
+import { cpGraphqlUrl } from "../../commonplace-utilities/def/urls";
 import { createPostMutation } from "../graphql/mutations/post";
 import { userQuery } from "../graphql/queries/user";
 import { InterestsContent } from "./interests";
-import { GQLClient } from "../helpers/GQLClient";
+import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
 
 const getUserData = async (token) => {
   const gqlClient = new GQLClient(token);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-import { cloudfrontUrl } from "../def/urls";
+import { cloudfrontUrl } from "../../commonplace-utilities/def/urls";
 
 export const useVideoUrl = (sourceUrl = "") => {
   //   const [json, setJson] = useState(null);

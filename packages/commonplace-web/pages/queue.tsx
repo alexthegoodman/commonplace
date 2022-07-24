@@ -15,7 +15,10 @@ import {
   QueueContextReducer,
   QueueContextState,
 } from "../context/QueueContext/QueueContext";
-import { cloudfrontUrl, cpGraphqlUrl } from "../def/urls";
+import {
+  cloudfrontUrl,
+  cpGraphqlUrl,
+} from "../../commonplace-utilities/def/urls";
 import { createMessageMutation } from "../graphql/mutations/message";
 import { queuePostsQuery } from "../graphql/queries/post";
 import { userQuery } from "../graphql/queries/user";
@@ -27,7 +30,7 @@ import { InterestsContent } from "./interests";
 import { NextSeo } from "next-seo";
 import BrandName from "../components/layout/BrandName/BrandName";
 import { userThreadsQuery } from "../graphql/queries/thread";
-import { GQLClient } from "../helpers/GQLClient";
+import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
 
 const getPostsAndUserData = async (token, interestId = null) => {
   const gqlClient = new GQLClient(token);

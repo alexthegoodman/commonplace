@@ -9,7 +9,10 @@ import ContentViewer from "../../../components/post/ContentViewer/ContentViewer"
 import DesktopNavigation from "../../../components/layout/DesktopNavigation/DesktopNavigation";
 import PostImpressions from "../../../components/post/PostImpressions/PostImpressions";
 import PrimaryHeader from "../../../components/layout/PrimaryHeader/PrimaryHeader";
-import { cpDomain, cpGraphqlUrl } from "../../../def/urls";
+import {
+  cpDomain,
+  cpGraphqlUrl,
+} from "../../../../commonplace-utilities/def/urls";
 import { postImpressionsQuery } from "../../../graphql/queries/message";
 import { postByPostTitleQuery } from "../../../graphql/queries/post";
 import { userByPostTitleQuery } from "../../../graphql/queries/user";
