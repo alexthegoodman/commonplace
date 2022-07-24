@@ -13,16 +13,12 @@ import { cpDomain, cpGraphqlUrl } from "../def/urls";
 import { NextSeo } from "next-seo";
 import { useImageUrl } from "../hooks/useImageUrl";
 import DesktopNavigation from "../components/layout/DesktopNavigation/DesktopNavigation";
+import { GQLClient } from "../helpers/GQLClient";
 
 const getUserData = async (token) => {
-  const userData = await request(
-    cpGraphqlUrl,
-    userQuery,
-    {},
-    {
-      commonplace_jwt_header: token,
-    }
-  );
+  const gqlClient = new GQLClient(token);
+
+  const userData = await gqlClient.client.request(userQuery);
 
   return userData;
 };

@@ -18,16 +18,12 @@ import { cpGraphqlUrl } from "../def/urls";
 import { createPostMutation } from "../graphql/mutations/post";
 import { userQuery } from "../graphql/queries/user";
 import { InterestsContent } from "./interests";
+import { GQLClient } from "../helpers/GQLClient";
 
 const getUserData = async (token) => {
-  const userData = await request(
-    cpGraphqlUrl,
-    userQuery,
-    {},
-    {
-      commonplace_jwt_header: token,
-    }
-  );
+  const gqlClient = new GQLClient(token);
+
+  const userData = await gqlClient.client.request(userQuery);
 
   return userData;
 };

@@ -3,16 +3,19 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import useSWR from "swr";
 import InterestGrid from "../components/interests/InterestGrid/InterestGrid";
 import InterestPreview from "../components/interests/InterestPreview/InterestPreview";
 import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
 import { cpGraphqlUrl } from "../def/urls";
 import { categoriesAndInterestsQuery } from "../graphql/queries/interest";
+import { GQLClient } from "../helpers/GQLClient";
 
-const getCategoriesAndInterestData = async () => {
-  const categoriesAndInterestsData = await request(
-    cpGraphqlUrl,
+const getCategoriesAndInterestData = async (token) => {
+  const gqlClient = new GQLClient(token);
+
+  const categoriesAndInterestsData = await gqlClient.client.request(
     categoriesAndInterestsQuery
   );
 
@@ -23,7 +26,12 @@ export const InterestsContent = ({
   onBack,
   onConfirm = (selectedCategory, selectedInterest) => console.info("confirm"),
 }) => {
-  const { data } = useSWR("interestsKey", () => getCategoriesAndInterestData());
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
+
+  const { data } = useSWR("interestsKey", () =>
+    getCategoriesAndInterestData(token)
+  );
   const router = useRouter();
 
   console.info("data", data);

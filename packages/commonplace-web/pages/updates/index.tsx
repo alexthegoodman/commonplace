@@ -14,25 +14,14 @@ import { NextSeo } from "next-seo";
 import InviteFriends from "../../components/growth/InviteFriends/InviteFriends";
 import { userQuery } from "../../graphql/queries/user";
 import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
+import { GQLClient } from "../../helpers/GQLClient";
 
 export const getUserThreadData = async (token) => {
-  const userData = await request(
-    cpGraphqlUrl,
-    userQuery,
-    {},
-    {
-      commonplace_jwt_header: token,
-    }
-  );
+  const gqlClient = new GQLClient(token);
 
-  const userThreadData = await request(
-    cpGraphqlUrl,
-    userThreadsQuery,
-    {},
-    {
-      commonplace_jwt_header: token,
-    }
-  );
+  const userData = await gqlClient.client.request(userQuery);
+
+  const userThreadData = await gqlClient.client.request(userThreadsQuery);
 
   return {
     user: userData?.getUser,

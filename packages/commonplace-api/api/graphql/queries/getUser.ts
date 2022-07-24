@@ -8,7 +8,7 @@ export const UserQuery = extendType({
       type: "User",
       args: {},
       resolve: async (_, {}, { prisma, currentUser }: Context) => {
-        console.info("Get user", currentUser);
+        // console.info("Get user", currentUser);
 
         return currentUser;
       },

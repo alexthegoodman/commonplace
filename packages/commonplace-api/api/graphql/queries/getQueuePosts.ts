@@ -49,7 +49,7 @@ export const QueuePostsQuery = extendType({
           },
         });
 
-        console.info("getQueuePosts", posts);
+        // console.info("getQueuePosts", posts);
 
         return posts;
       },

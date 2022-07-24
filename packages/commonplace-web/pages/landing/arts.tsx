@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import * as React from "react";
-import AuthForm from "../../components/AuthForm/AuthForm";
+import AuthForm from "../../components/forms/AuthForm/AuthForm";
 
 // import SignUpForm from "../../../forms/SignUpForm/SignUpForm";
 import LandingBlockA from "../../components/landing/LandingBlockA/LandingBlockA";

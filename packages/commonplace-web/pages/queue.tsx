@@ -1,4 +1,3 @@
-import request, { gql } from "graphql-request";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useContext, useEffect, useReducer, useState } from "react";
@@ -28,16 +27,12 @@ import { InterestsContent } from "./interests";
 import { NextSeo } from "next-seo";
 import BrandName from "../components/layout/BrandName/BrandName";
 import { userThreadsQuery } from "../graphql/queries/thread";
+import { GQLClient } from "../helpers/GQLClient";
 
 const getPostsAndUserData = async (token, interestId = null) => {
-  const userData = await request(
-    cpGraphqlUrl,
-    userQuery,
-    {},
-    {
-      commonplace_jwt_header: token,
-    }
-  );
+  const gqlClient = new GQLClient(token);
+
+  const userData = await gqlClient.client.request(userQuery);
 
   // let addtPostFilter = {};
 
@@ -49,25 +44,11 @@ const getPostsAndUserData = async (token, interestId = null) => {
   //   };
   // }
 
-  const postsData = await request(
-    cpGraphqlUrl,
-    queuePostsQuery,
-    {
-      interestId,
-    },
-    {
-      commonplace_jwt_header: token,
-    }
-  );
+  const postsData = await gqlClient.client.request(queuePostsQuery, {
+    interestId,
+  });
 
-  const userThreadData = await request(
-    cpGraphqlUrl,
-    userThreadsQuery,
-    {},
-    {
-      commonplace_jwt_header: token,
-    }
-  );
+  const userThreadData = await gqlClient.client.request(userThreadsQuery);
 
   let threads = [];
   if (typeof userThreadData?.getUserThreads !== "undefined") {

@@ -41,7 +41,7 @@ export const UserThreadsQuery = extendType({
           },
         });
 
-        console.info("getUserThreads", threads);
+        // console.info("getUserThreads", threads);
 
         return threads;
       },

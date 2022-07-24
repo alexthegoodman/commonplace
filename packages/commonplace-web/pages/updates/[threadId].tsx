@@ -15,27 +15,16 @@ import { cpGraphqlUrl } from "../../def/urls";
 import { useEffect } from "react";
 import { createRecordMutation } from "../../graphql/mutations/record";
 import { NextSeo } from "next-seo";
+import { GQLClient } from "../../helpers/GQLClient";
 
 const getUserAndThreadData = async (token, threadId) => {
-  const userData = await request(
-    cpGraphqlUrl,
-    userQuery,
-    {},
-    {
-      commonplace_jwt_header: token,
-    }
-  );
+  const gqlClient = new GQLClient(token);
 
-  const threadData = await request(
-    cpGraphqlUrl,
-    threadQuery,
-    {
-      threadId,
-    },
-    {
-      commonplace_jwt_header: token,
-    }
-  );
+  const userData = await gqlClient.client.request(userQuery);
+
+  const threadData = await gqlClient.client.request(threadQuery, {
+    threadId,
+  });
 
   const returnData = {
     currentUser: userData,
@@ -48,6 +37,8 @@ const getUserAndThreadData = async (token, threadId) => {
 const ThreadContent = () => {
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
+
+  const gqlClient = new GQLClient(token);
 
   const router = useRouter();
   const { threadId } = router.query;
@@ -71,7 +62,7 @@ const ThreadContent = () => {
   console.info("otherUser", otherUser);
 
   const setReadBy = async () => {
-    const readAt = await request(cpGraphqlUrl, createRecordMutation, {
+    const readAt = await gqlClient.client.request(createRecordMutation, {
       username: data?.currentUser?.getUser?.chosenUsername,
       threadId,
     });

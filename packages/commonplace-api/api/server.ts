@@ -14,7 +14,8 @@ export const server = new ApolloServer({
     let currentUser;
 
     try {
-      const token = req.header(tokenHeaderKey);
+      const tokenHeader = req.header(tokenHeaderKey);
+      const token = tokenHeader?.split("Bearer ")[1];
 
       const verified = jwt.verify(token, jwtSecretKey);
 
