@@ -17,6 +17,7 @@ export const permissions = shield(
     Query: {
       "*": isAuthenticated,
       authenticate: not(isAuthenticated),
+      getDashboardData: and(isAuthenticated, isAdmin),
     },
     Mutation: {
       "*": isAuthenticated,

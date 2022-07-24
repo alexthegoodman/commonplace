@@ -56,9 +56,18 @@ export interface NexusGenObjects {
   Category: { // root type
     name?: string | null; // String
   }
+  Dashboard: {};
+  DateValuePair: { // root type
+    date?: string | null; // String
+    value?: string | null; // String
+  }
   Interest: { // root type
     generatedInterestSlug?: string | null; // String
     name?: string | null; // String
+  }
+  LabelValuePair: { // root type
+    label?: string | null; // String
+    value?: string | null; // String
   }
   Message: { // root type
     content?: string | null; // String
@@ -139,11 +148,30 @@ export interface NexusGenFieldTypes {
     interests: Array<NexusGenRootTypes['Interest'] | null> | null; // [Interest]
     name: string | null; // String
   }
+  Dashboard: { // field return type
+    dailyImpressions: number | null; // Int
+    dailyImpressionsByInterest: Array<NexusGenRootTypes['LabelValuePair'] | null> | null; // [LabelValuePair]
+    dau: number | null; // Int
+    dauMonthly: Array<NexusGenRootTypes['DateValuePair'] | null> | null; // [DateValuePair]
+    mau: number | null; // Int
+    mauYearly: Array<NexusGenRootTypes['DateValuePair'] | null> | null; // [DateValuePair]
+    totalPosts: number | null; // Int
+    totalPostsByInterest: Array<NexusGenRootTypes['LabelValuePair'] | null> | null; // [LabelValuePair]
+    totalUsers: number | null; // Int
+  }
+  DateValuePair: { // field return type
+    date: string | null; // String
+    value: string | null; // String
+  }
   Interest: { // field return type
     categories: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
     generatedInterestSlug: string | null; // String
     name: string | null; // String
     posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+  }
+  LabelValuePair: { // field return type
+    label: string | null; // String
+    value: string | null; // String
   }
   Message: { // field return type
     content: string | null; // String
@@ -197,6 +225,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     authenticate: string | null; // String
+    getDashboardData: NexusGenRootTypes['Dashboard'] | null; // Dashboard
     getPostByPostTitle: NexusGenRootTypes['PublicPost'] | null; // PublicPost
     getPostImpressions: Array<NexusGenRootTypes['Message'] | null>; // [Message]!
     getPostURLs: Array<string | null> | null; // [String]
@@ -243,11 +272,30 @@ export interface NexusGenFieldTypeNames {
     interests: 'Interest'
     name: 'String'
   }
+  Dashboard: { // field return type name
+    dailyImpressions: 'Int'
+    dailyImpressionsByInterest: 'LabelValuePair'
+    dau: 'Int'
+    dauMonthly: 'DateValuePair'
+    mau: 'Int'
+    mauYearly: 'DateValuePair'
+    totalPosts: 'Int'
+    totalPostsByInterest: 'LabelValuePair'
+    totalUsers: 'Int'
+  }
+  DateValuePair: { // field return type name
+    date: 'String'
+    value: 'String'
+  }
   Interest: { // field return type name
     categories: 'Category'
     generatedInterestSlug: 'String'
     name: 'String'
     posts: 'Post'
+  }
+  LabelValuePair: { // field return type name
+    label: 'String'
+    value: 'String'
   }
   Message: { // field return type name
     content: 'String'
@@ -301,6 +349,7 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     authenticate: 'String'
+    getDashboardData: 'Dashboard'
     getPostByPostTitle: 'PublicPost'
     getPostImpressions: 'Message'
     getPostURLs: 'String'
