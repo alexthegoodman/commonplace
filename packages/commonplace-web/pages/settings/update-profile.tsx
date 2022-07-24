@@ -12,7 +12,7 @@ import FormInput from "../../components/fields/FormInput/FormInput";
 import FormMessage from "../../components/fields/FormMessage/FormMessage";
 import FormUpload from "../../components/fields/FormUpload/FormUpload";
 import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
-import { cpGraphqlUrl } from "../../def/urls";
+import { cpGraphqlUrl } from "../../../commonplace-utilities/def/urls";
 import { updateProfileMutation } from "../../graphql/mutations/user";
 import { userQuery } from "../../graphql/queries/user";
 

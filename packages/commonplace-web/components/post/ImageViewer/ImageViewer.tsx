@@ -1,6 +1,6 @@
 import * as React from "react";
 import Utilities from "../../../../commonplace-utilities";
-import { cloudfrontUrl } from "../../../def/urls";
+import { cloudfrontUrl } from "../../../../commonplace-utilities/def/urls";
 import { useImageUrl } from "../../../hooks/useImageUrl";
 
 // TODO: set ESLint ignore for `next build` type check

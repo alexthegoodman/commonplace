@@ -3,6 +3,7 @@
 CommonPlace is a social media app where users can connect over their hobbies. Users can send messages, browse content, and upload anything they want (images, video, audio, and text).
 
 ![Alt text](./assets/web-app-mobile.jpg "Web App Mobile")
+![Alt text](./assets/dashboard.png "KPI Dashboard")
 
 ## Packages
 

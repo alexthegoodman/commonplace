@@ -2,7 +2,7 @@ import request from "graphql-request";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import useSWR, { SWRConfig } from "swr";
-import { cpGraphqlUrl } from "../../def/urls";
+import { cpGraphqlUrl } from "../../../commonplace-utilities/def/urls";
 import { postsByUsernameQuery } from "../../graphql/queries/post";
 import { userByUsernameQuery } from "../../graphql/queries/user";
 import { ProfileContent } from "../profile";

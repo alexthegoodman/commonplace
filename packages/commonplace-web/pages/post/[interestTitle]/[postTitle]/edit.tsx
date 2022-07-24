@@ -12,7 +12,10 @@ import FormInput from "../../../../components/FormInput/FormInput";
 import FormMessage from "../../../../components/FormMessage/FormMessage";
 import FormTextarea from "../../../../components/FormTextarea/FormTextarea";
 import PrimaryHeader from "../../../../components/PrimaryHeader/PrimaryHeader";
-import { cpDomain, cpGraphqlUrl } from "../../../../def/urls";
+import {
+  cpDomain,
+  cpGraphqlUrl,
+} from "../../../../../commonplace-utilities/def/urls";
 import { updatePostMutation } from "../../../../graphql/mutations/post";
 import { postImpressionsQuery } from "../../../../graphql/queries/message";
 import { postByPostTitleQuery } from "../../../../graphql/queries/post";

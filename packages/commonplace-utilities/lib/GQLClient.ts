@@ -2,8 +2,8 @@ import { GraphQLClient } from "graphql-request";
 import { cpGraphqlUrl } from "../def/urls";
 
 export class GQLClient {
-  public client;
-  public token;
+  client;
+  token;
 
   constructor(token) {
     this.token = token;

@@ -8,13 +8,13 @@ import Utilities from "../../../commonplace-utilities";
 import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 import UpdateItem from "../../components/updates/UpdateItem/UpdateItem";
 import { threadsQuery, userThreadsQuery } from "../../graphql/queries/thread";
-import { cpGraphqlUrl } from "../../def/urls";
+import { cpGraphqlUrl } from "../../../commonplace-utilities/def/urls";
 import { useUnreadThreads } from "../../hooks/useUnreadThreads";
 import { NextSeo } from "next-seo";
 import InviteFriends from "../../components/growth/InviteFriends/InviteFriends";
 import { userQuery } from "../../graphql/queries/user";
 import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
-import { GQLClient } from "../../helpers/GQLClient";
+import { GQLClient } from "../../../commonplace-utilities/lib/GQLClient";
 
 export const getUserThreadData = async (token) => {
   const gqlClient = new GQLClient(token);

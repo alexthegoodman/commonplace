@@ -2,7 +2,7 @@ import request from "graphql-request";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
-import { cpGraphqlUrl } from "../../../def/urls";
+import { cpGraphqlUrl } from "../../../../commonplace-utilities/def/urls";
 import { createMessageMutation } from "../../../graphql/mutations/message";
 import FormInput from "../../fields/FormInput/FormInput";
 import FormTextarea from "../../fields/FormTextarea/FormTextarea";
