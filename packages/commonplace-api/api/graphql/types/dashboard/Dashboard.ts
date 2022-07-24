@@ -13,6 +13,58 @@ const getUniquePropertyOfArray = (items, property) => {
   return set;
 };
 
+const categoryByDate = (impressions, format) => {
+  let impressionsByDate = {};
+  impressions.forEach((impression, i) => {
+    const jsDate = new Date(impression.createdAt);
+    const impressionDate = DateTime.fromJSDate(jsDate).toFormat(format);
+
+    if (typeof impressionsByDate[impressionDate] === "undefined") {
+      impressionsByDate[impressionDate] = [];
+    }
+
+    impressionsByDate[impressionDate].push(impression);
+  });
+
+  return impressionsByDate;
+};
+
+const categoryByInterest = (type, items) => {
+  const itemsByInterest = []; // { label: "", count: 0 }
+  items.forEach((entity) => {
+    const interestName =
+      type === "post" ? entity.interest.name : entity.post?.interest.name;
+    const itemExists = itemsByInterest.findIndex((item) => {
+      return item.label === interestName;
+    });
+
+    if (itemExists < 0) {
+      itemsByInterest.push({ label: interestName, value: 1 });
+    } else {
+      const deletedItem = itemsByInterest.splice(itemExists, 1);
+
+      itemsByInterest.push({
+        label: interestName,
+        value: deletedItem[0].value + 1,
+      });
+    }
+  });
+
+  return itemsByInterest;
+};
+
+const dateToPair = (items) => {
+  let byDate = [];
+  Object.keys(items).forEach((key, i) => {
+    const set = getUniquePropertyOfArray(items[key], "userId");
+    const value = set.size;
+    const datePair = { date: key, value };
+    byDate.push(datePair);
+  });
+
+  return byDate;
+};
+
 export const DashboardType = objectType({
   name: "Dashboard",
   definition(t) {
@@ -26,8 +78,6 @@ export const DashboardType = objectType({
             },
           },
         });
-
-        console.info("totalUsers", totalUsers);
 
         return totalUsers;
       },
@@ -80,30 +130,9 @@ export const DashboardType = objectType({
           },
         });
 
-        let impressionsByDate = {};
-        totalImpressions.forEach((impression, i) => {
-          const jsDate = new Date(impression.createdAt);
-          const impressionDate =
-            DateTime.fromJSDate(jsDate).toFormat("yyyy-MM-dd");
+        let impressionsByDate = categoryByDate(totalImpressions, "yyyy-MM-dd");
 
-          if (typeof impressionsByDate[impressionDate] === "undefined") {
-            impressionsByDate[impressionDate] = [];
-          }
-
-          impressionsByDate[impressionDate].push(impression);
-        });
-
-        let dauByDate = [];
-        Object.keys(impressionsByDate).forEach((key, i) => {
-          console.info("key", key);
-          const set = getUniquePropertyOfArray(
-            impressionsByDate[key],
-            "userId"
-          );
-          const dau = set.size;
-          const dauDate = { date: key, value: dau };
-          dauByDate.push(dauDate);
-        });
+        let dauByDate = dateToPair(impressionsByDate);
 
         return dauByDate;
       },
@@ -152,34 +181,11 @@ export const DashboardType = objectType({
           },
         });
 
-        let impressionsByDate = {};
-        totalImpressions.forEach((impression, i) => {
-          const jsDate = new Date(impression.createdAt);
-          const impressionDate =
-            DateTime.fromJSDate(jsDate).toFormat("yyyy-MM");
+        let impressionsByDate = categoryByDate(totalImpressions, "yyyy-MM");
 
-          console.info("impression", impression, impressionDate);
+        let mauByDate = dateToPair(impressionsByDate);
 
-          if (typeof impressionsByDate[impressionDate] === "undefined") {
-            impressionsByDate[impressionDate] = [];
-          }
-
-          impressionsByDate[impressionDate].push(impression);
-        });
-
-        let dauByDate = [];
-        Object.keys(impressionsByDate).forEach((key, i) => {
-          console.info("key", key);
-          const set = getUniquePropertyOfArray(
-            impressionsByDate[key],
-            "userId"
-          );
-          const mau = set.size;
-          const mauDate = { date: key, value: mau };
-          dauByDate.push(mauDate);
-        });
-
-        return dauByDate;
+        return mauByDate;
       },
     });
 
@@ -218,23 +224,7 @@ export const DashboardType = objectType({
 
         console.info("allPosts", allPosts);
 
-        const postsByInterest = []; // { label: "", count: 0 }
-        allPosts.forEach((post) => {
-          const itemExists = postsByInterest.findIndex((item) => {
-            return item.label === post.interest.name;
-          });
-
-          if (itemExists < 0) {
-            postsByInterest.push({ label: post.interest.name, value: 1 });
-          } else {
-            const deletedItem = postsByInterest.splice(itemExists, 1);
-
-            postsByInterest.push({
-              label: post.interest.name,
-              value: deletedItem[0].value + 1,
-            });
-          }
-        });
+        const postsByInterest = categoryByInterest("post", allPosts);
 
         return postsByInterest;
       },
@@ -287,24 +277,10 @@ export const DashboardType = objectType({
           },
         });
 
-        const impressionsByInterest = []; // { label: "", count: 0 }
-        dailyImpressions.forEach((impression) => {
-          const interestName = impression.post?.interest.name;
-          const itemExists = impressionsByInterest.findIndex((item) => {
-            return item.label === interestName;
-          });
-
-          if (itemExists < 0) {
-            impressionsByInterest.push({ label: interestName, value: 1 });
-          } else {
-            const deletedItem = impressionsByInterest.splice(itemExists, 1);
-
-            impressionsByInterest.push({
-              label: interestName,
-              value: deletedItem[0].value + 1,
-            });
-          }
-        });
+        const impressionsByInterest = categoryByInterest(
+          "impression",
+          dailyImpressions
+        );
 
         return impressionsByInterest;
       },
