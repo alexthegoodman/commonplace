@@ -1,0 +1,12 @@
+.inlineHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: space-between;
+  padding: 15px;
+  z-index: 5;
+}
+
+.headerTitle {
+  font-size: 28px;
+}

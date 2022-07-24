@@ -7,32 +7,34 @@ import { useCookies } from "react-cookie";
 import { FormProvider, useForm } from "react-hook-form";
 import useSWR, { SWRConfig } from "swr";
 import Utilities from "../../commonplace-utilities";
-import FormInput from "../components/FormInput/FormInput";
-import FormMessage from "../components/FormMessage/FormMessage";
-import FormTextarea from "../components/FormTextarea/FormTextarea";
-import FormUpload from "../components/FormUpload/FormUpload";
-import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
-import StepCounter from "../components/StepCounter/StepCounter";
+import DesktopNavigation from "../components/layout/DesktopNavigation/DesktopNavigation";
+import FormInput from "../components/fields/FormInput/FormInput";
+import FormMessage from "../components/fields/FormMessage/FormMessage";
+import FormTextarea from "../components/fields/FormTextarea/FormTextarea";
+import FormUpload from "../components/fields/FormUpload/FormUpload";
+import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
+import StepCounter from "../components/forms/StepCounter/StepCounter";
 import { cpGraphqlUrl } from "../def/urls";
 import { createPostMutation } from "../graphql/mutations/post";
 import { userQuery } from "../graphql/queries/user";
 import { InterestsContent } from "./interests";
+import { GQLClient } from "../helpers/GQLClient";
 
-const getUserData = async (userId) => {
-  const userData = await request(cpGraphqlUrl, userQuery, {
-    id: userId,
-  });
+const getUserData = async (token) => {
+  const gqlClient = new GQLClient(token);
+
+  const userData = await gqlClient.client.request(userQuery);
 
   return userData;
 };
 
 const UploadContent = () => {
-  const [cookies] = useCookies(["coUserId"]);
-  const userId = cookies.coUserId;
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
 
-  const { data } = useSWR("profileKey", () => getUserData(userId));
+  const { data } = useSWR("profileKey", () => getUserData(token));
 
-  console.info("UploadContent", userId, data);
+  console.info("UploadContent", token, data);
 
   const router = useRouter();
   const [step, setStep] = useState(1);
@@ -57,12 +59,19 @@ const UploadContent = () => {
     setSubmitLoading(true);
 
     // TODO: send data to API
-    const createdPost = await request(cpGraphqlUrl, createPostMutation, {
-      creatorId: userId,
-      interestId: selectedInterest?.id,
-      contentType,
-      ...formValues,
-    });
+    const createdPost = await request(
+      cpGraphqlUrl,
+      createPostMutation,
+      {
+        // creatorId: userId,
+        interestId: selectedInterest?.id,
+        contentType,
+        ...formValues,
+      },
+      {
+        commonplace_jwt_header: token,
+      }
+    );
 
     setSubmitLoading(false);
 
@@ -180,9 +189,17 @@ const UploadContent = () => {
             <PrimaryHeader
               inline={true}
               leftIcon={
-                <a onClick={goBack} href="#!" aria-label="Go Back">
-                  <i className="typcn typcn-arrow-left"></i>
-                </a>
+                <>
+                  <DesktopNavigation />
+                  <a
+                    className="mobileOnly"
+                    onClick={goBack}
+                    href="#!"
+                    aria-label="Go Back"
+                  >
+                    <i className="typcn typcn-arrow-left"></i>
+                  </a>
+                </>
               }
               title="Upload Creation"
               rightIcon={<></>}
@@ -433,13 +450,20 @@ const Upload: NextPage<{ fallback: any }> = ({ fallback }) => {
 export async function getServerSideProps(context) {
   const utilities = new Utilities();
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
-  const userId = cookieData.coUserId;
+  const token = cookieData.coUserToken;
 
-  console.info("coUserId", userId);
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
 
-  const userData = await getUserData(userId);
+  const userData = await getUserData(token);
 
-  console.info("getServerSideProps", userId, userData);
+  console.info("getServerSideProps", token, userData);
 
   return {
     props: {

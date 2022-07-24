@@ -1,0 +1,22 @@
+@import '../../../styles/variables.scss';
+
+.navOption {
+  width: 50px;
+  height: 50px;
+  background: #e5e5e5;
+  border-radius: 50px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navOptionText {
+  // font-family: 'typicons';
+  // font-family: 'Sora-Regular';
+}
+
+.primaryNavOption {
+  @extend .navOption;
+  background: $red;
+}

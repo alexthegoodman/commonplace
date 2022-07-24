@@ -15,12 +15,12 @@ export const PostURLsQuery = extendType({
           },
         });
 
-        const urls = slugs.map((user, i) => {
+        const urls = slugs.map((post, i) => {
           return (
+            "/post/" +
+            post.interest.generatedInterestSlug.toLowerCase() +
             "/" +
-            user.interest.generatedInterestSlug +
-            "/" +
-            user.generatedTitleSlug
+            post.generatedTitleSlug
           );
         });
 

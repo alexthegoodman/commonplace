@@ -1,4 +1,3 @@
-import request, { gql } from "graphql-request";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useContext, useEffect, useReducer, useState } from "react";
@@ -6,11 +5,11 @@ import { useCookies } from "react-cookie";
 import useSWR, { SWRConfig } from "swr";
 import { motion, useAnimation } from "framer-motion";
 import Utilities from "../../commonplace-utilities";
-import ContentInformation from "../components/ContentInformation/ContentInformation";
-import ContentViewer from "../components/ContentViewer/ContentViewer";
-import ImpressionGrid from "../components/ImpressionGrid/ImpressionGrid";
-import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
-import PrimaryNavigation from "../components/PrimaryNavigation/PrimaryNavigation";
+import ContentInformation from "../components/post/ContentInformation/ContentInformation";
+import ContentViewer from "../components/post/ContentViewer/ContentViewer";
+import ImpressionGrid from "../components/queue/ImpressionGrid/ImpressionGrid";
+import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
+import PrimaryNavigation from "../components/layout/PrimaryNavigation/PrimaryNavigation";
 import {
   QueueContext,
   QueueContextReducer,
@@ -18,7 +17,7 @@ import {
 } from "../context/QueueContext/QueueContext";
 import { cloudfrontUrl, cpGraphqlUrl } from "../def/urls";
 import { createMessageMutation } from "../graphql/mutations/message";
-import { postsQuery } from "../graphql/queries/post";
+import { queuePostsQuery } from "../graphql/queries/post";
 import { userQuery } from "../graphql/queries/user";
 import { useImageUrl } from "../hooks/useImageUrl";
 import { usePreloadImage } from "../hooks/usePreloadImage";
@@ -26,76 +25,56 @@ import { getUserThreadData } from "./updates";
 import { useUnreadThreads } from "../hooks/useUnreadThreads";
 import { InterestsContent } from "./interests";
 import { NextSeo } from "next-seo";
-import BrandName from "../components/BrandName/BrandName";
+import BrandName from "../components/layout/BrandName/BrandName";
+import { userThreadsQuery } from "../graphql/queries/thread";
+import { GQLClient } from "../helpers/GQLClient";
 
-const getPostsAndUserData = async (userId, interestId = null) => {
-  const userData = await request(cpGraphqlUrl, userQuery, {
-    id: userId,
+const getPostsAndUserData = async (token, interestId = null) => {
+  const gqlClient = new GQLClient(token);
+
+  const userData = await gqlClient.client.request(userQuery);
+
+  // let addtPostFilter = {};
+
+  // if (interestId) {
+  //   addtPostFilter = {
+  //     interestId: {
+  //       equals: interestId,
+  //     },
+  //   };
+  // }
+
+  const postsData = await gqlClient.client.request(queuePostsQuery, {
+    interestId,
   });
 
-  let addtPostFilter = {};
-
-  if (interestId) {
-    addtPostFilter = {
-      interestId: {
-        equals: interestId,
-      },
-    };
-  }
-
-  const postsData = await request(cpGraphqlUrl, postsQuery, {
-    where: {
-      // NOT currentUser's posts
-      creatorId: {
-        not: {
-          equals: userId,
-        },
-      },
-      // NOT posts with impression from currentUser
-      messages: {
-        none: {
-          user: {
-            id: {
-              equals: userId,
-            },
-          },
-          type: {
-            equals: "impression",
-          },
-        },
-      },
-      ...addtPostFilter,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-
-  const userThreadData = await getUserThreadData(userId);
+  const userThreadData = await gqlClient.client.request(userThreadsQuery);
 
   let threads = [];
-  if (typeof userThreadData?.getUser?.threads !== "undefined") {
-    threads = userThreadData?.getUser?.threads;
+  if (typeof userThreadData?.getUserThreads !== "undefined") {
+    threads = userThreadData?.getUserThreads;
   }
 
   const returnData = {
-    currentUser: userData,
-    posts: postsData.posts,
+    currentUser: userData.getUser,
+    posts: postsData.getQueuePosts,
     threads,
   };
+
+  // console.info("returnData", returnData);
 
   return returnData;
 };
 
 const QueueContent = () => {
-  const [cookies] = useCookies(["coUserId"]);
-  const userId = cookies.coUserId;
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
 
   const [selectedInterest, setSelectedInterest] = useState<any>(null);
 
   const { data, mutate } = useSWR(
     "queueKey",
-    () => getPostsAndUserData(userId, selectedInterest?.id),
+    () => getPostsAndUserData(token, selectedInterest?.id),
     {
       revalidateIfStale: true,
       revalidateOnFocus: true,
@@ -117,7 +96,7 @@ const QueueContent = () => {
   const [queueFinished, setQueueFinished] = useState(firstId ? false : true);
   const [currentImpression, setCurrentImpression] = useState("");
   const [showInterestsModal, setShowInterestsModal] = useState(false);
-  const [creditUi, setCreditUi] = useState(data?.currentUser?.getUser?.credit);
+  const [creditUi, setCreditUi] = useState(data?.currentUser?.credit);
 
   const postAnimation = useAnimation();
   const betweenPostAnimation = useAnimation();
@@ -221,14 +200,14 @@ const QueueContent = () => {
 
     setQueuePostId(nextPostId);
     // TODO: send impression message
-    const currentUserEmail = data?.currentUser?.getUser?.email;
-    const postCreatorEmail = currentPost?.creator?.email;
+    const authorUsername = data?.currentUser?.generatedUsername;
+    const postCreatorUsername = currentPost?.creator?.generatedUsername;
 
     const savedImpression = await request(cpGraphqlUrl, createMessageMutation, {
       type: "impression",
       content: impression,
-      authorEmail: currentUserEmail,
-      postCreatorEmail: postCreatorEmail,
+      authorUsername,
+      postCreatorUsername,
       postId: currentPost?.id,
     });
 
@@ -239,7 +218,7 @@ const QueueContent = () => {
 
   const { unreadThreads, unreadThreadCount } = useUnreadThreads(
     data?.threads,
-    data?.currentUser?.getUser?.chosenUsername
+    data?.currentUser?.chosenUsername
   );
 
   console.info("unreadThreads", data?.threads, unreadThreads);
@@ -269,7 +248,7 @@ const QueueContent = () => {
 
     setShowInterestsModal(false);
     setSelectedInterest(interest);
-    mutate(() => getPostsAndUserData(userId, selectedInterest?.id)); // refresh swrr
+    mutate(() => getPostsAndUserData(token, selectedInterest?.id)); // refresh swrr
 
     // await postAnimation.start((i) => ({
     //   opacity: 1,
@@ -296,7 +275,15 @@ const QueueContent = () => {
           <div className="queueInner">
             <NextSeo title={`Queue | CommonPlace`} />
             <PrimaryHeader
-              leftIcon={<BrandName />}
+              leftIcon={
+                <>
+                  <BrandName />
+                  <PrimaryNavigation
+                    className="desktopOnly"
+                    threadCount={unreadThreadCount}
+                  />
+                </>
+              }
               titleComponent={
                 <a
                   className="pickerButton"
@@ -310,7 +297,12 @@ const QueueContent = () => {
                     : selectedInterest?.name}
                 </a>
               }
-              rightIcon={<PrimaryNavigation threadCount={unreadThreadCount} />}
+              rightIcon={
+                <PrimaryNavigation
+                  className="mobileOnly"
+                  threadCount={unreadThreadCount}
+                />
+              }
             />
             <main className="scrollContainer queueScrollContainer">
               {!queueFinished ? (
@@ -373,9 +365,18 @@ export default Queue;
 export async function getServerSideProps(context) {
   const utilities = new Utilities();
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
-  const userId = cookieData.coUserId;
+  const token = cookieData.coUserToken;
 
-  const returnData = await getPostsAndUserData(userId);
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+
+  const returnData = await getPostsAndUserData(token);
 
   console.info("getServerSideProps", returnData);
 

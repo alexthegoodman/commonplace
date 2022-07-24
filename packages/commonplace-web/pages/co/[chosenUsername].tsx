@@ -17,11 +17,13 @@ const getUserAndPostsByUsernameData = async (chosenUsername) => {
   });
 
   const returnData = {
-    user: {
-      ...getUserData.getUserByUsername,
+    getUser: {
+      ...userData.getUserByUsername,
       posts: postsData.getPostsByUsername,
     },
   };
+
+  console.info("returnData", returnData);
 
   return returnData;
 };

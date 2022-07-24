@@ -3,8 +3,9 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
+import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
 
-import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
+import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 
 const Settings: NextPage = () => {
   const router = useRouter();
@@ -22,12 +23,15 @@ const Settings: NextPage = () => {
         <PrimaryHeader
           inline={true}
           leftIcon={
-            <Link href="/profile">
-              <a>
-                {/* <div className="feather-icon icon-arrow-left"></div> */}
-                <i className="typcn typcn-arrow-left"></i>
-              </a>
-            </Link>
+            <>
+              <DesktopNavigation />
+              <Link href="/profile">
+                <a className="mobileOnly">
+                  {/* <div className="feather-icon icon-arrow-left"></div> */}
+                  <i className="typcn typcn-arrow-left"></i>
+                </a>
+              </Link>
+            </>
           }
           title="Settings"
           rightIcon={<></>}

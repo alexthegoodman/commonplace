@@ -1,0 +1,213 @@
+@media screen and (min-width: $desktopWidth) {
+  header.primaryHeader,
+  header.primaryHeader.whiteHeader {
+    width: $desktopWidth;
+    margin: 0 auto;
+
+    position: relative;
+    right: -100px;
+
+    .primaryHeaderInner {
+      .headerIcon {
+        // width: auto;
+        padding: 0 15px;
+
+        a.navOption {
+          color: #737373;
+
+          &.primaryNavOption {
+            .typcn {
+              color: #737373;
+            }
+          }
+
+          &.current {
+            color: $red;
+
+            .typcn {
+              color: $red;
+            }
+
+            &.primaryNavOption {
+              .typcn {
+                color: $red;
+              }
+            }
+          }
+        }
+
+        .brandnameWrapper {
+          position: relative;
+          left: -150px;
+
+          // left: -150px;
+          width: auto;
+          // padding: 0 20px;
+
+          .brandname {
+            width: 50px;
+            text-align: center;
+            width: auto;
+            padding: 0 25px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.primaryHeader {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+
+  &.inline {
+    position: relative;
+    background: white;
+
+    .primaryHeaderInner {
+      .headerIcon {
+        .typcn {
+          color: black;
+        }
+
+        a {
+          &:focus {
+            background: #e5e5e5;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      .headerTitleWrapper {
+        .title {
+          padding-top: 6px;
+        }
+      }
+    }
+  }
+
+  &.whiteHeader {
+    .primaryHeaderInner {
+      .headerIcon {
+        font-size: 24px;
+        top: -12px;
+
+        a {
+          color: white;
+        }
+
+        &.headerLeftIcon {
+          background: transparent;
+        }
+      }
+      .headerTitleWrapper {
+        .title {
+          color: white;
+          text-align: center;
+          font-size: 24px;
+          line-height: 30px;
+        }
+      }
+    }
+  }
+
+  .primaryHeaderInner {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 15px 5px 15px;
+
+    .headerIcon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      position: relative;
+      top: -7px;
+
+      .typcn {
+        font-size: 28px;
+      }
+
+      .typcn-arrow-left {
+        font-size: 36px;
+      }
+
+      a {
+        text-decoration: none;
+        font-size: 24px;
+        text-align: center;
+        padding: 8px;
+      }
+
+      .icon-list {
+        position: relative;
+        left: -2px;
+      }
+
+      .brandnameWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        // background: #8446ff;
+        // background: -webkit-radial-gradient(top left, #8446ff, #ff4040);
+        // background: -moz-radial-gradient(top left, #8446ff, #ff4040);
+        background: $brandGradient;
+
+        .brandname {
+          font-size: 20px;
+          font-weight: 600;
+          color: white;
+        }
+      }
+
+      .headerButton {
+        background: $frenchRaspberry;
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+
+        a,
+        span {
+          color: white;
+        }
+      }
+    }
+    .headerTitleWrapper {
+      .titleComponent {
+        h1,
+        .pickerButton {
+          font-weight: 600;
+          font-size: 16px;
+          text-decoration: none;
+          color: black;
+          background: $headerWhite;
+          padding: 10px 15px;
+          display: block;
+          border-radius: 3px;
+          text-transform: capitalize;
+
+          .typcn {
+            font-size: 20px;
+            margin-right: 4px;
+          }
+        }
+      }
+      .title {
+        font-size: 24px;
+        font-weight: 600;
+
+        max-width: 60vw;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 0 auto;
+      }
+    }
+  }
+}

@@ -16,6 +16,7 @@ export default async function seedUsers() {
     return {
       email,
       // name: faker.name.findName(), // NOTE: not currently set on frontend
+      role: "USER",
       generatedUsername,
       chosenUsername: generatedUsername,
       profileImage: testImages[randomInt1],
@@ -28,6 +29,7 @@ export default async function seedUsers() {
     data: [
       {
         ...getDefaultUser("alexthegoodman@gmail.com"),
+        role: "ADMIN",
       },
       getDefaultUser(),
       getDefaultUser(),

@@ -1,0 +1,86 @@
+.landingBlock {
+  background: #f6f6f6;
+  width: 100%;
+
+  .contain {
+    padding: 100px 0;
+    width: 1000px;
+    margin: 0 auto;
+    // display: flex;
+    // flex-direction: row;
+    display: table;
+
+    .text,
+    .visual {
+      width: 50%;
+    }
+
+    .text {
+      float: left;
+    }
+    .visual {
+      float: right;
+    }
+
+    .text {
+      .textContain {
+        h3 {
+          margin: 0;
+          padding: 0;
+          color: #4a4a4a;
+          font-family: "Playfair Display", serif;
+          font-size: 48px;
+          font-style: normal;
+          font-weight: bold;
+          line-height: 125%;
+          letter-spacing: normal;
+          text-align: left;
+          margin-bottom: 50px;
+        }
+        p {
+          text-align: left;
+          padding: 0;
+          color: #686868;
+          font-family: "Playfair Display", serif;
+          font-size: 22px;
+          line-height: 150%;
+          padding-right: 25px;
+        }
+      }
+    }
+    .visual {
+      img {
+        display: block;
+        max-width: 100%;
+      }
+    }
+  }
+  @media only screen and (max-width: 1000px) {
+    .contain {
+      width: 100%;
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+  }
+  @media only screen and (max-width: 720px) {
+    .contain {
+      .text,
+      .visual {
+        float: none;
+        width: 100%;
+      }
+      .text {
+        .textContain {
+          h3 {
+            font-size: 30px !important;
+            line-height: 150% !important;
+          }
+          p {
+            font-size: 16px !important;
+            line-height: 150% !important;
+          }
+        }
+      }
+    }
+  }
+}

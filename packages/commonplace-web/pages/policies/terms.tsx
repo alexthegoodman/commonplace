@@ -7,7 +7,7 @@ const Terms: NextPage = () => {
   return (
     <section className="settings">
       <div className="settingsInner">
-        <NextSeo title={`Terms of Use | Policies | CommonPlace`} />
+        <NextSeo title={`Terms of Service | Policies | CommonPlace`} />
         <PrimaryHeader
           inline={true}
           leftIcon={
@@ -18,7 +18,7 @@ const Terms: NextPage = () => {
               </a>
             </Link>
           }
-          title="Terms of Use"
+          title="Terms of Service"
           rightIcon={<></>}
         />
         <section className="policyContent">

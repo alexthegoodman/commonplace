@@ -2,11 +2,11 @@
 $inputGrey: #ececec;
 
 /** Component Imports **/
-@import "../components/FormInput/FormInput";
-@import "../components/SearchInput/SearchInput";
-@import "../components/FormTextarea/FormTextarea";
-@import "../components/FormUpload/FormUpload";
-@import "../components/FormMessage/FormMessage";
+@import "../components/fields/FormInput/FormInput";
+@import "../components/fields/SearchInput/SearchInput";
+@import "../components/fields/FormTextarea/FormTextarea";
+@import "../components/fields/FormUpload/FormUpload";
+@import "../components/fields/FormMessage/FormMessage";
 
 /** Page Styles **/
 .formWrapper {

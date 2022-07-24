@@ -4,21 +4,20 @@ import Utilities from "../../../../commonplace-utilities";
 import { Context } from "../../context";
 import bcrypt from "bcryptjs";
 
-export const RegisterUserQuery = extendType({
-  type: "Query",
+export const RegisterUserMutation = extendType({
+  type: "Mutation",
   definition(t) {
     t.nonNull.field("registerUser", {
       type: "String",
-      args: {
-        email: nonNull(stringArg()),
-        password: nonNull(stringArg()),
-      },
-      resolve: async (
-        _,
-        { email, password },
-        { prisma, mixpanel }: Context
-      ) => {
+      args: {},
+      resolve: async (_, {}, { prisma, mixpanel, req }: Context) => {
         const utilities = new Utilities();
+
+        const credentials = utilities.helpers.parseAuthHeader(
+          req.headers.authorization
+        );
+        const email = credentials[0];
+        const password = credentials[1];
 
         const user: User = await new Promise(async (resolve, reject) => {
           utilities.logs.write(["Register User Incoming Request ", email]);
@@ -36,6 +35,7 @@ export const RegisterUserQuery = extendType({
                     password: hash,
                     generatedUsername,
                     chosenUsername: generatedUsername,
+                    role: "USER",
                   },
                 });
               } catch (error) {
@@ -60,7 +60,13 @@ export const RegisterUserQuery = extendType({
 
         mixpanel.track("Sign Up - Complete");
 
-        return user.id;
+        const data = {
+          userId: user.id,
+        };
+
+        const token = utilities.helpers.createJWT(data);
+
+        return token;
       },
     });
   },

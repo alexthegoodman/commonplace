@@ -5,51 +5,41 @@ import useSWR, { SWRConfig } from "swr";
 import { useCookies } from "react-cookie";
 
 import Utilities from "../../../commonplace-utilities";
-import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
-import UpdateItem from "../../components/UpdateItem/UpdateItem";
-import { threadsQuery } from "../../graphql/queries/thread";
+import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
+import UpdateItem from "../../components/updates/UpdateItem/UpdateItem";
+import { threadsQuery, userThreadsQuery } from "../../graphql/queries/thread";
 import { cpGraphqlUrl } from "../../def/urls";
 import { useUnreadThreads } from "../../hooks/useUnreadThreads";
 import { NextSeo } from "next-seo";
-import InviteFriends from "../../components/InviteFriends/InviteFriends";
+import InviteFriends from "../../components/growth/InviteFriends/InviteFriends";
+import { userQuery } from "../../graphql/queries/user";
+import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
+import { GQLClient } from "../../helpers/GQLClient";
 
-export const getUserThreadData = async (userId) => {
-  const userThreadData = await request(cpGraphqlUrl, threadsQuery, {
-    id: userId,
-    orderMessagesBy: {
-      createdAt: "desc",
-    },
-    orderThreadsBy: {
-      createdAt: "desc",
-    },
-    // EXCLUDE threads where messages are only from currentUser
-    threadWhere: {
-      messages: {
-        some: {
-          userId: {
-            not: {
-              equals: userId,
-            },
-          },
-        },
-      },
-    },
-  });
+export const getUserThreadData = async (token) => {
+  const gqlClient = new GQLClient(token);
 
-  return userThreadData;
+  const userData = await gqlClient.client.request(userQuery);
+
+  const userThreadData = await gqlClient.client.request(userThreadsQuery);
+
+  return {
+    user: userData?.getUser,
+    threads: userThreadData?.getUserThreads,
+  };
 };
 
 const UpdatesContent: NextPage = () => {
-  const [cookies] = useCookies(["coUserId"]);
-  const userId = cookies.coUserId;
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
 
-  const { data } = useSWR("updatesKey", () => getUserThreadData(userId), {
+  const { data } = useSWR("updatesKey", () => getUserThreadData(token), {
     revalidateIfStale: true,
   });
 
   const { unreadThreads, unreadThreadCount } = useUnreadThreads(
-    data?.getUser?.threads,
-    data?.getUser?.chosenUsername
+    data?.threads,
+    data?.user?.chosenUsername
   );
 
   console.info("UpdatesContent", data);
@@ -61,20 +51,23 @@ const UpdatesContent: NextPage = () => {
         <PrimaryHeader
           inline={true}
           leftIcon={
-            <Link href="/queue">
-              <a aria-label="Go Back to Queue">
-                {/* <div className="feather-icon icon-list"></div> */}
-                <i className="typcn typcn-equals"></i>
-              </a>
-            </Link>
+            <>
+              <DesktopNavigation />
+              <Link href="/queue">
+                <a className="mobileOnly" aria-label="Go Back to Queue">
+                  {/* <div className="feather-icon icon-list"></div> */}
+                  <i className="typcn typcn-equals"></i>
+                </a>
+              </Link>
+            </>
           }
           title="Updates"
           rightIcon={<></>}
         />
         <InviteFriends />
         <div className="scrollContainer updatesContainer">
-          {data?.getUser?.threads?.length > 0 ? (
-            data?.getUser?.threads?.map((thread, i) => {
+          {data?.threads?.length > 0 ? (
+            data?.threads?.map((thread, i) => {
               const previewMessage = thread.messages[0];
 
               const match = unreadThreads.find(
@@ -115,11 +108,20 @@ const Updates: NextPage<{ fallback: any }> = ({ fallback }) => {
 export async function getServerSideProps(context) {
   const utilities = new Utilities();
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
-  const userId = cookieData.coUserId;
+  const token = cookieData.coUserToken;
 
-  console.info("coUserId", userId);
+  console.info("token", token);
 
-  const userThreadData = await getUserThreadData(userId);
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
+
+  const userThreadData = await getUserThreadData(token);
 
   console.info("getServerSideProps", userThreadData);
 

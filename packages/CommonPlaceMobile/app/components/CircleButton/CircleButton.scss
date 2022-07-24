@@ -1,0 +1,16 @@
+@import '../../../styles/variables';
+
+.circleButton {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  background: $lightBlue;
+  justify-content: center;
+  align-items: center;
+}
+
+.circleButtonText {
+  font-size: 24px;
+  color: white;
+  font-weight: 400;
+}

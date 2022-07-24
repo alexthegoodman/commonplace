@@ -1,17 +1,17 @@
 /** Variables **/
 
 /** Component Imports **/
-@import "../components/ContentInformation/ContentInformation";
-@import "../components/ImpressionWheel/ImpressionWheel";
-@import "../components/ImpressionGrid/ImpressionGrid";
-@import "../components/PrimaryHeader/PrimaryHeader";
-@import "../components/PrimaryNavigation/PrimaryNavigation";
-@import "../components/PostImpressions/PostImpressions";
+@import "../components/post/ContentInformation/ContentInformation";
+@import "../components/queue/ImpressionWheel/ImpressionWheel";
+@import "../components/queue/ImpressionGrid/ImpressionGrid";
+@import "../components/layout/PrimaryHeader/PrimaryHeader";
+@import "../components/layout/PrimaryNavigation/PrimaryNavigation";
+@import "../components/post/PostImpressions/PostImpressions";
 
-@import "../components/ContentViewer/ContentViewer";
-@import "../components/VideoViewer/VideoViewer";
-@import "../components/AudioViewer/AudioViewer";
-@import "../components/TextViewer/TextViewer";
+@import "../components/post/ContentViewer/ContentViewer";
+@import "../components/post/VideoViewer/VideoViewer";
+@import "../components/post/AudioViewer/AudioViewer";
+@import "../components/post/TextViewer/TextViewer";
 
 /*** Page Styles ***/
 .queueScrollContainer {

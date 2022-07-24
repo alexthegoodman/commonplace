@@ -3,9 +3,9 @@ import Logs from "./lib/Logs";
 import AWS from "./lib/AWS";
 import ERROR_CODES from "./lib/ERROR_CODES";
 
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
 
-dotenv.config();
+// dotenv.config();
 
 export default class Utilities {
   helpers;

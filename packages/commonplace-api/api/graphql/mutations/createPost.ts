@@ -10,7 +10,6 @@ export const CreatePostMutation = extendType({
     t.nonNull.field("createPost", {
       type: "Post",
       args: {
-        creatorId: nonNull(stringArg()),
         interestId: nonNull(stringArg()),
         contentType: nonNull(stringArg()),
         title: nonNull(stringArg()),
@@ -31,7 +30,6 @@ export const CreatePostMutation = extendType({
       resolve: async (
         _,
         {
-          creatorId,
           interestId,
           contentType,
           title,
@@ -46,11 +44,10 @@ export const CreatePostMutation = extendType({
           file2Type,
           file2Data,
         },
-        { prisma, mixpanel }: Context
+        { prisma, mixpanel, currentUser }: Context
       ) => {
         console.info(
           "Create Post",
-          creatorId,
           interestId,
           contentType,
           title,
@@ -65,6 +62,35 @@ export const CreatePostMutation = extendType({
         );
 
         const utilities = new Utilities();
+
+        // deduct credits if interest allows
+
+        const interest = await prisma.interest.findFirst({
+          where: {
+            id: interestId,
+          },
+          include: {
+            posts: true,
+          },
+        });
+
+        // more than 5 posts in selected interst
+        if (interest && interest?.posts?.length > 5) {
+          const newCredit = (currentUser?.credit as number) - 3;
+
+          if (newCredit < 0) {
+            throw Error("Not enough Credits");
+          }
+
+          await prisma.user.update({
+            where: {
+              id: currentUser.id,
+            },
+            data: {
+              credit: newCredit,
+            },
+          });
+        }
 
         let upload1Path = "";
         if (file1Name && file1Data) {
@@ -127,20 +153,9 @@ export const CreatePostMutation = extendType({
             },
             creator: {
               connect: {
-                id: creatorId,
+                id: currentUser.id,
               },
             },
-          },
-        });
-
-        // deduct credits if interest allows
-
-        const interest = await prisma.interest.findFirst({
-          where: {
-            id: interestId,
-          },
-          include: {
-            posts: true,
           },
         });
 
@@ -150,30 +165,6 @@ export const CreatePostMutation = extendType({
           interest,
           interest?.posts?.length
         );
-
-        // more than 5 posts in selected interst
-        if (interest && interest?.posts?.length > 5) {
-          const creator = await prisma.user.findFirst({
-            where: {
-              id: creatorId,
-            },
-          });
-
-          const newCredit = (creator?.credit as number) - 3;
-
-          if (newCredit < 0) {
-            throw Error("Not enough Credits");
-          }
-
-          await prisma.user.update({
-            where: {
-              id: creatorId,
-            },
-            data: {
-              credit: newCredit,
-            },
-          });
-        }
 
         mixpanel.track("Post Created");
 

@@ -1,0 +1,27 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+$darkBlue: #2266ff;
+$midBlue: #3388ff;
+$lightBlue: #44ccff;
+
+$purple: #8446ff;
+$red: #ff4040;
+
+$brandGradient: radial-gradient(at bottom right, $purple, $red);
+
+@import "./Home.module";

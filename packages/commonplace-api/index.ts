@@ -1,8 +1,7 @@
 import express from "express";
 import { startApolloServer } from "./api";
 import { setupMixpanel } from "./mixpanel";
-import { dashboardRoutes } from "./rest/dashboard";
-const axios = require("axios").default;
+import cors from "cors";
 
 const app = express();
 const port = 3001;
@@ -14,11 +13,11 @@ declare global {
 
 console.info("Setup Express Routes...");
 
+app.use(cors());
+
 app.get("/", (req, res) => {
   res.send("API Functioning");
 });
-
-dashboardRoutes(app);
 
 console.info("Start Server...");
 

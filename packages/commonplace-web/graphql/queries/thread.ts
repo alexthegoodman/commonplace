@@ -1,7 +1,7 @@
 import { gql } from "graphql-request";
 
-const PublicThreadFieldsFragment = gql`
-  fragment PublicThreadFieldsFragment on Thread {
+const ThreadFieldsFragment = gql`
+  fragment ThreadFieldsFragment on Thread {
     id
     repliesAllowed
     users {
@@ -13,10 +13,10 @@ const PublicThreadFieldsFragment = gql`
       content
       createdAt
     }
-    messages(orderBy: $orderMessagesBy) {
+    messages {
       user {
         name
-        email
+        generatedUsername
         chosenUsername
         profileImage
       }
@@ -54,21 +54,27 @@ export const threadsQuery = gql`
       updatedAt
 
       threads(orderBy: $orderThreadsBy, where: $threadWhere) {
-        ...PublicThreadFieldsFragment
+        ...ThreadFieldsFragment
       }
     }
   }
-  ${PublicThreadFieldsFragment}
+  ${ThreadFieldsFragment}
+`;
+
+export const userThreadsQuery = gql`
+  query GetUserThreads {
+    getUserThreads {
+      ...ThreadFieldsFragment
+    }
+  }
+  ${ThreadFieldsFragment}
 `;
 
 export const threadQuery = gql`
-  query Thread(
-    $where: ThreadWhereUniqueInput!
-    $orderMessagesBy: [MessageOrderByWithRelationInput!]
-  ) {
-    thread(where: $where) {
-      ...PublicThreadFieldsFragment
+  query GetThreadById($threadId: String!) {
+    getThreadById(threadId: $threadId) {
+      ...ThreadFieldsFragment
     }
   }
-  ${PublicThreadFieldsFragment}
+  ${ThreadFieldsFragment}
 `;

@@ -3,6 +3,22 @@
 /** Component Imports **/
 
 /** Page Styles **/
+@media screen and (min-width: $desktopWidth) {
+  section.settingsList {
+    width: $desktopWidth;
+    margin: 0 auto;
+    position: relative;
+    left: 100px;
+    height: 100vh;
+
+    .settingsListInner {
+      .bottomLinks {
+        bottom: 100px;
+      }
+    }
+  }
+}
+
 .settingsList {
   width: 100%;
 

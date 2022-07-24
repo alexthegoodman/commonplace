@@ -1,0 +1,37 @@
+.contentViewer {
+  // height: calc(100vh - 450px);
+  min-height: 200px;
+  width: 100%;
+  // max-width: $desktopWidth - 60px;
+  // margin: 0 auto;
+  background: rgb(245, 245, 245);
+  overflow: hidden;
+
+  .contentViewerInner {
+    // height: calc(100vh - 360px);
+    width: 100%;
+    // aspect-ratio: 1;
+    // padding-bottom: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    img {
+      display: block;
+      max-width: 100%;
+      max-height: 1200px;
+      // max-height: 100%;
+      // position: absolute;
+    }
+  }
+}
+
+@media screen and (min-width: $desktopWidth) {
+  .contentViewer {
+    .contentViewerInner {
+      img {
+        max-height: calc(100vh - 400px);
+      }
+    }
+  }
+}

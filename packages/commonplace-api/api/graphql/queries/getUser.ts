@@ -6,19 +6,11 @@ export const UserQuery = extendType({
   definition(t) {
     t.field("getUser", {
       type: "User",
-      args: {
-        id: nonNull(stringArg()),
-      },
-      resolve: async (_, { id }, { prisma }: Context) => {
-        const user = await prisma.user.findUnique({
-          where: {
-            id,
-          },
-        });
+      args: {},
+      resolve: async (_, {}, { prisma, currentUser }: Context) => {
+        // console.info("Get user", currentUser);
 
-        console.info("Get user", id, user);
-
-        return user;
+        return currentUser;
       },
     });
   },

@@ -1,0 +1,70 @@
+{
+  "name": "foundation-emails-template",
+  "version": "2.4.0",
+  "description": "Basic template for a Foundation for Emails project.",
+  "repository": "foundation/foundation-emails-template",
+  "main": "gulpfile.babel.js",
+  "scripts": {
+    "start": "gulp",
+    "build": "gulp --production",
+    "zip": "gulp zip --production",
+    "litmus": "gulp litmus --production",
+    "mail": "gulp mail --production"
+  },
+  "author": "Foundation <contact@get.foundation> (https://get.foundation)",
+  "license": "MIT",
+  "dependencies": {
+    "foundation-emails": "^2.4.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.26",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.7.2",
+    "beepbeep": "^1.2.0",
+    "browser-sync": "^2.11.0",
+    "colors": "^1.1.2",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-cached": "^1.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-if": "^3.0.0",
+    "gulp-inject-string": "^1.1.0",
+    "gulp-inline-css": "^3.4.0",
+    "gulp-load-plugins": "^2.0.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-prettify": "^0.5.0",
+    "gulp-prompt": "^1.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rsync": "0.0.8",
+    "gulp-sass": "^4.1.0",
+    "gulp-sass-lint": "^1.4.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uncss": "^1.0.1",
+    "gulp-wrap": "^0.15.0",
+    "gulp-zip": "^5.0.1",
+    "gulp-awspublish": "^3.0.1",
+    "gulp-cli": "^1.1.0",
+    "gulp-html-src": "^1.0.0",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-litmus": "0.0.7",
+    "gulp-mail": "^0.1.1",
+    "gulp-replace": "^0.5.4",
+    "inky": "^1.4.1",
+    "lazypipe": "^1.0.1",
+    "merge-stream": "^1.0.0",
+    "panini": "^1.3.0",
+    "rimraf": "^2.3.3",
+    "sass": "^1.35.2",
+    "siphon-media-query": "^1.0.0",
+    "yargs": "^4.1.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "volta": {
+    "node": "14.20.0"
+  }
+}

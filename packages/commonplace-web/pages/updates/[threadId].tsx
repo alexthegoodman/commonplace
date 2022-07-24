@@ -5,9 +5,9 @@ import useSWR, { SWRConfig } from "swr";
 import { useCookies } from "react-cookie";
 
 import Utilities from "../../../commonplace-utilities";
-import MessageDictator from "../../components/MessageDictator/MessageDictator";
-import MessageList from "../../components/MessageList/MessageList";
-import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
+import MessageDictator from "../../components/updates/MessageDictator/MessageDictator";
+import MessageList from "../../components/updates/MessageList/MessageList";
+import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 import { threadQuery } from "../../graphql/queries/thread";
 import { useRouter } from "next/router";
 import { userQuery } from "../../graphql/queries/user";
@@ -15,19 +15,15 @@ import { cpGraphqlUrl } from "../../def/urls";
 import { useEffect } from "react";
 import { createRecordMutation } from "../../graphql/mutations/record";
 import { NextSeo } from "next-seo";
+import { GQLClient } from "../../helpers/GQLClient";
 
-const getUserAndThreadData = async (userId, threadId) => {
-  const userData = await request(cpGraphqlUrl, userQuery, {
-    id: userId,
-  });
+const getUserAndThreadData = async (token, threadId) => {
+  const gqlClient = new GQLClient(token);
 
-  const threadData = await request(cpGraphqlUrl, threadQuery, {
-    where: {
-      id: threadId, // TODO: from url slug
-    },
-    orderMessagesBy: {
-      createdAt: "desc",
-    },
+  const userData = await gqlClient.client.request(userQuery);
+
+  const threadData = await gqlClient.client.request(threadQuery, {
+    threadId,
   });
 
   const returnData = {
@@ -39,15 +35,17 @@ const getUserAndThreadData = async (userId, threadId) => {
 };
 
 const ThreadContent = () => {
-  const [cookies] = useCookies(["coUserId"]);
-  const userId = cookies.coUserId;
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
+
+  const gqlClient = new GQLClient(token);
 
   const router = useRouter();
   const { threadId } = router.query;
 
   const { data } = useSWR(
     "threadKey",
-    () => getUserAndThreadData(userId, threadId),
+    () => getUserAndThreadData(token, threadId),
     {
       refreshInterval: 1000,
     }
@@ -56,7 +54,7 @@ const ThreadContent = () => {
   console.info("ThreadContent", data);
 
   // TODO: safe determination of otherUser
-  const otherUser = data?.currentThread?.thread?.messages.filter(
+  const otherUser = data?.currentThread?.getThreadById?.messages.filter(
     (message, i) => message?.user?.email !== data?.currentUser?.getUser?.email
   )[0].user;
   // const otherUserFirstName = otherUser?.name?.split(" ")[0];
@@ -64,16 +62,9 @@ const ThreadContent = () => {
   console.info("otherUser", otherUser);
 
   const setReadBy = async () => {
-    const readAt = await request(cpGraphqlUrl, createRecordMutation, {
-      data: {
-        name: "readBy",
-        content: data?.currentUser?.getUser?.chosenUsername,
-        thread: {
-          connect: {
-            id: threadId,
-          },
-        },
-      },
+    const readAt = await gqlClient.client.request(createRecordMutation, {
+      username: data?.currentUser?.getUser?.chosenUsername,
+      threadId,
     });
 
     console.info("readAt", readAt);
@@ -111,7 +102,7 @@ const ThreadContent = () => {
         <MessageList
           currentUser={data?.currentUser}
           otherUser={otherUser}
-          messages={data?.currentThread?.thread?.messages}
+          messages={data?.currentThread?.getThreadById?.messages}
         />
         <MessageDictator
           author={data?.currentUser}
@@ -135,13 +126,13 @@ const Thread: NextPage<{ fallback: any }> = ({ fallback }) => {
 export async function getServerSideProps(context) {
   const utilities = new Utilities();
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
-  const userId = cookieData.coUserId;
+  const token = cookieData.coUserToken;
 
   const { threadId } = context.query;
 
-  console.info("coUserId threadId", userId, threadId);
+  console.info("token threadId", token, threadId);
 
-  const threadData = await getUserAndThreadData(userId, threadId);
+  const threadData = await getUserAndThreadData(token, threadId);
 
   console.info("getServerSideProps", threadData);
 

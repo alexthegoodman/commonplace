@@ -1,0 +1,15 @@
+@import '../../../styles/variables';
+
+.textInputWrapper {
+  width: 100%;
+  border-bottom-width: 4px;
+  border-bottom-color: $purple;
+  margin-bottom: 15px;
+}
+
+.textInput {
+  height: 70px;
+  font-size: 18px;
+  background: #e5e5e5;
+  padding: 0 25px;
+}

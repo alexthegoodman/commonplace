@@ -31,7 +31,10 @@ const boundsHeightInPixels =
 const getXDataEntity = (entity: any) => new Date(entity.date);
 const getYDataEntity = (entity: any) => entity.value;
 
-const LineViz: React.FC<LineVizProps> = ({ analysisData = null }) => {
+const LineViz: React.FC<LineVizProps> = ({
+  title = "",
+  analysisData = null,
+}) => {
   const maxMetricEntity = maxBy(analysisData, getYDataEntity);
   // const metricOptions = analysisData.map((dataPoint, i) => {
   //   return dataPoint.title;
@@ -62,6 +65,9 @@ const LineViz: React.FC<LineVizProps> = ({ analysisData = null }) => {
 
   return (
     <section className="barViz">
+      <div className="barVizInformation">
+        <h5>{title}</h5>
+      </div>
       <div className="barVizInner">
         <svg
           width={graphWidthInPixels}

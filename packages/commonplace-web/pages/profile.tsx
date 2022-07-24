@@ -4,19 +4,21 @@ import Link from "next/link";
 import useSWR, { SWRConfig } from "swr";
 import { useCookies } from "react-cookie";
 
-import PrimaryHeader from "../components/PrimaryHeader/PrimaryHeader";
-import ProfileIntro from "../components/ProfileIntro/ProfileIntro";
-import ProfilePosts from "../components/ProfilePosts/ProfilePosts";
+import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
+import ProfileIntro from "../components/profile/ProfileIntro/ProfileIntro";
+import ProfilePosts from "../components/profile/ProfilePosts/ProfilePosts";
 import { userQuery } from "../graphql/queries/user";
 import Utilities from "../../commonplace-utilities";
 import { cpDomain, cpGraphqlUrl } from "../def/urls";
 import { NextSeo } from "next-seo";
 import { useImageUrl } from "../hooks/useImageUrl";
+import DesktopNavigation from "../components/layout/DesktopNavigation/DesktopNavigation";
+import { GQLClient } from "../helpers/GQLClient";
 
-const getUserData = async (userId) => {
-  const userData = await request(cpGraphqlUrl, userQuery, {
-    id: userId,
-  });
+const getUserData = async (token) => {
+  const gqlClient = new GQLClient(token);
+
+  const userData = await gqlClient.client.request(userQuery);
 
   return userData;
 };
@@ -50,9 +52,10 @@ export const ProfileContent = ({ data, mutate, usersOwnProfile = false }) => {
           className="whiteHeader"
           leftIcon={
             <>
+              <DesktopNavigation />
               {usersOwnProfile ? (
                 <Link href="/settings">
-                  <a aria-label="Go to Settings">
+                  <a className="mobileOnly" aria-label="Go to Settings">
                     {/* <div className="feather-icon icon-settings"></div> */}
                     <i className="typcn typcn-cog"></i>
                   </a>
@@ -65,7 +68,7 @@ export const ProfileContent = ({ data, mutate, usersOwnProfile = false }) => {
           title={""}
           rightIcon={
             <Link href="/queue">
-              <a aria-label="Go to Queue">
+              <a className="mobileOnly" aria-label="Go to Queue">
                 {/* <div className="feather-icon icon-list"></div> */}
                 <i className="typcn typcn-equals"></i>
               </a>
@@ -95,12 +98,12 @@ export const ProfileContent = ({ data, mutate, usersOwnProfile = false }) => {
 };
 
 const ProfileDataWrapper = () => {
-  const [cookies] = useCookies(["coUserId"]);
-  const userId = cookies.coUserId;
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
 
-  const { data, mutate } = useSWR("profileKey", () => getUserData(userId));
+  const { data, mutate } = useSWR("profileKey", () => getUserData(token));
 
-  console.info("ProfileContent", userId, data);
+  console.info("ProfileContent", token, data);
 
   return <ProfileContent data={data} mutate={mutate} usersOwnProfile={true} />;
 };
@@ -118,13 +121,20 @@ const Profile: NextPage<{ fallback: any }> = ({ fallback }) => {
 export async function getServerSideProps(context) {
   const utilities = new Utilities();
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
-  const userId = cookieData.coUserId;
+  const token = cookieData.coUserToken;
 
-  console.info("coUserId", userId);
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/sign-in",
+        permanent: false,
+      },
+    };
+  }
 
-  const userData = await getUserData(userId);
+  const userData = await getUserData(token);
 
-  console.info("getServerSideProps", userId, userData);
+  console.info("getServerSideProps", token, userData);
 
   return {
     props: {

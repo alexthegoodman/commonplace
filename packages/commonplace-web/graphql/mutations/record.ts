@@ -1,8 +1,8 @@
 import { gql } from "graphql-request";
 
 export const createRecordMutation = gql`
-  mutation CreateOneRecord($data: RecordCreateInput!) {
-    createOneRecord(data: $data) {
+  mutation CreateReadRecord($username: String!, $threadId: String!) {
+    createReadRecord(username: $username, threadId: $threadId) {
       createdAt
     }
   }

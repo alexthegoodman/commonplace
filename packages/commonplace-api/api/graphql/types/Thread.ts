@@ -1,21 +1,64 @@
 import { objectType } from "nexus";
+import { Context } from "../../context";
 
 export const ThreadType = objectType({
   name: "Thread",
   definition(t) {
-    t.model.id();
-    t.model.repliesAllowed();
-
-    // t.model.post();
-    t.model.users();
-    t.model.messages({
-      ordering: true,
-    });
-    t.model.readHistory({
-      ordering: true,
+    t.field("id", {
+      type: "String",
     });
 
-    t.model.updatedAt();
-    t.model.createdAt();
+    t.field("repliesAllowed", {
+      type: "Boolean",
+    });
+
+    t.list.field("users", {
+      type: "PublicUser",
+      resolve: async (thread, __, context: Context) => {
+        return await context.prisma.user.findMany({
+          where: {
+            threads: {
+              some: {
+                id: thread.id,
+              },
+            },
+          },
+        });
+      },
+    });
+
+    t.list.field("messages", {
+      type: "Message",
+      resolve: async (thread, __, context: Context) => {
+        return await context.prisma.message.findMany({
+          where: {
+            thread: {
+              id: thread.id,
+            },
+          },
+        });
+      },
+    });
+
+    t.list.field("readHistory", {
+      type: "Record",
+      resolve: async (thread, __, context: Context) => {
+        return await context.prisma.record.findMany({
+          where: {
+            thread: {
+              id: thread.id,
+            },
+          },
+        });
+      },
+    });
+
+    t.field("updatedAt", {
+      type: "DateTime",
+    });
+
+    t.field("createdAt", {
+      type: "DateTime",
+    });
   },
 });

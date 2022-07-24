@@ -1,0 +1,68 @@
+@media screen and (min-width: $desktopWidth) {
+  .inviteFriends {
+    width: $desktopWidth;
+    margin: 0 auto;
+    position: relative;
+    left: 120px;
+  }
+}
+
+.inviteFriends {
+  background: $brandGradient;
+  padding: 20px 25px;
+
+  .inviteFriendsInner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .inviteLabelWrapper {
+      .inviteLabel {
+        color: white;
+        font-weight: 600;
+      }
+    }
+    .inviteButtons {
+      .buttonList {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+
+        .listItem {
+          margin-right: 8px;
+
+          &:last-of-type {
+            margin-right: 0;
+          }
+
+          a {
+            text-decoration: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+
+            &:focus {
+              outline: 1px $red solid;
+            }
+
+            i {
+              font-size: 26px;
+              color: $red;
+
+              &.typcn-mail {
+                position: relative;
+                top: -2px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
