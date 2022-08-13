@@ -1,8 +1,10 @@
 import request from "graphql-request";
 import * as React from "react";
+import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { cpGraphqlUrl } from "../../../../commonplace-utilities/def/urls";
+import { GQLClient } from "../../../../commonplace-utilities/lib/GQLClient";
 import { createMessageMutation } from "../../../graphql/mutations/message";
 import FormInput from "../../fields/FormInput/FormInput";
 import FormTextarea from "../../fields/FormTextarea/FormTextarea";
@@ -16,7 +18,10 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
   author = null,
   threadId = "",
 }) => {
-  const clickHandler = (e: MouseEvent) => onClick(e);
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
+
+  const gqlClient = new GQLClient(token);
 
   // const { mutate } = useSWRConfig();
 
@@ -28,12 +33,11 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("MessageDictator onSubmit", data);
+    console.log("MessageDictator onSubmit", data, threadId);
 
-    const message = await request(cpGraphqlUrl, createMessageMutation, {
+    const message = await gqlClient.client.request(createMessageMutation, {
       type: "reply",
       content: data?.message,
-      authorEmail: author?.getUser?.email,
       threadId: threadId,
     });
 

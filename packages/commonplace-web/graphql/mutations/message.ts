@@ -4,7 +4,6 @@ export const createMessageMutation = gql`
   mutation CreateMessage(
     $type: String!
     $content: String!
-    $authorUsername: String!
     $postCreatorUsername: String
     $postId: String
     $threadId: String
@@ -12,7 +11,6 @@ export const createMessageMutation = gql`
     createMessage(
       type: $type
       content: $content
-      authorUsername: $authorUsername
       postCreatorUsername: $postCreatorUsername
       postId: $postId
       threadId: $threadId

@@ -9,37 +9,28 @@ export const CreateMessageMutation = extendType({
       args: {
         type: nonNull(stringArg()),
         content: nonNull(stringArg()),
-        authorUsername: nonNull(stringArg()),
         postCreatorUsername: nullable(stringArg()),
         postId: nullable(stringArg()),
         threadId: nullable(stringArg()),
       },
       resolve: async (
         _,
-        {
-          type,
-          content,
-          authorUsername,
-          postCreatorUsername,
-          postId,
-          threadId,
-        },
-        { prisma, mixpanel }: Context
+        { type, content, postCreatorUsername, postId, threadId },
+        { prisma, mixpanel, currentUser }: Context
       ) => {
         console.info(
           "createMessage",
           type,
           content,
-          authorUsername,
           postCreatorUsername,
           threadId
         );
 
-        const author = await prisma.user.findUnique({
-          where: {
-            generatedUsername: authorUsername,
-          },
-        });
+        // const author = await prisma.user.findUnique({
+        //   where: {
+        //     generatedUsername: authorUsername,
+        //   },
+        // });
 
         let postCreator;
         if (postCreatorUsername) {
@@ -64,7 +55,7 @@ export const CreateMessageMutation = extendType({
               },
               user: {
                 connect: {
-                  id: author?.id,
+                  id: currentUser?.id,
                 },
               },
             },
@@ -82,7 +73,7 @@ export const CreateMessageMutation = extendType({
                 id: postId,
               },
               user: {
-                id: author?.id,
+                id: currentUser?.id,
               },
             },
           });
@@ -90,10 +81,10 @@ export const CreateMessageMutation = extendType({
           console.info("checkMessage", checkMessage);
 
           if (checkMessage === null) {
-            const newCredit = (author?.credit as number) + 1;
+            const newCredit = (currentUser?.credit as number) + 1;
             await prisma.user.update({
               where: {
-                id: author?.id,
+                id: currentUser?.id,
               },
               data: {
                 credit: newCredit,
@@ -106,7 +97,7 @@ export const CreateMessageMutation = extendType({
                 users: {
                   every: {
                     id: {
-                      in: [author?.id, postCreator?.id],
+                      in: [currentUser?.id, postCreator?.id],
                     },
                   },
                 },
@@ -132,7 +123,10 @@ export const CreateMessageMutation = extendType({
                   create: {
                     repliesAllowed: true,
                     users: {
-                      connect: [{ id: author?.id }, { id: postCreator?.id }],
+                      connect: [
+                        { id: currentUser?.id },
+                        { id: postCreator?.id },
+                      ],
                     },
                   },
                 },
@@ -150,7 +144,7 @@ export const CreateMessageMutation = extendType({
                 },
                 user: {
                   connect: {
-                    id: author?.id,
+                    id: currentUser?.id,
                   },
                 },
                 ...addtData,

@@ -31,6 +31,7 @@ import { NextSeo } from "next-seo";
 import BrandName from "../components/layout/BrandName/BrandName";
 import { userThreadsQuery } from "../graphql/queries/thread";
 import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
+import request from "graphql-request";
 
 const getPostsAndUserData = async (token, interestId = null) => {
   const gqlClient = new GQLClient(token);
@@ -72,6 +73,8 @@ const getPostsAndUserData = async (token, interestId = null) => {
 const QueueContent = () => {
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
+
+  const gqlClient = new GQLClient(token);
 
   const [selectedInterest, setSelectedInterest] = useState<any>(null);
 
@@ -203,16 +206,19 @@ const QueueContent = () => {
 
     setQueuePostId(nextPostId);
     // TODO: send impression message
-    const authorUsername = data?.currentUser?.generatedUsername;
+    // const authorUsername = data?.currentUser?.generatedUsername;
     const postCreatorUsername = currentPost?.creator?.generatedUsername;
 
-    const savedImpression = await request(cpGraphqlUrl, createMessageMutation, {
-      type: "impression",
-      content: impression,
-      authorUsername,
-      postCreatorUsername,
-      postId: currentPost?.id,
-    });
+    const savedImpression = await gqlClient.client.request(
+      createMessageMutation,
+      {
+        type: "impression",
+        content: impression,
+        // authorUsername,
+        postCreatorUsername,
+        postId: currentPost?.id,
+      }
+    );
 
     console.info("savedImpression", savedImpression);
 

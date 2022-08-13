@@ -402,7 +402,6 @@ export interface NexusGenFieldTypeNames {
 export interface NexusGenArgTypes {
   Mutation: {
     createMessage: { // args
-      authorUsername: string; // String!
       content: string; // String!
       postCreatorUsername?: string | null; // String
       postId?: string | null; // String
