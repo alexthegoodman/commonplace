@@ -21,6 +21,7 @@ export * from "./mutations/updatePost";
 export * from "./mutations/updateProfile";
 
 export * from "./queries/authenticate";
+export * from "./queries/getCategories";
 export * from "./queries/getDashboardData";
 export * from "./queries/getPostByPostTitle";
 export * from "./queries/getPostImpressions";

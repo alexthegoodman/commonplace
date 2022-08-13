@@ -47,7 +47,7 @@ export const InterestsContent = ({
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedInterest, setSelectedInterest] = useState("");
 
-  const defaultCategory = data?.categories[0].id;
+  const defaultCategory = data?.getCategories[0].id;
 
   useEffect(() => {
     setSelectedCategory(defaultCategory);
@@ -55,7 +55,7 @@ export const InterestsContent = ({
 
   console.info("selectedCategory", defaultCategory, selectedCategory);
 
-  const displayCategory = data?.categories?.filter((category, i) => {
+  const displayCategory = data?.getCategories?.filter((category, i) => {
     return category.id === selectedCategory;
   })[0];
 
@@ -98,7 +98,7 @@ export const InterestsContent = ({
                   <div className="selectorGridWrapper">
                     <InterestGrid
                       className="smallGrid"
-                      data={data?.categories}
+                      data={data?.getCategories}
                       selectedItemId={selectedCategory}
                       onItemSelect={(id) => {
                         setSelectedCategory(id);

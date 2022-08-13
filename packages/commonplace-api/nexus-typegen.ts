@@ -54,6 +54,7 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Category: { // root type
+    id?: string | null; // String
     name?: string | null; // String
   }
   Dashboard: {};
@@ -63,6 +64,7 @@ export interface NexusGenObjects {
   }
   Interest: { // root type
     generatedInterestSlug?: string | null; // String
+    id?: string | null; // String
     name?: string | null; // String
   }
   LabelValuePair: { // root type
@@ -145,6 +147,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Category: { // field return type
+    id: string | null; // String
     interests: Array<NexusGenRootTypes['Interest'] | null> | null; // [Interest]
     name: string | null; // String
   }
@@ -166,6 +169,7 @@ export interface NexusGenFieldTypes {
   Interest: { // field return type
     categories: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
     generatedInterestSlug: string | null; // String
+    id: string | null; // String
     name: string | null; // String
     posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
   }
@@ -225,6 +229,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     authenticate: string | null; // String
+    getCategories: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
     getDashboardData: NexusGenRootTypes['Dashboard'] | null; // Dashboard
     getPostByPostTitle: NexusGenRootTypes['PublicPost'] | null; // PublicPost
     getPostImpressions: Array<NexusGenRootTypes['Message'] | null>; // [Message]!
@@ -269,6 +274,7 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   Category: { // field return type name
+    id: 'String'
     interests: 'Interest'
     name: 'String'
   }
@@ -290,6 +296,7 @@ export interface NexusGenFieldTypeNames {
   Interest: { // field return type name
     categories: 'Category'
     generatedInterestSlug: 'String'
+    id: 'String'
     name: 'String'
     posts: 'Post'
   }
@@ -349,6 +356,7 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     authenticate: 'String'
+    getCategories: 'Category'
     getDashboardData: 'Dashboard'
     getPostByPostTitle: 'PublicPost'
     getPostImpressions: 'Message'

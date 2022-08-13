@@ -4,6 +4,10 @@ import { Context } from "../../context";
 export const CategoryType = objectType({
   name: "Category",
   definition(t) {
+    t.field("id", {
+      type: "String",
+    });
+
     t.field("name", {
       type: "String",
     });

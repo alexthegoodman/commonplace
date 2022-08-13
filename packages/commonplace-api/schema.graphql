@@ -3,6 +3,7 @@
 
 
 type Category {
+  id: String
   interests: [Interest]
   name: String
 }
@@ -32,6 +33,7 @@ type DateValuePair {
 type Interest {
   categories: [Category]
   generatedInterestSlug: String
+  id: String
   name: String
   posts: [Post]
 }
@@ -103,6 +105,7 @@ type PublicUser {
 
 type Query {
   authenticate: String
+  getCategories: [Category]
   getDashboardData: Dashboard
   getPostByPostTitle(postTitle: String!): PublicPost
   getPostImpressions(postTitle: String!): [Message]!
