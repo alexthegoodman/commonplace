@@ -428,7 +428,6 @@ export interface NexusGenArgTypes {
       username: string; // String!
     }
     deletePost: { // args
-      creatorId: string; // String!
       postTitleSlug: string; // String!
     }
     updatePost: { // args

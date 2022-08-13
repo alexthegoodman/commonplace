@@ -7,6 +7,7 @@ import {
   cpDomain,
   cpGraphqlUrl,
 } from "../../../../commonplace-utilities/def/urls";
+import { GQLClient } from "../../../../commonplace-utilities/lib/GQLClient";
 import { deletePostMutation } from "../../../graphql/mutations/post";
 import ContentViewer from "../../post/ContentViewer/ContentViewer";
 import PopupModal from "../../utility/PopupModal/PopupModal";
@@ -22,8 +23,10 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
   usersOwnProfile = false,
   mutate = null,
 }) => {
-  const [cookies] = useCookies(["coUserId"]);
-  const userId = cookies.coUserId;
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
+
+  const gqlClient = new GQLClient(token);
 
   const [displayOptionsMenu, setDisplayOptionsMenu] = React.useState(false);
   const [deletePostId, setDeletePostId] = React.useState(null);
@@ -40,8 +43,7 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
     post?.generatedTitleSlug;
 
   const deletePost = async () => {
-    await request(cpGraphqlUrl, deletePostMutation, {
-      creatorId: userId,
+    await gqlClient.client.request(deletePostMutation, {
       postTitleSlug: post?.generatedTitleSlug,
     });
 

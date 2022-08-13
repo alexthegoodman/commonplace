@@ -7,13 +7,12 @@ export const DeletePostMutation = extendType({
     t.nonNull.field("deletePost", {
       type: "String",
       args: {
-        creatorId: nonNull(stringArg()),
         postTitleSlug: nonNull(stringArg()),
       },
       resolve: async (
         _,
         { creatorId, postTitleSlug },
-        { prisma, mixpanel }: Context
+        { prisma, mixpanel, currentUser }: Context
       ) => {
         console.info("Delete Post", creatorId, postTitleSlug);
 
@@ -21,7 +20,7 @@ export const DeletePostMutation = extendType({
           where: {
             generatedTitleSlug: postTitleSlug,
             creator: {
-              id: creatorId,
+              id: currentUser.id,
             },
           },
         });
