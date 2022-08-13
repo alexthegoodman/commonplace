@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
-import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
+import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 
 const Guidelines: NextPage = () => {
   return (

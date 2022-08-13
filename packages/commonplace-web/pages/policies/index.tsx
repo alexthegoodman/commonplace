@@ -1,11 +1,7 @@
 import type { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import FormInput from "../../components/FormInput/FormInput";
-import FormMessage from "../../components/FormMessage/FormMessage";
-import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
+import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 
 const Policies: NextPage = () => {
   return (

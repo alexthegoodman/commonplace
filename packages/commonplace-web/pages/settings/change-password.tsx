@@ -3,9 +3,9 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import FormInput from "../../components/FormInput/FormInput";
-import FormMessage from "../../components/FormMessage/FormMessage";
-import PrimaryHeader from "../../components/PrimaryHeader/PrimaryHeader";
+import FormInput from "../../components/fields/FormInput/FormInput";
+import FormMessage from "../../components/fields/FormMessage/FormMessage";
+import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 
 const Settings: NextPage = () => {
   const [formErrorMessage, setFormErrorMessage] = useState("");
