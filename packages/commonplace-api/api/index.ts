@@ -8,7 +8,6 @@ export const startApolloServer = async () => {
 
   const app = express();
 
-  // This middleware should be added before calling `applyMiddleware`.
   app.use(
     graphqlUploadExpress({
       maxFieldSize: 10000000,

@@ -58,7 +58,6 @@ const UploadContent = () => {
 
     setSubmitLoading(true);
 
-    // TODO: send data to API
     const createdPost = await request(
       cpGraphqlUrl,
       createPostMutation,
@@ -113,8 +112,14 @@ const UploadContent = () => {
         setFormErrorMessage("Interest is required.");
       }
     } else if (nextStep === 3) {
-      // TODO: step validation
       console.info("formValues", formValues);
+
+      const tenMb = 10000000;
+      if (formValues?.file1Size > tenMb || formValues?.file2Size > tenMb) {
+        setFormErrorMessage("Uploaded files must be under 10MB in size.");
+        return;
+      }
+
       if (contentType === "audio") {
         if (formValues?.file1?.length > 0 && formValues?.file2?.length > 0) {
           goToNextStep(nextStep);
