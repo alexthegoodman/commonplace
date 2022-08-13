@@ -36,12 +36,16 @@ $inputGrey: #ececec;
   display: block;
   padding: 18px 0;
   text-align: center;
+  transition: all 0.2s;
 
   &:focus {
     outline: 1px $red solid;
   }
-  &:active {
+  &:active:not(:disabled) {
     transform: scale(0.95);
+  }
+  &:disabled {
+    background: grey;
   }
 }
 
