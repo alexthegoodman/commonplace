@@ -301,7 +301,11 @@ const UploadContent = () => {
                     <>
                       <div className="uploadSection">
                         <div className="uploadSectionInner">
-                          <span>Select your content</span>
+                          {contentType === "text" ? (
+                            <span>Type your content</span>
+                          ) : (
+                            <span>Select your content</span>
+                          )}
                           <div className="contentUpload">
                             <div className="contentUploadInner">
                               {contentType === "image" ? (
