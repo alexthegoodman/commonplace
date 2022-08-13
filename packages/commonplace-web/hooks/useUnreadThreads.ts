@@ -18,13 +18,13 @@ export const useUnreadThreads = (threads = [], currentUsername) => {
     );
     lastReadRecord = lastReadRecord[lastReadRecord.length - 1];
 
-    console.info(
-      "lastReadRecord",
-      i,
-      currentUsername,
-      lastMessage,
-      lastReadRecord
-    );
+    // console.info(
+    //   "lastReadRecord",
+    //   i,
+    //   currentUsername,
+    //   lastMessage,
+    //   lastReadRecord
+    // );
 
     if (
       typeof lastMessage !== "undefined" &&
