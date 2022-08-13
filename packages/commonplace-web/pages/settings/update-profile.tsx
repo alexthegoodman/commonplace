@@ -100,6 +100,7 @@ const SettingsContent = ({ data }) => {
             <FormUpload
               name="profileImage"
               placeholder="Profile Image"
+              accept="image/*"
               register={register}
               errors={errors}
               validation={{
@@ -110,6 +111,7 @@ const SettingsContent = ({ data }) => {
             <FormUpload
               name="coverImage"
               placeholder="Cover Image"
+              accept="image/*"
               register={register}
               errors={errors}
               validation={{
