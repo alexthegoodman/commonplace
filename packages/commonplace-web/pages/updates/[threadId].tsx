@@ -63,7 +63,7 @@ const ThreadContent = () => {
 
   const setReadBy = async () => {
     const readAt = await gqlClient.client.request(createRecordMutation, {
-      username: data?.currentUser?.getUser?.chosenUsername,
+      username: data?.currentUser?.getUser?.generatedUsername,
       threadId,
     });
 

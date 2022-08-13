@@ -9,7 +9,7 @@ export const useUnreadThreads = (threads = [], currentUsername) => {
 
   threads?.forEach((thread: any, i) => {
     let lastMessage = thread.messages.filter(
-      (message, i) => message?.user?.chosenUsername !== currentUsername
+      (message, i) => message?.user?.generatedUsername !== currentUsername
     );
     lastMessage = lastMessage[0];
 
@@ -18,32 +18,37 @@ export const useUnreadThreads = (threads = [], currentUsername) => {
     );
     lastReadRecord = lastReadRecord[lastReadRecord.length - 1];
 
-    // console.info("lastReadRecord", i, lastMessage, lastReadRecord);
+    console.info(
+      "lastReadRecord",
+      i,
+      currentUsername,
+      lastMessage,
+      lastReadRecord
+    );
 
     if (
       typeof lastMessage !== "undefined" &&
       typeof lastReadRecord !== "undefined"
     ) {
+      // CASE: some messages and read records,
+      // but message from other user is newer than read records
       const lastMessageTime = lastMessage.createdAt;
       const lastReadTime = lastReadRecord.createdAt;
 
-      // console.info("compare times", i, lastReadTime, lastMessageTime);
-
-      let isRead = true;
       if (lastReadTime < lastMessageTime) {
-        isRead = false;
         unreadThreads.push(thread);
       }
     } else if (
       typeof lastMessage !== "undefined" &&
       typeof lastReadRecord === "undefined"
     ) {
+      // CASE: some messages, no read records (rare?)
       unreadThreads.push(thread);
     } else if (
       thread.messages.length === 1 &&
       typeof lastReadRecord === "undefined"
     ) {
-      // NOTE: brand new convresation
+      // CASE: 1 message from other user, no read records
       unreadThreads.push(thread);
     }
   });

@@ -227,7 +227,7 @@ const QueueContent = () => {
 
   const { unreadThreads, unreadThreadCount } = useUnreadThreads(
     data?.threads,
-    data?.currentUser?.chosenUsername
+    data?.currentUser?.generatedUsername
   );
 
   console.info("unreadThreads", data?.threads, unreadThreads);

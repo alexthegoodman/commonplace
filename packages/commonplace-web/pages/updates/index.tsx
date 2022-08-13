@@ -39,7 +39,7 @@ const UpdatesContent: NextPage = () => {
 
   const { unreadThreads, unreadThreadCount } = useUnreadThreads(
     data?.threads,
-    data?.user?.chosenUsername
+    data?.user?.generatedUsername
   );
 
   console.info("UpdatesContent", data);
