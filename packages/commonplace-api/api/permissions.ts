@@ -18,6 +18,11 @@ export const permissions = shield(
       "*": isAuthenticated,
       authenticate: not(isAuthenticated),
       getDashboardData: and(isAuthenticated, isAdmin),
+      getPostsByUsername: allow,
+      getUserByUsername: allow,
+      getPostImpressions: allow,
+      getUserByPostTitle: allow,
+      getPostByPostTitle: allow,
     },
     Mutation: {
       "*": isAuthenticated,
