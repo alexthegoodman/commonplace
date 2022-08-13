@@ -36,6 +36,9 @@ export const ThreadType = objectType({
               id: thread.id,
             },
           },
+          orderBy: {
+            createdAt: "desc",
+          },
         });
       },
     });
@@ -48,6 +51,9 @@ export const ThreadType = objectType({
             thread: {
               id: thread.id,
             },
+          },
+          orderBy: {
+            createdAt: "desc",
           },
         });
       },
