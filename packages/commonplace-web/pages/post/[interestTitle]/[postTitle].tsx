@@ -90,7 +90,7 @@ const PostContent = ({ data }) => {
           title={`Creation`}
           rightIcon={<></>}
         />
-        <div className="scrollContainer">
+        <div className="scrollContainer" style={{ paddingBottom: 75 }}>
           <ContentViewer
             alt={contentSEOStatement}
             type={currentPost?.contentType}
