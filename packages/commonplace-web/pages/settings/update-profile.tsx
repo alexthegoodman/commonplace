@@ -15,23 +15,24 @@ import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 import { cpGraphqlUrl } from "../../../commonplace-utilities/def/urls";
 import { updateProfileMutation } from "../../graphql/mutations/user";
 import { userQuery } from "../../graphql/queries/user";
+import { GQLClient } from "../../../commonplace-utilities/lib/GQLClient";
 
-const getUserData = async (userId) => {
-  const userData = await request(cpGraphqlUrl, userQuery, {
-    id: userId,
-  });
+const getUserData = async (token) => {
+  const gqlClient = new GQLClient(token);
+
+  const userData = await gqlClient.client.request(userQuery);
 
   return userData;
 };
 
 const SettingsContent = ({ data }) => {
   const router = useRouter();
-  const [cookies] = useCookies(["coUserId"]);
-  const userId = cookies.coUserId;
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
 
-  // const { data } = useSWR("settingsKey", () => getUserData(userId));
+  const gqlClient = new GQLClient(token);
 
-  console.info("SettingsContent", userId, data);
+  console.info("SettingsContent", token, data);
 
   const [formErrorMessage, setFormErrorMessage] = useState("");
 
@@ -57,8 +58,7 @@ const SettingsContent = ({ data }) => {
   }, [data]);
 
   const onSubmit = async (formValues) => {
-    await request(cpGraphqlUrl, updateProfileMutation, {
-      userId,
+    await gqlClient.client.request(updateProfileMutation, {
       ...formValues,
     });
     router.push("/profile/");
@@ -126,10 +126,10 @@ const SettingsContent = ({ data }) => {
 };
 
 const SettingsContentWrapper = () => {
-  const [cookies] = useCookies(["coUserId"]);
-  const userId = cookies.coUserId;
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
 
-  const { data } = useSWR("settingsKey", () => getUserData(userId));
+  const { data } = useSWR("settingsKey", () => getUserData(token));
 
   return <SettingsContent data={data} />;
 };
@@ -147,13 +147,13 @@ const Settings: NextPage<{ fallback: any }> = ({ fallback }) => {
 export async function getServerSideProps(context) {
   const utilities = new Utilities();
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
-  const userId = cookieData.coUserId;
+  const token = cookieData.coUserToken;
 
-  console.info("coUserId", userId);
+  console.info("token", token);
 
-  const userData = await getUserData(userId);
+  const userData = await getUserData(token);
 
-  console.info("getServerSideProps", userId, userData);
+  console.info("getServerSideProps", token, userData);
 
   return {
     props: {

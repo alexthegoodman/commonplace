@@ -444,7 +444,6 @@ export interface NexusGenArgTypes {
       profileImageName?: string | null; // String
       profileImageSize?: number | null; // Int
       profileImageType?: string | null; // String
-      userId: string; // String!
       username: string; // String!
     }
   }

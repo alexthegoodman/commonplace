@@ -2,7 +2,6 @@ import { gql } from "graphql-request";
 
 export const updateProfileMutation = gql`
   mutation UpdateProfile(
-    $userId: String!
     $username: String!
     $profileImageName: String
     $profileImageSize: Int
@@ -14,7 +13,6 @@ export const updateProfileMutation = gql`
     $coverImageData: String
   ) {
     updateProfile(
-      userId: $userId
       username: $username
       profileImageName: $profileImageName
       profileImageSize: $profileImageSize

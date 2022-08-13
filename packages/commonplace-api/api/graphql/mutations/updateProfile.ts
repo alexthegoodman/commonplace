@@ -8,7 +8,6 @@ export const UpdateProfileMutation = extendType({
     t.nonNull.field("updateProfile", {
       type: "String",
       args: {
-        userId: nonNull(stringArg()),
         username: nonNull(stringArg()),
 
         profileImageName: nullable(stringArg()),
@@ -24,7 +23,6 @@ export const UpdateProfileMutation = extendType({
       resolve: async (
         _,
         {
-          userId,
           username,
           profileImageName,
           profileImageSize,
@@ -35,7 +33,7 @@ export const UpdateProfileMutation = extendType({
           coverImageType,
           coverImageData,
         },
-        { prisma, mixpanel }: Context
+        { prisma, mixpanel, currentUser }: Context
       ) => {
         const utilities = new Utilities();
 
@@ -78,7 +76,7 @@ export const UpdateProfileMutation = extendType({
 
         const updatedUser = await prisma.user.update({
           where: {
-            id: userId,
+            id: currentUser.id,
           },
           data: {
             chosenUsername: username,
