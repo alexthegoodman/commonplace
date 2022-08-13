@@ -5,6 +5,7 @@ export interface FormUploadProps {
   name: string;
   type?: string;
   placeholder?: string;
+  accept?: string;
   errors?: FieldErrors;
   validation?: ValidationMap;
   register: UseFormRegister;

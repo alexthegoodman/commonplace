@@ -303,6 +303,7 @@ const UploadContent = () => {
                                 <FormUpload
                                   name="file1"
                                   placeholder="Upload Image"
+                                  accept="image/*"
                                   aria-label="Upload Image"
                                   register={register}
                                   errors={errors}
@@ -317,6 +318,7 @@ const UploadContent = () => {
                                 <FormUpload
                                   name="file1"
                                   placeholder="Upload Video"
+                                  accept="video/*"
                                   aria-label="Upload Video"
                                   register={register}
                                   errors={errors}
@@ -332,6 +334,7 @@ const UploadContent = () => {
                                   <FormUpload
                                     name="file1"
                                     placeholder="Upload Audio"
+                                    accept="audio/*"
                                     aria-label="Upload Audio"
                                     register={register}
                                     errors={errors}
@@ -342,6 +345,7 @@ const UploadContent = () => {
                                   <FormUpload
                                     name="file2"
                                     placeholder="Upload Art"
+                                    accept="image/*"
                                     aria-label="Upload Art"
                                     register={register}
                                     errors={errors}
