@@ -432,7 +432,6 @@ export interface NexusGenArgTypes {
       postTitleSlug: string; // String!
     }
     updatePost: { // args
-      creatorId: string; // String!
       description: string; // String!
       postTitleSlug: string; // String!
       title: string; // String!

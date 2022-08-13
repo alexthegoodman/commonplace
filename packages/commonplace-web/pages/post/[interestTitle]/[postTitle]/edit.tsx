@@ -8,10 +8,10 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { FormProvider, useForm } from "react-hook-form";
 import useSWR, { SWRConfig } from "swr";
-import FormInput from "../../../../components/FormInput/FormInput";
-import FormMessage from "../../../../components/FormMessage/FormMessage";
-import FormTextarea from "../../../../components/FormTextarea/FormTextarea";
-import PrimaryHeader from "../../../../components/PrimaryHeader/PrimaryHeader";
+import FormInput from "../../../../components/fields/FormInput/FormInput";
+import FormMessage from "../../../../components/fields/FormMessage/FormMessage";
+import FormTextarea from "../../../../components/fields/FormTextarea/FormTextarea";
+import PrimaryHeader from "../../../../components/layout/PrimaryHeader/PrimaryHeader";
 import {
   cpDomain,
   cpGraphqlUrl,
@@ -20,6 +20,7 @@ import { updatePostMutation } from "../../../../graphql/mutations/post";
 import { postImpressionsQuery } from "../../../../graphql/queries/message";
 import { postByPostTitleQuery } from "../../../../graphql/queries/post";
 import { userByPostTitleQuery } from "../../../../graphql/queries/user";
+import { GQLClient } from "../../../../../commonplace-utilities/lib/GQLClient";
 
 const getPostAndUserData = async (postTitle) => {
   const postData = await request(cpGraphqlUrl, postByPostTitleQuery, {
@@ -39,6 +40,11 @@ const getPostAndUserData = async (postTitle) => {
 };
 
 const EditPostContent = ({ data }) => {
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
+
+  const gqlClient = new GQLClient(token);
+
   const currentPost = data;
 
   console.info("currentPost", currentPost);
@@ -74,8 +80,7 @@ const EditPostContent = ({ data }) => {
   const onSubmit = async (formValues) => {
     console.info("onSubmit", formValues, data);
 
-    const updatedPost = await request(cpGraphqlUrl, updatePostMutation, {
-      creatorId: userId,
+    const updatedPost = await gqlClient.client.request(updatePostMutation, {
       postTitleSlug: data?.generatedTitleSlug, //protected public fields
       ...formValues,
     });
@@ -88,9 +93,6 @@ const EditPostContent = ({ data }) => {
   const onError = () => {};
 
   const displayDate = DateTime.fromISO(currentPost?.createdAt).toFormat("D");
-
-  const [cookies] = useCookies(["coUserId"]);
-  const userId = cookies.coUserId;
 
   return (
     <section className="upload">

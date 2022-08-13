@@ -40,13 +40,11 @@ export const createPostMutation = gql`
 
 export const updatePostMutation = gql`
   mutation UpdatePost(
-    $creatorId: String!
     $postTitleSlug: String!
     $title: String!
     $description: String!
   ) {
     updatePost(
-      creatorId: $creatorId
       postTitleSlug: $postTitleSlug
       title: $title
       description: $description

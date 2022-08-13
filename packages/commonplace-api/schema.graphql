@@ -64,7 +64,7 @@ type Mutation {
   createReadRecord(threadId: String!, username: String!): Record!
   deletePost(creatorId: String!, postTitleSlug: String!): String!
   registerUser: String!
-  updatePost(creatorId: String!, description: String!, postTitleSlug: String!, title: String!): Post!
+  updatePost(description: String!, postTitleSlug: String!, title: String!): Post!
   updateProfile(coverImageData: String, coverImageName: String, coverImageSize: Int, coverImageType: String, profileImageData: String, profileImageName: String, profileImageSize: Int, profileImageType: String, userId: String!, username: String!): String!
 }
 

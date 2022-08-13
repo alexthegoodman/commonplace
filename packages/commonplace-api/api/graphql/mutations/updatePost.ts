@@ -7,7 +7,6 @@ export const UpdatePostMutation = extendType({
     t.nonNull.field("updatePost", {
       type: "Post",
       args: {
-        creatorId: nonNull(stringArg()),
         postTitleSlug: nonNull(stringArg()),
         title: nonNull(stringArg()),
         description: nonNull(stringArg()),
@@ -15,7 +14,7 @@ export const UpdatePostMutation = extendType({
       resolve: async (
         _,
         { creatorId, postTitleSlug, title, description },
-        { prisma, mixpanel }: Context
+        { prisma, mixpanel, currentUser }: Context
       ) => {
         console.info("Update Post", title, description);
 
@@ -23,7 +22,7 @@ export const UpdatePostMutation = extendType({
           where: {
             generatedTitleSlug: postTitleSlug,
             creator: {
-              id: creatorId,
+              id: currentUser.id,
             },
           },
         });
