@@ -4,14 +4,6 @@ import { server } from "./server";
 import graphqlUploadExpress from "graphql-upload/graphqlUploadExpress.js";
 
 export const startApolloServer = async () => {
-  // server
-  //   .listen({
-  //     host: "0.0.0.0",
-  //     port: 4000,
-  //   })
-  //   .then(({ url }) => {
-  //     console.info(`🚀 Apollo Server ready at ${url}`);
-  //   });
   await server.start();
 
   const app = express();
