@@ -32,6 +32,8 @@ const UploadContent = () => {
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
+  const gqlClient = new GQLClient(token);
+
   const { data } = useSWR("profileKey", () => getUserData(token));
 
   console.info("UploadContent", token, data);
@@ -58,8 +60,7 @@ const UploadContent = () => {
 
     setSubmitLoading(true);
 
-    const createdPost = await request(
-      cpGraphqlUrl,
+    const createdPost = await gqlClient.client.request(
       createPostMutation,
       {
         // creatorId: userId,
