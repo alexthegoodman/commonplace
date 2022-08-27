@@ -16,8 +16,10 @@
 
   @media screen and (min-width: $desktopWidth) {
     width: 100%;
+
     .messageListInner {
-      width: 100%;
+      width: 80%;
+      margin: 0 auto;
     }
   }
 }

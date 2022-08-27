@@ -30,9 +30,19 @@
       width: 80%;
     }
 
+    .primaryHeader {
+      .primaryHeaderInner {
+        .backButton {
+          position: absolute;
+        }
+      }
+    }
+
     .uploadSection {
       width: 100%;
       margin-bottom: 50px;
+
+      max-width: 400px;
 
       .uploadSectionInner {
         display: flex;

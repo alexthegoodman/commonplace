@@ -198,7 +198,8 @@ const UploadContent = () => {
                 <>
                   <DesktopNavigation />
                   <a
-                    className="mobileOnly"
+                    // className="mobileOnly"
+                    className={`backButton ${step === 1 ? "mobileOnly" : ""}`}
                     onClick={goBack}
                     href="#!"
                     aria-label="Go Back"
