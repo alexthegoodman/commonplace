@@ -7,10 +7,18 @@
 /** Page Styles **/
 .interests {
   width: 100%;
+  max-width: $desktopWidth;
+  margin: 0 auto;
   height: 100vh;
   overflow-y: scroll;
 
   .interestsInner {
+    @media screen and (min-width: $desktopWidth) {
+      header.primaryHeader,
+      header.primaryHeader.whiteHeader {
+        right: 0px;
+      }
+    }
   }
 }
 

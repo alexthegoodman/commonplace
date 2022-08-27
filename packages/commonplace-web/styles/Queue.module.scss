@@ -31,6 +31,10 @@
     &.currentPost {
     }
   }
+
+  @media screen and (min-width: $desktopWidth) {
+    height: calc(100vh - 280px);
+  }
 }
 
 .queueEmptyMessage {
