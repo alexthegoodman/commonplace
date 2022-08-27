@@ -15,11 +15,11 @@ const LandingFeaturesA: React.FC<LandingFeaturesAProps> = ({
         <div className="info">
           <h2>Gather honest opinions</h2>
           <p>
-            Reeviewr is simple. Review to upload. If you review 3 posts, you can
-            upload your own. Everything from music and research papers to poems
-            and calligraphy.
+            CommonPlace is simple. Review to upload. If you review 3 posts, you
+            can upload your own. Everything from music and research papers to
+            poems and calligraphy.
           </p>
-          <p>There's a Reeviewr Space for anything you do or create.</p>
+          <p>There's an option for anything you do or create.</p>
         </div>
         <div className="features">
           {features.map((feature, i) => {

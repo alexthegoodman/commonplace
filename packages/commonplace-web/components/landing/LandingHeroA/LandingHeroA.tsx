@@ -24,9 +24,9 @@ const LandingHeroA: React.FC<LandingHeroAProps> = ({
               </strong>
             </h1>
             <p>
-              Reeviewr allows you to get feedback on anything you work on, do,
-              or create. Anything that you can take a picture of, create a video
-              or audio recording of, and write about can be uploaded for
+              CommonPlace allows you to get feedback on anything you work on,
+              do, or create. Anything that you can take a picture of, create a
+              video or audio recording of, and write about can be uploaded for
               feedback.
             </p>
             {children}
