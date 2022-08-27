@@ -13,4 +13,11 @@
     height: 100%;
     overflow-y: scroll;
   }
+
+  @media screen and (min-width: $desktopWidth) {
+    width: 100%;
+    .messageListInner {
+      width: 100%;
+    }
+  }
 }

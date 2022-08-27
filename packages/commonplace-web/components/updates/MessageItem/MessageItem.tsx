@@ -37,7 +37,9 @@ const MessageItem: React.FC<MessageItemProps> = ({
 
   return (
     <div
-      className={`messageItem ${message?.type}`}
+      className={`messageItem ${message?.type} ${
+        authorSide === "left" ? "authorLeft" : "authorRight"
+      }`}
       onClick={onMessageClick}
       role="listitem"
       tabIndex={1}

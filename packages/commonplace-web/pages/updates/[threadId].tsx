@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { createRecordMutation } from "../../graphql/mutations/record";
 import { NextSeo } from "next-seo";
 import { GQLClient } from "../../../commonplace-utilities/lib/GQLClient";
+import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
 
 const getUserAndThreadData = async (token, threadId) => {
   const gqlClient = new GQLClient(token);
@@ -90,24 +91,29 @@ const ThreadContent = () => {
         <PrimaryHeader
           inline={true}
           leftIcon={
-            <Link href="/updates">
-              <a aria-label="Go Back to Updates">
-                <i className="typcn typcn-arrow-left"></i>
-              </a>
-            </Link>
+            <>
+              <DesktopNavigation />
+              <Link href="/updates">
+                <a className="mobileOnly" aria-label="Go Back to Updates">
+                  <i className="typcn typcn-arrow-left"></i>
+                </a>
+              </Link>
+            </>
           }
           title={`Chat with ${otherUser?.chosenUsername}`}
           rightIcon={<></>}
         />
-        <MessageList
-          currentUser={data?.currentUser}
-          otherUser={otherUser}
-          messages={data?.currentThread?.getThreadById?.messages}
-        />
-        <MessageDictator
-          author={data?.currentUser}
-          threadId={threadId as string}
-        />
+        <div className="scrollContainer threadContainer">
+          <MessageList
+            currentUser={data?.currentUser}
+            otherUser={otherUser}
+            messages={data?.currentThread?.getThreadById?.messages}
+          />
+          <MessageDictator
+            author={data?.currentUser}
+            threadId={threadId as string}
+          />
+        </div>
       </div>
     </section>
   );

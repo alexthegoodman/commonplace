@@ -2,6 +2,17 @@
   max-width: 100%;
   margin-top: 25px;
 
+  @media screen and (min-width: $desktopWidth) {
+    max-width: 400px;
+
+    &.authorLeft {
+      align-self: flex-start;
+    }
+    &.authorRight {
+      align-self: end;
+    }
+  }
+
   &.impression {
     .contentViewerWrapper {
       .contentViewer {
