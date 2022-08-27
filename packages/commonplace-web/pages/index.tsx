@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Utilities from "../../commonplace-utilities";
 import LandingBlockA from "../components/landing/LandingBlockA/LandingBlockA";
 import LandingFeaturesA from "../components/landing/LandingFeaturesA/LandingFeaturesA";
 import LandingHeroA from "../components/landing/LandingHeroA/LandingHeroA";
@@ -42,5 +43,28 @@ const Home: NextPage = () => {
     </main>
   );
 };
+
+export async function getServerSideProps(context) {
+  const utilities = new Utilities();
+  const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
+  const token = cookieData.coUserToken;
+
+  if (token) {
+    return {
+      redirect: {
+        destination: "/queue",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      // fallback: {
+      //   profileKey: null,
+      // },
+    },
+  };
+}
 
 export default Home;

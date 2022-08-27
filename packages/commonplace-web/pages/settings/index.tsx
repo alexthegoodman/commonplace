@@ -9,10 +9,10 @@ import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 
 const Settings: NextPage = () => {
   const router = useRouter();
-  const [cookies, setCookie, removeCookie] = useCookies(["coUserId"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["coUserToken"]);
 
   const signOut = () => {
-    removeCookie("coUserId");
+    removeCookie("coUserToken");
     router.push("/sign-in");
   };
 
