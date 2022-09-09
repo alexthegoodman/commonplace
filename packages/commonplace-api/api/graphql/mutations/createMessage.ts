@@ -1,5 +1,5 @@
 import { extendType, nonNull, nullable, stringArg } from "nexus";
-import Utilities from "../../../../commonplace-utilities";
+import Mandrill from "../../../../commonplace-utilities/lib/Mandrill";
 import { Context } from "../../context";
 
 export const CreateMessageMutation = extendType({
@@ -27,7 +27,7 @@ export const CreateMessageMutation = extendType({
           threadId
         );
 
-        const utilities = new Utilities();
+        const mandrill = new Mandrill();
 
         // const author = await prisma.user.findUnique({
         //   where: {
@@ -88,7 +88,7 @@ export const CreateMessageMutation = extendType({
           const emailUrl = "https://commonplace.social/updates/" + threadId;
           const buttonText = "Open Thread";
 
-          utilities.AWS.sendEmail(
+          mandrill.sendEmail(
             otherUser?.email,
             otherUser?.chosenUsername,
             "Reply Received",
