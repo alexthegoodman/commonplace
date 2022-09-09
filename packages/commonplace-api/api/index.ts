@@ -10,8 +10,8 @@ export const startApolloServer = async () => {
 
   app.use(
     graphqlUploadExpress({
-      maxFieldSize: 10000000,
-      maxFileSize: 10000000, // 10 MB
+      maxFieldSize: 15000000,
+      maxFileSize: 15000000, // 15 MB
       maxFiles: 20,
     })
   );

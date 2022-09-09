@@ -11,3 +11,5 @@ export const cpGraphqlUrl =
     : "http://localhost:4000/graphql";
 
 export const cloudfrontUrl = "https://d3ubks77jdbtp7.cloudfront.net/";
+
+export const s3Url = "https://cp-aws-assets.s3.us-east-2.amazonaws.com/";
