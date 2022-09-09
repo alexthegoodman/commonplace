@@ -23,6 +23,8 @@ export const permissions = shield(
       getPostImpressions: allow,
       getUserByPostTitle: allow,
       getPostByPostTitle: allow,
+      getProfileURLs: allow,
+      getPostURLs: allow,
     },
     Mutation: {
       "*": isAuthenticated,
