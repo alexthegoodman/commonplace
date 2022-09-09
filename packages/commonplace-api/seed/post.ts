@@ -7,47 +7,119 @@ const prisma = new PrismaClient();
 export const cloudfrontUrl = "https://d3ubks77jdbtp7.cloudfront.net";
 
 export const testImages = [
-  "2022/06/courtney-cook-SsIIw_MET0E-unsplash-JzSY6496hv.jpg",
-  "2022/06/jr-korpa-ma_PlENP8RE-unsplash-G3eVlSq2RL.jpg",
-  "2022/06/melanie-kreutz-IFnknR2Mv5o-unsplash-C3wXqnvF55.jpg",
-  "2022/06/nicola-powys-oz7w_okbI0Q-unsplash-OamYSkHP4H.jpg",
-  "2022/06/xiaolong-wong-nibgG33H0F8-unsplash-6qv5c390cP.jpg",
-  "2022/06/courtney-cook-SsIIw_MET0E-unsplash-JzSY6496hv.jpg",
-  "2022/06/jr-korpa-ma_PlENP8RE-unsplash-G3eVlSq2RL.jpg",
-  "2022/06/melanie-kreutz-IFnknR2Mv5o-unsplash-C3wXqnvF55.jpg",
-  "2022/06/nicola-powys-oz7w_okbI0Q-unsplash-OamYSkHP4H.jpg",
-  "2022/06/xiaolong-wong-nibgG33H0F8-unsplash-6qv5c390cP.jpg",
+  "2022/09/painting2-kQSyfRpjrn.jpg",
+  "2022/09/painting1-LLoc8uvOLy.jpg",
+  "2022/09/drawing2-kDyehrpfOB.jpg",
+  "2022/09/drawing1-1Mdb4o6vu5.jpg",
+  "2022/09/sports2-yuxXQHCuf_.jpg",
+  "2022/09/sports1-HLXSpjv8hn.jpg",
 ];
 
 export default async function seedPosts(users, interests) {
-  const getDefaultPost = (rep1 = -1, rep2 = -1) => {
-    const randomInt1 = rep1 !== -1 ? rep1 : faker.random.numeric();
-    const randomInt2 = rep2 !== -1 ? rep2 : faker.random.numeric();
-    // const contentSearch = "design";
-    // const contentHeight = parseInt(faker.random.numeric(3)) + 300;
-    const title = faker.lorem.words();
-    const generatedTitleSlug = slugify(title);
-    const content = testImages[randomInt2];
-
-    return {
-      title,
-      description: faker.lorem.lines(),
-      contentType: "image",
-      contentPreview: "",
-      generatedTitleSlug,
-      // content: faker.image.imageUrl(800, contentHeight, contentSearch),
-      content,
-      interestId: interests[randomInt1].id,
-      creatorId: users[randomInt2].id,
-    };
-  };
-
   await prisma.post.createMany({
     data: [
-      getDefaultPost(),
-      getDefaultPost(),
-      getDefaultPost(),
-      getDefaultPost(),
+      {
+        title: "Image #1",
+        description: "custom description",
+        contentType: "image",
+        contentPreview: "",
+        generatedTitleSlug: slugify("Image #1"),
+        content: testImages[0],
+        interestId: interests[0].id,
+        creatorId: users[1].id,
+      },
+      {
+        title: "video #1",
+        description: "custom description",
+        contentType: "video",
+        contentPreview: "",
+        generatedTitleSlug: slugify("video #1"),
+        content: "2022/09/Chinese - 11700-h-faAYfQRj.mp4",
+        interestId: interests[0].id,
+        creatorId: users[1].id,
+      },
+      {
+        title: "Image 2",
+        description: "custom description",
+        contentType: "image",
+        contentPreview: "",
+        generatedTitleSlug: slugify("Image 2"),
+        content: testImages[1],
+        interestId: interests[2].id,
+        creatorId: users[1].id,
+      },
+      {
+        title: "audio #1",
+        description: "custom description",
+        contentType: "audio",
+        contentPreview: "2022/09/music1-Hdz1r_1-QH.jpg",
+        generatedTitleSlug: slugify("audio #1"),
+        content:
+          "2022/09/Tuesday-(GlitchSoftHip-hop)-amaksi-pixabay-HIlQb3bzGW.mp3",
+        interestId: interests[0].id,
+        creatorId: users[1].id,
+      },
+      {
+        title: "Image 3",
+        description: "custom description",
+        contentType: "image",
+        contentPreview: "",
+        generatedTitleSlug: slugify("Image 3"),
+        content: testImages[2],
+        interestId: interests[0].id,
+        creatorId: users[2].id,
+      },
+      {
+        title: "video #2",
+        description: "custom description",
+        contentType: "video",
+        contentPreview: "",
+        generatedTitleSlug: slugify("video #2"),
+        content: "2022/09/Chop - 11638-f7vKlmN_8v.mp4",
+        interestId: interests[0].id,
+        creatorId: users[1].id,
+      },
+      {
+        title: "Image 4",
+        description: "custom description",
+        contentType: "image",
+        contentPreview: "",
+        generatedTitleSlug: slugify("Image 4"),
+        content: testImages[3],
+        interestId: interests[0].id,
+        creatorId: users[3].id,
+      },
+      {
+        title: "audio #2",
+        description: "custom description",
+        contentType: "audio",
+        contentPreview: "2022/09/music2-pyPLFtD0mN.jpg",
+        generatedTitleSlug: slugify("audio #2"),
+        content:
+          "2022/09/Leonell-Cassio-TheBlackestBouquet-LeonellCassio-pixabay-7i7XmfbUVN.mp3",
+        interestId: interests[0].id,
+        creatorId: users[1].id,
+      },
+      {
+        title: "Image 5",
+        description: "custom description",
+        contentType: "image",
+        contentPreview: "",
+        generatedTitleSlug: slugify("Image 5"),
+        content: testImages[4],
+        interestId: interests[0].id,
+        creatorId: users[4].id,
+      },
+      {
+        title: "Image 6",
+        description: "custom description",
+        contentType: "image",
+        contentPreview: "",
+        generatedTitleSlug: slugify("Image 6"),
+        content: testImages[5],
+        interestId: interests[0].id,
+        creatorId: users[1].id,
+      },
       // {
       //   ...getDefaultPost(0, 0),
       //   contentType: "video",
@@ -72,17 +144,6 @@ export default async function seedPosts(users, interests) {
       //   contentPreview: "",
       //   content: `greetings \n\nthis is a poem \n\nwith many words of kindness and wishes of wisdom \nand good things \n\nthank you`,
       // },
-      getDefaultPost(),
-      getDefaultPost(),
-      getDefaultPost(),
-      getDefaultPost(),
-      getDefaultPost(),
-      getDefaultPost(),
-      getDefaultPost(),
-      getDefaultPost(),
-      getDefaultPost(),
-      getDefaultPost(),
-      getDefaultPost(),
     ],
   });
 
