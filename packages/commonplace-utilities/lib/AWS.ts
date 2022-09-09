@@ -2,7 +2,7 @@ import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { nanoid } from "nanoid";
 import ERROR_CODES from "./ERROR_CODES";
 const { DateTime } = require("luxon");
-
+const mandrill = require("node-mandrill")(process.env.MANDRILL_KEY);
 export default class AWS {
   REGION = "us-east-2";
   s3Client;
@@ -86,6 +86,61 @@ export default class AWS {
       }
     } else {
       console.error(ERROR_CODES.B001);
+    }
+  }
+
+  public sendEmail(
+    toEmail: string,
+    toName: string,
+    subject: string,
+    templateName: string,
+    templateContent: object[]
+  ) {
+    try {
+      return mandrill(
+        "/messages/send-template",
+        {
+          message: {
+            to: [
+              {
+                email: toEmail,
+                type: "to",
+                name: toName,
+              },
+            ],
+            from_email: "admin@commonplace.social",
+            from_name: "CommonPlace",
+            subject,
+          },
+          template_content: templateContent,
+          template_name: templateName,
+        },
+        (err, res) => {
+          if (err) {
+            console.error(
+              "ERROR. sendEmail ",
+              toEmail,
+              toName,
+              subject,
+              templateName,
+              JSON.stringify(err)
+            );
+            // TODO: add mixpanel
+          } else {
+            console.info(
+              "SUCCESS. sendEmail ",
+              toEmail,
+              toName,
+              subject,
+              templateName,
+              res
+            );
+          }
+        }
+      );
+    } catch (error) {
+      console.error("MANDRILL ERROR", error);
+      // TODO: add mixpanel
     }
   }
 }

@@ -1,4 +1,5 @@
 import { extendType, nonNull, nullable, stringArg } from "nexus";
+import Utilities from "../../../../commonplace-utilities";
 import { Context } from "../../context";
 
 export const CreateMessageMutation = extendType({
@@ -25,6 +26,8 @@ export const CreateMessageMutation = extendType({
           postCreatorUsername,
           threadId
         );
+
+        const utilities = new Utilities();
 
         // const author = await prisma.user.findUnique({
         //   where: {
@@ -60,6 +63,43 @@ export const CreateMessageMutation = extendType({
               },
             },
           });
+
+          const otherUser = await prisma.user.findFirst({
+            where: {
+              AND: {
+                threads: {
+                  some: {
+                    id: {
+                      equals: threadId,
+                    },
+                  },
+                },
+                id: {
+                  not: {
+                    equals: currentUser.id,
+                  },
+                },
+              },
+            },
+          });
+
+          console.info("otherUser", otherUser);
+
+          const emailUrl = "https://commonplace.social/updates/" + threadId;
+          const buttonText = "Open Thread";
+
+          utilities.AWS.sendEmail(
+            otherUser?.email,
+            otherUser?.chosenUsername,
+            "Reply Received",
+            "notification",
+            [
+              {
+                name: "notification-action-btn",
+                content: `<a href="${emailUrl}" class="btn" style="Margin:0;background:#5bc1ed;border:none;border-radius:50px;box-shadow:none;color:#fff;cursor:pointer;display:block;font-family:Helvetica Neue,Arial,sans-serif;font-size:15px;font-weight:600;height:auto;letter-spacing:.2px;line-height:18px;margin:0 auto 25px auto;max-width:360px;padding:11px 15px 12px 15px;text-align:center;text-decoration:none;text-transform:uppercase;width:80%">${buttonText}</a>`,
+              },
+            ]
+          );
 
           mixpanel.track("Reply Sent");
         } else if (type === "impression" && postCreatorUsername && postId) {
