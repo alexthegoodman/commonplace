@@ -12,7 +12,7 @@ import LandingHeroA from "../../components/landing/LandingHeroA/LandingHeroA";
 const Arts: NextPage = () => {
   return (
     <main className="landingContainer">
-      <LandingHeroA>
+      <LandingHeroA visualUrl="/landing/mailchimp1-small.jpg">
         <AuthForm type="sign-up" />
       </LandingHeroA>
       <LandingFeaturesA

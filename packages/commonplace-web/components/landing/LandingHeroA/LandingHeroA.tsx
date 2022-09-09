@@ -4,12 +4,9 @@ import * as React from "react";
 import { LandingHeroAProps } from "./LandingHeroA.d";
 
 const LandingHeroA: React.FC<LandingHeroAProps> = ({
-  ref = null,
-  className = "",
-  onClick = (e) => console.info("Click"),
+  visualUrl = "",
   children = null,
 }) => {
-  const clickHandler = (e) => onClick(e);
   return (
     <section className="landingHero landingHeroA">
       <div className="contain">
@@ -33,7 +30,10 @@ const LandingHeroA: React.FC<LandingHeroAProps> = ({
           </div>
         </div>
       </div>
-      <div className="backVisual" />
+      <div
+        className="backVisual"
+        style={{ backgroundImage: `url("${visualUrl}")` }}
+      />
     </section>
   );
 };

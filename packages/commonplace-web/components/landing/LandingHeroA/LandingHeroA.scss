@@ -8,7 +8,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: url("/landing/mailchimp1-small.jpg") center no-repeat;
+    // background: url("/landing/mailchimp1-small.jpg") center no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
     width: 50vw;
     height: 100%;
