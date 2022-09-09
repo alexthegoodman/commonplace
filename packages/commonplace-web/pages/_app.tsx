@@ -4,6 +4,7 @@ import Head from "next/head";
 import Script from "next/script";
 import { useEffect } from "react";
 import mixpanel from "mixpanel-browser";
+import * as FullStory from "@fullstory/browser";
 
 const isDevelopment = process.env.NEXT_PUBLIC_APP_ENV === "development";
 mixpanel.init("0257a00f77cd9b500e88e34f96b2e991", { debug: isDevelopment });
@@ -15,6 +16,15 @@ mixpanel.init("0257a00f77cd9b500e88e34f96b2e991", { debug: isDevelopment });
 // }
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    console.info("init fullstory", process.env.NODE_ENV);
+    FullStory.init({
+      orgId: "o-1D95P9-na1",
+      // debug: true,
+      devMode: process.env.NODE_ENV === "development",
+    });
+  }, []);
+
   const initializeFacebookSDK = `
     window.fbAsyncInit = function() {
       FB.init({

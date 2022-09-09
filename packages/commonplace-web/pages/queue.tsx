@@ -93,7 +93,7 @@ const QueueContent = () => {
 
   // const { selectedInterest } = state;
 
-  console.info("QueueContent", data);
+  // console.info("QueueContent", data);
 
   const firstId = data?.posts[0]?.id;
 
@@ -141,7 +141,7 @@ const QueueContent = () => {
     (post, x) => post.id === currentPost?.id
   );
 
-  console.info("currentPost", queuePostId, currentPost);
+  // console.info("currentPost", queuePostId, currentPost);
 
   useEffect(() => {
     if (typeof currentPost?.id === "undefined") {
@@ -230,7 +230,7 @@ const QueueContent = () => {
     data?.currentUser?.generatedUsername
   );
 
-  console.info("unreadThreads", data?.threads, unreadThreads);
+  // console.info("unreadThreads", data?.threads, unreadThreads);
 
   const onSelectInterestClick = () => {
     setShowInterestsModal(true);

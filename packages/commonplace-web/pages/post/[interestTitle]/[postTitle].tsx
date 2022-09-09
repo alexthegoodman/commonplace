@@ -44,7 +44,7 @@ const getPostAndUserData = async (postTitle) => {
 const PostContent = ({ data }) => {
   const currentPost = data;
 
-  console.info("currentPost", currentPost);
+  // console.info("currentPost", currentPost);
 
   const router = useRouter();
   const { goBack } = useRouterBack(router);

@@ -47,7 +47,7 @@ const EditPostContent = ({ data }) => {
 
   const currentPost = data;
 
-  console.info("currentPost", currentPost);
+  // console.info("currentPost", currentPost);
 
   const [formErrorMessage, setFormErrorMessage] = useState("");
 
