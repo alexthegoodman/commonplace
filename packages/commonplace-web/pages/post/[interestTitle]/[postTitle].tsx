@@ -109,7 +109,9 @@ const PostDataWrapper = () => {
   const router = useRouter();
   const { interestTitle, postTitle } = router.query;
 
-  const { data } = useSWR("postKey", () => getPostAndUserData(postTitle));
+  const { data } = useSWR("postKey" + postTitle, () =>
+    getPostAndUserData(postTitle)
+  );
 
   console.info("PostDataWrapper", data);
 
@@ -135,7 +137,7 @@ export async function getServerSideProps({ query }) {
   return {
     props: {
       fallback: {
-        postKey: postAndUserData,
+        ["postKey" + postTitle]: postAndUserData,
       },
     },
   };
