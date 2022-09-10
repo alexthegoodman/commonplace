@@ -92,14 +92,18 @@ const AuthForm: React.FC<AuthFormProps> = ({
         sameSite: "strict",
         domain: cpDomain,
         expires: expireCookie,
-        // secure: true // only accessible via https
+        secure: true, // only accessible via https
       });
+
+      console.info("cookie set with token");
 
       try {
         LogRocket.identify(data.email);
       } catch (error) {
         console.error("LogRocket error", error);
       }
+
+      console.info("redirect to queue");
 
       // cleanup and
       setFormErrorMessage("");
