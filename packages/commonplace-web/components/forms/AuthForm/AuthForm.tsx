@@ -9,6 +9,7 @@ import {
   cpGraphqlUrl,
 } from "../../../../commonplace-utilities/def/urls";
 const { DateTime } = require("luxon");
+import LogRocket from "logrocket";
 
 import {
   authenticateQuery,
@@ -93,6 +94,8 @@ const AuthForm: React.FC<AuthFormProps> = ({
         expires: expireCookie,
         // secure: true // only accessible via https
       });
+
+      LogRocket.identify(data.email);
 
       // cleanup and
       setFormErrorMessage("");

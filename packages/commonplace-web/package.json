@@ -30,6 +30,7 @@
     "fs": "0.0.1-security",
     "graphql": "^16.5.0",
     "graphql-request": "^4.2.0",
+    "logrocket": "^3.0.1",
     "luxon": "^2.4.0",
     "microns": "^1.0.11",
     "mixpanel-browser": "^2.45.0",
