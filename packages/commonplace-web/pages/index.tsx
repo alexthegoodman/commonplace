@@ -7,7 +7,7 @@ import LandingHeroA from "../components/landing/LandingHeroA/LandingHeroA";
 const Home: NextPage = () => {
   return (
     <main className="landingContainer">
-      <LandingHeroA>
+      <LandingHeroA visualUrl="/landing/mailchimp1-small.jpg">
         <>
           <a href="/sign-up" className="button">
             Sign Up
