@@ -55,7 +55,7 @@ export const PostType = objectType({
           where: {
             posts: {
               some: {
-                id: post.id,
+                id: post.id as string,
               },
             },
           },
@@ -71,7 +71,7 @@ export const PostType = objectType({
           where: {
             posts: {
               some: {
-                id: post.id,
+                id: post.id as string,
               },
             },
           },

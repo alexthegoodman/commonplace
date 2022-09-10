@@ -48,10 +48,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var client_1 = require("@prisma/client");
+var luxon_1 = require("luxon");
 var prisma = new client_1.PrismaClient();
 function seedThreads(users, posts) {
     return __awaiter(this, void 0, void 0, function () {
-        var getDefaultThread, thread1, thread2;
+        var getDefaultThread, thread1, thread2, thread3, thread4, thread5, thread6, thread7, thread8;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -92,31 +93,190 @@ function seedThreads(users, posts) {
                     thread1 = _a.sent();
                     return [4 /*yield*/, prisma.thread.create({
                             data: __assign(__assign({}, getDefaultThread()), { users: {
-                                    connect: [{ id: users[0].id }, { id: users[2].id }],
+                                    connect: [{ id: users[5].id }, { id: users[6].id }],
                                 }, messages: {
                                     create: [
                                         {
                                             type: "impression",
                                             content: "Original",
-                                            user: { connect: { id: users[0].id } },
+                                            user: { connect: { id: users[5].id } },
                                             // readBy: { connect: { id: users[1].id } }, // include author?
                                             post: {
                                                 connect: { id: posts[1].id },
                                             },
+                                            // createdAt: DateTime.now().minus({ days: 1 }).toISO(),
                                         },
                                         {
                                             type: "reply",
                                             content: "This will stick with me",
-                                            user: { connect: { id: users[2].id } },
+                                            user: { connect: { id: users[6].id } },
+                                            // createdAt: DateTime.now().minus({ days: 1 }).toISO(),
                                         },
                                     ],
                                 } }),
                         })];
                 case 2:
                     thread2 = _a.sent();
+                    return [4 /*yield*/, prisma.thread.create({
+                            data: __assign(__assign({}, getDefaultThread()), { users: {
+                                    connect: [{ id: users[2].id }, { id: users[3].id }],
+                                }, messages: {
+                                    create: [
+                                        {
+                                            type: "impression",
+                                            content: "Classy",
+                                            user: { connect: { id: users[2].id } },
+                                            // readBy: { connect: { id: users[1].id } }, // include author?
+                                            post: {
+                                                connect: { id: posts[1].id },
+                                            },
+                                            createdAt: luxon_1.DateTime.now().minus({ days: 1 }).toISO(),
+                                        },
+                                        {
+                                            type: "reply",
+                                            content: "Another reply",
+                                            user: { connect: { id: users[3].id } },
+                                            createdAt: luxon_1.DateTime.now().minus({ days: 1 }).toISO(),
+                                        },
+                                    ],
+                                } }),
+                        })];
+                case 3:
+                    thread3 = _a.sent();
+                    return [4 /*yield*/, prisma.thread.create({
+                            data: __assign(__assign({}, getDefaultThread()), { users: {
+                                    connect: [{ id: users[6].id }, { id: users[7].id }],
+                                }, messages: {
+                                    create: [
+                                        {
+                                            type: "impression",
+                                            content: "Spooky",
+                                            user: { connect: { id: users[6].id } },
+                                            // readBy: { connect: { id: users[1].id } }, // include author?
+                                            post: {
+                                                connect: { id: posts[1].id },
+                                            },
+                                            // createdAt: DateTime.now().minus({ months: 1 }).toISO(),
+                                        },
+                                        {
+                                            type: "reply",
+                                            content: "User reply",
+                                            user: { connect: { id: users[7].id } },
+                                            // createdAt: DateTime.now().minus({ months: 1 }).toISO(),
+                                        },
+                                    ],
+                                } }),
+                        })];
+                case 4:
+                    thread4 = _a.sent();
+                    return [4 /*yield*/, prisma.thread.create({
+                            data: __assign(__assign({}, getDefaultThread()), { users: {
+                                    connect: [{ id: users[3].id }, { id: users[4].id }],
+                                }, messages: {
+                                    create: [
+                                        {
+                                            type: "impression",
+                                            content: "Fun",
+                                            user: { connect: { id: users[3].id } },
+                                            // readBy: { connect: { id: users[1].id } }, // include author?
+                                            post: {
+                                                connect: { id: posts[1].id },
+                                            },
+                                            createdAt: luxon_1.DateTime.now().minus({ months: 1 }).toISO(),
+                                        },
+                                        {
+                                            type: "reply",
+                                            content: "User reply",
+                                            user: { connect: { id: users[4].id } },
+                                            createdAt: luxon_1.DateTime.now().minus({ months: 1 }).toISO(),
+                                        },
+                                    ],
+                                } }),
+                        })];
+                case 5:
+                    thread5 = _a.sent();
+                    return [4 /*yield*/, prisma.thread.create({
+                            data: __assign(__assign({}, getDefaultThread()), { users: {
+                                    connect: [{ id: users[3].id }, { id: users[4].id }],
+                                }, messages: {
+                                    create: [
+                                        {
+                                            type: "impression",
+                                            content: "Fun",
+                                            user: { connect: { id: users[3].id } },
+                                            // readBy: { connect: { id: users[1].id } }, // include author?
+                                            post: {
+                                                connect: { id: posts[1].id },
+                                            },
+                                            createdAt: luxon_1.DateTime.now().minus({ months: 2 }).toISO(),
+                                        },
+                                        {
+                                            type: "reply",
+                                            content: "User reply",
+                                            user: { connect: { id: users[4].id } },
+                                            createdAt: luxon_1.DateTime.now().minus({ months: 2 }).toISO(),
+                                        },
+                                    ],
+                                } }),
+                        })];
+                case 6:
+                    thread6 = _a.sent();
+                    return [4 /*yield*/, prisma.thread.create({
+                            data: __assign(__assign({}, getDefaultThread()), { users: {
+                                    connect: [{ id: users[8].id }, { id: users[9].id }],
+                                }, messages: {
+                                    create: [
+                                        {
+                                            type: "impression",
+                                            content: "Fun",
+                                            user: { connect: { id: users[8].id } },
+                                            // readBy: { connect: { id: users[1].id } }, // include author?
+                                            post: {
+                                                connect: { id: posts[1].id },
+                                            },
+                                            createdAt: luxon_1.DateTime.now().minus({ months: 2 }).toISO(),
+                                        },
+                                        {
+                                            type: "reply",
+                                            content: "User reply",
+                                            user: { connect: { id: users[9].id } },
+                                            createdAt: luxon_1.DateTime.now().minus({ months: 2 }).toISO(),
+                                        },
+                                    ],
+                                } }),
+                        })];
+                case 7:
+                    thread7 = _a.sent();
+                    return [4 /*yield*/, prisma.thread.create({
+                            data: __assign(__assign({}, getDefaultThread()), { users: {
+                                    connect: [{ id: users[3].id }, { id: users[4].id }],
+                                }, messages: {
+                                    create: [
+                                        {
+                                            type: "impression",
+                                            content: "Fun",
+                                            user: { connect: { id: users[3].id } },
+                                            // readBy: { connect: { id: users[1].id } }, // include author?
+                                            post: {
+                                                connect: { id: posts[1].id },
+                                            },
+                                            createdAt: luxon_1.DateTime.now().minus({ months: 3 }).toISO(),
+                                        },
+                                        {
+                                            type: "reply",
+                                            content: "User reply",
+                                            user: { connect: { id: users[4].id } },
+                                            createdAt: luxon_1.DateTime.now().minus({ months: 3 }).toISO(),
+                                        },
+                                    ],
+                                } }),
+                        })];
+                case 8:
+                    thread8 = _a.sent();
                     return [2 /*return*/, {
                             thread1: thread1,
                             thread2: thread2,
+                            thread3: thread3,
                         }];
             }
         });

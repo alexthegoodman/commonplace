@@ -29,17 +29,27 @@ const categoryByDate = (impressions, format) => {
   return impressionsByDate;
 };
 
+type Item = {
+  interest?: any;
+  post?: any;
+  label: string;
+  value: string;
+};
+
 const categoryByInterest = (type, items) => {
-  const itemsByInterest = []; // { label: "", count: 0 }
+  const itemsByInterest: Item[] = []; // { label: "", count: 0 }
   items.forEach((entity) => {
     const interestName =
       type === "post" ? entity.interest.name : entity.post?.interest.name;
-    const itemExists = itemsByInterest.findIndex((item) => {
+    const itemExists = itemsByInterest.findIndex((item: Item) => {
       return item.label === interestName;
     });
 
     if (itemExists < 0) {
-      itemsByInterest.push({ label: interestName, value: 1 });
+      itemsByInterest.push({
+        label: interestName,
+        value: 1 as unknown as string,
+      });
     } else {
       const deletedItem = itemsByInterest.splice(itemExists, 1);
 
@@ -53,11 +63,16 @@ const categoryByInterest = (type, items) => {
   return itemsByInterest;
 };
 
+type DatePair = {
+  date: string;
+  value: string;
+};
+
 const dateToPair = (items) => {
-  let byDate = [];
+  let byDate: DatePair[] = [];
   Object.keys(items).forEach((key, i) => {
     const set = getUniquePropertyOfArray(items[key], "userId");
-    const value = set.size;
+    const value = set.size as unknown as string;
     const datePair = { date: key, value };
     byDate.push(datePair);
   });

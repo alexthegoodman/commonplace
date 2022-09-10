@@ -19,7 +19,7 @@ export const CategoryType = objectType({
           where: {
             categories: {
               some: {
-                id: category.id,
+                id: category.id as string,
               },
             },
           },

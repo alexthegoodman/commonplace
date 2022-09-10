@@ -37,7 +37,7 @@ export const UserType = objectType({
         return await context.prisma.post.findMany({
           where: {
             creator: {
-              generatedUsername: user.generatedUsername,
+              generatedUsername: user.generatedUsername as string,
             },
           },
         });

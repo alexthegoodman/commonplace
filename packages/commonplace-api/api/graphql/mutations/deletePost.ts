@@ -11,10 +11,10 @@ export const DeletePostMutation = extendType({
       },
       resolve: async (
         _,
-        { creatorId, postTitleSlug },
+        { postTitleSlug },
         { prisma, mixpanel, currentUser }: Context
       ) => {
-        console.info("Delete Post", creatorId, postTitleSlug);
+        console.info("Delete Post", postTitleSlug);
 
         const userPost = await prisma.post.findFirst({
           where: {

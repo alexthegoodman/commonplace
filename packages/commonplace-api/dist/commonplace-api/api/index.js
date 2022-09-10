@@ -47,31 +47,13 @@ var startApolloServer = function () { return __awaiter(void 0, void 0, void 0, f
     var app;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: 
-            // server
-            //   .listen({
-            //     host: "0.0.0.0",
-            //     port: 4000,
-            //   })
-            //   .then(({ url }) => {
-            //     console.info(`🚀 Apollo Server ready at ${url}`);
-            //   });
-            return [4 /*yield*/, server_1.server.start()];
+            case 0: return [4 /*yield*/, server_1.server.start()];
             case 1:
-                // server
-                //   .listen({
-                //     host: "0.0.0.0",
-                //     port: 4000,
-                //   })
-                //   .then(({ url }) => {
-                //     console.info(`🚀 Apollo Server ready at ${url}`);
-                //   });
                 _a.sent();
                 app = (0, express_1.default)();
-                // This middleware should be added before calling `applyMiddleware`.
                 app.use((0, graphqlUploadExpress_js_1.default)({
-                    maxFieldSize: 10000000,
-                    maxFileSize: 10000000,
+                    maxFieldSize: 15000000,
+                    maxFileSize: 15000000,
                     maxFiles: 20,
                 }));
                 server_1.server.applyMiddleware({ app: app });

@@ -25,7 +25,7 @@ export const MessageType = objectType({
           where: {
             messages: {
               some: {
-                id: message.id,
+                id: message.id as string,
               },
             },
           },
@@ -40,7 +40,7 @@ export const MessageType = objectType({
           where: {
             messages: {
               some: {
-                id: message.id,
+                id: message.id as string,
               },
             },
           },

@@ -41,93 +41,150 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.testImages = exports.cloudfrontUrl = void 0;
 var client_1 = require("@prisma/client");
-var faker_1 = __importDefault(require("@faker-js/faker"));
 var slugify_1 = __importDefault(require("slugify"));
 var prisma = new client_1.PrismaClient();
 exports.cloudfrontUrl = "https://d3ubks77jdbtp7.cloudfront.net";
 exports.testImages = [
-    "2022/06/courtney-cook-SsIIw_MET0E-unsplash-JzSY6496hv.jpg",
-    "2022/06/jr-korpa-ma_PlENP8RE-unsplash-G3eVlSq2RL.jpg",
-    "2022/06/melanie-kreutz-IFnknR2Mv5o-unsplash-C3wXqnvF55.jpg",
-    "2022/06/nicola-powys-oz7w_okbI0Q-unsplash-OamYSkHP4H.jpg",
-    "2022/06/xiaolong-wong-nibgG33H0F8-unsplash-6qv5c390cP.jpg",
-    "2022/06/courtney-cook-SsIIw_MET0E-unsplash-JzSY6496hv.jpg",
-    "2022/06/jr-korpa-ma_PlENP8RE-unsplash-G3eVlSq2RL.jpg",
-    "2022/06/melanie-kreutz-IFnknR2Mv5o-unsplash-C3wXqnvF55.jpg",
-    "2022/06/nicola-powys-oz7w_okbI0Q-unsplash-OamYSkHP4H.jpg",
-    "2022/06/xiaolong-wong-nibgG33H0F8-unsplash-6qv5c390cP.jpg",
+    "2022/09/painting2-kQSyfRpjrn.jpg",
+    "2022/09/painting1-LLoc8uvOLy.jpg",
+    "2022/09/drawing2-kDyehrpfOB.jpg",
+    "2022/09/drawing1-1Mdb4o6vu5.jpg",
+    "2022/09/sports2-yuxXQHCuf_.jpg",
+    "2022/09/sports1-HLXSpjv8hn.jpg",
 ];
 function seedPosts(users, interests) {
     return __awaiter(this, void 0, void 0, function () {
-        var getDefaultPost, posts;
+        var posts;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    getDefaultPost = function (rep1, rep2) {
-                        if (rep1 === void 0) { rep1 = -1; }
-                        if (rep2 === void 0) { rep2 = -1; }
-                        var randomInt1 = rep1 !== -1 ? rep1 : faker_1.default.random.numeric();
-                        var randomInt2 = rep2 !== -1 ? rep2 : faker_1.default.random.numeric();
-                        // const contentSearch = "design";
-                        // const contentHeight = parseInt(faker.random.numeric(3)) + 300;
-                        var title = faker_1.default.lorem.words();
-                        var generatedTitleSlug = (0, slugify_1.default)(title);
-                        var content = exports.testImages[randomInt2];
-                        return {
-                            title: title,
-                            description: faker_1.default.lorem.lines(),
-                            contentType: "image",
-                            contentPreview: "",
-                            generatedTitleSlug: generatedTitleSlug,
-                            // content: faker.image.imageUrl(800, contentHeight, contentSearch),
-                            content: content,
-                            interestId: interests[randomInt1].id,
-                            creatorId: users[randomInt2].id,
-                        };
-                    };
-                    return [4 /*yield*/, prisma.post.createMany({
-                            data: [
-                                getDefaultPost(),
-                                getDefaultPost(),
-                                getDefaultPost(),
-                                getDefaultPost(),
-                                // {
-                                //   ...getDefaultPost(0, 0),
-                                //   contentType: "video",
-                                //   contentPreview: "", // TODO: add for video?
-                                //   content: "http://localhost:3000/test/cheetah.mp4",
-                                // },
-                                // {
-                                //   ...getDefaultPost(1, 0),
-                                //   contentType: "image",
-                                //   contentPreview: "",
-                                //   content: "http://localhost:3000/test/cheetahPoster.jpeg",
-                                // },
-                                // {
-                                //   ...getDefaultPost(1, 0),
-                                //   contentType: "audio",
-                                //   contentPreview: "http://localhost:3000/test/cheetahPoster.jpeg",
-                                //   content: "http://localhost:3000/test/cheetah.mp3",
-                                // },
-                                // {
-                                //   ...getDefaultPost(),
-                                //   contentType: "text",
-                                //   contentPreview: "",
-                                //   content: `greetings \n\nthis is a poem \n\nwith many words of kindness and wishes of wisdom \nand good things \n\nthank you`,
-                                // },
-                                getDefaultPost(),
-                                getDefaultPost(),
-                                getDefaultPost(),
-                                getDefaultPost(),
-                                getDefaultPost(),
-                                getDefaultPost(),
-                                getDefaultPost(),
-                                getDefaultPost(),
-                                getDefaultPost(),
-                                getDefaultPost(),
-                                getDefaultPost(),
-                            ],
-                        })];
+                case 0: return [4 /*yield*/, prisma.post.createMany({
+                        data: [
+                            {
+                                title: "Image #1",
+                                description: "custom description",
+                                contentType: "image",
+                                contentPreview: "",
+                                generatedTitleSlug: (0, slugify_1.default)("Image #1"),
+                                content: exports.testImages[0],
+                                interestId: interests[0].id,
+                                creatorId: users[1].id,
+                            },
+                            {
+                                title: "video #1",
+                                description: "custom description",
+                                contentType: "video",
+                                contentPreview: "",
+                                generatedTitleSlug: (0, slugify_1.default)("video #1"),
+                                content: "2022/09/Chinese - 11700-h-faAYfQRj.mp4",
+                                interestId: interests[0].id,
+                                creatorId: users[1].id,
+                            },
+                            {
+                                title: "Image 2",
+                                description: "custom description",
+                                contentType: "image",
+                                contentPreview: "",
+                                generatedTitleSlug: (0, slugify_1.default)("Image 2"),
+                                content: exports.testImages[1],
+                                interestId: interests[2].id,
+                                creatorId: users[1].id,
+                            },
+                            {
+                                title: "audio #1",
+                                description: "custom description",
+                                contentType: "audio",
+                                contentPreview: "2022/09/music1-Hdz1r_1-QH.jpg",
+                                generatedTitleSlug: (0, slugify_1.default)("audio #1"),
+                                content: "2022/09/Tuesday-(GlitchSoftHip-hop)-amaksi-pixabay-HIlQb3bzGW.mp3",
+                                interestId: interests[0].id,
+                                creatorId: users[1].id,
+                            },
+                            {
+                                title: "Image 3",
+                                description: "custom description",
+                                contentType: "image",
+                                contentPreview: "",
+                                generatedTitleSlug: (0, slugify_1.default)("Image 3"),
+                                content: exports.testImages[2],
+                                interestId: interests[0].id,
+                                creatorId: users[2].id,
+                            },
+                            {
+                                title: "video #2",
+                                description: "custom description",
+                                contentType: "video",
+                                contentPreview: "",
+                                generatedTitleSlug: (0, slugify_1.default)("video #2"),
+                                content: "2022/09/Chop - 11638-f7vKlmN_8v.mp4",
+                                interestId: interests[0].id,
+                                creatorId: users[1].id,
+                            },
+                            {
+                                title: "Image 4",
+                                description: "custom description",
+                                contentType: "image",
+                                contentPreview: "",
+                                generatedTitleSlug: (0, slugify_1.default)("Image 4"),
+                                content: exports.testImages[3],
+                                interestId: interests[0].id,
+                                creatorId: users[3].id,
+                            },
+                            {
+                                title: "audio #2",
+                                description: "custom description",
+                                contentType: "audio",
+                                contentPreview: "2022/09/music2-pyPLFtD0mN.jpg",
+                                generatedTitleSlug: (0, slugify_1.default)("audio #2"),
+                                content: "2022/09/Leonell-Cassio-TheBlackestBouquet-LeonellCassio-pixabay-7i7XmfbUVN.mp3",
+                                interestId: interests[0].id,
+                                creatorId: users[1].id,
+                            },
+                            {
+                                title: "Image 5",
+                                description: "custom description",
+                                contentType: "image",
+                                contentPreview: "",
+                                generatedTitleSlug: (0, slugify_1.default)("Image 5"),
+                                content: exports.testImages[4],
+                                interestId: interests[0].id,
+                                creatorId: users[4].id,
+                            },
+                            {
+                                title: "Image 6",
+                                description: "custom description",
+                                contentType: "image",
+                                contentPreview: "",
+                                generatedTitleSlug: (0, slugify_1.default)("Image 6"),
+                                content: exports.testImages[5],
+                                interestId: interests[0].id,
+                                creatorId: users[1].id,
+                            },
+                            // {
+                            //   ...getDefaultPost(0, 0),
+                            //   contentType: "video",
+                            //   contentPreview: "", // TODO: add for video?
+                            //   content: "http://localhost:3000/test/cheetah.mp4",
+                            // },
+                            // {
+                            //   ...getDefaultPost(1, 0),
+                            //   contentType: "image",
+                            //   contentPreview: "",
+                            //   content: "http://localhost:3000/test/cheetahPoster.jpeg",
+                            // },
+                            // {
+                            //   ...getDefaultPost(1, 0),
+                            //   contentType: "audio",
+                            //   contentPreview: "http://localhost:3000/test/cheetahPoster.jpeg",
+                            //   content: "http://localhost:3000/test/cheetah.mp3",
+                            // },
+                            // {
+                            //   ...getDefaultPost(),
+                            //   contentType: "text",
+                            //   contentPreview: "",
+                            //   content: `greetings \n\nthis is a poem \n\nwith many words of kindness and wishes of wisdom \nand good things \n\nthank you`,
+                            // },
+                        ],
+                    })];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, prisma.post.findMany()];

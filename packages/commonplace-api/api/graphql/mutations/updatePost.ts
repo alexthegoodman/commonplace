@@ -13,7 +13,7 @@ export const UpdatePostMutation = extendType({
       },
       resolve: async (
         _,
-        { creatorId, postTitleSlug, title, description },
+        { postTitleSlug, title, description },
         { prisma, mixpanel, currentUser }: Context
       ) => {
         console.info("Update Post", title, description);

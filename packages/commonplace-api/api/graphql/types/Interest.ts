@@ -23,7 +23,7 @@ export const InterestType = objectType({
           where: {
             interests: {
               some: {
-                id: interest.id,
+                id: interest.id as string,
               },
             },
           },
@@ -37,7 +37,7 @@ export const InterestType = objectType({
         return await context.prisma.post.findMany({
           where: {
             interest: {
-              id: interest.id,
+              id: interest.id as string,
             },
           },
         });

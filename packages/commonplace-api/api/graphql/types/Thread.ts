@@ -19,7 +19,7 @@ export const ThreadType = objectType({
           where: {
             threads: {
               some: {
-                id: thread.id,
+                id: thread.id as string,
               },
             },
           },
@@ -33,7 +33,7 @@ export const ThreadType = objectType({
         return await context.prisma.message.findMany({
           where: {
             thread: {
-              id: thread.id,
+              id: thread.id as string,
             },
           },
           orderBy: {
@@ -49,7 +49,7 @@ export const ThreadType = objectType({
         return await context.prisma.record.findMany({
           where: {
             thread: {
-              id: thread.id,
+              id: thread.id as string,
             },
           },
           orderBy: {

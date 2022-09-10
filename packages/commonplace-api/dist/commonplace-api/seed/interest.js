@@ -40,106 +40,74 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var client_1 = require("@prisma/client");
-var faker_1 = __importDefault(require("@faker-js/faker"));
 var slugify_1 = __importDefault(require("slugify"));
+var interests_1 = require("./interests");
 var prisma = new client_1.PrismaClient();
 function seedInterests() {
     return __awaiter(this, void 0, void 0, function () {
-        var getDefaultCategory, category1, category2, category3, getDefaultInterest, interest1, interest2, interest3, interest4, interest5, interest6, interest7, interest8, interest9, interest10, interests;
+        var createManyInterests, categories, interests;
+        var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    getDefaultCategory = function () {
-                        var name = faker_1.default.lorem.words();
-                        var generatedCategorySlug = (0, slugify_1.default)(name);
-                        return {
-                            name: name,
-                            generatedCategorySlug: generatedCategorySlug,
-                        };
-                    };
-                    return [4 /*yield*/, prisma.category.create({
-                            data: getDefaultCategory(),
-                        })];
+                case 0: return [4 /*yield*/, prisma.category.createMany({
+                        data: interests_1.SeedInterests.map(function (category, i) {
+                            var name = category.title;
+                            var generatedCategorySlug = (0, slugify_1.default)(name);
+                            return {
+                                name: name,
+                                generatedCategorySlug: generatedCategorySlug,
+                            };
+                        }),
+                    })];
                 case 1:
-                    category1 = _a.sent();
-                    return [4 /*yield*/, prisma.category.create({
-                            data: getDefaultCategory(),
+                    _a.sent();
+                    createManyInterests = interests_1.SeedInterests.forEach(function (category, i) { return __awaiter(_this, void 0, void 0, function () {
+                        var name, generatedCategorySlug, items;
+                        var _this = this;
+                        return __generator(this, function (_a) {
+                            name = category.title;
+                            generatedCategorySlug = (0, slugify_1.default)(name);
+                            items = Array.from(category.items);
+                            items.map(function (interest, x) { return __awaiter(_this, void 0, void 0, function () {
+                                var name, generatedInterestSlug;
+                                return __generator(this, function (_a) {
+                                    switch (_a.label) {
+                                        case 0:
+                                            name = interest;
+                                            generatedInterestSlug = (0, slugify_1.default)(name);
+                                            return [4 /*yield*/, prisma.interest.create({
+                                                    data: {
+                                                        name: name,
+                                                        generatedInterestSlug: generatedInterestSlug,
+                                                        contentType: "",
+                                                        categories: {
+                                                            connect: {
+                                                                generatedCategorySlug: generatedCategorySlug,
+                                                            },
+                                                        },
+                                                    },
+                                                })];
+                                        case 1:
+                                            _a.sent();
+                                            return [2 /*return*/];
+                                    }
+                                });
+                            }); });
+                            return [2 /*return*/];
+                        });
+                    }); });
+                    return [4 /*yield*/, prisma.category.findMany({
+                            include: {
+                                interests: true,
+                            },
                         })];
                 case 2:
-                    category2 = _a.sent();
-                    return [4 /*yield*/, prisma.category.create({
-                            data: getDefaultCategory(),
-                        })];
-                case 3:
-                    category3 = _a.sent();
-                    getDefaultInterest = function (category) {
-                        var name = faker_1.default.lorem.words();
-                        var generatedInterestSlug = (0, slugify_1.default)(name);
-                        return {
-                            name: name,
-                            generatedInterestSlug: generatedInterestSlug,
-                            contentType: "",
-                            categories: {
-                                connect: {
-                                    id: category.id,
-                                },
-                            },
-                        };
-                    };
-                    return [4 /*yield*/, prisma.interest.create({
-                            data: getDefaultInterest(category1),
-                        })];
-                case 4:
-                    interest1 = _a.sent();
-                    return [4 /*yield*/, prisma.interest.create({
-                            data: getDefaultInterest(category2),
-                        })];
-                case 5:
-                    interest2 = _a.sent();
-                    return [4 /*yield*/, prisma.interest.create({
-                            data: getDefaultInterest(category3),
-                        })];
-                case 6:
-                    interest3 = _a.sent();
-                    return [4 /*yield*/, prisma.interest.create({
-                            data: getDefaultInterest(category1),
-                        })];
-                case 7:
-                    interest4 = _a.sent();
-                    return [4 /*yield*/, prisma.interest.create({
-                            data: getDefaultInterest(category1),
-                        })];
-                case 8:
-                    interest5 = _a.sent();
-                    return [4 /*yield*/, prisma.interest.create({
-                            data: getDefaultInterest(category2),
-                        })];
-                case 9:
-                    interest6 = _a.sent();
-                    return [4 /*yield*/, prisma.interest.create({
-                            data: getDefaultInterest(category3),
-                        })];
-                case 10:
-                    interest7 = _a.sent();
-                    return [4 /*yield*/, prisma.interest.create({
-                            data: getDefaultInterest(category1),
-                        })];
-                case 11:
-                    interest8 = _a.sent();
-                    return [4 /*yield*/, prisma.interest.create({
-                            data: getDefaultInterest(category3),
-                        })];
-                case 12:
-                    interest9 = _a.sent();
-                    return [4 /*yield*/, prisma.interest.create({
-                            data: getDefaultInterest(category1),
-                        })];
-                case 13:
-                    interest10 = _a.sent();
+                    categories = _a.sent();
                     return [4 /*yield*/, prisma.interest.findMany()];
-                case 14:
+                case 3:
                     interests = _a.sent();
                     return [2 /*return*/, {
+                            categories: categories,
                             interests: interests,
                         }];
             }
@@ -147,4 +115,71 @@ function seedInterests() {
     });
 }
 exports.default = seedInterests;
+// export default async function seedInterests() {
+//   const getDefaultCategory = () => {
+//     const name = faker.lorem.words();
+//     const generatedCategorySlug = slugify(name);
+//     return {
+//       name,
+//       generatedCategorySlug,
+//     };
+//   };
+//   const category1 = await prisma.category.create({
+//     data: getDefaultCategory(),
+//   });
+//   const category2 = await prisma.category.create({
+//     data: getDefaultCategory(),
+//   });
+//   const category3 = await prisma.category.create({
+//     data: getDefaultCategory(),
+//   });
+//   const getDefaultInterest = (category) => {
+//     const name = faker.lorem.words();
+//     const generatedInterestSlug = slugify(name);
+//     return {
+//       name,
+//       generatedInterestSlug,
+//       contentType: "",
+//       categories: {
+//         connect: {
+//           id: category.id,
+//         },
+//       },
+//     };
+//   };
+//   const interest1 = await prisma.interest.create({
+//     data: getDefaultInterest(category1),
+//   });
+//   const interest2 = await prisma.interest.create({
+//     data: getDefaultInterest(category2),
+//   });
+//   const interest3 = await prisma.interest.create({
+//     data: getDefaultInterest(category3),
+//   });
+//   const interest4 = await prisma.interest.create({
+//     data: getDefaultInterest(category1),
+//   });
+//   const interest5 = await prisma.interest.create({
+//     data: getDefaultInterest(category1),
+//   });
+//   const interest6 = await prisma.interest.create({
+//     data: getDefaultInterest(category2),
+//   });
+//   const interest7 = await prisma.interest.create({
+//     data: getDefaultInterest(category3),
+//   });
+//   const interest8 = await prisma.interest.create({
+//     data: getDefaultInterest(category1),
+//   });
+//   const interest9 = await prisma.interest.create({
+//     data: getDefaultInterest(category3),
+//   });
+//   const interest10 = await prisma.interest.create({
+//     data: getDefaultInterest(category1),
+//   });
+//   const interests = await prisma.interest.findMany();
+//   return {
+//     interests,
+//   };
+// }
 //# sourceMappingURL=interest.js.map

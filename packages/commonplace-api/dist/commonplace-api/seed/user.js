@@ -54,6 +54,7 @@ var client_1 = require("@prisma/client");
 var faker_1 = __importDefault(require("@faker-js/faker"));
 var commonplace_utilities_1 = __importDefault(require("../../commonplace-utilities"));
 var post_1 = require("./post");
+var nanoid_1 = require("nanoid");
 var prisma = new client_1.PrismaClient();
 function seedUsers() {
     return __awaiter(this, void 0, void 0, function () {
@@ -64,13 +65,16 @@ function seedUsers() {
                     getDefaultUser = function (providedEmail) {
                         if (providedEmail === void 0) { providedEmail = ""; }
                         var utilities = new commonplace_utilities_1.default();
-                        var email = providedEmail !== "" ? providedEmail : faker_1.default.internet.email();
+                        var email = providedEmail !== ""
+                            ? providedEmail
+                            : "alexthegoodman+" + (0, nanoid_1.nanoid)() + "@gmail.com";
                         var generatedUsername = utilities.helpers.emailToUsername(email);
                         var randomInt1 = faker_1.default.random.numeric();
                         var randomInt2 = faker_1.default.random.numeric();
                         return {
                             email: email,
                             // name: faker.name.findName(), // NOTE: not currently set on frontend
+                            role: "USER",
                             generatedUsername: generatedUsername,
                             chosenUsername: generatedUsername,
                             profileImage: post_1.testImages[randomInt1],
@@ -80,7 +84,7 @@ function seedUsers() {
                     };
                     return [4 /*yield*/, prisma.user.createMany({
                             data: [
-                                __assign({}, getDefaultUser("alexthegoodman@gmail.com")),
+                                __assign(__assign({}, getDefaultUser("alexthegoodman@gmail.com")), { role: "ADMIN" }),
                                 getDefaultUser(),
                                 getDefaultUser(),
                                 getDefaultUser(),
