@@ -35,10 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.permissions = void 0;
 var apollo_server_1 = require("apollo-server");
 var graphql_shield_1 = require("graphql-shield");
+var logrocket_1 = __importDefault(require("logrocket"));
+logrocket_1.default.init("binhki/commonplace-dev");
 var isAdmin = (0, graphql_shield_1.rule)()(function (parent, args, ctx, info) { return __awaiter(void 0, void 0, void 0, function () {
     var allowed;
     return __generator(this, function (_a) {
@@ -80,7 +85,7 @@ exports.permissions = (0, graphql_shield_1.shield)({
             }
             else if (thrownThing instanceof Error) {
                 console.error(thrownThing);
-                // TODO: await Sentry.report(thrownThing)
+                logrocket_1.default.captureException(thrownThing);
                 return [2 /*return*/, new apollo_server_1.ApolloError("Internal server error", "ERR_INTERNAL_SERVER")];
             }
             else {
