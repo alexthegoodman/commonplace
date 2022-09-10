@@ -42,7 +42,7 @@ export const permissions = shield(
       } else if (thrownThing instanceof Error) {
         console.error(thrownThing);
         LogRocket.captureException(thrownThing);
-        return new ApolloError("Internal server error", "ERR_INTERNAL_SERVER");
+        return new ApolloError(thrownThing.message, "ERR_INTERNAL_SERVER");
       } else {
         console.error("The resolver threw something that is not an error.");
         console.error(thrownThing);
