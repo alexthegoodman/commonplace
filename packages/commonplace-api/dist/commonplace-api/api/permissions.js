@@ -86,7 +86,7 @@ exports.permissions = (0, graphql_shield_1.shield)({
             else if (thrownThing instanceof Error) {
                 console.error(thrownThing);
                 logrocket_1.default.captureException(thrownThing);
-                return [2 /*return*/, new apollo_server_1.ApolloError("Internal server error", "ERR_INTERNAL_SERVER")];
+                return [2 /*return*/, new apollo_server_1.ApolloError(thrownThing.message, "ERR_INTERNAL_SERVER")];
             }
             else {
                 console.error("The resolver threw something that is not an error.");
