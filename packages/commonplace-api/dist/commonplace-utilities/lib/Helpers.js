@@ -34,13 +34,18 @@ var Helpers = /** @class */ (function () {
         }
     };
     Helpers.prototype.parseCookie = function (str) {
-        return str
-            .split(";")
-            .map(function (v) { return v.split("="); })
-            .reduce(function (acc, v) {
-            acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
-            return acc;
-        }, {});
+        if (str && typeof str !== "undefined") {
+            return str
+                .split(";")
+                .map(function (v) { return v.split("="); })
+                .reduce(function (acc, v) {
+                acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+                return acc;
+            }, {});
+        }
+        else {
+            return {};
+        }
     };
     Helpers.prototype.parseAuthHeader = function (str) {
         var credentials = Buffer.from(str.split("Basic ")[1], "base64").toString("ascii");
