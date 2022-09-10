@@ -28,7 +28,6 @@ phases:
       - npx prisma migrate deploy
       - prisma generate
       - npm run db:seed
-      - npm run build
   build:
     commands:
       # install client dependencies and build static files
