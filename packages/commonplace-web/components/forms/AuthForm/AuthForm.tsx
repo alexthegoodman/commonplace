@@ -95,7 +95,11 @@ const AuthForm: React.FC<AuthFormProps> = ({
         // secure: true // only accessible via https
       });
 
-      LogRocket.identify(data.email);
+      try {
+        LogRocket.identify(data.email);
+      } catch (error) {
+        console.error("LogRocket error", error);
+      }
 
       // cleanup and
       setFormErrorMessage("");
