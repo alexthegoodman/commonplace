@@ -86,7 +86,14 @@ const AuthForm: React.FC<AuthFormProps> = ({
         .toUTC()
         .toJSDate();
 
-      console.info("token", token, expireCookie);
+      console.info(
+        "token",
+        token,
+        cpDomain,
+        expireCookie,
+        process.env.NODE_ENV,
+        process.env.NEXT_PUBLIC_APP_ENV
+      );
 
       setCookie("coUserToken", token, {
         sameSite: "strict",
