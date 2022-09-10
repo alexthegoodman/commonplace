@@ -1,5 +1,7 @@
 import { ApolloError } from "apollo-server";
 import { shield, allow, deny, rule, and, or, not } from "graphql-shield";
+import LogRocket from "logrocket";
+LogRocket.init("binhki/commonplace-dev");
 
 const isAdmin = rule()(async (parent, args, ctx, info) => {
   const allowed = ctx.currentUser.role === "ADMIN";
@@ -39,7 +41,7 @@ export const permissions = shield(
         return thrownThing;
       } else if (thrownThing instanceof Error) {
         console.error(thrownThing);
-        // TODO: await Sentry.report(thrownThing)
+        LogRocket.captureException(thrownThing);
         return new ApolloError("Internal server error", "ERR_INTERNAL_SERVER");
       } else {
         console.error("The resolver threw something that is not an error.");
