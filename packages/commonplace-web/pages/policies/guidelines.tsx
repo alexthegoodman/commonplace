@@ -9,6 +9,7 @@ const Guidelines: NextPage = () => {
       <div className="settingsInner">
         <NextSeo title={`Community Guidelines | Policies | CommonPlace`} />
         <PrimaryHeader
+          className="centerHeader"
           inline={true}
           leftIcon={
             <Link href="/policies">

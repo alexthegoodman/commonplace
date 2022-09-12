@@ -7,8 +7,9 @@ const Terms: NextPage = () => {
   return (
     <section className="settings">
       <div className="settingsInner">
-        <NextSeo title={`Terms of Service | Policies | CommonPlace`} />
+        <NextSeo title={`Terms of Use | Policies | CommonPlace`} />
         <PrimaryHeader
+          className="centerHeader"
           inline={true}
           leftIcon={
             <Link href="/policies">
@@ -18,12 +19,12 @@ const Terms: NextPage = () => {
               </a>
             </Link>
           }
-          title="Terms of Service"
+          title="Terms of Use"
           rightIcon={<></>}
         />
         <section className="policyContent">
           <div className="policyContentInner">
-            <p>policy information will go here</p>
+            <iframe src="https://app.termly.io/document/terms-of-use-for-website/0aebaa59-4e47-458e-bd57-9bbbf1db90c9" />
           </div>
         </section>
       </div>

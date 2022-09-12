@@ -7,6 +7,10 @@
     position: relative;
     right: -100px;
 
+    &.centerHeader {
+      right: auto;
+    }
+
     .primaryHeaderInner {
       .headerIcon {
         // width: auto;

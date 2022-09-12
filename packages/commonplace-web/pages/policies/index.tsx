@@ -24,10 +24,13 @@ const Policies: NextPage = () => {
         <section className="settingsList">
           <div className="settingsListInner">
             <Link href="/policies/terms/">
-              <a>Terms of Service</a>
+              <a>Terms of Use</a>
             </Link>
             <Link href="/policies/privacy/">
               <a>Privacy Policy</a>
+            </Link>
+            <Link href="/policies/cookies/">
+              <a>Cookie Policy</a>
             </Link>
             <Link href="/policies/guidelines/">
               <a>Community Guidelines</a>

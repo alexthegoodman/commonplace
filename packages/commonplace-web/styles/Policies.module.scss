@@ -4,6 +4,8 @@
 
 /** Page Styles **/
 .policyContent {
+  width: 100%;
+  max-width: $desktopWidth;
   padding: 0 25px;
 
   .policyContentInner {
@@ -13,6 +15,10 @@
     ul li,
     ol li {
       margin-bottom: 6px;
+    }
+    iframe {
+      width: 100%;
+      height: calc(100vh - 100px);
     }
   }
 }
