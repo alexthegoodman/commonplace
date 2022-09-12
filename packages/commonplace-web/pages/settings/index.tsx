@@ -47,7 +47,7 @@ const Settings: NextPage = () => {
             <Link href="/policies/">
               <a>Policies</a>
             </Link>
-            <a href="mailto:support@commonplace.social">Contact Support</a>
+            <a href="mailto:admin@commonplace.social">Contact Support</a>
             <div className="bottomLinks">
               <a href="#!" onClick={signOut}>
                 Sign Out
