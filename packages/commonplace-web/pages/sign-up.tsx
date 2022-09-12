@@ -8,6 +8,7 @@ const SignUp: NextPage = () => {
     <section className="signUp">
       <div className="signUpInner">
         <PrimaryHeader
+          className="centerHeader"
           inline={true}
           leftIcon={<></>}
           title="Sign Up"
