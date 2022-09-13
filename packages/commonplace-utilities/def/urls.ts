@@ -3,6 +3,9 @@ export const env = process.env.NEXT_PUBLIC_APP_ENV;
 export const cpDomain =
   env === "production" ? "commonplace.social" : "localhost";
 
+export const cpDomainwp =
+  env === "production" ? "commonplace.social" : "localhost:3000";
+
 export const cpGraphqlUrl =
   env === "production"
     ? "https://commonplace.social:4000/graphql"

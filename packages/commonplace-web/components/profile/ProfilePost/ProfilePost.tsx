@@ -5,6 +5,7 @@ import * as React from "react";
 import { useCookies } from "react-cookie";
 import {
   cpDomain,
+  cpDomainwp,
   cpGraphqlUrl,
 } from "../../../../commonplace-utilities/def/urls";
 import { GQLClient } from "../../../../commonplace-utilities/lib/GQLClient";
@@ -35,8 +36,7 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
   const contentSEOStatement = `${post?.title} Post in ${post?.interest?.name} Interest - Created by ${creator.chosenUsername} - ${displayDate}`;
   const postUrl =
     "http://" +
-    cpDomain +
-    ":3000" +
+    cpDomainwp +
     "/post/" +
     post?.interest?.generatedInterestSlug +
     "/" +
