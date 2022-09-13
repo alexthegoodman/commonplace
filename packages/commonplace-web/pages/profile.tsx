@@ -28,7 +28,7 @@ export const ProfileContent = ({ data, mutate, usersOwnProfile = false }) => {
     data?.getUser?.chosenUsername + "'s Profile on CommonPlace";
 
   const canonicalUrl =
-    "http://" + cpDomain + "/co/" + data?.getUser?.chosenUsername;
+    "https://" + cpDomain + "/co/" + data?.getUser?.chosenUsername;
   const { imageUrl: profileImageUrl } = useImageUrl(
     data?.getUser?.profileImage
   );

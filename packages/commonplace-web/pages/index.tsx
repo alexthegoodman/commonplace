@@ -1,12 +1,28 @@
 import type { NextPage } from "next";
+import { NextSeo } from "next-seo";
 import Utilities from "../../commonplace-utilities";
+import { cpDomain } from "../../commonplace-utilities/def/urls";
 import LandingBlockA from "../components/landing/LandingBlockA/LandingBlockA";
 import LandingFeaturesA from "../components/landing/LandingFeaturesA/LandingFeaturesA";
 import LandingHeroA from "../components/landing/LandingHeroA/LandingHeroA";
 
 const Home: NextPage = () => {
+  const canonicalUrl = "https://" + cpDomain;
+
   return (
     <main className="landingContainer">
+      <NextSeo
+        title={`CommonPlace | Welcome`}
+        description={`Get free feedback and connect over all hobbies on CommonPlace`}
+        canonical={canonicalUrl}
+        openGraph={{
+          url: canonicalUrl,
+          title: `Find friends and their hobbies on CommonPlace`,
+          description: "CommonPlace has posts from people like yourself",
+          images: [{ url: "/cover.jpg" }],
+          site_name: "CommonPlace",
+        }}
+      />
       <LandingHeroA visualUrl="/landing/mailchimp1-small.jpg">
         <>
           <a href="/sign-up" className="button">

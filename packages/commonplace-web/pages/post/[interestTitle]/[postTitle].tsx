@@ -52,7 +52,7 @@ const PostContent = ({ data }) => {
   const displayDate = DateTime.fromISO(currentPost?.createdAt).toFormat("D");
   const contentSEOStatement = `${currentPost?.title} Post in ${currentPost?.interest?.name} Interest - Created by ${currentPost?.creator?.chosenUsername} - ${displayDate}`;
   const canonicalUrl =
-    "http://" +
+    "https://" +
     cpDomain +
     "/post/" +
     currentPost?.interest?.generatedInterestSlug +
