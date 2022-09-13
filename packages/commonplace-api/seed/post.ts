@@ -19,13 +19,16 @@ export default async function seedPosts(users, interests) {
   await prisma.post.createMany({
     data: [
       {
-        title: "Image #1",
-        description: "custom description",
+        title: "The Willow House",
+        description:
+          "As shifting forms become distorted through emergent and critical practice, the viewer is left with an epitaph for the outposts of our era.",
         contentType: "image",
         contentPreview: "",
-        generatedTitleSlug: slugify("Image #1"),
+        generatedTitleSlug: slugify("The Willow House"),
         content: testImages[0],
-        interestId: interests[0].id,
+        interestId: interests.filter(
+          (interest) => interest.name === "Painting"
+        )[0].id,
         creatorId: users[1].id,
       },
       {
@@ -36,7 +39,7 @@ export default async function seedPosts(users, interests) {
         generatedTitleSlug: slugify("video #1"),
         content: "2022/09/Chinese - 11700-h-faAYfQRj.mp4",
         interestId: interests[0].id,
-        creatorId: users[1].id,
+        creatorId: users[2].id,
       },
       {
         title: "Image 2",
@@ -46,7 +49,7 @@ export default async function seedPosts(users, interests) {
         generatedTitleSlug: slugify("Image 2"),
         content: testImages[1],
         interestId: interests[2].id,
-        creatorId: users[1].id,
+        creatorId: users[3].id,
       },
       {
         title: "audio #1",
@@ -57,7 +60,7 @@ export default async function seedPosts(users, interests) {
         content:
           "2022/09/Tuesday-(GlitchSoftHip-hop)-amaksi-pixabay-HIlQb3bzGW.mp3",
         interestId: interests[0].id,
-        creatorId: users[1].id,
+        creatorId: users[4].id,
       },
       {
         title: "Image 3",
@@ -67,7 +70,7 @@ export default async function seedPosts(users, interests) {
         generatedTitleSlug: slugify("Image 3"),
         content: testImages[2],
         interestId: interests[0].id,
-        creatorId: users[2].id,
+        creatorId: users[5].id,
       },
       {
         title: "video #2",
@@ -77,7 +80,7 @@ export default async function seedPosts(users, interests) {
         generatedTitleSlug: slugify("video #2"),
         content: "2022/09/Chop - 11638-f7vKlmN_8v.mp4",
         interestId: interests[0].id,
-        creatorId: users[1].id,
+        creatorId: users[6].id,
       },
       {
         title: "Image 4",
@@ -87,7 +90,7 @@ export default async function seedPosts(users, interests) {
         generatedTitleSlug: slugify("Image 4"),
         content: testImages[3],
         interestId: interests[0].id,
-        creatorId: users[3].id,
+        creatorId: users[7].id,
       },
       {
         title: "audio #2",
@@ -98,7 +101,7 @@ export default async function seedPosts(users, interests) {
         content:
           "2022/09/Leonell-Cassio-TheBlackestBouquet-LeonellCassio-pixabay-7i7XmfbUVN.mp3",
         interestId: interests[0].id,
-        creatorId: users[1].id,
+        creatorId: users[8].id,
       },
       {
         title: "Image 5",
@@ -108,7 +111,7 @@ export default async function seedPosts(users, interests) {
         generatedTitleSlug: slugify("Image 5"),
         content: testImages[4],
         interestId: interests[0].id,
-        creatorId: users[4].id,
+        creatorId: users[9].id,
       },
       {
         title: "Image 6",
@@ -118,7 +121,7 @@ export default async function seedPosts(users, interests) {
         generatedTitleSlug: slugify("Image 6"),
         content: testImages[5],
         interestId: interests[0].id,
-        creatorId: users[1].id,
+        creatorId: users[9].id,
       },
       // {
       //   ...getDefaultPost(0, 0),
