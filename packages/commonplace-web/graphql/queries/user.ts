@@ -6,12 +6,6 @@ export const authenticateQuery = gql`
   }
 `;
 
-export const registerQuery = gql`
-  query RegisterUser {
-    registerUser
-  }
-`;
-
 export const userQuery = gql`
   query GetUser {
     getUser {

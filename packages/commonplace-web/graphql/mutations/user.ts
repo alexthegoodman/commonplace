@@ -1,5 +1,11 @@
 import { gql } from "graphql-request";
 
+export const registerMutation = gql`
+  mutation RegisterUser {
+    registerUser
+  }
+`;
+
 export const updateProfileMutation = gql`
   mutation UpdateProfile(
     $username: String!

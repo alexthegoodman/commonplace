@@ -11,15 +11,13 @@ import {
 const { DateTime } = require("luxon");
 import LogRocket from "logrocket";
 
-import {
-  authenticateQuery,
-  registerQuery,
-} from "../../../graphql/queries/user";
+import { authenticateQuery } from "../../../graphql/queries/user";
 import FormInput from "../../fields/FormInput/FormInput";
 import FormMessage from "../../fields/FormMessage/FormMessage";
 
 import { AuthFormProps } from "./AuthForm.d";
 import Utilities from "../../../../commonplace-utilities";
+import { registerMutation } from "../../../graphql/mutations/user";
 
 const AuthForm: React.FC<AuthFormProps> = ({
   ref = null,
@@ -70,7 +68,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
         userIdData = await request(
           cpGraphqlUrl,
-          registerQuery,
+          registerMutation,
           {},
           {
             Authorization: authorizationHeader,
