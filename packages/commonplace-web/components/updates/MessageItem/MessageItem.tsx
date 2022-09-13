@@ -5,15 +5,19 @@ import { motion } from "framer-motion";
 import { MessageItemProps } from "./MessageItem.d";
 import { DateTime } from "luxon";
 import { useImageUrl } from "../../../hooks/useImageUrl";
+import { useRouter } from "next/router";
 
 const MessageItem: React.FC<MessageItemProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click MessageItem"),
+  chosenUsername = "",
   message = null,
   authorSide = "left",
   detailsOpen = false,
 }) => {
+  const router = useRouter();
+
   const onMessageClick = (e) => {
     onClick(e);
   };
@@ -27,10 +31,14 @@ const MessageItem: React.FC<MessageItemProps> = ({
     }
   );
 
+  const goToUserProfile = () => {
+    router.push(`/co/${chosenUsername}`);
+  };
+
   const authorAttribution = (
     <div className="itemAuthor">
       <div className="authorPhoto">
-        <img title="" alt="" src={profileImageUrl} />
+        <img onClick={goToUserProfile} title="" alt="" src={profileImageUrl} />
       </div>
     </div>
   );

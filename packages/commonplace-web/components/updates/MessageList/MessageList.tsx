@@ -42,6 +42,7 @@ const MessageList: React.FC<MessageListProps> = ({
           return (
             <MessageItem
               onClick={() => onMessageClick(message?.id)}
+              chosenUsername={message?.user?.chosenUsername}
               message={message}
               authorSide={isCurrentUser ? "right" : "left"}
               detailsOpen={detailItem === message.id ? true : false}
