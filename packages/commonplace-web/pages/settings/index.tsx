@@ -3,6 +3,7 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
+import { cpDomain } from "../../../commonplace-utilities/def/urls";
 import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
 
 import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
@@ -12,7 +13,11 @@ const Settings: NextPage = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["coUserToken"]);
 
   const signOut = () => {
-    removeCookie("coUserToken");
+    removeCookie("coUserToken", {
+      sameSite: "strict",
+      domain: cpDomain,
+      secure: true,
+    });
     router.push("/sign-in");
   };
 
