@@ -32,23 +32,27 @@ export default async function seedPosts(users, interests) {
         creatorId: users[1].id,
       },
       {
-        title: "video #1",
-        description: "custom description",
+        title: "Chinese Stir Fry",
+        description: "It builds depth and complexity",
         contentType: "video",
         contentPreview: "",
-        generatedTitleSlug: slugify("video #1"),
+        generatedTitleSlug: slugify("Chinese Stir Fry"),
         content: "2022/09/Chinese - 11700-h-faAYfQRj.mp4",
-        interestId: interests[0].id,
+        interestId: interests.filter(
+          (interest) => interest.name === "Chinese"
+        )[0].id,
         creatorId: users[2].id,
       },
       {
-        title: "Image 2",
-        description: "custom description",
+        title: "Like a Starry Night",
+        description: "",
         contentType: "image",
         contentPreview: "",
-        generatedTitleSlug: slugify("Image 2"),
+        generatedTitleSlug: slugify("Like a Starry Night"),
         content: testImages[1],
-        interestId: interests[2].id,
+        interestId: interests.filter(
+          (interest) => interest.name === "Painting"
+        )[0].id,
         creatorId: users[3].id,
       },
       {
