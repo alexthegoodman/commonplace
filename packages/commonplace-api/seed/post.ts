@@ -56,75 +56,92 @@ export default async function seedPosts(users, interests) {
         creatorId: users[3].id,
       },
       {
-        title: "audio #1",
-        description: "custom description",
+        title: "Tuesday (GlitchSoftHip-hop)",
+        description:
+          "My work explores the relationship between Critical theory and UFO sightings.",
         contentType: "audio",
         contentPreview: "2022/09/music1-Hdz1r_1-QH.jpg",
-        generatedTitleSlug: slugify("audio #1"),
+        generatedTitleSlug: slugify("Tuesday (GlitchSoftHip-hop)"),
         content:
           "2022/09/Tuesday-(GlitchSoftHip-hop)-amaksi-pixabay-HIlQb3bzGW.mp3",
-        interestId: interests[0].id,
+        interestId: interests.filter(
+          (interest) => interest.name === "Electronic"
+        )[0].id,
         creatorId: users[4].id,
       },
       {
-        title: "Image 3",
-        description: "custom description",
+        title: "The Elements as One",
+        description:
+          "The Elements explores the relationship between earth, wind, and sea.",
         contentType: "image",
         contentPreview: "",
-        generatedTitleSlug: slugify("Image 3"),
+        generatedTitleSlug: slugify("The Elements as One"),
         content: testImages[2],
-        interestId: interests[0].id,
+        interestId: interests.filter(
+          (interest) => interest.name === "Drawing"
+        )[0].id,
         creatorId: users[5].id,
       },
       {
-        title: "video #2",
-        description: "custom description",
+        title: "Chop Master!",
+        description: "Chopping some food. Hope you like",
         contentType: "video",
         contentPreview: "",
-        generatedTitleSlug: slugify("video #2"),
+        generatedTitleSlug: slugify("Chop Master!"),
         content: "2022/09/Chop - 11638-f7vKlmN_8v.mp4",
-        interestId: interests[0].id,
+        interestId: interests.filter(
+          (interest) => interest.name === "Cooking"
+        )[0].id,
         creatorId: users[6].id,
       },
       {
-        title: "Image 4",
-        description: "custom description",
+        title: "Happy Flower",
+        description: "",
         contentType: "image",
         contentPreview: "",
-        generatedTitleSlug: slugify("Image 4"),
+        generatedTitleSlug: slugify("Happy Flower"),
         content: testImages[3],
-        interestId: interests[0].id,
+        interestId: interests.filter(
+          (interest) => interest.name === "Drawing"
+        )[0].id,
         creatorId: users[7].id,
       },
       {
-        title: "audio #2",
-        description: "custom description",
+        title: "The Blackest Bouquet",
+        description:
+          "As momentary derivatives become clarified through emergent and repetitive practice, the viewer is left with a testament to the darkness of our existence.",
         contentType: "audio",
         contentPreview: "2022/09/music2-pyPLFtD0mN.jpg",
         generatedTitleSlug: slugify("audio #2"),
         content:
           "2022/09/Leonell-Cassio-TheBlackestBouquet-LeonellCassio-pixabay-7i7XmfbUVN.mp3",
-        interestId: interests[0].id,
+        interestId: interests.filter(
+          (interest) => interest.name === "Electronic"
+        )[0].id,
         creatorId: users[8].id,
       },
       {
-        title: "Image 5",
-        description: "custom description",
+        title: "Practice 03",
+        description: "",
         contentType: "image",
         contentPreview: "",
-        generatedTitleSlug: slugify("Image 5"),
+        generatedTitleSlug: slugify("Practice 03"),
         content: testImages[4],
-        interestId: interests[0].id,
+        interestId: interests.filter(
+          (interest) => interest.name === "Cricket"
+        )[0].id,
         creatorId: users[9].id,
       },
       {
-        title: "Image 6",
-        description: "custom description",
+        title: "Practice 04",
+        description: "",
         contentType: "image",
         contentPreview: "",
-        generatedTitleSlug: slugify("Image 6"),
+        generatedTitleSlug: slugify("Practice 04"),
         content: testImages[5],
-        interestId: interests[0].id,
+        interestId: interests.filter(
+          (interest) => interest.name === "Cricket"
+        )[0].id,
         creatorId: users[9].id,
       },
       // {
