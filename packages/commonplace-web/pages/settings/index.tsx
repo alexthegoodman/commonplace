@@ -8,15 +8,20 @@ import DesktopNavigation from "../../components/layout/DesktopNavigation/Desktop
 
 import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 
+export const CookieSettings = {
+  sameSite: "strict" as "strict",
+  domain: cpDomain,
+  secure: true, // only accessible via https
+  path: "/",
+};
+
 const Settings: NextPage = () => {
   const router = useRouter();
   const [cookies, setCookie, removeCookie] = useCookies(["coUserToken"]);
 
   const signOut = () => {
     removeCookie("coUserToken", {
-      sameSite: "strict",
-      domain: cpDomain,
-      secure: true,
+      ...CookieSettings,
     });
     router.push("/sign-in");
   };

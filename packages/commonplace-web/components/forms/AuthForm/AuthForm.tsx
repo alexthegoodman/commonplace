@@ -18,6 +18,7 @@ import FormMessage from "../../fields/FormMessage/FormMessage";
 import { AuthFormProps } from "./AuthForm.d";
 import Utilities from "../../../../commonplace-utilities";
 import { registerMutation } from "../../../graphql/mutations/user";
+import { CookieSettings } from "../../../pages/settings";
 
 const AuthForm: React.FC<AuthFormProps> = ({
   ref = null,
@@ -94,10 +95,8 @@ const AuthForm: React.FC<AuthFormProps> = ({
       );
 
       setCookie("coUserToken", token, {
-        sameSite: "strict",
-        domain: cpDomain,
+        ...CookieSettings,
         expires: expireCookie,
-        secure: true, // only accessible via https
       });
 
       console.info("cookie set with token");
