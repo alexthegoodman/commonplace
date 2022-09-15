@@ -54,7 +54,7 @@ exports.CreatePostMutation = void 0;
 var nanoid_1 = require("nanoid");
 var nexus_1 = require("nexus");
 var slugify_1 = __importDefault(require("slugify"));
-var commonplace_utilities_1 = __importDefault(require("../../../../commonplace-utilities"));
+var AWS_1 = __importDefault(require("../../../../commonplace-utilities/lib/AWS"));
 exports.CreatePostMutation = (0, nexus_1.extendType)({
     type: "Mutation",
     definition: function (t) {
@@ -80,13 +80,13 @@ exports.CreatePostMutation = (0, nexus_1.extendType)({
                 var interestId = _a.interestId, contentType = _a.contentType, title = _a.title, description = _a.description, text = _a.text, file1Name = _a.file1Name, file1Size = _a.file1Size, file1Type = _a.file1Type, file1Data = _a.file1Data, file2Name = _a.file2Name, file2Size = _a.file2Size, file2Type = _a.file2Type, file2Data = _a.file2Data;
                 var prisma = _b.prisma, mixpanel = _b.mixpanel, currentUser = _b.currentUser;
                 return __awaiter(_this, void 0, void 0, function () {
-                    var utilities, interest, newCredit, upload1Path, upload2Path, generatedTitleSlug, contentData, post;
+                    var aws, interest, newCredit, upload1Path, upload2Path, generatedTitleSlug, contentData, post;
                     var _c, _d;
                     return __generator(this, function (_e) {
                         switch (_e.label) {
                             case 0:
                                 console.info("Create Post", interestId, contentType, title, description, text, file1Name, file1Size, file1Type, file2Name, file2Size, file2Type);
-                                utilities = new commonplace_utilities_1.default();
+                                aws = new AWS_1.default();
                                 return [4 /*yield*/, prisma.interest.findFirst({
                                         where: {
                                             id: interestId,
@@ -116,17 +116,17 @@ exports.CreatePostMutation = (0, nexus_1.extendType)({
                             case 3:
                                 upload1Path = "";
                                 if (!(file1Name && file1Data)) return [3 /*break*/, 5];
-                                return [4 /*yield*/, utilities.AWS.uploadAsset(contentType, file1Name, file1Type, file1Size, file1Data)];
+                                return [4 /*yield*/, aws.uploadAsset(contentType, file1Name, file1Type, file1Size, file1Data)];
                             case 4:
-                                upload1Path = _e.sent();
+                                upload1Path = (_e.sent());
                                 _e.label = 5;
                             case 5:
                                 upload2Path = "";
                                 if (!(file2Name && file2Data)) return [3 /*break*/, 7];
-                                return [4 /*yield*/, utilities.AWS.uploadAsset("image", // file2 is always image
+                                return [4 /*yield*/, aws.uploadAsset("image", // file2 is always image
                                     file2Name, file2Type, file2Size, file2Data)];
                             case 6:
-                                upload2Path = _e.sent();
+                                upload2Path = (_e.sent());
                                 _e.label = 7;
                             case 7:
                                 generatedTitleSlug = (0, slugify_1.default)(title) + "-" + (0, nanoid_1.nanoid)(10);

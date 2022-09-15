@@ -52,7 +52,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateProfileMutation = void 0;
 var nexus_1 = require("nexus");
-var commonplace_utilities_1 = __importDefault(require("../../../../commonplace-utilities"));
+var AWS_1 = __importDefault(require("../../../../commonplace-utilities/lib/AWS"));
 exports.UpdateProfileMutation = (0, nexus_1.extendType)({
     type: "Mutation",
     definition: function (t) {
@@ -74,24 +74,24 @@ exports.UpdateProfileMutation = (0, nexus_1.extendType)({
                 var username = _a.username, profileImageName = _a.profileImageName, profileImageSize = _a.profileImageSize, profileImageType = _a.profileImageType, profileImageData = _a.profileImageData, coverImageName = _a.coverImageName, coverImageSize = _a.coverImageSize, coverImageType = _a.coverImageType, coverImageData = _a.coverImageData;
                 var prisma = _b.prisma, mixpanel = _b.mixpanel, currentUser = _b.currentUser;
                 return __awaiter(_this, void 0, void 0, function () {
-                    var utilities, upload1Path, upload2Path, addtData, updatedUser;
+                    var aws, upload1Path, upload2Path, addtData, updatedUser;
                     return __generator(this, function (_c) {
                         switch (_c.label) {
                             case 0:
-                                utilities = new commonplace_utilities_1.default();
+                                aws = new AWS_1.default();
                                 upload1Path = "";
                                 if (!(profileImageName && profileImageData)) return [3 /*break*/, 2];
-                                return [4 /*yield*/, utilities.AWS.uploadAsset("image", profileImageName, profileImageType, profileImageSize, profileImageData)];
+                                return [4 /*yield*/, aws.uploadAsset("image", profileImageName, profileImageType, profileImageSize, profileImageData)];
                             case 1:
-                                upload1Path = _c.sent();
+                                upload1Path = (_c.sent());
                                 _c.label = 2;
                             case 2:
                                 upload2Path = "";
                                 if (!(coverImageName && coverImageData)) return [3 /*break*/, 4];
-                                return [4 /*yield*/, utilities.AWS.uploadAsset("image", // file2 is always image
+                                return [4 /*yield*/, aws.uploadAsset("image", // file2 is always image
                                     coverImageName, coverImageType, coverImageSize, coverImageData)];
                             case 3:
-                                upload2Path = _c.sent();
+                                upload2Path = (_c.sent());
                                 _c.label = 4;
                             case 4:
                                 addtData = {};

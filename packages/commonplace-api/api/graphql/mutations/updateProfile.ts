@@ -1,5 +1,5 @@
 import { extendType, intArg, nonNull, nullable, stringArg } from "nexus";
-import Utilities from "../../../../commonplace-utilities";
+import AWS from "../../../../commonplace-utilities/lib/AWS";
 import { Context } from "../../context";
 
 export const UpdateProfileMutation = extendType({
@@ -35,28 +35,28 @@ export const UpdateProfileMutation = extendType({
         },
         { prisma, mixpanel, currentUser }: Context
       ) => {
-        const utilities = new Utilities();
+        const aws = new AWS();
 
         let upload1Path = "";
         if (profileImageName && profileImageData) {
-          upload1Path = await utilities.AWS.uploadAsset(
+          upload1Path = (await aws.uploadAsset(
             "image",
             profileImageName,
             profileImageType,
             profileImageSize,
             profileImageData
-          );
+          )) as string;
         }
 
         let upload2Path = "";
         if (coverImageName && coverImageData) {
-          upload2Path = await utilities.AWS.uploadAsset(
+          upload2Path = (await aws.uploadAsset(
             "image", // file2 is always image
             coverImageName,
             coverImageType,
             coverImageSize,
             coverImageData
-          );
+          )) as string;
         }
 
         let addtData = {};

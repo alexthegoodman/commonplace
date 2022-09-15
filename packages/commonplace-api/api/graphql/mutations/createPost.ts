@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { extendType, intArg, nonNull, nullable, stringArg } from "nexus";
 import slugify from "slugify";
-import Utilities from "../../../../commonplace-utilities";
+import AWS from "../../../../commonplace-utilities/lib/AWS";
 import { Context } from "../../context";
 
 export const CreatePostMutation = extendType({
@@ -61,7 +61,7 @@ export const CreatePostMutation = extendType({
           file2Type
         );
 
-        const utilities = new Utilities();
+        const aws = new AWS();
 
         // deduct credits if interest allows
 
@@ -94,24 +94,24 @@ export const CreatePostMutation = extendType({
 
         let upload1Path = "";
         if (file1Name && file1Data) {
-          upload1Path = await utilities.AWS.uploadAsset(
+          upload1Path = (await aws.uploadAsset(
             contentType,
             file1Name,
             file1Type,
             file1Size,
             file1Data
-          );
+          )) as string;
         }
 
         let upload2Path = "";
         if (file2Name && file2Data) {
-          upload2Path = await utilities.AWS.uploadAsset(
+          upload2Path = (await aws.uploadAsset(
             "image", // file2 is always image
             file2Name,
             file2Type,
             file2Size,
             file2Data
-          );
+          )) as string;
         }
 
         const generatedTitleSlug = slugify(title) + "-" + nanoid(10);
