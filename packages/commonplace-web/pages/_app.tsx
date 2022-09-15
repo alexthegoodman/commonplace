@@ -1,4 +1,4 @@
-import "../styles/globals.scss";
+// import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import Script from "next/script";
@@ -33,6 +33,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       {/* <section className="globalContainer"> */}
+      <Head>
+        <link rel="stylesheet" href="/globals.min.css" />
+      </Head>
       <Script dangerouslySetInnerHTML={{ __html: initializeFacebookSDK }} />
       <Script async defer src="https://connect.facebook.net/en_US/sdk.js" />
       <Component {...pageProps} />
