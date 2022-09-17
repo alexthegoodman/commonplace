@@ -19,7 +19,7 @@ const Home: NextPage = () => {
           url: canonicalUrl,
           title: `Find friends and their hobbies on CommonPlace`,
           description: "CommonPlace has posts from people like yourself",
-          images: [{ url: "/cover.jpg" }],
+          images: [{ url: "/ogImage1.jpg" }],
           site_name: "CommonPlace",
         }}
       />
