@@ -30,12 +30,22 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
   `;
 
+  const initializeHotjar = `(function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3162621,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`;
+
   return (
     <>
       {/* <section className="globalContainer"> */}
       <Head>
         <link rel="stylesheet" href="/globals.min.css" />
       </Head>
+      <Script dangerouslySetInnerHTML={{ __html: initializeHotjar }} />
       <Script dangerouslySetInnerHTML={{ __html: initializeFacebookSDK }} />
       <Script async defer src="https://connect.facebook.net/en_US/sdk.js" />
       <Component {...pageProps} />
