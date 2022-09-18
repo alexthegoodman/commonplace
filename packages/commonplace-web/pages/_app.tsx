@@ -5,12 +5,12 @@ import Script from "next/script";
 import { useEffect } from "react";
 import mixpanel from "mixpanel-browser";
 // import * as FullStory from "@fullstory/browser";
-import LogRocket from "logrocket";
+// import LogRocket from "logrocket";
 
 const isDevelopment = process.env.NEXT_PUBLIC_APP_ENV === "development";
 mixpanel.init("0257a00f77cd9b500e88e34f96b2e991", { debug: isDevelopment });
 
-LogRocket.init("binhki/commonplace-dev");
+// LogRocket.init("binhki/commonplace-dev");
 
 // if (isDevelopment) {
 //   mixpanel.opt_out_tracking();
