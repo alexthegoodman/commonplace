@@ -139,3 +139,15 @@ model Record {
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }
+
+model PageView {
+  id       String   @id @default(uuid()) @unique
+
+  url       String
+  ipAddress String
+  city      String?
+  geoData   String
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
