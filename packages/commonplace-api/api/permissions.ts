@@ -31,6 +31,7 @@ export const permissions = shield(
     Mutation: {
       "*": isAuthenticated,
       registerUser: not(isAuthenticated),
+      createPageView: allow,
     },
     //   Fruit: isAuthenticated,
     //   Customer: isAdmin,

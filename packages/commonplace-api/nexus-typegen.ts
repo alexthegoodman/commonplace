@@ -79,6 +79,12 @@ export interface NexusGenObjects {
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Mutation: {};
+  PageView: { // root type
+    city?: NexusGenScalars['DateTime'] | null; // DateTime
+    geoData?: NexusGenScalars['DateTime'] | null; // DateTime
+    ipAddress?: string | null; // String
+    url?: string | null; // String
+  }
   Post: { // root type
     content?: string | null; // String
     contentPreview?: string | null; // String
@@ -188,12 +194,19 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     createMessage: NexusGenRootTypes['Message']; // Message!
+    createPageView: NexusGenRootTypes['PageView']; // PageView!
     createPost: NexusGenRootTypes['Post']; // Post!
     createReadRecord: NexusGenRootTypes['Record']; // Record!
     deletePost: string; // String!
     registerUser: string; // String!
     updatePost: NexusGenRootTypes['Post']; // Post!
     updateProfile: string; // String!
+  }
+  PageView: { // field return type
+    city: NexusGenScalars['DateTime'] | null; // DateTime
+    geoData: NexusGenScalars['DateTime'] | null; // DateTime
+    ipAddress: string | null; // String
+    url: string | null; // String
   }
   Post: { // field return type
     content: string | null; // String
@@ -315,12 +328,19 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     createMessage: 'Message'
+    createPageView: 'PageView'
     createPost: 'Post'
     createReadRecord: 'Record'
     deletePost: 'String'
     registerUser: 'String'
     updatePost: 'Post'
     updateProfile: 'String'
+  }
+  PageView: { // field return type name
+    city: 'DateTime'
+    geoData: 'DateTime'
+    ipAddress: 'String'
+    url: 'String'
   }
   Post: { // field return type name
     content: 'String'
@@ -407,6 +427,9 @@ export interface NexusGenArgTypes {
       postId?: string | null; // String
       threadId?: string | null; // String
       type: string; // String!
+    }
+    createPageView: { // args
+      url: string; // String!
     }
     createPost: { // args
       contentType: string; // String!
