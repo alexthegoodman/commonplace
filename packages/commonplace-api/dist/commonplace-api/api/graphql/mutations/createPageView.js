@@ -39,63 +39,48 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.permissions = void 0;
-var apollo_server_1 = require("apollo-server");
-var graphql_shield_1 = require("graphql-shield");
-var logrocket_1 = __importDefault(require("logrocket"));
-logrocket_1.default.init("binhki/commonplace-dev");
-var isAdmin = (0, graphql_shield_1.rule)()(function (parent, args, ctx, info) { return __awaiter(void 0, void 0, void 0, function () {
-    var allowed;
-    return __generator(this, function (_a) {
-        allowed = ctx.currentUser.role === "ADMIN";
-        return [2 /*return*/, allowed];
-    });
-}); });
-var isAuthenticated = (0, graphql_shield_1.rule)()(function (parent, args, ctx, info) { return __awaiter(void 0, void 0, void 0, function () {
-    var allowed;
-    return __generator(this, function (_a) {
-        allowed = ctx.currentUser !== null && typeof ctx.currentUser !== "undefined";
-        return [2 /*return*/, allowed];
-    });
-}); });
-exports.permissions = (0, graphql_shield_1.shield)({
-    Query: {
-        "*": isAuthenticated,
-        authenticate: (0, graphql_shield_1.not)(isAuthenticated),
-        getDashboardData: (0, graphql_shield_1.and)(isAuthenticated, isAdmin),
-        getPostsByUsername: graphql_shield_1.allow,
-        getUserByUsername: graphql_shield_1.allow,
-        getPostImpressions: graphql_shield_1.allow,
-        getUserByPostTitle: graphql_shield_1.allow,
-        getPostByPostTitle: graphql_shield_1.allow,
-        getProfileURLs: graphql_shield_1.allow,
-        getPostURLs: graphql_shield_1.allow,
-    },
-    Mutation: {
-        "*": isAuthenticated,
-        registerUser: (0, graphql_shield_1.not)(isAuthenticated),
-        createPageView: graphql_shield_1.allow,
-    },
-    //   Fruit: isAuthenticated,
-    //   Customer: isAdmin,
-}, {
-    fallbackError: function (thrownThing, parent, args, context, info) { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            if (thrownThing instanceof apollo_server_1.ApolloError) {
-                return [2 /*return*/, thrownThing];
-            }
-            else if (thrownThing instanceof Error) {
-                console.error(thrownThing);
-                logrocket_1.default.captureException(thrownThing);
-                return [2 /*return*/, new apollo_server_1.ApolloError(thrownThing.message, "ERR_INTERNAL_SERVER")];
-            }
-            else {
-                console.error("The resolver threw something that is not an error.");
-                console.error(thrownThing);
-                return [2 /*return*/, new apollo_server_1.ApolloError("Not Authorized!", "ERR_INTERNAL_SERVER")];
-            }
-            return [2 /*return*/];
+exports.CreatePageViewMutation = void 0;
+var axios_1 = __importDefault(require("axios"));
+var nexus_1 = require("nexus");
+exports.CreatePageViewMutation = (0, nexus_1.extendType)({
+    type: "Mutation",
+    definition: function (t) {
+        var _this = this;
+        t.nonNull.field("createPageView", {
+            type: "PageView",
+            args: {
+                url: (0, nexus_1.nonNull)((0, nexus_1.stringArg)()),
+            },
+            resolve: function (_, _a, _b) {
+                var url = _a.url;
+                var prisma = _b.prisma, mixpanel = _b.mixpanel, req = _b.req;
+                return __awaiter(_this, void 0, void 0, function () {
+                    var ipAddress, geoData, pageview;
+                    return __generator(this, function (_c) {
+                        switch (_c.label) {
+                            case 0:
+                                console.info("Create Page View", req.ip, url, req.url, url);
+                                ipAddress = req.ip;
+                                return [4 /*yield*/, axios_1.default.get("http://api.ipstack.com/".concat(ipAddress, "?access_key=").concat(process.env.IPSTACK_KEY))];
+                            case 1:
+                                geoData = _c.sent();
+                                console.info("geoData", geoData.data);
+                                pageview = prisma.pageView.create({
+                                    data: {
+                                        url: url,
+                                        ipAddress: ipAddress ? ipAddress : "",
+                                        city: geoData.data.city ? geoData.data.city : "",
+                                        geoData: geoData.data ? JSON.stringify(geoData.data) : "",
+                                    },
+                                });
+                                mixpanel.track("Page View");
+                                console.info("Created pageview", pageview);
+                                return [2 /*return*/, pageview];
+                        }
+                    });
+                });
+            },
         });
-    }); },
+    },
 });
-//# sourceMappingURL=permissions.js.map
+//# sourceMappingURL=createPageView.js.map
