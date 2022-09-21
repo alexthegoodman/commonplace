@@ -11,7 +11,7 @@ export const CreatePageViewMutation = extendType({
         url: nonNull(stringArg()),
       },
       resolve: async (_, { url }, { prisma, mixpanel, req }: Context) => {
-        console.info("Create Page View", req.ip, url);
+        console.info("Create Page View", req.ip, url, req.url, url);
         const ipAddress = req.ip;
 
         const geoData = await axios.get(

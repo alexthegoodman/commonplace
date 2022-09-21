@@ -4,6 +4,8 @@ import Head from "next/head";
 import Script from "next/script";
 import { useEffect } from "react";
 import mixpanel from "mixpanel-browser";
+import { createPageViewMutation } from "../graphql/mutations/pageview";
+import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
 // import * as FullStory from "@fullstory/browser";
 // import LogRocket from "logrocket";
 
@@ -18,7 +20,25 @@ mixpanel.init("0257a00f77cd9b500e88e34f96b2e991", { debug: isDevelopment });
 //   mixpanel.opt_in_tracking();
 // }
 
+var tracked = false;
+
 function MyApp({ Component, pageProps }: AppProps) {
+  const gqlClient = new GQLClient("");
+
+  const createPageView = async () => {
+    await gqlClient.client.request(createPageViewMutation, {
+      url: location.pathname,
+    });
+  };
+
+  useEffect(() => {
+    if (!tracked) {
+      tracked = true;
+      console.info("createPageView");
+      createPageView();
+    }
+  }, []);
+
   const initializeFacebookSDK = `
     window.fbAsyncInit = function() {
       FB.init({
