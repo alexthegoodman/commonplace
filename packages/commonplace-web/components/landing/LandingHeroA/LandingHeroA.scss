@@ -8,10 +8,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    // background: url("/landing/mailchimp1-small.jpg") center no-repeat;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto 90%;
     width: 50vw;
     height: 100%;
   }
@@ -149,11 +148,11 @@
       position: relative;
       width: 100%;
       height: 800px;
-
-      display: none;
+      background-size: 90% auto;
+      // display: none;
     }
     .contain {
-      padding-bottom: 75px;
+      padding-bottom: 25px;
 
       .info {
         padding: 0;

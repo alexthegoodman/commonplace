@@ -9,6 +9,7 @@ var autoprefixer = require("gulp-autoprefixer");
 
 var paths = {
   sass: ["./styles/globals.scss"],
+  componentSass: ["./**/*.scss"],
 };
 
 function sassStep(done) {
@@ -29,7 +30,7 @@ function sassStep(done) {
 }
 
 function watch() {
-  gulp.watch(paths.sass, gulp.series(sassStep));
+  gulp.watch(paths.componentSass, gulp.series(sassStep));
 }
 
 gulp.task("default", gulp.series(watch));
