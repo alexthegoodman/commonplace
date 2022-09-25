@@ -165,9 +165,9 @@
         .infoContain {
           padding: 30px 0 0 0px;
 
-          h1 strong {
+          h1 {
+            line-height: 48px !important;
             font-size: 36px !important;
-            line-height: 125% !important;
           }
           p {
             font-size: 16px !important;
