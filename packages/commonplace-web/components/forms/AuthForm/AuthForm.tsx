@@ -9,7 +9,7 @@ import {
   cpGraphqlUrl,
 } from "../../../../commonplace-utilities/def/urls";
 const { DateTime } = require("luxon");
-import LogRocket from "logrocket";
+// import LogRocket from "logrocket";
 
 import { authenticateQuery } from "../../../graphql/queries/user";
 import FormInput from "../../fields/FormInput/FormInput";
@@ -77,6 +77,11 @@ const AuthForm: React.FC<AuthFormProps> = ({
         );
 
         token = userIdData.registerUser;
+
+        if (typeof fbq !== "undefined") {
+          console.info("trackCustom SignUp");
+          fbq("trackCustom", "SignUp", {});
+        }
       }
 
       const expireCookie = DateTime.now()
@@ -101,11 +106,11 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
       console.info("cookie set with token");
 
-      try {
-        LogRocket.identify(data.email);
-      } catch (error) {
-        console.error("LogRocket error", error);
-      }
+      // try {
+      //   LogRocket.identify(data.email);
+      // } catch (error) {
+      //   console.error("LogRocket error", error);
+      // }
 
       console.info("redirect to queue");
 
