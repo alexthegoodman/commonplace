@@ -12,7 +12,23 @@ import LandingHeroA from "../../components/landing/LandingHeroA/LandingHeroA";
 const Arts: NextPage = () => {
   return (
     <main className="landingContainer">
-      <LandingHeroA visualUrl="/landing/productMusic.png">
+      <LandingHeroA
+        title={
+          <strong>
+            Get feedback
+            <br />
+            on your music
+          </strong>
+        }
+        description={
+          <p>
+            CommonPlace allows artists to upload their music and get reviews for
+            free! <br />
+            Join a community of artists like yourself by signing up below!
+          </p>
+        }
+        visualUrl="/landing/productMusic.png"
+      >
         <AuthForm type="sign-up" />
       </LandingHeroA>
       <LandingFeaturesA

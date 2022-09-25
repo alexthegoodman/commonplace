@@ -32,14 +32,19 @@
           margin-bottom: 35px;
         }
 
-        h1 strong {
+        h1 {
           font-family: "Playfair Display", serif;
           color: $red;
           font-size: 72px;
           font-style: normal;
-          font-weight: 600;
-          line-height: 150%;
+          line-height: 84px;
           letter-spacing: normal;
+          margin-bottom: 15px;
+
+          strong {
+            font-family: "Playfair Display", serif;
+            font-weight: 600;
+          }
         }
         p {
           font-family: "Playfair Display", serif;

@@ -6,6 +6,8 @@ import { LandingHeroAProps } from "./LandingHeroA.d";
 const LandingHeroA: React.FC<LandingHeroAProps> = ({
   visualUrl = "",
   children = null,
+  title = <></>,
+  description = <></>,
 }) => {
   return (
     <section className="landingHero landingHeroA">
@@ -14,18 +16,20 @@ const LandingHeroA: React.FC<LandingHeroAProps> = ({
           <div className="infoContain">
             {/* <Logo white={false} /> */}
             <h1>
-              <strong>
+              {/* <strong>
                 Everybody
                 <br />
                 needs feedback
-              </strong>
+              </strong> */}
+              {title}
             </h1>
-            <p>
+            {/* <p>
               CommonPlace allows you to get feedback on anything you work on,
               do, or create. Anything that you can take a picture of, create a
               video or audio recording of, and write about can be uploaded for
               feedback.
-            </p>
+            </p> */}
+            {description}
             {children}
           </div>
         </div>
