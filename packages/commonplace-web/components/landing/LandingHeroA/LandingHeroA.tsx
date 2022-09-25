@@ -15,6 +15,9 @@ const LandingHeroA: React.FC<LandingHeroAProps> = ({
         <div className="info">
           <div className="infoContain">
             {/* <Logo white={false} /> */}
+            <div className="logo">
+              <img alt="CommonPlace Logo" src="/wordmarkGradientMini.png" />
+            </div>
             <h1>
               {/* <strong>
                 Everybody
