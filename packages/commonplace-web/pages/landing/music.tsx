@@ -24,7 +24,7 @@ const Arts: NextPage = () => {
           <p>
             CommonPlace allows artists to upload their music and get reviews for
             free! <br />
-            Join a community of artists like yourself by signing up below!
+            Find out what people think by signing up below!
           </p>
         }
         visualUrl="/landing/productMusic.png"
