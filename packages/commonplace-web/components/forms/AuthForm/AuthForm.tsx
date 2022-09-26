@@ -25,6 +25,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
   className = "",
   onClick = (e) => console.info("Click AuthForm"),
   type = "sign-in",
+  submitText = "",
 }) => {
   const utilities = new Utilities();
 
@@ -126,6 +127,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
   const onError = (error) => console.error(error);
 
+  const submitButtonText =
+    submitText !== "" ? submitText : type === "sign-in" ? "Sign In" : "Sign Up";
+
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit, onError)}>
       <FormMessage type="error" message={formErrorMessage} />
@@ -148,11 +152,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
         validation={{ required: "Password is required." }}
       />
 
-      <input
-        className="circleButton"
-        type="submit"
-        value={type === "sign-in" ? "Sign In" : "Sign Up"}
-      />
+      <input className="circleButton" type="submit" value={submitButtonText} />
     </form>
   );
 };

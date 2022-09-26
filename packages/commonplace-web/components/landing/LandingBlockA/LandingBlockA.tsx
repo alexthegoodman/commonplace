@@ -6,6 +6,8 @@ const LandingBlockA: React.FC<LandingBlockAProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click"),
+  headline = "",
+  description = <></>,
 }) => {
   const clickHandler = (e) => onClick(e);
   return (
@@ -16,12 +18,14 @@ const LandingBlockA: React.FC<LandingBlockAProps> = ({
         </div>
         <div className="text">
           <div className="textContain">
-            <h3>Grow your audience</h3>
+            {/* <h3>Grow your audience</h3>
             <p>
               Connect with the others who review your work and grow your
               audience online. Network with like minded people and open the door
               to new opportunities.
-            </p>
+            </p> */}
+            <h3>{headline}</h3>
+            {description}
           </div>
         </div>
       </div>
