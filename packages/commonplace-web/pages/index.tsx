@@ -23,7 +23,16 @@ const Home: NextPage = () => {
           site_name: "CommonPlace",
         }}
       />
-      <LandingHeroA visualUrl="/landing/mailchimp1-small.jpg">
+      <LandingHeroA
+        title={<strong>Get feedback on what you do</strong>}
+        description={
+          <p>
+            CommonPlace enables creators and hobbyists to learn what others
+            think, for free! Join today by signing up below:
+          </p>
+        }
+        visualUrl="/landing/productMusic.png"
+      >
         <>
           <a href="/sign-up" className="button">
             Sign Up
@@ -34,6 +43,17 @@ const Home: NextPage = () => {
         </>
       </LandingHeroA>
       <LandingFeaturesA
+        headline="Gather honest opinions"
+        description={
+          <>
+            <p>
+              CommonPlace is simple. Review to upload. If you review 3 posts,
+              you can upload your own. Everything from music and research papers
+              to poems and calligraphy.
+            </p>
+            <p>There's an option for anything you do or create.</p>
+          </>
+        }
         features={[
           {
             image: "/landing/mailchimp2-small.jpg",
@@ -55,7 +75,16 @@ const Home: NextPage = () => {
           },
         ]}
       />
-      <LandingBlockA />
+      <LandingBlockA
+        headline="Grow your audience"
+        description={
+          <p>
+            Connect with the others who review your work and grow your audience
+            online. Network with like minded people and open the door to new
+            opportunities.
+          </p>
+        }
+      />
     </main>
   );
 };
