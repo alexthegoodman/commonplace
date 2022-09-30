@@ -32,6 +32,8 @@ import BrandName from "../components/layout/BrandName/BrandName";
 import { userThreadsQuery } from "../graphql/queries/thread";
 import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
 import request from "graphql-request";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const getPostsAndUserData = async (token, interestId = null) => {
   const gqlClient = new GQLClient(token);
@@ -71,6 +73,7 @@ const getPostsAndUserData = async (token, interestId = null) => {
 };
 
 const QueueContent = () => {
+  const { t } = useTranslation("interests");
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
@@ -302,7 +305,7 @@ const QueueContent = () => {
                 >
                   <i className="typcn typcn-point-of-interest"></i>
                   {selectedInterest === null
-                    ? "All Interests"
+                    ? t("interests:ui.selector.allInterests")
                     : selectedInterest?.name}
                 </a>
               }
@@ -355,8 +358,10 @@ const QueueContent = () => {
   );
 };
 
-const Queue: NextPage<{ fallback: any }> = ({ fallback }) => {
+const Queue: NextPage<{ fallback: any }> = ({ fallback, ...props }) => {
   const [state, dispatch] = useReducer(QueueContextReducer, QueueContextState);
+
+  console.info("queue props", props);
 
   return (
     <QueueContext.Provider value={{ state, dispatch }}>
@@ -387,10 +392,11 @@ export async function getServerSideProps(context) {
 
   const returnData = await getPostsAndUserData(token);
 
-  console.info("getServerSideProps", returnData);
+  console.info("getServerSideProps", context, returnData);
 
   return {
     props: {
+      ...(await serverSideTranslations(context.locale, ["interests"])),
       fallback: {
         queueKey: returnData,
       },

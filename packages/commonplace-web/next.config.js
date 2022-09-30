@@ -1,5 +1,7 @@
 const withPlugins = require("next-compose-plugins");
 
+const { i18n } = require("./next-i18next.config");
+
 const nextConfig = {
   swcMinify: true,
   reactStrictMode: true,
@@ -21,4 +23,9 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
-module.exports = withPlugins([withBundleAnalyzer({})], nextConfig);
+module.exports = {
+  i18n,
+  ...nextConfig,
+};
+
+// module.exports = withPlugins([withBundleAnalyzer({})], nextConfig);

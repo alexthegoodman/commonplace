@@ -45,6 +45,7 @@
     "nanoid": "^4.0.0",
     "next": "12.1.6",
     "next-compose-plugins": "^2.2.1",
+    "next-i18next": "^12.1.0",
     "next-seo": "^5.4.0",
     "next-sitemap": "^3.0.5",
     "next-ssl-redirect-middleware": "^0.1.4",
