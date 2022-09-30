@@ -5,4 +5,5 @@ export interface InterestGridProps {
   data: any;
   selectedItemId: string;
   onItemSelect: any;
+  translationKey: string;
 }

@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import * as React from "react";
 import { adjectives } from "../../../../commonplace-utilities/def/adjectives";
 
@@ -9,7 +10,10 @@ const InterestGrid: React.FC<InterestGridProps> = ({
   data = null,
   selectedItemId = null,
   onItemSelect = null,
+  translationKey = "",
 }) => {
+  const { t } = useTranslation();
+
   return (
     <section className={`interestGrid ${className}`}>
       <div className="interestGridInner">
@@ -28,7 +32,7 @@ const InterestGrid: React.FC<InterestGridProps> = ({
                 className={item.id === selectedItemId ? "selected" : ""}
               >
                 <a onClick={itemSelectHandler} role="listitem" tabIndex={1}>
-                  {item.name}
+                  {t(`interests:${translationKey}.${item.name}`)}
                 </a>
               </li>
             );

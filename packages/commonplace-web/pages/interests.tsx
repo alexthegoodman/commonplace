@@ -11,6 +11,7 @@ import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
 import { cpGraphqlUrl } from "../../commonplace-utilities/def/urls";
 import { categoriesAndInterestsQuery } from "../graphql/queries/interest";
 import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
+import { useTranslation } from "next-i18next";
 
 const getCategoriesAndInterestData = async (token) => {
   const gqlClient = new GQLClient(token);
@@ -26,6 +27,7 @@ export const InterestsContent = ({
   onBack,
   onConfirm = (selectedCategory, selectedInterest) => console.info("confirm"),
 }) => {
+  const { t } = useTranslation();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
@@ -82,7 +84,7 @@ export const InterestsContent = ({
         <InterestPreview
           selectedInterest={
             displayInterest?.name
-              ? displayInterest?.name
+              ? t(`interests:dictionary.${displayInterest?.name}`)
               : "No Interest Selected"
           }
         />
@@ -98,6 +100,7 @@ export const InterestsContent = ({
                   <div className="selectorGridWrapper">
                     <InterestGrid
                       className="smallGrid"
+                      translationKey="categories"
                       data={data?.getCategories}
                       selectedItemId={selectedCategory}
                       onItemSelect={(id) => {
@@ -112,6 +115,7 @@ export const InterestsContent = ({
                   <div className="selectorGridWrapper">
                     <InterestGrid
                       className="mediumGrid"
+                      translationKey="dictionary"
                       data={displayInterests}
                       selectedItemId={selectedInterest}
                       onItemSelect={setSelectedInterest}

@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import * as React from "react";
 import { adjectives } from "../../../../commonplace-utilities/def/adjectives";
 import impressions from "../../../../commonplace-utilities/def/impressions";
@@ -10,6 +11,8 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
   onClick = (e) => console.info("Click ImpressionGrid"),
   creditCount = 0,
 }) => {
+  const { t } = useTranslation();
+
   const impressionClickHandler = (e) => {
     onClick(e);
   };
@@ -33,7 +36,7 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
         <span>{creditCount} Credits</span>
       </div>
       <div className="gridToolbar">
-        <span className="gridLabel">What's your impression?</span>
+        <span className="gridLabel">{t("impressions:ui.board.prompt")}</span>
         <div className="gridCategories">
           <div
             className={`gridCategory ${
@@ -110,7 +113,7 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
                         aria-label={impression.name}
                         tabIndex={5}
                       >
-                        {impression.name}
+                        {t(`impressions:dictionary.${impression.name}`)}
                       </a>
                     </li>
                   );

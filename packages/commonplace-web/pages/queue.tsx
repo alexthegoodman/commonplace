@@ -73,7 +73,7 @@ const getPostsAndUserData = async (token, interestId = null) => {
 };
 
 const QueueContent = () => {
-  const { t } = useTranslation("interests");
+  const { t } = useTranslation();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
@@ -272,6 +272,8 @@ const QueueContent = () => {
     // need to refresh data with new interest
   };
 
+  console.info("see object", t("common:empty", { returnObjects: true }));
+
   return (
     <>
       {showInterestsModal ? (
@@ -336,7 +338,7 @@ const QueueContent = () => {
                 </div>
               ) : (
                 <div className="emptyMessage queueEmptyMessage">
-                  <span>Check out other interests or upload a post!</span>
+                  <span>{t("common:empty.queue")}</span>
                 </div>
               )}
             </main>
@@ -360,8 +362,6 @@ const QueueContent = () => {
 
 const Queue: NextPage<{ fallback: any }> = ({ fallback, ...props }) => {
   const [state, dispatch] = useReducer(QueueContextReducer, QueueContextState);
-
-  console.info("queue props", props);
 
   return (
     <QueueContext.Provider value={{ state, dispatch }}>
@@ -396,7 +396,11 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, ["interests"])),
+      ...(await serverSideTranslations(context.locale, [
+        "interests",
+        "impressions",
+        "common",
+      ])),
       fallback: {
         queueKey: returnData,
       },
