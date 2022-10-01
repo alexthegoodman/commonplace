@@ -1,0 +1,14 @@
+{
+  "title": "",
+  "updateProfile": "",
+  "policies": "",
+  "contactSupport": "",
+  "placeholders": {
+    "username": "",
+    "profileImage": "",
+    "coverImage": ""
+  },
+  "errors": {
+    "usernameRequired": ""
+  }
+}

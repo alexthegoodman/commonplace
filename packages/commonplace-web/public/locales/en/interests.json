@@ -8,17 +8,17 @@
   },
   "categories": {
     "Food": "Food",
-    "Art": "",
-    "Sport": "",
-    "Music": "",
-    "Craft": "",
-    "Writing": "",
-    "Games": "",
-    "Liesure": "",
-    "Topic": "",
-    "Collecting": "",
-    "DIY": "",
-    "Action": ""
+    "Art": "Art",
+    "Sport": "Sport",
+    "Music": "Music",
+    "Craft": "Craft",
+    "Writing": "Writing",
+    "Games": "Games",
+    "Liesure": "Liesure",
+    "Topic": "Topic",
+    "Collecting": "Collecting",
+    "DIY": "DIY",
+    "Action": "Action"
   },
   "dictionary": {
     "Baking": "Baking!",
