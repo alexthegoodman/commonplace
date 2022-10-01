@@ -1,34 +1,34 @@
 {
-  "title": "",
+  "title": "আপলোড সৃষ্টি",
   "prompt": {
-    "interest": "",
-    "kind": "",
-    "upload": "",
-    "text": "",
-    "meta": ""
+    "interest": "আপনি কি শেয়ার করতে চান?",
+    "kind": "এটা কি ধরনের বিষয়বস্তু?",
+    "upload": "আপনার বিষয়বস্তু নির্বাচন করুন",
+    "text": "আপনার বিষয়বস্তু টাইপ করুন",
+    "meta": "বর্ণনা করুন এবং শেয়ার করুন!"
   },
   "errors": {
-    "creditMinimum": "",
-    "interestRequired": "",
-    "fileSize": "",
-    "bothFilesRequired": "",
-    "fileRequired": "",
-    "textRequired": "",
-    "titleRequired": ""
+    "creditMinimum": "এই আগ্রহে পোস্ট করার জন্য আপনার কমপক্ষে 3টি ক্রেডিট প্রয়োজন",
+    "interestRequired": "সুদ প্রয়োজন.",
+    "fileSize": "আপলোড করা ফাইলের সাইজ 10MB এর কম হতে হবে।",
+    "bothFilesRequired": "উভয় ফাইল প্রয়োজন.",
+    "fileRequired": "ফাইল প্রয়োজন.",
+    "textRequired": "টেক্সট প্রয়োজন.",
+    "titleRequired": "শিরোনাম প্রয়োজন."
   },
   "placeholders": {
-    "image": "",
-    "video": "",
-    "audio": "",
-    "art": "",
-    "text": "",
-    "title": "",
-    "description": ""
+    "image": "চিত্র আপলোড",
+    "video": "ভিডিও আপলোড কর",
+    "audio": "অডিও আপলোড করুন",
+    "art": "আর্ট আপলোড করুন",
+    "text": "এখানে লিখুন...",
+    "title": "শিরোনাম যোগ করুন...",
+    "description": "বর্ণনা যোগ..."
   },
   "submit": {
-    "free": "",
-    "credits": "",
-    "inProgress": ""
+    "free": "0CC এর জন্য পোস্ট",
+    "credits": "3CC এর জন্য পোস্ট",
+    "inProgress": "আপলোড হচ্ছে..."
   },
-  "currentStep": ""
+  "currentStep": "3 এর মধ্যে {{step}} ধাপ"
 }
