@@ -162,9 +162,14 @@ export async function getServerSideProps(context) {
 
   // console.info("getServerSideProps", token, userData);
 
+  const locale =
+    typeof cookieData.coUserLng !== "undefined"
+      ? cookieData.coUserLng
+      : context.locale;
+
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, ["settings", "common"])),
+      ...(await serverSideTranslations(locale, ["settings", "common"])),
       fallback: {
         settingsKey: userData,
       },

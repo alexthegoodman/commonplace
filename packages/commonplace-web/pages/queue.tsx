@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
-import Link from "next/link";
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useCookies } from "react-cookie";
 import useSWR, { SWRConfig } from "swr";
 import { motion, useAnimation } from "framer-motion";
@@ -15,40 +14,25 @@ import {
   QueueContextReducer,
   QueueContextState,
 } from "../context/QueueContext/QueueContext";
-import {
-  cloudfrontUrl,
-  cpGraphqlUrl,
-} from "../../commonplace-utilities/def/urls";
 import { createMessageMutation } from "../graphql/mutations/message";
 import { queuePostsQuery } from "../graphql/queries/post";
 import { userQuery } from "../graphql/queries/user";
 import { useImageUrl } from "../hooks/useImageUrl";
 import { usePreloadImage } from "../hooks/usePreloadImage";
-import { getUserThreadData } from "./updates";
 import { useUnreadThreads } from "../hooks/useUnreadThreads";
 import { InterestsContent } from "./interests";
 import { NextSeo } from "next-seo";
 import BrandName from "../components/layout/BrandName/BrandName";
 import { userThreadsQuery } from "../graphql/queries/thread";
 import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
-import request from "graphql-request";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import LanguagePicker from "../components/queue/LanguagePicker/LanguagePicker";
 
 const getPostsAndUserData = async (token, interestId = null) => {
   const gqlClient = new GQLClient(token);
 
   const userData = await gqlClient.client.request(userQuery);
-
-  // let addtPostFilter = {};
-
-  // if (interestId) {
-  //   addtPostFilter = {
-  //     interestId: {
-  //       equals: interestId,
-  //     },
-  //   };
-  // }
 
   const postsData = await gqlClient.client.request(queuePostsQuery, {
     interestId,
@@ -72,7 +56,7 @@ const getPostsAndUserData = async (token, interestId = null) => {
   return returnData;
 };
 
-const QueueContent = () => {
+const QueueContent = ({ coUserLng }) => {
   const { t } = useTranslation();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
@@ -92,12 +76,6 @@ const QueueContent = () => {
     }
   );
 
-  // const { state, dispatch } = useContext(QueueContext);
-
-  // const { selectedInterest } = state;
-
-  // console.info("QueueContent", data);
-
   const firstId = data?.posts[0]?.id;
 
   // const [queueIndex, setQueueIndex] = useState(0);
@@ -105,6 +83,9 @@ const QueueContent = () => {
   const [queueFinished, setQueueFinished] = useState(firstId ? false : true);
   const [currentImpression, setCurrentImpression] = useState("");
   const [showInterestsModal, setShowInterestsModal] = useState(false);
+  const [showLanguageModal, setShowLanguageModal] = useState(
+    !coUserLng ? true : false
+  );
   const [creditUi, setCreditUi] = useState(data?.currentUser?.credit);
 
   const postAnimation = useAnimation();
@@ -163,6 +144,7 @@ const QueueContent = () => {
     width: 800,
   });
 
+  // TODO: verify preload image
   usePreloadImage(imageUrl);
 
   // TODO: preload video
@@ -223,7 +205,7 @@ const QueueContent = () => {
       }
     );
 
-    console.info("savedImpression", savedImpression);
+    // console.info("savedImpression", savedImpression);
 
     await openQueueItemAnimation();
   };
@@ -244,7 +226,7 @@ const QueueContent = () => {
   };
 
   const onConfirmInterest = async (category, interest) => {
-    console.info("confirm interest", category, interest);
+    // console.info("confirm interest", category, interest);
 
     // await postAnimation.set((i) => ({
     //   opacity: 0,
@@ -272,7 +254,7 @@ const QueueContent = () => {
     // need to refresh data with new interest
   };
 
-  console.info("see object", t("common:empty", { returnObjects: true }));
+  // console.info("see object", t("common:empty", { returnObjects: true }));
 
   return (
     <>
@@ -285,6 +267,17 @@ const QueueContent = () => {
           />
         </>
       ) : (
+        <></>
+      )}
+      {showLanguageModal ? (
+        <>
+          <NextSeo title={`Choose Language | CommonPlace`} />
+          <LanguagePicker />
+        </>
+      ) : (
+        <></>
+      )}
+      {!showLanguageModal && !showInterestsModal ? (
         <section className="queue">
           <div className="queueInner">
             <NextSeo title={`Queue | CommonPlace`} />
@@ -307,7 +300,7 @@ const QueueContent = () => {
                 >
                   <i className="typcn typcn-point-of-interest"></i>
                   {selectedInterest === null
-                    ? t("interests:ui.selector.allInterests")
+                    ? t("interests:ui.allInterests")
                     : selectedInterest?.name}
                 </a>
               }
@@ -355,12 +348,17 @@ const QueueContent = () => {
             </div>
           </motion.div>
         </section>
+      ) : (
+        <></>
       )}
     </>
   );
 };
 
-const Queue: NextPage<{ fallback: any }> = ({ fallback, ...props }) => {
+const Queue: NextPage<{ fallback: any; coUserLng: string }> = ({
+  fallback,
+  coUserLng,
+}) => {
   const [state, dispatch] = useReducer(QueueContextReducer, QueueContextState);
 
   return (
@@ -368,7 +366,7 @@ const Queue: NextPage<{ fallback: any }> = ({ fallback, ...props }) => {
       <SWRConfig
         value={{ fallback, revalidateOnMount: true, refreshWhenHidden: true }}
       >
-        <QueueContent />
+        <QueueContent coUserLng={coUserLng} />
       </SWRConfig>
     </QueueContext.Provider>
   );
@@ -392,13 +390,23 @@ export async function getServerSideProps(context) {
 
   const returnData = await getPostsAndUserData(token);
 
-  console.info("getServerSideProps", context, returnData);
+  // console.info("getServerSideProps", context, returnData);
+
+  const locale =
+    typeof cookieData.coUserLng !== "undefined"
+      ? cookieData.coUserLng
+      : context.locale;
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, [
+      coUserLng:
+        typeof cookieData.coUserLng !== "undefined"
+          ? cookieData.coUserLng
+          : null,
+      ...(await serverSideTranslations(locale, [
         "interests",
         "impressions",
+        "settings",
         "common",
       ])),
       fallback: {

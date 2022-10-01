@@ -5,6 +5,7 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
+import Utilities from "../../../commonplace-utilities";
 import { cpDomain } from "../../../commonplace-utilities/def/urls";
 import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
 
@@ -76,13 +77,17 @@ const Settings: NextPage = () => {
 };
 
 export async function getServerSideProps(context) {
+  const utilities = new Utilities();
+  const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
+
+  const locale =
+    typeof cookieData.coUserLng !== "undefined"
+      ? cookieData.coUserLng
+      : context.locale;
+
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, [
-        "settings",
-        "auth",
-        "common",
-      ])),
+      ...(await serverSideTranslations(locale, ["settings", "auth", "common"])),
     },
   };
 }

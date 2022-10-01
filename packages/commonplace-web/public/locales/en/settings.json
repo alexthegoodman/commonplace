@@ -3,6 +3,7 @@
   "updateProfile": "Update Profile",
   "policies": "Policies",
   "contactSupport": "Contact Support",
+  "chooseLanguage": "Choose Language",
   "placeholders": {
     "username": "Username",
     "profileImage": "Profile Image",

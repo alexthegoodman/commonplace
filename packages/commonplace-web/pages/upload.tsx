@@ -489,9 +489,14 @@ export async function getServerSideProps(context) {
 
   const userData = await getUserData(token);
 
+  const locale =
+    typeof cookieData.coUserLng !== "undefined"
+      ? cookieData.coUserLng
+      : context.locale;
+
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, [
+      ...(await serverSideTranslations(locale, [
         "interests",
         "impressions",
         "upload",

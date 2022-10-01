@@ -134,9 +134,14 @@ export async function getServerSideProps(context) {
 
   // console.info("getServerSideProps", threadData);
 
+  const locale =
+    typeof cookieData.coUserLng !== "undefined"
+      ? cookieData.coUserLng
+      : context.locale;
+
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, ["updates", "common"])),
+      ...(await serverSideTranslations(locale, ["updates", "common"])),
       fallback: {
         threadKey: threadData,
       },
