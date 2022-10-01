@@ -1,4 +1,6 @@
 import type { NextPage } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -16,6 +18,7 @@ export const CookieSettings = {
 };
 
 const Settings: NextPage = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [cookies, setCookie, removeCookie] = useCookies(["coUserToken"]);
 
@@ -43,24 +46,26 @@ const Settings: NextPage = () => {
               </Link>
             </>
           }
-          title="Settings"
+          title={t("settings:title")}
           rightIcon={<></>}
         />
         <section className="settingsList">
           <div className="settingsListInner">
             <Link href="/settings/update-profile/">
-              <a>Update Profile</a>
+              <a>{t("settings:updateProfile")}</a>
             </Link>
-            <Link href="/settings/change-password/">
+            {/* <Link href="/settings/change-password/">
               <a>Change Password</a>
-            </Link>
+            </Link> */}
             <Link href="/policies/">
-              <a>Policies</a>
+              <a>{t("settings:policies")}</a>
             </Link>
-            <a href="mailto:admin@commonplace.social">Contact Support</a>
+            <a href="mailto:admin@commonplace.social">
+              {t("settings:contactSupport")}
+            </a>
             <div className="bottomLinks">
               <a href="#!" onClick={signOut}>
-                Sign Out
+                {t("auth:signOut")}
               </a>
             </div>
           </div>
@@ -69,5 +74,17 @@ const Settings: NextPage = () => {
     </section>
   );
 };
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      ...(await serverSideTranslations(context.locale, [
+        "settings",
+        "auth",
+        "common",
+      ])),
+    },
+  };
+}
 
 export default Settings;

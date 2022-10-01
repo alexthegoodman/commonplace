@@ -16,6 +16,8 @@ import { cpGraphqlUrl } from "../../../commonplace-utilities/def/urls";
 import { updateProfileMutation } from "../../graphql/mutations/user";
 import { userQuery } from "../../graphql/queries/user";
 import { GQLClient } from "../../../commonplace-utilities/lib/GQLClient";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const getUserData = async (token) => {
   const gqlClient = new GQLClient(token);
@@ -26,13 +28,14 @@ const getUserData = async (token) => {
 };
 
 const SettingsContent = ({ data }) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
   const gqlClient = new GQLClient(token);
 
-  console.info("SettingsContent", token, data);
+  // console.info("SettingsContent", token, data);
 
   const [formErrorMessage, setFormErrorMessage] = useState("");
 
@@ -80,7 +83,7 @@ const SettingsContent = ({ data }) => {
               </a>
             </Link>
           }
-          title="Update Profile"
+          title={t("settings:updateProfile")}
           rightIcon={<></>}
         />
         <FormProvider {...methods}>
@@ -90,16 +93,16 @@ const SettingsContent = ({ data }) => {
             <FormInput
               type="text"
               name="username"
-              placeholder="Username"
+              placeholder={t("settings:placeholders.username")}
               register={register}
               errors={errors}
               // defaultValue={data?.getUser?.chosenUsername}
-              validation={{ required: "Username is required." }}
+              validation={{ required: t("settings:errors.usernameRequired") }}
             />
 
             <FormUpload
               name="profileImage"
-              placeholder="Profile Image"
+              placeholder={t("settings:placeholders.profileImage")}
               accept="image/*"
               register={register}
               errors={errors}
@@ -110,7 +113,7 @@ const SettingsContent = ({ data }) => {
 
             <FormUpload
               name="coverImage"
-              placeholder="Cover Image"
+              placeholder={t("settings:placeholders.coverImage")}
               accept="image/*"
               register={register}
               errors={errors}
@@ -119,7 +122,11 @@ const SettingsContent = ({ data }) => {
               }}
             />
 
-            <input className="circleButton" type="submit" value="SAVE" />
+            <input
+              className="circleButton"
+              type="submit"
+              value={t("common:save")}
+            />
           </form>
         </FormProvider>
       </div>
@@ -151,14 +158,13 @@ export async function getServerSideProps(context) {
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
   const token = cookieData.coUserToken;
 
-  console.info("token", token);
-
   const userData = await getUserData(token);
 
-  console.info("getServerSideProps", token, userData);
+  // console.info("getServerSideProps", token, userData);
 
   return {
     props: {
+      ...(await serverSideTranslations(context.locale, ["settings", "common"])),
       fallback: {
         settingsKey: userData,
       },

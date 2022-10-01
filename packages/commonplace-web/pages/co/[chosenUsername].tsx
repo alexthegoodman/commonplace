@@ -23,7 +23,7 @@ const getUserAndPostsByUsernameData = async (chosenUsername) => {
     },
   };
 
-  console.info("returnData", returnData);
+  // console.info("returnData", returnData);
 
   return returnData;
 };
@@ -35,8 +35,6 @@ const CoProfileDataWrapper = () => {
   const { data } = useSWR("coProfileKey", () =>
     getUserAndPostsByUsernameData(chosenUsername)
   );
-
-  console.info("CoProfileDataWrapper", data);
 
   return <ProfileContent data={data} />;
 };
@@ -54,8 +52,6 @@ const CoProfile: NextPage<{ fallback: any }> = ({ fallback }) => {
 export async function getServerSideProps({ query }) {
   const { chosenUsername } = query;
   const userAndPostsData = await getUserAndPostsByUsernameData(chosenUsername);
-
-  console.info("CoProfile userAndPostsData", query, userAndPostsData);
 
   return {
     props: {

@@ -1,0 +1,34 @@
+{
+  "title": "",
+  "prompt": {
+    "interest": "",
+    "kind": "",
+    "upload": "",
+    "text": "",
+    "meta": ""
+  },
+  "errors": {
+    "creditMinimum": "",
+    "interestRequired": "",
+    "fileSize": "",
+    "bothFilesRequired": "",
+    "fileRequired": "",
+    "textRequired": "",
+    "titleRequired": ""
+  },
+  "placeholders": {
+    "image": "",
+    "video": "",
+    "audio": "",
+    "art": "",
+    "text": "",
+    "title": "",
+    "description": ""
+  },
+  "submit": {
+    "free": "",
+    "credits": "",
+    "inProgress": ""
+  },
+  "currentStep": ""
+}

@@ -60,7 +60,7 @@ const PostContent = ({ data }) => {
     currentPost?.generatedTitleSlug;
   const { imageUrl: mainImageUrl } = useImageUrl(currentPost?.content);
 
-  console.info("currentUrl", canonicalUrl);
+  // console.info("currentUrl", canonicalUrl);
 
   return (
     <section className="post">
@@ -113,7 +113,7 @@ const PostDataWrapper = () => {
     getPostAndUserData(postTitle)
   );
 
-  console.info("PostDataWrapper", data);
+  // console.info("PostDataWrapper", data);
 
   return <PostContent data={data} />;
 };
@@ -132,7 +132,7 @@ export async function getServerSideProps({ query }) {
   const { interestTitle, postTitle } = query;
   const postAndUserData = await getPostAndUserData(postTitle);
 
-  console.info("Post postAndUserData", query, postAndUserData);
+  // console.info("Post postAndUserData", query, postAndUserData);
 
   return {
     props: {
