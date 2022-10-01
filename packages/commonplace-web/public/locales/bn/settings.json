@@ -1,14 +1,14 @@
 {
-  "title": "",
-  "updateProfile": "",
-  "policies": "",
-  "contactSupport": "",
+  "title": "সেটিংস",
+  "updateProfile": "প্রফাইল হালনাগাদ",
+  "policies": "নীতি",
+  "contactSupport": "যোগাযোগ সমর্থন",
   "placeholders": {
-    "username": "",
-    "profileImage": "",
-    "coverImage": ""
+    "username": "ব্যবহারকারীর নাম",
+    "profileImage": "প্রোফাইল ছবি",
+    "coverImage": "কভার ইমেজ"
   },
   "errors": {
-    "usernameRequired": ""
+    "usernameRequired": "ইউজার নাম দরকার."
   }
 }
