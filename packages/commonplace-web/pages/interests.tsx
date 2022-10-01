@@ -36,7 +36,7 @@ export const InterestsContent = ({
   );
   const router = useRouter();
 
-  console.info("data", data);
+  // console.info("data", data);
 
   const goBack = () => {
     if (typeof onBack !== "undefined") {
@@ -55,7 +55,7 @@ export const InterestsContent = ({
     setSelectedCategory(defaultCategory);
   }, defaultCategory);
 
-  console.info("selectedCategory", defaultCategory, selectedCategory);
+  // console.info("selectedCategory", defaultCategory, selectedCategory);
 
   const displayCategory = data?.getCategories?.filter((category, i) => {
     return category.id === selectedCategory;
@@ -78,14 +78,14 @@ export const InterestsContent = ({
               <i className="typcn typcn-arrow-left"></i>
             </a>
           }
-          title="Pick Interest"
+          title={t("interests:ui.pickInterest")}
           rightIcon={<></>}
         />
         <InterestPreview
           selectedInterest={
             displayInterest?.name
               ? t(`interests:dictionary.${displayInterest?.name}`)
-              : "No Interest Selected"
+              : t("interests:ui.noInterest")
           }
         />
         <section className="interestPicker">
@@ -96,7 +96,9 @@ export const InterestsContent = ({
             <div className="pickerSelector">
               <div className="pickerSelectorInner">
                 <div className="selectorLevel">
-                  <span className="selectorLabel">Category</span>
+                  <span className="selectorLabel">
+                    {t("interests:ui.category")}
+                  </span>
                   <div className="selectorGridWrapper">
                     <InterestGrid
                       className="smallGrid"
@@ -111,7 +113,9 @@ export const InterestsContent = ({
                   </div>
                 </div>
                 <div className="selectorLevel">
-                  <span className="selectorLabel">Interest</span>
+                  <span className="selectorLabel">
+                    {t("interests:ui.interest")}
+                  </span>
                   <div className="selectorGridWrapper">
                     <InterestGrid
                       className="mediumGrid"
@@ -132,7 +136,7 @@ export const InterestsContent = ({
                   tabIndex={0}
                   role="button"
                 >
-                  Confirm
+                  {t("common:confirm")}
                 </a>
               </div>
             </div>

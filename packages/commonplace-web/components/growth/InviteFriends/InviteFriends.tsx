@@ -3,12 +3,15 @@ import * as React from "react";
 import mixpanel from "mixpanel-browser";
 
 import { InviteFriendsProps } from "./InviteFriends.d";
+import { useTranslation } from "next-i18next";
 
 const InviteFriends: React.FC<InviteFriendsProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click InviteFriends"),
 }) => {
+  const { t } = useTranslation();
+
   const shareToFacebook = () => {
     mixpanel.track("Invite via Facebook");
 
@@ -43,7 +46,7 @@ const InviteFriends: React.FC<InviteFriendsProps> = ({
     <section className="inviteFriends">
       <div className="inviteFriendsInner">
         <div className="inviteLabelWrapper">
-          <span className="inviteLabel">Invite Friends!</span>
+          <span className="inviteLabel">{t("updates:inviteFriends")}</span>
         </div>
         <div className="inviteButtons">
           <ul className="buttonList">

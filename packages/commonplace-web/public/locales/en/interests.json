@@ -1,8 +1,10 @@
 {
   "ui": {
-    "selector": {
-      "allInterests": "All Interests"
-    }
+    "allInterests": "All Interests",
+    "pickInterest": "Pick Interest",
+    "noInterest": "No Interest Selected",
+    "category": "Category",
+    "interest": "Interest"
   },
   "categories": {
     "Food": "Food",

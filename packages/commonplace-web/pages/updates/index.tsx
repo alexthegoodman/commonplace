@@ -15,6 +15,8 @@ import InviteFriends from "../../components/growth/InviteFriends/InviteFriends";
 import { userQuery } from "../../graphql/queries/user";
 import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
 import { GQLClient } from "../../../commonplace-utilities/lib/GQLClient";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export const getUserThreadData = async (token) => {
   const gqlClient = new GQLClient(token);
@@ -30,6 +32,7 @@ export const getUserThreadData = async (token) => {
 };
 
 const UpdatesContent: NextPage = () => {
+  const { t } = useTranslation();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
@@ -42,7 +45,7 @@ const UpdatesContent: NextPage = () => {
     data?.user?.generatedUsername
   );
 
-  console.info("UpdatesContent", data);
+  // console.info("UpdatesContent", data);
 
   return (
     <section className="updates">
@@ -61,7 +64,7 @@ const UpdatesContent: NextPage = () => {
               </Link>
             </>
           }
-          title="Updates"
+          title={t("updates:title")}
           rightIcon={<></>}
         />
         <InviteFriends />
@@ -86,7 +89,7 @@ const UpdatesContent: NextPage = () => {
             })
           ) : (
             <div className="emptyMessage">
-              <span>Give Impressions. Upload Content. Gain Matches!</span>
+              <span>{t("common:empty.updates")}</span>
             </div>
           )}
         </div>
@@ -110,7 +113,7 @@ export async function getServerSideProps(context) {
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
   const token = cookieData.coUserToken;
 
-  console.info("token", token);
+  // console.info("token", token);
 
   if (!token) {
     return {
@@ -123,10 +126,11 @@ export async function getServerSideProps(context) {
 
   const userThreadData = await getUserThreadData(token);
 
-  console.info("getServerSideProps", userThreadData);
+  // console.info("getServerSideProps", userThreadData);
 
   return {
     props: {
+      ...(await serverSideTranslations(context.locale, ["updates", "common"])),
       fallback: {
         updatesKey: userThreadData,
       },

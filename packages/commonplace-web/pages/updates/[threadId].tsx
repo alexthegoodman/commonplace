@@ -17,6 +17,8 @@ import { createRecordMutation } from "../../graphql/mutations/record";
 import { NextSeo } from "next-seo";
 import { GQLClient } from "../../../commonplace-utilities/lib/GQLClient";
 import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const getUserAndThreadData = async (token, threadId) => {
   const gqlClient = new GQLClient(token);
@@ -36,6 +38,7 @@ const getUserAndThreadData = async (token, threadId) => {
 };
 
 const ThreadContent = () => {
+  const { t } = useTranslation();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
@@ -52,15 +55,9 @@ const ThreadContent = () => {
     }
   );
 
-  console.info("ThreadContent", data);
-
-  // TODO: safe determination of otherUser
   const otherUser = data?.currentThread?.getThreadById?.messages.filter(
     (message, i) => message?.user?.email !== data?.currentUser?.getUser?.email
   )[0].user;
-  // const otherUserFirstName = otherUser?.name?.split(" ")[0];
-
-  console.info("otherUser", otherUser);
 
   const setReadBy = async () => {
     const readAt = await gqlClient.client.request(createRecordMutation, {
@@ -68,19 +65,12 @@ const ThreadContent = () => {
       threadId,
     });
 
-    console.info("readAt", readAt);
+    // console.info("readAt", readAt);
   };
 
-  // TODO:
-  // add one record to readHistory every time
   useEffect(() => {
-    console.info("setting readBy");
     setReadBy();
   }, []);
-
-  // readHistory is an array of Records
-  // check if the most recent record is newer than
-  // the last messsage sent in the thread
 
   return (
     <section className="thread">
@@ -100,7 +90,9 @@ const ThreadContent = () => {
               </Link>
             </>
           }
-          title={`Chat with ${otherUser?.chosenUsername}`}
+          title={t("updates:threadTitle", {
+            username: otherUser?.chosenUsername,
+          })}
           rightIcon={<></>}
         />
         <div className="scrollContainer threadContainer">
@@ -136,14 +128,15 @@ export async function getServerSideProps(context) {
 
   const { threadId } = context.query;
 
-  console.info("token threadId", token, threadId);
+  // console.info("token threadId", token, threadId);
 
   const threadData = await getUserAndThreadData(token, threadId);
 
-  console.info("getServerSideProps", threadData);
+  // console.info("getServerSideProps", threadData);
 
   return {
     props: {
+      ...(await serverSideTranslations(context.locale, ["updates", "common"])),
       fallback: {
         threadKey: threadData,
       },

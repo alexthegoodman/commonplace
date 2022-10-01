@@ -103,7 +103,7 @@ const ProfileDataWrapper = () => {
 
   const { data, mutate } = useSWR("profileKey", () => getUserData(token));
 
-  console.info("ProfileContent", token, data);
+  // console.info("ProfileContent", token, data);
 
   return <ProfileContent data={data} mutate={mutate} usersOwnProfile={true} />;
 };
@@ -134,7 +134,7 @@ export async function getServerSideProps(context) {
 
   const userData = await getUserData(token);
 
-  console.info("getServerSideProps", token, userData);
+  // console.info("getServerSideProps", token, userData);
 
   return {
     props: {

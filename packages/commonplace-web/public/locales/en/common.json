@@ -1,6 +1,7 @@
 {
   "empty": {
-    "queue": "Check out other interests or upload a post!"
+    "queue": "Check out other interests or upload a post!",
+    "updates": "Give Impressions. Upload Content. Gain Matches!"
   },
   "credits": "Credits",
   "upload": "Upload",
@@ -11,6 +12,7 @@
   "pickInterest": "Pick Interest",
   "next": "Next",
   "save": "Save",
+  "confirm": "Confirm",
   "type": {
     "image": "Image",
     "video": "Video",
