@@ -1,9 +1,13 @@
 import type { NextPage } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Link from "next/link";
 import AuthForm from "../components/forms/AuthForm/AuthForm";
 import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
 
 const SignUp: NextPage = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="signUp">
       <div className="signUpInner">
@@ -11,7 +15,7 @@ const SignUp: NextPage = () => {
           className="centerHeader"
           inline={true}
           leftIcon={<></>}
-          title="Sign Up"
+          title={t("auth:signUp")}
           rightIcon={<></>}
         />
         <main>
@@ -20,9 +24,9 @@ const SignUp: NextPage = () => {
           </div>
           <div className="otherLinks">
             <span>
-              Or you may{" "}
+              {t("auth:orYouMay")}{" "}
               <Link href="/sign-in">
-                <a>Sign In</a>
+                <a>{t("auth:signIn")}</a>
               </Link>
             </span>
           </div>
@@ -31,5 +35,13 @@ const SignUp: NextPage = () => {
     </section>
   );
 };
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      ...(await serverSideTranslations(context.locale, ["auth", "common"])),
+    },
+  };
+}
 
 export default SignUp;

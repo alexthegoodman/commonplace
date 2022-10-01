@@ -3,4 +3,5 @@ export interface AuthFormProps {
   className?: string;
   onClick?: (e: MouseEvent) => void;
   type?: string;
+  defaultLng?: string;
 }

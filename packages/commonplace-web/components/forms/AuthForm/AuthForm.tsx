@@ -19,14 +19,16 @@ import { AuthFormProps } from "./AuthForm.d";
 import Utilities from "../../../../commonplace-utilities";
 import { registerMutation } from "../../../graphql/mutations/user";
 import { CookieSettings } from "../../../pages/settings";
+import { useTranslation } from "next-i18next";
 
 const AuthForm: React.FC<AuthFormProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click AuthForm"),
   type = "sign-in",
-  submitText = "",
+  defaultLng = "en",
 }) => {
+  const { t } = useTranslation();
   const utilities = new Utilities();
 
   const router = useRouter();
@@ -128,7 +130,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
   const onError = (error) => console.error(error);
 
   const submitButtonText =
-    submitText !== "" ? submitText : type === "sign-in" ? "Sign In" : "Sign Up";
+    type === "sign-in"
+      ? t("auth:signIn", { defaultLng })
+      : t("auth:signUp", { defaultLng });
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit, onError)}>
@@ -137,19 +141,23 @@ const AuthForm: React.FC<AuthFormProps> = ({
       <FormInput
         type="email"
         name="email"
-        placeholder="Email"
+        placeholder={t("auth:email", { defaultLng })}
         register={register}
         errors={errors}
-        validation={{ required: "Email is required." }}
+        validation={{
+          required: t("auth:errors.emailRequired", { defaultLng }),
+        }}
       />
 
       <FormInput
         type="password"
         name="password"
-        placeholder="Password"
+        placeholder={t("auth:password", { defaultLng })}
         register={register}
         errors={errors}
-        validation={{ required: "Password is required." }}
+        validation={{
+          required: t("auth:errors.passwordRequired", { defaultLng }),
+        }}
       />
 
       <input className="circleButton" type="submit" value={submitButtonText} />
