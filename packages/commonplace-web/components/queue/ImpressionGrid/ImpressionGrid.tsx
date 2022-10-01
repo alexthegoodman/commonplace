@@ -33,7 +33,9 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
       aria-label="Impression Board"
     >
       <div className="creditCounter">
-        <span>{creditCount} Credits</span>
+        <span>
+          {creditCount} {t(`common:credits`)}
+        </span>
       </div>
       <div className="gridToolbar">
         <span className="gridLabel">{t("impressions:ui.board.prompt")}</span>

@@ -1,0 +1,34 @@
+{
+  "title": "Upload Creation",
+  "prompt": {
+    "interest": "What do you want to share?",
+    "kind": "What kind of content is it?",
+    "upload": "Select your content",
+    "text": "Type your content",
+    "meta": "Describe and Share!"
+  },
+  "errors": {
+    "creditMinimum": "You need at least 3 Credits to post to this interest",
+    "interestRequired": "Interest is required.",
+    "fileSize": "Uploaded files must be under 10MB in size.",
+    "bothFilesRequired": "Both files are required.",
+    "fileRequired": "File is required.",
+    "textRequired": "Text is required.",
+    "titleRequired": "Title is required."
+  },
+  "placeholders": {
+    "image": "Upload Image",
+    "video": "Upload Video",
+    "audio": "Upload Audio",
+    "art": "Upload Art",
+    "text": "Type here...",
+    "title": "Add Title...",
+    "description": "Add Description..."
+  },
+  "submit": {
+    "free": "Post for 0CC",
+    "credits": "Post for 3CC",
+    "inProgress": "Uploading..."
+  },
+  "currentStep": "Step {{step}} of 3"
+}

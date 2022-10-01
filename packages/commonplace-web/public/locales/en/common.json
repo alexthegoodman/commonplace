@@ -1,5 +1,19 @@
 {
   "empty": {
     "queue": "Check out other interests or upload a post!"
+  },
+  "credits": "Credits",
+  "upload": "Upload",
+  "queue": "Queue",
+  "profile": "Profile",
+  "updates": "Updates",
+  "settings": "Settings",
+  "pickInterest": "Pick Interest",
+  "next": "Next",
+  "type": {
+    "image": "Image",
+    "video": "Video",
+    "audio": "Audio",
+    "text": "Text"
   }
 }

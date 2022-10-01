@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
@@ -10,6 +11,8 @@ const PrimaryNavigation: React.FC<PrimaryNavigationProps> = ({
   onClick = (e) => console.info("Click PrimaryNavigation"),
   threadCount = 0,
 }) => {
+  const { t } = useTranslation();
+
   const clickHandler = (e: MouseEvent) => onClick(e);
   const router = useRouter();
   const basePath = router.pathname.split("/")[1];
@@ -30,7 +33,7 @@ const PrimaryNavigation: React.FC<PrimaryNavigationProps> = ({
           >
             {/* <div className="feather-icon icon-upload"></div> */}
             <i className="typcn typcn-plus"></i>
-            <span className="navLabel desktopOnly">Upload</span>
+            <span className="navLabel desktopOnly">{t("common:upload")}</span>
           </a>
         </Link>
         <div className="desktopOnly">
@@ -42,7 +45,7 @@ const PrimaryNavigation: React.FC<PrimaryNavigationProps> = ({
             >
               {/* <div className="feather-icon icon-upload"></div> */}
               <i className="typcn typcn-equals"></i>
-              <span className="navLabel desktopOnly">Queue</span>
+              <span className="navLabel desktopOnly">{t("common:queue")}</span>
             </a>
           </Link>
         </div>
@@ -54,7 +57,7 @@ const PrimaryNavigation: React.FC<PrimaryNavigationProps> = ({
           >
             {/* <div className="feather-icon icon-user"></div> */}
             <i className="typcn typcn-user-outline"></i>
-            <span className="navLabel desktopOnly">Profile</span>
+            <span className="navLabel desktopOnly">{t("common:profile")}</span>
           </a>
         </Link>
         <Link href="/updates">
@@ -75,7 +78,7 @@ const PrimaryNavigation: React.FC<PrimaryNavigationProps> = ({
               <></>
             )}
             <i className="typcn typcn-messages"></i>
-            <span className="navLabel desktopOnly">Updates</span>
+            <span className="navLabel desktopOnly">{t("common:updates")}</span>
           </a>
         </Link>
         <div className="desktopOnly">
@@ -84,12 +87,14 @@ const PrimaryNavigation: React.FC<PrimaryNavigationProps> = ({
               className={`navOption ${
                 basePath === "settings" ? "current" : ""
               }`}
-              aria-label="Profile"
+              aria-label="Settings"
               tabIndex={2}
             >
               {/* <div className="feather-icon icon-user"></div> */}
               <i className="typcn typcn-cog"></i>
-              <span className="navLabel desktopOnly">Settings</span>
+              <span className="navLabel desktopOnly">
+                {t("common:settings")}
+              </span>
             </a>
           </Link>
         </div>

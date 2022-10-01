@@ -19,6 +19,8 @@ import { createPostMutation } from "../graphql/mutations/post";
 import { userQuery } from "../graphql/queries/user";
 import { InterestsContent } from "./interests";
 import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const getUserData = async (token) => {
   const gqlClient = new GQLClient(token);
@@ -29,6 +31,7 @@ const getUserData = async (token) => {
 };
 
 const UploadContent = () => {
+  const { t } = useTranslation();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
@@ -110,14 +113,14 @@ const UploadContent = () => {
       if (contentType !== "" && selectedInterest !== null) {
         goToNextStep(nextStep);
       } else {
-        setFormErrorMessage("Interest is required.");
+        setFormErrorMessage(t("upload:errors.interestRequired"));
       }
     } else if (nextStep === 3) {
       console.info("formValues", formValues);
 
       const tenMb = 10000000;
       if (formValues?.file1Size > tenMb || formValues?.file2Size > tenMb) {
-        setFormErrorMessage("Uploaded files must be under 10MB in size.");
+        setFormErrorMessage(t("upload:errors.fileSize"));
         return;
       }
 
@@ -125,19 +128,19 @@ const UploadContent = () => {
         if (formValues?.file1?.length > 0 && formValues?.file2?.length > 0) {
           goToNextStep(nextStep);
         } else {
-          setFormErrorMessage("Both files are required.");
+          setFormErrorMessage(t("upload:errors.bothFilesRequired"));
         }
       } else if (contentType === "image" || contentType === "video") {
         if (formValues?.file1?.length > 0) {
           goToNextStep(nextStep);
         } else {
-          setFormErrorMessage("File is required.");
+          setFormErrorMessage(t("upload:errors.fileRequired"));
         }
       } else if (contentType === "text") {
         if (formValues?.text?.length > 0) {
           goToNextStep(nextStep);
         } else {
-          setFormErrorMessage("Text is required.");
+          setFormErrorMessage(t("upload:errors.textRequired"));
         }
       }
     }
@@ -180,7 +183,9 @@ const UploadContent = () => {
   );
 
   const submitButtonLabel =
-    selectedInterest?.posts?.length > 5 ? "Post for 3CC" : "Post for 0CC";
+    selectedInterest?.posts?.length > 5
+      ? t("upload:submit.credits")
+      : t("upload:submit.free");
 
   return (
     <>
@@ -208,7 +213,7 @@ const UploadContent = () => {
                   </a>
                 </>
               }
-              title="Upload Creation"
+              title={t("upload:title")}
               rightIcon={<></>}
             />
 
@@ -226,16 +231,20 @@ const UploadContent = () => {
                     <>
                       <div className="uploadSection">
                         <div className="uploadSectionInner">
-                          <span>What do you want to share?</span>
+                          <span>{t("upload:prompt.interest")}</span>
                           <button
                             className="button secondaryButton"
                             onClick={onPickInterest}
                             aria-label="Pick Interest"
                           >
                             {selectedInterest?.name ? (
-                              <>{selectedInterest?.name}</>
+                              <>
+                                {t(
+                                  `interests:dictionary.${selectedInterest?.name}`
+                                )}
+                              </>
                             ) : (
-                              <>Pick Interest</>
+                              <>{t("common:pickInterest")}</>
                             )}
                           </button>
                         </div>
@@ -245,7 +254,7 @@ const UploadContent = () => {
                         <>
                           <div className="uploadSection">
                             <div className="uploadSectionInner">
-                              <span>What kind of content is it?</span>
+                              <span>{t("upload:prompt.kind")}</span>
                               <div className="contentTypePicker">
                                 <div className="contentTypePickerInner">
                                   {contentTypes.map((type, i) => {
@@ -267,7 +276,7 @@ const UploadContent = () => {
                                             <></>
                                           )}
                                         </div>
-                                        <span>{type}</span>
+                                        <span>{t(`common:type.${type}`)}</span>
                                       </a>
                                     );
                                   })}
@@ -283,15 +292,13 @@ const UploadContent = () => {
                             aria-label="Next"
                             href="#!"
                           >
-                            Next
+                            {t("common:next")}
                           </a>
                         </>
                       ) : (
                         <FormMessage
                           type="error"
-                          message={
-                            "You need at least 3 Credits to post to this interest"
-                          }
+                          message={t("upload:errors.creditMinimum")}
                         />
                       )}
                     </>
@@ -304,16 +311,16 @@ const UploadContent = () => {
                       <div className="uploadSection">
                         <div className="uploadSectionInner">
                           {contentType === "text" ? (
-                            <span>Type your content</span>
+                            <span>{t("upload:prompt.text")}</span>
                           ) : (
-                            <span>Select your content</span>
+                            <span>{t("upload:prompt.upload")}</span>
                           )}
                           <div className="contentUpload">
                             <div className="contentUploadInner">
                               {contentType === "image" ? (
                                 <FormUpload
                                   name="file1"
-                                  placeholder="Upload Image"
+                                  placeholder={t("upload:placeholders.image")}
                                   accept="image/*"
                                   aria-label="Upload Image"
                                   register={register}
@@ -328,7 +335,7 @@ const UploadContent = () => {
                               {contentType === "video" ? (
                                 <FormUpload
                                   name="file1"
-                                  placeholder="Upload Video"
+                                  placeholder={t("upload:placeholders.video")}
                                   accept="video/*"
                                   aria-label="Upload Video"
                                   register={register}
@@ -344,7 +351,7 @@ const UploadContent = () => {
                                 <>
                                   <FormUpload
                                     name="file1"
-                                    placeholder="Upload Audio"
+                                    placeholder={t("upload:placeholders.audio")}
                                     accept="audio/*"
                                     aria-label="Upload Audio"
                                     register={register}
@@ -355,7 +362,7 @@ const UploadContent = () => {
                                   />
                                   <FormUpload
                                     name="file2"
-                                    placeholder="Upload Art"
+                                    placeholder={t("upload:placeholders.art")}
                                     accept="image/*"
                                     aria-label="Upload Art"
                                     register={register}
@@ -373,7 +380,7 @@ const UploadContent = () => {
                                   <FormTextarea
                                     name="text"
                                     rows={8}
-                                    placeholder="Type here..."
+                                    placeholder={t("upload:placeholders.text")}
                                     aria-label="Type Text Here"
                                     register={register}
                                     errors={errors}
@@ -396,7 +403,7 @@ const UploadContent = () => {
                         aria-label="Next"
                         href="#!"
                       >
-                        Next
+                        {t("common:next")}
                       </a>
                     </>
                   ) : (
@@ -407,18 +414,20 @@ const UploadContent = () => {
                     <>
                       <div className="uploadSection">
                         <div className="uploadSectionInner">
-                          <span>Describe and Share!</span>
+                          <span>{t("upload:prompt.meta")}</span>
                           <FormInput
                             type="title"
                             name="title"
-                            placeholder="Add Title..."
+                            placeholder={t("upload:placeholders.title")}
                             register={register}
                             errors={errors}
-                            validation={{ required: "Title is required." }}
+                            validation={{
+                              required: t("upload:errors.titleRequired"),
+                            }}
                           />
                           <FormTextarea
                             name="description"
-                            placeholder="Add Description..."
+                            placeholder={t("upload:placeholders.description")}
                             register={register}
                             errors={errors}
                             validation={{ required: false }}
@@ -436,7 +445,9 @@ const UploadContent = () => {
                         aria-label={submitButtonLabel}
                         disabled={submitLoading}
                       >
-                        {submitLoading ? "Uploading..." : submitButtonLabel}
+                        {submitLoading
+                          ? t("upload:submit.inProgress")
+                          : submitButtonLabel}
                       </button>
                     </>
                   ) : (
@@ -478,10 +489,14 @@ export async function getServerSideProps(context) {
 
   const userData = await getUserData(token);
 
-  console.info("getServerSideProps", token, userData);
-
   return {
     props: {
+      ...(await serverSideTranslations(context.locale, [
+        "interests",
+        "impressions",
+        "upload",
+        "common",
+      ])),
       fallback: {
         profileKey: userData,
       },

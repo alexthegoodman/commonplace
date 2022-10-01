@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import * as React from "react";
 
 import { StepCounterProps } from "./StepCounter.d";
@@ -9,12 +10,14 @@ const StepCounter: React.FC<StepCounterProps> = ({
   step = 0,
   creditCount = 0,
 }) => {
-  const clickHandler = (e: MouseEvent) => onClick(e);
+  const { t } = useTranslation();
   return (
     <div className="stepCounter">
       <div className="stepCounterInner">
         <div className="counter">
-          <span className="countLabel">Step {step} of 3</span>
+          <span className="countLabel">
+            {t("upload:currentStep", { step })}
+          </span>
         </div>
         <div className="creditCounterWrapper">
           <div className="creditCounter">
