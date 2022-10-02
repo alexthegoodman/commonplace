@@ -36,63 +36,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserType = exports.PublicUserType = exports.publicUserFields = void 0;
+exports.UpdateUserLanguageMutation = void 0;
 var nexus_1 = require("nexus");
-exports.publicUserFields = {
-    name: true,
-    generatedUsername: true,
-    chosenUsername: true,
-    profileImage: true,
-    coverImage: true,
-};
-exports.PublicUserType = (0, nexus_1.objectType)({
-    name: "PublicUser",
-    definition: function (t) {
-        t.field("name", { type: "String" });
-        t.field("generatedUsername", { type: "String" });
-        t.field("chosenUsername", { type: "String" });
-        t.field("profileImage", { type: "String" });
-        t.field("coverImage", { type: "String" });
-        t.field("language", { type: "String" });
-    },
-});
-exports.UserType = (0, nexus_1.objectType)({
-    name: "User",
+exports.UpdateUserLanguageMutation = (0, nexus_1.extendType)({
+    type: "Mutation",
     definition: function (t) {
         var _this = this;
-        t.field("name", { type: "String" });
-        t.field("generatedUsername", { type: "String" });
-        t.field("chosenUsername", { type: "String" });
-        t.field("profileImage", { type: "String" });
-        t.field("coverImage", { type: "String" });
-        t.field("language", { type: "String" });
-        t.list.field("posts", {
-            type: "Post",
-            resolve: function (user, __, context) { return __awaiter(_this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, context.prisma.post.findMany({
-                                where: {
-                                    creator: {
-                                        generatedUsername: user.generatedUsername,
+        t.nonNull.field("updateUserLanguage", {
+            type: "String",
+            args: {
+                language: (0, nexus_1.nonNull)((0, nexus_1.stringArg)()),
+            },
+            resolve: function (_, _a, _b) {
+                var language = _a.language;
+                var prisma = _b.prisma, mixpanel = _b.mixpanel, currentUser = _b.currentUser;
+                return __awaiter(_this, void 0, void 0, function () {
+                    var updatedUser;
+                    return __generator(this, function (_c) {
+                        switch (_c.label) {
+                            case 0: return [4 /*yield*/, prisma.user.update({
+                                    where: {
+                                        id: currentUser.id,
                                     },
-                                },
-                            })];
-                        case 1: return [2 /*return*/, _a.sent()];
-                    }
+                                    data: {
+                                        language: language,
+                                    },
+                                })];
+                            case 1:
+                                updatedUser = _c.sent();
+                                return [2 /*return*/, updatedUser === null || updatedUser === void 0 ? void 0 : updatedUser.id];
+                        }
+                    });
                 });
-            }); },
+            },
         });
-        t.field("updatedAt", {
-            type: "DateTime",
-        });
-        t.field("createdAt", {
-            type: "DateTime",
-        });
-        // // ** Protected **//
-        t.field("email", { type: "String" });
-        t.field("credit", { type: "Int" });
-        // t.model.threads({ ordering: true, filtering: true });
     },
 });
-//# sourceMappingURL=User.js.map
+//# sourceMappingURL=updateUserLanguage.js.map
