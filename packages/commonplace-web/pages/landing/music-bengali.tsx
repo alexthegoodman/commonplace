@@ -8,6 +8,8 @@ import LandingBlockA from "../../components/landing/LandingBlockA/LandingBlockA"
 import LandingFeaturesA from "../../components/landing/LandingFeaturesA/LandingFeaturesA";
 import LandingHeroA from "../../components/landing/LandingHeroA/LandingHeroA";
 
+import nextI18NextConfig from "../../next-i18next.config.js";
+
 // MailchimpSpaces072019
 
 const Arts: NextPage = () => {
@@ -76,7 +78,11 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["auth", "settings", "common"])),
+      ...(await serverSideTranslations(
+        locale,
+        ["auth", "settings", "common"],
+        nextI18NextConfig
+      )),
     },
   };
 }
