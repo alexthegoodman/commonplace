@@ -42,6 +42,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }, []);
 
+  useEffect(() => {
+    const ReactPixel = require("react-facebook-pixel");
+    ReactPixel.default.init("606669884534740", {}, { debug: true });
+  }, []);
+
   const initializeFacebookSDK = `
     window.fbAsyncInit = function() {
       FB.init({
@@ -68,21 +73,21 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   `;
 
-  const initializeMetaPixel = `
-    if (typeof pixelInitialized === "undefined" || !pixelInitialized) {
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '606669884534740');
-      fbq('track', 'PageView');
-      pixelInitialized = true;
-    }
-  `;
+  // const initializeMetaPixel = `
+  //   if (typeof pixelInitialized === "undefined" || !pixelInitialized) {
+  //     !function(f,b,e,v,n,t,s)
+  //     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  //     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  //     if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  //     n.queue=[];t=b.createElement(e);t.async=!0;
+  //     t.src=v;s=b.getElementsByTagName(e)[0];
+  //     s.parentNode.insertBefore(t,s)}(window, document,'script',
+  //     'https://connect.facebook.net/en_US/fbevents.js');
+  //     fbq('init', '606669884534740');
+  //     fbq('track', 'PageView');
+  //     pixelInitialized = true;
+  //   }
+  // `;
 
   return (
     <>
@@ -90,19 +95,19 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="stylesheet" href="/globals.min.css" />
         {/** Meta Pixel */}
-        <noscript>
+        {/* <noscript>
           <img
             height="1"
             width="1"
             style={{ display: "none" }}
             src="https://www.facebook.com/tr?id=606669884534740&ev=PageView&noscript=1"
           />
-        </noscript>
+        </noscript> */}
       </Head>
       {/** TODO: strategy="afterInteractive" ? */}
       <Script dangerouslySetInnerHTML={{ __html: initializeHotjar }} />
       <Script dangerouslySetInnerHTML={{ __html: initializeFacebookSDK }} />
-      <Script dangerouslySetInnerHTML={{ __html: initializeMetaPixel }} />
+      {/* <Script dangerouslySetInnerHTML={{ __html: initializeMetaPixel }} /> */}
       <Script async defer src="https://connect.facebook.net/en_US/sdk.js" />
       <Component {...pageProps} />
       {/* </section> */}

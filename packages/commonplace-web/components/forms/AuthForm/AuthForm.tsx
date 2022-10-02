@@ -81,10 +81,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
         token = userIdData.registerUser;
 
-        if (typeof fbq !== "undefined") {
-          console.info("trackCustom SignUp");
-          fbq("trackCustom", "SignUp", {});
-        }
+        // if (typeof fbq !== "undefined") {
+        //   console.info("trackCustom SignUp");
+        //   fbq("trackCustom", "SignUp", {});
+        // }
+
+        const ReactPixel = require("react-facebook-pixel");
+        ReactPixel.default.trackCustom("SignUp", {});
       }
 
       const expireCookie = DateTime.now()
