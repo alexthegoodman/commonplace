@@ -9,6 +9,7 @@ import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
 // import * as FullStory from "@fullstory/browser";
 // import LogRocket from "logrocket";
 import { appWithTranslation } from "next-i18next";
+import nextI18NextConfig from "../next-i18next.config.js";
 
 const isDevelopment = process.env.NEXT_PUBLIC_APP_ENV === "development";
 mixpanel.init("0257a00f77cd9b500e88e34f96b2e991", { debug: isDevelopment });
@@ -115,4 +116,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default appWithTranslation(MyApp);
+export default appWithTranslation(MyApp, nextI18NextConfig);
