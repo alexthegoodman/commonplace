@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import * as React from "react";
 import AuthForm from "../../components/forms/AuthForm/AuthForm";
 
@@ -23,7 +24,7 @@ const Arts: NextPage = () => {
         }
         visualUrl="/landing/productMusic.png"
       >
-        <AuthForm type="sign-up" submitText="নিবন্ধন করুন" />
+        <AuthForm type="sign-up" defaultLng="bn" />
       </LandingHeroA>
       <LandingFeaturesA
         headline="সৎ মতামত সংগ্রহ করুন"
@@ -69,5 +70,15 @@ const Arts: NextPage = () => {
     </main>
   );
 };
+
+export async function getServerSideProps(context) {
+  const locale = "bn";
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["auth", "settings", "common"])),
+    },
+  };
+}
 
 export default Arts;
