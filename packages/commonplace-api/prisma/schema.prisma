@@ -24,6 +24,7 @@ model User {
   profileImage String @default("")
   coverImage   String @default("")
   role         String @default("")
+  language     String @default("")
 
   posts        Post[]
   threads      Thread[]

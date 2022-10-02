@@ -20,6 +20,8 @@ export const userQuery = gql`
       profileImage
       coverImage
 
+      language
+
       createdAt
       updatedAt
 

@@ -112,6 +112,7 @@ export interface NexusGenObjects {
     chosenUsername?: string | null; // String
     coverImage?: string | null; // String
     generatedUsername?: string | null; // String
+    language?: string | null; // String
     name?: string | null; // String
     profileImage?: string | null; // String
   }
@@ -135,6 +136,7 @@ export interface NexusGenObjects {
     credit?: number | null; // Int
     email?: string | null; // String
     generatedUsername?: string | null; // String
+    language?: string | null; // String
     name?: string | null; // String
     profileImage?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -201,6 +203,7 @@ export interface NexusGenFieldTypes {
     registerUser: string; // String!
     updatePost: NexusGenRootTypes['Post']; // Post!
     updateProfile: string; // String!
+    updateUserLanguage: string; // String!
   }
   PageView: { // field return type
     city: NexusGenScalars['DateTime'] | null; // DateTime
@@ -237,6 +240,7 @@ export interface NexusGenFieldTypes {
     chosenUsername: string | null; // String
     coverImage: string | null; // String
     generatedUsername: string | null; // String
+    language: string | null; // String
     name: string | null; // String
     profileImage: string | null; // String
   }
@@ -278,6 +282,7 @@ export interface NexusGenFieldTypes {
     credit: number | null; // Int
     email: string | null; // String
     generatedUsername: string | null; // String
+    language: string | null; // String
     name: string | null; // String
     posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     profileImage: string | null; // String
@@ -335,6 +340,7 @@ export interface NexusGenFieldTypeNames {
     registerUser: 'String'
     updatePost: 'Post'
     updateProfile: 'String'
+    updateUserLanguage: 'String'
   }
   PageView: { // field return type name
     city: 'DateTime'
@@ -371,6 +377,7 @@ export interface NexusGenFieldTypeNames {
     chosenUsername: 'String'
     coverImage: 'String'
     generatedUsername: 'String'
+    language: 'String'
     name: 'String'
     profileImage: 'String'
   }
@@ -412,6 +419,7 @@ export interface NexusGenFieldTypeNames {
     credit: 'Int'
     email: 'String'
     generatedUsername: 'String'
+    language: 'String'
     name: 'String'
     posts: 'Post'
     profileImage: 'String'
@@ -468,6 +476,9 @@ export interface NexusGenArgTypes {
       profileImageSize?: number | null; // Int
       profileImageType?: string | null; // String
       username: string; // String!
+    }
+    updateUserLanguage: { // args
+      language: string; // String!
     }
   }
   Query: {

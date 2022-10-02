@@ -18,6 +18,8 @@ export const PublicUserType = objectType({
 
     t.field("profileImage", { type: "String" });
     t.field("coverImage", { type: "String" });
+
+    t.field("language", { type: "String" });
   },
 });
 
@@ -30,6 +32,8 @@ export const UserType = objectType({
 
     t.field("profileImage", { type: "String" });
     t.field("coverImage", { type: "String" });
+
+    t.field("language", { type: "String" });
 
     t.list.field("posts", {
       type: "Post",

@@ -21,6 +21,7 @@ export * from "./mutations/deletePost";
 export * from "./mutations/registerUser";
 export * from "./mutations/updatePost";
 export * from "./mutations/updateProfile";
+export * from "./mutations/updateUserLanguage";
 
 export * from "./queries/authenticate";
 export * from "./queries/getCategories";

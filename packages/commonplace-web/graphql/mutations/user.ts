@@ -31,3 +31,9 @@ export const updateProfileMutation = gql`
     )
   }
 `;
+
+export const updateUserLanguageMutation = gql`
+  mutation UpdateUserLanguage($language: String!) {
+    updateUserLanguage(language: $language)
+  }
+`;
