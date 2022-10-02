@@ -84,7 +84,9 @@ export const InterestsContent = ({
         <InterestPreview
           selectedInterest={
             displayInterest?.name
-              ? t(`interests:dictionary.${displayInterest?.name}`)
+              ? t(`interests:dictionary.${displayInterest?.name}`, {
+                  lng: "en",
+                })
               : t("interests:ui.noInterest")
           }
         />

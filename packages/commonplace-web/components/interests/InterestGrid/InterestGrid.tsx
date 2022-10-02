@@ -32,7 +32,9 @@ const InterestGrid: React.FC<InterestGridProps> = ({
                 className={item.id === selectedItemId ? "selected" : ""}
               >
                 <a onClick={itemSelectHandler} role="listitem" tabIndex={1}>
-                  {t(`interests:${translationKey}.${item.name}`)}
+                  {t(`interests:${translationKey}.${item.name}`, {
+                    lng: "en", // NOTE: only english interests so far
+                  })}
                 </a>
               </li>
             );
