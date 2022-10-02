@@ -17,6 +17,7 @@ import { updateProfileMutation } from "../../graphql/mutations/user";
 import { userQuery } from "../../graphql/queries/user";
 import { GQLClient } from "../../../commonplace-utilities/lib/GQLClient";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../../next-i18next.config.js";
 import { useTranslation } from "next-i18next";
 
 const getUserData = async (token) => {
@@ -169,7 +170,11 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["settings", "common"])),
+      ...(await serverSideTranslations(
+        locale,
+        ["settings", "common"],
+        nextI18NextConfig
+      )),
       fallback: {
         settingsKey: userData,
       },

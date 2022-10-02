@@ -20,6 +20,7 @@ import { userQuery } from "../graphql/queries/user";
 import { InterestsContent } from "./interests";
 import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../next-i18next.config.js";
 import { useTranslation } from "next-i18next";
 
 const getUserData = async (token) => {
@@ -496,12 +497,11 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, [
-        "interests",
-        "impressions",
-        "upload",
-        "common",
-      ])),
+      ...(await serverSideTranslations(
+        locale,
+        ["interests", "impressions", "upload", "common"],
+        nextI18NextConfig
+      )),
       fallback: {
         profileKey: userData,
       },

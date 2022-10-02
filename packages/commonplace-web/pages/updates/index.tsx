@@ -16,6 +16,7 @@ import { userQuery } from "../../graphql/queries/user";
 import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
 import { GQLClient } from "../../../commonplace-utilities/lib/GQLClient";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../../next-i18next.config.js";
 import { useTranslation } from "next-i18next";
 
 export const getUserThreadData = async (token) => {
@@ -135,7 +136,11 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["updates", "common"])),
+      ...(await serverSideTranslations(
+        locale,
+        ["updates", "common"],
+        nextI18NextConfig
+      )),
       fallback: {
         updatesKey: userThreadData,
       },

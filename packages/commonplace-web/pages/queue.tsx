@@ -26,6 +26,7 @@ import BrandName from "../components/layout/BrandName/BrandName";
 import { userThreadsQuery } from "../graphql/queries/thread";
 import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../next-i18next.config.js";
 import { useTranslation } from "next-i18next";
 import LanguagePicker from "../components/queue/LanguagePicker/LanguagePicker";
 
@@ -403,12 +404,11 @@ export async function getServerSideProps(context) {
         typeof cookieData.coUserLng !== "undefined"
           ? cookieData.coUserLng
           : null,
-      ...(await serverSideTranslations(locale, [
-        "interests",
-        "impressions",
-        "settings",
-        "common",
-      ])),
+      ...(await serverSideTranslations(
+        locale,
+        ["interests", "impressions", "settings", "common"],
+        nextI18NextConfig
+      )),
       fallback: {
         queueKey: returnData,
       },

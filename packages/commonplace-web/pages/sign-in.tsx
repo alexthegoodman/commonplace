@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../next-i18next.config.js";
 import Link from "next/link";
 import AuthForm from "../components/forms/AuthForm/AuthForm";
 import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
@@ -39,7 +40,11 @@ const SignIn: NextPage = () => {
 export async function getServerSideProps(context) {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, ["auth", "common"])),
+      ...(await serverSideTranslations(
+        context.locale,
+        ["auth", "common"],
+        nextI18NextConfig
+      )),
     },
   };
 }

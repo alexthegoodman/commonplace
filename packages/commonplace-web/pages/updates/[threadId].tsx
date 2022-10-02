@@ -18,6 +18,7 @@ import { NextSeo } from "next-seo";
 import { GQLClient } from "../../../commonplace-utilities/lib/GQLClient";
 import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18NextConfig from "../../next-i18next.config.js";
 import { useTranslation } from "next-i18next";
 
 const getUserAndThreadData = async (token, threadId) => {
@@ -141,7 +142,11 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["updates", "common"])),
+      ...(await serverSideTranslations(
+        locale,
+        ["updates", "common"],
+        nextI18NextConfig
+      )),
       fallback: {
         threadKey: threadData,
       },
