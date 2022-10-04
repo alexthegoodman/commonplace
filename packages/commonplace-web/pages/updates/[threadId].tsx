@@ -144,7 +144,7 @@ export async function getServerSideProps(context) {
     props: {
       ...(await serverSideTranslations(
         locale,
-        ["updates", "common"],
+        ["updates", "impressions", "common"],
         nextI18NextConfig
       )),
       fallback: {

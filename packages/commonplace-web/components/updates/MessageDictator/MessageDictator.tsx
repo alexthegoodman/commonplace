@@ -1,4 +1,5 @@
 import request from "graphql-request";
+import { useTranslation } from "next-i18next";
 import * as React from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
@@ -18,6 +19,7 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
   author = null,
   threadId = "",
 }) => {
+  const { t } = useTranslation();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
@@ -57,7 +59,7 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
             <div className="dictatorContent">
               <FormTextarea
                 name="message"
-                placeholder="Type your reply here..."
+                placeholder={t("updates:typeReply")}
                 register={register}
                 errors={errors}
                 validation={{ required: true }}

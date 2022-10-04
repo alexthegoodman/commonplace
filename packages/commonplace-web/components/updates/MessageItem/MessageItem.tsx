@@ -6,6 +6,7 @@ import { MessageItemProps } from "./MessageItem.d";
 import { DateTime } from "luxon";
 import { useImageUrl } from "../../../hooks/useImageUrl";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 const MessageItem: React.FC<MessageItemProps> = ({
   ref = null,
@@ -16,6 +17,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
   authorSide = "left",
   detailsOpen = false,
 }) => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const onMessageClick = (e) => {
@@ -66,7 +68,11 @@ const MessageItem: React.FC<MessageItemProps> = ({
       <div className="messageItemInner">
         {authorSide === "left" ? authorAttribution : <></>}
         <div className={`itemContent ${authorSide}`}>
-          <span>{message?.content}</span>
+          {message?.type === "impression" ? (
+            <span>{t(`impressions:dictionary.${message?.content}`)}</span>
+          ) : (
+            <span>{message?.content}</span>
+          )}
         </div>
         {authorSide === "right" ? authorAttribution : <></>}
       </div>
