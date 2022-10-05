@@ -7,8 +7,7 @@ import AuthForm from "../../components/forms/AuthForm/AuthForm";
 import LandingBlockA from "../../components/landing/LandingBlockA/LandingBlockA";
 import LandingFeaturesA from "../../components/landing/LandingFeaturesA/LandingFeaturesA";
 import LandingHeroA from "../../components/landing/LandingHeroA/LandingHeroA";
-
-import nextI18NextConfig from "../../next-i18next.config.js";
+import nextI18nextConfig from "../../next-i18next.config";
 
 // MailchimpSpaces072019
 
@@ -16,15 +15,15 @@ const Arts: NextPage = () => {
   return (
     <main className="landingContainer">
       <LandingHeroA
-        title={<strong>আপনার সঙ্গীত প্রতিক্রিয়া পান</strong>}
+        title={<strong>আপনার শিল্প প্রতিক্রিয়া পান</strong>}
         description={
           <p>
-            CommonPlace শিল্পীদের তাদের সঙ্গীত আপলোড করতে এবং বিনামূল্যে
+            CommonPlace শিল্পীদের তাদের সৃষ্টি আপলোড করতে এবং বিনামূল্যে
             পর্যালোচনা পেতে অনুমতি দেয়! নীচে সাইন আপ করে লোকেরা কী ভাবে তা
             খুঁজে বের করুন!
           </p>
         }
-        visualUrl="/landing/productMusic.png"
+        visualUrl="/landing/productArtBengali.png"
       >
         <AuthForm type="sign-up" defaultLng="bn" />
       </LandingHeroA>
@@ -81,7 +80,7 @@ export async function getServerSideProps(context) {
       ...(await serverSideTranslations(
         locale,
         ["auth", "settings", "common"],
-        nextI18NextConfig
+        nextI18nextConfig
       )),
     },
   };
