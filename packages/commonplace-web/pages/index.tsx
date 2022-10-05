@@ -31,7 +31,7 @@ const Home: NextPage = () => {
             think, for free! Join today by signing up below:
           </p>
         }
-        visualUrl="/landing/productMusic.png"
+        visualUrl="/landing/productArtEnglish.png"
       >
         <>
           <a href="/sign-up" className="button">
