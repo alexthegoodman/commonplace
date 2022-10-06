@@ -96,7 +96,7 @@ exports.QueuePostsQuery = (0, nexus_1.extendType)({
                                                 },
                                             } }, addtPostFilter),
                                         orderBy: {
-                                            createdAt: "asc",
+                                            createdAt: "desc",
                                         },
                                     })];
                             case 1:

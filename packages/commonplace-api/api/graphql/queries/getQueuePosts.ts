@@ -45,7 +45,7 @@ export const QueuePostsQuery = extendType({
             ...addtPostFilter,
           },
           orderBy: {
-            createdAt: "asc",
+            createdAt: "desc",
           },
         });
 
