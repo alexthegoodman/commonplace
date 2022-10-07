@@ -18,6 +18,9 @@ import { postByPostTitleQuery } from "../../../graphql/queries/post";
 import { userByPostTitleQuery } from "../../../graphql/queries/user";
 import { useImageUrl } from "../../../hooks/useImageUrl";
 import { useRouterBack } from "../../../hooks/useRouterBack";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18nextConfig from "../../../next-i18next.config";
+import Utilities from "../../../../commonplace-utilities";
 
 const getPostAndUserData = async (postTitle) => {
   const postData = await request(cpGraphqlUrl, postByPostTitleQuery, {
@@ -83,7 +86,7 @@ const PostContent = ({ data }) => {
             <>
               <DesktopNavigation />
               <a className="mobileOnly" onClick={goBack}>
-                <div className="typcn typcn-arrow-left"></div>
+                <i className="typcn typcn-arrow-left"></i>
               </a>
             </>
           }
@@ -128,14 +131,23 @@ const Post: NextPage<{ fallback: any }> = ({ fallback }) => {
   );
 };
 
-export async function getServerSideProps({ query }) {
-  const { interestTitle, postTitle } = query;
+export async function getServerSideProps(context) {
+  const utilities = new Utilities();
+  const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
+
+  const { interestTitle, postTitle } = context.query;
   const postAndUserData = await getPostAndUserData(postTitle);
 
   // console.info("Post postAndUserData", query, postAndUserData);
 
+  const locale =
+    typeof cookieData.coUserLng !== "undefined"
+      ? cookieData.coUserLng
+      : context.locale;
+
   return {
     props: {
+      ...(await serverSideTranslations(locale, ["common"], nextI18nextConfig)),
       fallback: {
         ["postKey" + postTitle]: postAndUserData,
       },

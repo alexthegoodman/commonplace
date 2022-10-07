@@ -13,7 +13,7 @@ const PostImpressions: React.FC<PostImpressionsProps> = ({
     <section className="postImpressions">
       <div className="postImpressionsInner">
         <span className="listLabel">
-          <div className="feather-icon icon-message-square"></div> Impressions
+          <i className="feather-icon icon-message-square"></i> Impressions
         </span>
         <div className="impressionList">
           {impressions?.length > 0 ? (
