@@ -19,7 +19,7 @@ const PostImpressions: React.FC<PostImpressionsProps> = ({
           {impressions?.length > 0 ? (
             impressions?.map((impression, i) => {
               return (
-                <div className="impression">
+                <div key={`impressionItem${i}`} className="impression">
                   <span className="content">{impression.content}</span>
                   <span className="attribution">
                     from {impression?.user?.chosenUsername}
