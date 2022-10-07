@@ -30,7 +30,7 @@ const getYDataEntity = (entity: any) => entity.value;
 
 const BarViz: React.FC<BarVizProps> = ({ analysisData = null }) => {
   const maxMetricEntity = maxBy(analysisData, getYDataEntity);
-  const metricOptions = analysisData.map((dataPoint, i) => {
+  const metricOptions = analysisData.map((dataPoint: any) => {
     return dataPoint.label;
   });
   const maxMetricYTotal = getYDataEntity(maxMetricEntity);

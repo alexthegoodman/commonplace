@@ -3,4 +3,5 @@ export interface LineVizProps {
   className?: string;
   onClick?: (e: MouseEvent) => void;
   analysisData: any;
+  title?: string;
 }
