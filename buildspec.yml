@@ -39,6 +39,7 @@ phases:
       # install dashboard dependencies
       - cd ../../
       - cd ./packages/commonplace-dashboard/
+      - npm install -g typescript @types/node @types/react
       - npm ci
       - npm run build
   post_build:
