@@ -14,6 +14,8 @@ import { NextSeo } from "next-seo";
 import { useImageUrl } from "../hooks/useImageUrl";
 import DesktopNavigation from "../components/layout/DesktopNavigation/DesktopNavigation";
 import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
+import nextI18nextConfig from "../next-i18next.config";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const getUserData = async (token) => {
   const gqlClient = new GQLClient(token);
@@ -136,8 +138,14 @@ export async function getServerSideProps(context) {
 
   // console.info("getServerSideProps", token, userData);
 
+  const locale =
+    typeof cookieData.coUserLng !== "undefined"
+      ? cookieData.coUserLng
+      : context.locale;
+
   return {
     props: {
+      ...(await serverSideTranslations(locale, ["common"], nextI18nextConfig)),
       fallback: {
         profileKey: userData,
       },
