@@ -107,7 +107,7 @@ const Home: NextPage = () => {
               <span>Daily Impressions (Last 24 Hours) (by Interest)</span>
             </div>
             <div className="kpiViz">
-              {data?.getDashboardData?.dailyImpressionsByInterest ? (
+              {data?.getDashboardData?.dailyImpressionsByInterest.length > 0 ? (
                 <BarViz
                   analysisData={
                     data?.getDashboardData?.dailyImpressionsByInterest
