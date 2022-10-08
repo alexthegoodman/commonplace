@@ -41,6 +41,7 @@ phases:
       - cd ./packages/commonplace-dashboard/
       - npm install -g typescript @types/node @types/react
       - npm ci
+      - npm install --save-dev typescript @types/react @types/node
       - npm run build
   post_build:
     commands:
