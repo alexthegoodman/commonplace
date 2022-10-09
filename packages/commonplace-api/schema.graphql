@@ -117,6 +117,7 @@ type Query {
   authenticate: String
   getCategories: [Category]
   getDashboardData: Dashboard
+  getDashboardPosts: [Post]
   getPostByPostTitle(postTitle: String!): PublicPost
   getPostImpressions(postTitle: String!): [Message]!
   getPostURLs: [String]

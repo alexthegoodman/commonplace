@@ -20,6 +20,7 @@ export const permissions = shield(
       "*": isAuthenticated,
       authenticate: not(isAuthenticated),
       getDashboardData: and(isAuthenticated, isAdmin),
+      getDashboardPosts: and(isAuthenticated, isAdmin),
       getPostsByUsername: allow,
       getUserByUsername: allow,
       getPostImpressions: allow,

@@ -248,6 +248,7 @@ export interface NexusGenFieldTypes {
     authenticate: string | null; // String
     getCategories: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
     getDashboardData: NexusGenRootTypes['Dashboard'] | null; // Dashboard
+    getDashboardPosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     getPostByPostTitle: NexusGenRootTypes['PublicPost'] | null; // PublicPost
     getPostImpressions: Array<NexusGenRootTypes['Message'] | null>; // [Message]!
     getPostURLs: Array<string | null> | null; // [String]
@@ -385,6 +386,7 @@ export interface NexusGenFieldTypeNames {
     authenticate: 'String'
     getCategories: 'Category'
     getDashboardData: 'Dashboard'
+    getDashboardPosts: 'Post'
     getPostByPostTitle: 'PublicPost'
     getPostImpressions: 'Message'
     getPostURLs: 'String'

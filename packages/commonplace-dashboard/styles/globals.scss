@@ -24,4 +24,5 @@ $red: #ff4040;
 
 $brandGradient: radial-gradient(at bottom right, $purple, $red);
 
-@import "./Home.module";
+@import "./Dashboard.module";
+@import "./Manage.module";

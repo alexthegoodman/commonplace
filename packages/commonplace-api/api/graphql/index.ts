@@ -26,6 +26,7 @@ export * from "./mutations/updateUserLanguage";
 export * from "./queries/authenticate";
 export * from "./queries/getCategories";
 export * from "./queries/getDashboardData";
+export * from "./queries/getDashboardPosts";
 export * from "./queries/getPostByPostTitle";
 export * from "./queries/getPostImpressions";
 export * from "./queries/getPostsByUsername";

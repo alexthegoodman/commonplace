@@ -79,6 +79,19 @@ export const PostType = objectType({
       },
     });
 
+    // t.list.field("messages", {
+    //   type: "Message",
+    //   resolve: async (post, __, context: Context) => {
+    //     return await context.prisma.message.findMany({
+    //       where: {
+    //         post: {
+    //           id: post.id as string,
+    //         },
+    //       },
+    //     });
+    //   },
+    // });
+
     t.field("updatedAt", {
       type: "DateTime",
     });
