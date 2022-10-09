@@ -32,7 +32,9 @@ const Manage: NextPage = () => {
               <div className="cardInner">
                 <div className="headerInfo">
                   <span>ID: {post.id}</span>
-                  <span>Title: {post.title}</span>
+                  <span>
+                    <strong>Title: {post.title}</strong>
+                  </span>
                   <span>Slug: {post.generatedTitleSlug}</span>
                   <span>Type: {post.contentType}</span>
                 </div>
@@ -42,7 +44,9 @@ const Manage: NextPage = () => {
                   <p>{post.interest.name}</p>
                 </div>
                 <div className="creator">
-                  <span>Username: {post.creator.chosenUsername}</span>
+                  <span>
+                    <strong>Username: {post.creator.chosenUsername}</strong>
+                  </span>
                   <span>Language: {post.creator.language}</span>
                 </div>
                 <div className="footerInfo">
