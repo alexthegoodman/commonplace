@@ -2,6 +2,7 @@ import { GQLClient } from "commonplace-utilities/lib/GQLClient";
 import type { NextPage } from "next";
 import { useCookies } from "react-cookie";
 import useSWR from "swr";
+import DeletePostModal from "../components/DeletePostModal/DeletePostModal";
 import ManagementNavigation from "../components/ManagementNavigation/ManagementNavigation";
 import { getDashboardPostsQuery } from "../gql/manage";
 
@@ -52,6 +53,9 @@ const Manage: NextPage = () => {
                 <div className="footerInfo">
                   <span>Updated At: {post.updatedAt}</span>
                   <span>Created At: {post.createdAt}</span>
+                </div>
+                <div className="controls">
+                  <DeletePostModal onConfirm={() => console.info("delete")} />
                 </div>
               </div>
             </div>
