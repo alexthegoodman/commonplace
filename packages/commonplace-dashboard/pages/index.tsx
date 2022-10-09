@@ -10,7 +10,7 @@ import useSWR, { SWRConfig } from "swr";
 import BarViz from "../components/BarViz/BarViz";
 import LineViz from "../components/LineViz/LineViz";
 import PieViz from "../components/PieViz/PieViz";
-import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
+import { GQLClient } from "commonplace-utilities/lib/GQLClient";
 import { gql } from "graphql-request";
 
 const getUserData = async (token: string) => {
