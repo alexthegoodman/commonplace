@@ -37,17 +37,17 @@ phases:
       - npm ci
       - npm run build
       # install dashboard dependencies
-      - cd ../../
-      - cd ./packages/commonplace-dashboard/
-      - npm install -g typescript @types/node @types/react
-      - npm ci --also=dev
-      - npm run build
+      # - cd ../../
+      # - cd ./packages/commonplace-dashboard/
+      # - npm install -g typescript @types/node @types/react
+      # - npm ci --also=dev
+      # - npm run build
   post_build:
     commands:
       - cd ../../
       - ls -la packages/commonplace-api
       - ls -la packages/commonplace-web
-      - ls -la packages/commonplace-dashboard
+      # - ls -la packages/commonplace-dashboard
 
 artifacts:
   files:
