@@ -16,7 +16,16 @@ export const startApolloServer = async () => {
     })
   );
 
-  server.applyMiddleware({ app });
+  const corsOptions = {
+    origin: [
+      "https://*.vercel.app",
+      "https://commonplace.social",
+      "http://localhost:9000",
+      "http://localhost:3000",
+    ],
+  };
+
+  server.applyMiddleware({ app, cors: corsOptions, path: "/graphql" });
 
   await new Promise<void>((r) => app.listen({ port: 4000 }, r));
 

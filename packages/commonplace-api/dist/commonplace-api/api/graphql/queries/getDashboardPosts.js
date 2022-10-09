@@ -35,43 +35,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.startApolloServer = void 0;
-var express_1 = __importDefault(require("express"));
-var server_1 = require("./server");
-var graphqlUploadExpress_js_1 = __importDefault(require("graphql-upload/graphqlUploadExpress.js"));
-var startApolloServer = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var app, corsOptions;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, server_1.server.start()];
-            case 1:
-                _a.sent();
-                app = (0, express_1.default)();
-                app.use((0, graphqlUploadExpress_js_1.default)({
-                    maxFieldSize: 15000000,
-                    maxFileSize: 15000000,
-                    maxFiles: 20,
-                }));
-                corsOptions = {
-                    origin: [
-                        "https://*.vercel.app",
-                        "https://commonplace.social",
-                        "http://localhost:9000",
-                        "http://localhost:3000",
-                    ],
-                };
-                server_1.server.applyMiddleware({ app: app, cors: corsOptions, path: "/graphql" });
-                return [4 /*yield*/, new Promise(function (r) { return app.listen({ port: 4000 }, r); })];
-            case 2:
-                _a.sent();
-                console.info("\uD83D\uDE80 Server ready at http://localhost:4000".concat(server_1.server.graphqlPath));
-                return [2 /*return*/];
-        }
-    });
-}); };
-exports.startApolloServer = startApolloServer;
-//# sourceMappingURL=index.js.map
+exports.DashboardPostsQuery = void 0;
+var nexus_1 = require("nexus");
+exports.DashboardPostsQuery = (0, nexus_1.extendType)({
+    type: "Query",
+    definition: function (t) {
+        var _this = this;
+        t.list.field("getDashboardPosts", {
+            type: "Post",
+            args: {},
+            resolve: function (_, _a, _b) {
+                var prisma = _b.prisma;
+                return __awaiter(_this, void 0, void 0, function () {
+                    var posts;
+                    return __generator(this, function (_c) {
+                        switch (_c.label) {
+                            case 0: return [4 /*yield*/, prisma.post.findMany({
+                                    where: {
+                                        id: {
+                                            not: "",
+                                        },
+                                    },
+                                    orderBy: {
+                                        createdAt: "desc",
+                                    },
+                                })];
+                            case 1:
+                                posts = _c.sent();
+                                return [2 /*return*/, posts];
+                        }
+                    });
+                });
+            },
+        });
+    },
+});
+//# sourceMappingURL=getDashboardPosts.js.map

@@ -39,6 +39,7 @@ __exportStar(require("./mutations/updateUserLanguage"), exports);
 __exportStar(require("./queries/authenticate"), exports);
 __exportStar(require("./queries/getCategories"), exports);
 __exportStar(require("./queries/getDashboardData"), exports);
+__exportStar(require("./queries/getDashboardPosts"), exports);
 __exportStar(require("./queries/getPostByPostTitle"), exports);
 __exportStar(require("./queries/getPostImpressions"), exports);
 __exportStar(require("./queries/getPostsByUsername"), exports);

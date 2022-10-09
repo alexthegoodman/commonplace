@@ -63,6 +63,7 @@ exports.permissions = (0, graphql_shield_1.shield)({
         "*": isAuthenticated,
         authenticate: (0, graphql_shield_1.not)(isAuthenticated),
         getDashboardData: (0, graphql_shield_1.and)(isAuthenticated, isAdmin),
+        getDashboardPosts: (0, graphql_shield_1.and)(isAuthenticated, isAdmin),
         getPostsByUsername: graphql_shield_1.allow,
         getUserByUsername: graphql_shield_1.allow,
         getPostImpressions: graphql_shield_1.allow,
