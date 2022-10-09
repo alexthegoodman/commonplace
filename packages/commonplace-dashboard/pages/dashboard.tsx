@@ -7,37 +7,12 @@ import LineViz from "../components/LineViz/LineViz";
 import PieViz from "../components/PieViz/PieViz";
 import { GQLClient } from "commonplace-utilities/lib/GQLClient";
 import { gql } from "graphql-request";
+import { getDashboardDataQuery } from "../gql/dashboard";
 
 const getUserData = async (token: string) => {
   const gqlClient = new GQLClient(token);
 
-  const userData = await gqlClient.client.request(gql`
-    query GetDashboardData {
-      getDashboardData {
-        totalUsers
-        dau
-        dauMonthly {
-          date
-          value
-        }
-        mau
-        mauYearly {
-          date
-          value
-        }
-        totalPosts
-        totalPostsByInterest {
-          label
-          value
-        }
-        dailyImpressions
-        dailyImpressionsByInterest {
-          label
-          value
-        }
-      }
-    }
-  `);
+  const userData = await gqlClient.client.request(getDashboardDataQuery);
 
   return userData;
 };
