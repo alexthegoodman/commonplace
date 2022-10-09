@@ -58,7 +58,7 @@ var startApolloServer = function () { return __awaiter(void 0, void 0, void 0, f
                 }));
                 corsOptions = {
                     origin: [
-                        "https://*.vercel.app",
+                        "https://commonplace-six.vercel.app",
                         "https://commonplace.social",
                         "http://localhost:9000",
                         "http://localhost:3000",

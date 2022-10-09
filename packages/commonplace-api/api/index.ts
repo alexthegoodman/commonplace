@@ -18,7 +18,7 @@ export const startApolloServer = async () => {
 
   const corsOptions = {
     origin: [
-      "https://*.vercel.app",
+      "https://commonplace-six.vercel.app",
       "https://commonplace.social",
       "http://localhost:9000",
       "http://localhost:3000",
