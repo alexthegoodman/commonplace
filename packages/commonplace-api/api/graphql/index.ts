@@ -18,6 +18,7 @@ export * from "./mutations/createPost";
 export * from "./mutations/createReadRecord";
 export * from "./mutations/createPageView";
 export * from "./mutations/deletePost";
+export * from "./mutations/deletePostAdmin";
 export * from "./mutations/registerUser";
 export * from "./mutations/updatePost";
 export * from "./mutations/updateProfile";

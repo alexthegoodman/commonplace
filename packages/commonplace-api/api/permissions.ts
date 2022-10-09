@@ -32,6 +32,7 @@ export const permissions = shield(
     Mutation: {
       "*": isAuthenticated,
       registerUser: not(isAuthenticated),
+      deletePostAdmin: and(isAuthenticated, isAdmin),
       createPageView: allow,
     },
     //   Fruit: isAuthenticated,

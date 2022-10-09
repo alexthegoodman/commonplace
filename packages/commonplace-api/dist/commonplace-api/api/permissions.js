@@ -75,6 +75,7 @@ exports.permissions = (0, graphql_shield_1.shield)({
     Mutation: {
         "*": isAuthenticated,
         registerUser: (0, graphql_shield_1.not)(isAuthenticated),
+        deletePostAdmin: (0, graphql_shield_1.and)(isAuthenticated, isAdmin),
         createPageView: graphql_shield_1.allow,
     },
     //   Fruit: isAuthenticated,

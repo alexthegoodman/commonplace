@@ -5,18 +5,30 @@ import { DeletePostModalProps } from "./DeletePostModal.d";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { GQLClient } from "commonplace-utilities/lib/GQLClient";
+import { deletePostAdminMutation } from "../../gql/manage";
+import { useCookies } from "react-cookie";
 
 const DeletePostModal: React.FC<DeletePostModalProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click DeletePostModal"),
   onConfirm = () => console.info("Confirm Delete"),
+  post = null,
 }) => {
+  const [cookies, setCookie, removeCookie] = useCookies(["coUserToken"]);
+
+  const gqlClient = new GQLClient(cookies["coUserToken"]);
   const [show, setShow] = React.useState(false);
 
   const handleClose = () => setShow(false);
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setShow(false);
+
+    await gqlClient.client.request(deletePostAdminMutation, {
+      postId: post?.id,
+    });
+
     onConfirm();
   };
   const handleShow = () => setShow(true);

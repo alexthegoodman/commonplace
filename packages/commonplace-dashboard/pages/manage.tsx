@@ -18,7 +18,7 @@ const Manage: NextPage = () => {
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
-  const { data } = useSWR("manageKey", () => getManageData(token));
+  const { data, mutate } = useSWR("manageKey", () => getManageData(token));
 
   console.info("getDashboardPosts", data?.getDashboardPosts);
 
@@ -55,7 +55,7 @@ const Manage: NextPage = () => {
                   <span>Created At: {post.createdAt}</span>
                 </div>
                 <div className="controls">
-                  <DeletePostModal onConfirm={() => console.info("delete")} />
+                  <DeletePostModal onConfirm={() => mutate()} post={post} />
                 </div>
               </div>
             </div>

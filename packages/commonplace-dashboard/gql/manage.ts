@@ -27,3 +27,9 @@ export const getDashboardPostsQuery = gql`
     }
   }
 `;
+
+export const deletePostAdminMutation = gql`
+  mutation DeletePostAdmin($postId: String!) {
+    deletePostAdmin(postId: $postId)
+  }
+`;

@@ -200,6 +200,7 @@ export interface NexusGenFieldTypes {
     createPost: NexusGenRootTypes['Post']; // Post!
     createReadRecord: NexusGenRootTypes['Record']; // Record!
     deletePost: string; // String!
+    deletePostAdmin: string; // String!
     registerUser: string; // String!
     updatePost: NexusGenRootTypes['Post']; // Post!
     updateProfile: string; // String!
@@ -338,6 +339,7 @@ export interface NexusGenFieldTypeNames {
     createPost: 'Post'
     createReadRecord: 'Record'
     deletePost: 'String'
+    deletePostAdmin: 'String'
     registerUser: 'String'
     updatePost: 'Post'
     updateProfile: 'String'
@@ -462,6 +464,9 @@ export interface NexusGenArgTypes {
     }
     deletePost: { // args
       postTitleSlug: string; // String!
+    }
+    deletePostAdmin: { // args
+      postId: string; // String!
     }
     updatePost: { // args
       description: string; // String!

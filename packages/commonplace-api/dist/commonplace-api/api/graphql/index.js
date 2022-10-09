@@ -32,6 +32,7 @@ __exportStar(require("./mutations/createPost"), exports);
 __exportStar(require("./mutations/createReadRecord"), exports);
 __exportStar(require("./mutations/createPageView"), exports);
 __exportStar(require("./mutations/deletePost"), exports);
+__exportStar(require("./mutations/deletePostAdmin"), exports);
 __exportStar(require("./mutations/registerUser"), exports);
 __exportStar(require("./mutations/updatePost"), exports);
 __exportStar(require("./mutations/updateProfile"), exports);
