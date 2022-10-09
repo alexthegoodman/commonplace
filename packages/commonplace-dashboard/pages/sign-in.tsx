@@ -1,7 +1,13 @@
 import type { NextPage } from "next";
+import AuthForm from "../components/AuthForm/AuthForm";
 
 const SignIn: NextPage = () => {
-  return <h1>Sign In</h1>;
+  return (
+    <main>
+      <h1>Sign In</h1>
+      <AuthForm />
+    </main>
+  );
 };
 
 export async function getServerSideProps() {
