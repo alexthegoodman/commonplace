@@ -45,10 +45,12 @@ phases:
   post_build:
     commands:
       - cd ../../
+      # - zip -r --symlinks 'builds/build.zip' .
       - ls -la packages/commonplace-api
       - ls -la packages/commonplace-web
       # - ls -la packages/commonplace-dashboard
 
 artifacts:
+  enable-symlinks: yes
   files:
     - "**/*"
