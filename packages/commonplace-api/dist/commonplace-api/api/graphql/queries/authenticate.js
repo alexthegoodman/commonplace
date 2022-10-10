@@ -43,6 +43,7 @@ exports.AuthenticateQuery = void 0;
 var nexus_1 = require("nexus");
 var commonplace_utilities_1 = __importDefault(require("../../../../commonplace-utilities"));
 var bcryptjs_1 = __importDefault(require("bcryptjs"));
+var Helpers_1 = __importDefault(require("../../../lib/Helpers"));
 exports.AuthenticateQuery = (0, nexus_1.extendType)({
     type: "Query",
     definition: function (t) {
@@ -53,12 +54,13 @@ exports.AuthenticateQuery = (0, nexus_1.extendType)({
             resolve: function (_, _a, _b, x) {
                 var prisma = _b.prisma, mixpanel = _b.mixpanel, req = _b.req;
                 return __awaiter(_this, void 0, void 0, function () {
-                    var utilities, credentials, email, password, user, data, token;
+                    var utilities, helpers, credentials, email, password, user, data, token;
                     var _this = this;
                     return __generator(this, function (_c) {
                         switch (_c.label) {
                             case 0:
                                 utilities = new commonplace_utilities_1.default();
+                                helpers = new Helpers_1.default();
                                 credentials = utilities.helpers.parseAuthHeader(req.headers.authorization);
                                 email = credentials[0];
                                 password = credentials[1];
@@ -111,7 +113,7 @@ exports.AuthenticateQuery = (0, nexus_1.extendType)({
                                 data = {
                                     userId: user.id,
                                 };
-                                token = utilities.helpers.createJWT(data);
+                                token = helpers.createJWT(data);
                                 return [2 /*return*/, token];
                         }
                     });

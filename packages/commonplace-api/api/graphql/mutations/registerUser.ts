@@ -3,6 +3,7 @@ import { extendType, intArg, nonNull, nullable, stringArg } from "nexus";
 import Utilities from "../../../../commonplace-utilities";
 import { Context } from "../../context";
 import bcrypt from "bcryptjs";
+import Helpers from "../../../lib/Helpers";
 
 export const RegisterUserMutation = extendType({
   type: "Mutation",
@@ -12,6 +13,7 @@ export const RegisterUserMutation = extendType({
       args: {},
       resolve: async (_, {}, { prisma, mixpanel, req }: Context) => {
         const utilities = new Utilities();
+        const helpers = new Helpers();
 
         const credentials = utilities.helpers.parseAuthHeader(
           req.headers.authorization
@@ -64,7 +66,7 @@ export const RegisterUserMutation = extendType({
           userId: user.id,
         };
 
-        const token = utilities.helpers.createJWT(data);
+        const token = helpers.createJWT(data);
 
         return token;
       },

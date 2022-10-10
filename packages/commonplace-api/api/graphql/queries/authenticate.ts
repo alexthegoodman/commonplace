@@ -4,6 +4,7 @@ import Utilities from "../../../../commonplace-utilities";
 import { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { Context } from "../../context";
+import Helpers from "../../../lib/Helpers";
 
 export const AuthenticateQuery = extendType({
   type: "Query",
@@ -13,6 +14,7 @@ export const AuthenticateQuery = extendType({
       args: {},
       resolve: async (_, {}, { prisma, mixpanel, req }: Context, x) => {
         const utilities = new Utilities();
+        const helpers = new Helpers();
 
         const credentials = utilities.helpers.parseAuthHeader(
           req.headers.authorization
@@ -61,7 +63,7 @@ export const AuthenticateQuery = extendType({
           userId: user.id,
         };
 
-        const token = utilities.helpers.createJWT(data);
+        const token = helpers.createJWT(data);
 
         return token;
       },
