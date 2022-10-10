@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "postbuild": "next-sitemap",
-    "start": "next start -p 5000",
+    "start": "next start",
     "lint": "next lint",
     "test:integration": "cypress run"
   },
