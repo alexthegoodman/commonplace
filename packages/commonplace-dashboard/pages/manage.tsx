@@ -5,6 +5,7 @@ import useSWR from "swr";
 import DeletePostModal from "../components/DeletePostModal/DeletePostModal";
 import ManagementNavigation from "../components/ManagementNavigation/ManagementNavigation";
 import { getDashboardPostsQuery } from "../gql/manage";
+import { useImageUrl } from "../hooks/useImageUrl";
 
 const getManageData = async (token: string) => {
   const gqlClient = new GQLClient(token);
@@ -28,6 +29,8 @@ const Manage: NextPage = () => {
       <h1>Manage Posts</h1>
       <section className="grid posts">
         {data?.getDashboardPosts.map((post, i) => {
+          const { imageUrl } = useImageUrl(post.content, { width: 200 });
+
           return (
             <div className="card">
               <div className="cardInner">
@@ -41,6 +44,7 @@ const Manage: NextPage = () => {
                 </div>
                 <div className="info">
                   <p>{post.description}</p>
+                  <img src={imageUrl} />
                   <p>{post.content}</p>
                   <p>{post.interest.name}</p>
                 </div>
