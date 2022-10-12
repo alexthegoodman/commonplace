@@ -10,8 +10,9 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
   alt = "",
   title = "",
   src = "",
+  urlOptions = {},
 }) => {
-  const { imageUrl } = useImageUrl(src);
+  const { imageUrl } = useImageUrl(src, urlOptions);
 
   return (
     <>

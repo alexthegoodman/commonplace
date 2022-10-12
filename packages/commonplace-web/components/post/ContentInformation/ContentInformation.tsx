@@ -1,6 +1,7 @@
 import Link from "next/link";
 import * as React from "react";
 import { useImageUrl } from "../../../hooks/useImageUrl";
+import ProfileAvatar from "../../profile/ProfileAvatar/ProfileAvatar";
 const { DateTime } = require("luxon");
 
 import { ContentInformationProps } from "./ContentInformation.d";
@@ -16,14 +17,14 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
   const prrofileSEOStatement =
     post?.creator?.chosenUsername + " on CommonPlace";
 
-  const { imageUrl: profileImageUrl } = useImageUrl(
-    post?.creator?.profileImage,
-    {
-      fit: "cover",
-      width: 100,
-      height: 100,
-    }
-  );
+  // const { imageUrl: profileImageUrl } = useImageUrl(
+  //   post?.creator?.profileImage,
+  //   {
+  //     fit: "cover",
+  //     width: 100,
+  //     height: 100,
+  //   }
+  // );
 
   return (
     <section className="contentInformation">
@@ -37,11 +38,21 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
             <div className="contentAuthor">
               <div className="contentAuthorInner">
                 <div className="authorProfileImage">
-                  <img
+                  <ProfileAvatar
+                    alt={prrofileSEOStatement}
+                    title={prrofileSEOStatement}
+                    src={post?.creator?.profileImage}
+                    urlOptions={{
+                      fit: "cover",
+                      width: 100,
+                      height: 100,
+                    }}
+                  />
+                  {/* <img
                     alt={prrofileSEOStatement}
                     title={prrofileSEOStatement}
                     src={profileImageUrl}
-                  />
+                  /> */}
                 </div>
                 <div className="authorInformationWrapper">
                   <div className="authorInformation">

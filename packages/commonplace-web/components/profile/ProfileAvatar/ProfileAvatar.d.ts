@@ -5,4 +5,5 @@ export interface ProfileAvatarProps {
   alt?: string;
   title?: string;
   src?: string;
+  urlOptions?: any;
 }

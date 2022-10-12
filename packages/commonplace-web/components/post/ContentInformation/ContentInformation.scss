@@ -80,11 +80,21 @@
           width: 30px;
           height: 30px;
           border-radius: 50%;
-          background: $lightBlue;
+          background: $paleBlue;
           overflow: hidden;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
 
           img {
             max-height: 100%;
+          }
+          .defaultAvatar {
+            .typcn {
+              font-size: 24px;
+              color: white;
+            }
           }
         }
         .authorInformationWrapper {
