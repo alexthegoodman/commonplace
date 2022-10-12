@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useImageUrl } from "../../../hooks/useImageUrl";
+import ProfileAvatar from "../ProfileAvatar/ProfileAvatar";
 
 import { ProfileIntroProps } from "./ProfileIntro.d";
 
@@ -14,16 +15,10 @@ const ProfileIntro: React.FC<ProfileIntroProps> = ({
   subTitle = "",
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
-  const { imageUrl: profileImageUrl } = useImageUrl(profileImage);
+  // const { imageUrl: profileImageUrl } = useImageUrl(profileImage);
   const { imageUrl: coverImageUrl } = useImageUrl(coverImage);
 
-  console.info(
-    "profile intro",
-    profileImageUrl,
-    profileImage,
-    coverImageUrl,
-    coverImage
-  );
+  console.info("profile intro", profileImage, coverImageUrl, coverImage);
 
   return (
     <section className="profileIntro">
@@ -32,7 +27,7 @@ const ProfileIntro: React.FC<ProfileIntroProps> = ({
           <img title="Cover Photo" src={coverImageUrl} />
         </div>
         <div className="profilePhoto">
-          <img alt={alt} title={alt} src={profileImageUrl} />
+          <ProfileAvatar alt={alt} title={alt} src={profileImage} />
         </div>
       </div>
       <div className="introInformation">

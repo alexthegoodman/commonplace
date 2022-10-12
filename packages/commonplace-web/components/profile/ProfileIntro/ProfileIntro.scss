@@ -29,12 +29,24 @@
       box-shadow: 0px 5px 15px 8px rgba(0, 0, 0, 0.15);
       border-bottom: 6px #e5e5e5 solid;
 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       border-radius: 10px;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
 
       img {
         max-height: 100%;
+      }
+
+      .defaultAvatar {
+        .typcn {
+          text-align: center;
+          font-size: 168px;
+          color: white;
+        }
       }
     }
   }
