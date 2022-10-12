@@ -24,7 +24,11 @@ const ProfileIntro: React.FC<ProfileIntroProps> = ({
     <section className="profileIntro">
       <div className="profileIntroInner">
         <div className="coverPhoto">
-          <img title="Cover Photo" src={coverImageUrl} />
+          {coverImage !== "" ? (
+            <img title="Cover Photo" src={coverImageUrl} />
+          ) : (
+            <></>
+          )}
         </div>
         <div className="profilePhoto">
           <ProfileAvatar alt={alt} title={alt} src={profileImage} />
