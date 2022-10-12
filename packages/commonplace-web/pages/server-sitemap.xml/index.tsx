@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const fields = urlData.map((url, i) => {
     return {
-      loc: url, // Absolute url
+      loc: "https://commonplace.social" + url, // Absolute url
       lastmod: new Date().toISOString(),
       // changefreq
       // priority
