@@ -34,6 +34,10 @@ export const createPostMutation = gql`
       id
       title
       generatedTitleSlug
+      interest {
+        name
+        generatedInterestSlug
+      }
     }
   }
 `;

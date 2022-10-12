@@ -86,7 +86,7 @@ const UploadContent = () => {
     );
 
     router.push(
-      `/post/interest/${createdPost.createPost.generatedTitleSlug}/?backPath=/profile/`
+      `/post/${createdPost.createPost.interest?.generatedInterestSlug}/${createdPost.createPost.generatedTitleSlug}/?backPath=/profile/`
     );
   };
 
