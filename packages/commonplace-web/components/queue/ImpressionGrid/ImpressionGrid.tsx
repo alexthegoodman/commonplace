@@ -1,7 +1,9 @@
 import { useTranslation } from "next-i18next";
 import * as React from "react";
+import { useForm } from "react-hook-form";
 import { adjectives } from "../../../../commonplace-utilities/def/adjectives";
 import impressions from "../../../../commonplace-utilities/def/impressions";
+import FormTextarea from "../../fields/FormTextarea/FormTextarea";
 
 import { ImpressionGridProps } from "./ImpressionGrid.d";
 
@@ -13,8 +15,21 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const impressionClickHandler = (e) => {
-    onClick(e);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    onClick(data.impression);
+    reset();
+  };
+  const onError = (error) => console.error(error);
+
+  const impressionClickHandler = (content) => {
+    onClick(content);
   };
 
   const pillGridRef = React.useRef<HTMLDivElement>(null);
@@ -130,6 +145,27 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
               }
             })}
           </ul>
+        </div>
+      </div>
+      <div className="impressionMessage">
+        <div className="impressionMessageInner">
+          <form className="form" onSubmit={handleSubmit(onSubmit, onError)}>
+            <FormTextarea
+              name="impression"
+              placeholder={t("impressions:ui.board.typeImpression")}
+              register={register}
+              errors={errors}
+              validation={{ required: true }}
+              aria-label="Type Impression"
+            />
+            <button
+              className="button"
+              type="submit"
+              aria-label="Send Impression"
+            >
+              <div className="typcn typcn-chevron-right"></div>
+            </button>
+          </form>
         </div>
       </div>
     </section>

@@ -89,7 +89,7 @@ const impressions = [
       { content: "Functional", color: "#663f46" },
       { content: "Helpful", color: "#c9d6ea" },
       { content: "Holistic", color: "#558c8c" },
-      { content: "intelligent", color: "#8ac926" },
+      { content: "Intelligent", color: "#8ac926" },
       { content: "Smart approach", color: "#c49991" },
       { content: "Intricate", color: "#f40076" },
       { content: "Knowledgeable", color: "#279af1" },

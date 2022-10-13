@@ -1,7 +1,8 @@
 {
   "ui": {
     "board": {
-      "prompt": "What's your impression?"
+      "prompt": "What's your impression?",
+      "typeImpression": "Type your impression..."
     }
   },
   "categories": {
