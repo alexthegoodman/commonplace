@@ -100,7 +100,7 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
             tabIndex={4}
           >
             {impressions.map((category, x) => {
-              const categoryName = category.name.toLowerCase();
+              const categoryName = category.title.toLowerCase();
               if (
                 categoryName === selectedCategory ||
                 selectedCategory === "all"
@@ -110,12 +110,19 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
                     <li key={`impressionGridItem${x}${i}`}>
                       <a
                         href="#!"
-                        onClick={() => impressionClickHandler(impression.name)}
+                        onClick={() =>
+                          impressionClickHandler(impression.content)
+                        }
                         role="listitem"
-                        aria-label={impression.name}
+                        aria-label={impression.content}
                         tabIndex={5}
+                        // style={{ backgroundColor: impression.color }}
                       >
-                        {t(`impressions:dictionary.${impression.name}`)}
+                        {t(`impressions:dictionary.${impression.content}`)}
+                        {/* <i
+                          className="impressionColor"
+                          style={{ backgroundColor: impression.color }}
+                        ></i> */}
                       </a>
                     </li>
                   );

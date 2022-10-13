@@ -136,12 +136,23 @@
           background: #f7f7f7;
           border-radius: 50px;
 
+          // border-width: 1px;
+          // border-style: solid;
+
           &:active {
             background: $midBlue;
             color: white;
           }
           &:focus {
             outline: 2px $midBlue solid;
+          }
+
+          .impressionColor {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 9px;
           }
         }
       }
