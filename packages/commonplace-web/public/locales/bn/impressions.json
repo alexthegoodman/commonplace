@@ -1,7 +1,8 @@
 {
   "ui": {
     "board": {
-      "prompt": "আপনার ছাপ কি?"
+      "prompt": "আপনার ছাপ কি?",
+      "typeImpression": "আপনার ইমপ্রেশন টাইপ করুন..."
     }
   },
   "categories": {
@@ -144,6 +145,21 @@
     "Sincere": "আন্তরিক",
     "Tasteful": "রুচিশীল",
     "Tender": "টেন্ডার",
-    "Thoughtful": "চিন্তাশীল"
+    "Thoughtful": "চিন্তাশীল",
+    "My favorite today": "আমার প্রিয় আজ",
+    "Pulls me in": "আমাকে ভেতরে টেনে নেয়",
+    "Love the vibe": "ভাইব ভালবাসা",
+    "Great use of color": "রঙের দারুণ ব্যবহার",
+    "I love your style": "আমি তোমার পদ্ধতিটা পছন্দ করি",
+    "Good combo": "ভালো কম্বো",
+    "Cool mood": "ঠাণ্ডা মেজাজ",
+    "Great perspective": "মহান দৃষ্টিকোণ",
+    "Reminds me of home": "বাড়ির কথা মনে করিয়ে দেয়",
+    "Gives me an idea": "আমাকে একটা ধারণা দেয়",
+    "Smart approach": "স্মার্ট পদ্ধতি",
+    "People would buy this": "মানুষ এটা কিনবে",
+    "Great form": "দারুণ ফর্ম",
+    "My friends would like this": "আমার বন্ধুরা এই পছন্দ করবে",
+    "You should share this": "আপনি এই ভাগ করা উচিত"
   }
 }

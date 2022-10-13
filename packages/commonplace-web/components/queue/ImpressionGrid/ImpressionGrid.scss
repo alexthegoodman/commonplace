@@ -54,7 +54,7 @@
       color: white;
       font-weight: 500;
 
-      width: 48%;
+      width: 50%;
       text-align: left;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -68,7 +68,7 @@
       flex-direction: row;
 
       .gridCategory {
-        margin-right: 5px;
+        margin-right: 3px;
 
         &.selected {
           border-bottom: 2px white solid;
@@ -76,7 +76,7 @@
       }
       .typcn {
         color: white;
-        font-size: 22px;
+        font-size: 20px;
       }
     }
   }
