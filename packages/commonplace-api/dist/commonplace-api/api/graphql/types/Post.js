@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostType = exports.PublicPostType = exports.publicPostFields = void 0;
+exports.ManagePostType = exports.PostType = exports.PublicPostType = exports.publicPostFields = void 0;
 var nexus_1 = require("nexus");
 exports.publicPostFields = {
     id: true,
@@ -128,6 +128,82 @@ exports.PostType = (0, nexus_1.objectType)({
         //     });
         //   },
         // });
+        t.field("updatedAt", {
+            type: "DateTime",
+        });
+        t.field("createdAt", {
+            type: "DateTime",
+        });
+    },
+});
+exports.ManagePostType = (0, nexus_1.objectType)({
+    name: "ManagePost",
+    definition: function (t) {
+        var _this = this;
+        t.field("id", { type: "String" });
+        t.field("title", { type: "String" });
+        t.field("description", { type: "String" });
+        t.field("generatedTitleSlug", { type: "String" });
+        t.field("contentType", { type: "String" });
+        t.field("contentPreview", { type: "String" });
+        t.field("content", { type: "String" });
+        // t.model.interest();
+        t.field("interest", {
+            type: "Interest",
+            resolve: function (post, __, context) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, context.prisma.interest.findFirst({
+                                where: {
+                                    posts: {
+                                        some: {
+                                            id: post.id,
+                                        },
+                                    },
+                                },
+                            })];
+                        case 1: return [2 /*return*/, _a.sent()];
+                    }
+                });
+            }); },
+        });
+        // t.model.creator();
+        t.field("creator", {
+            type: "User",
+            resolve: function (post, __, context) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, context.prisma.user.findFirst({
+                                where: {
+                                    posts: {
+                                        some: {
+                                            id: post.id,
+                                        },
+                                    },
+                                },
+                            })];
+                        case 1: return [2 /*return*/, _a.sent()];
+                    }
+                });
+            }); },
+        });
+        t.list.field("messages", {
+            type: "Message",
+            resolve: function (post, __, context) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, context.prisma.message.findMany({
+                                where: {
+                                    post: {
+                                        id: post.id,
+                                    },
+                                },
+                            })];
+                        case 1: return [2 /*return*/, _a.sent()];
+                    }
+                });
+            }); },
+        });
         t.field("updatedAt", {
             type: "DateTime",
         });

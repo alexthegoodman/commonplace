@@ -43,7 +43,7 @@ exports.DashboardPostsQuery = (0, nexus_1.extendType)({
     definition: function (t) {
         var _this = this;
         t.list.field("getDashboardPosts", {
-            type: "Post",
+            type: "ManagePost",
             args: {},
             resolve: function (_, _a, _b) {
                 var prisma = _b.prisma;

@@ -48,6 +48,21 @@ type LabelValuePair {
   value: String
 }
 
+type ManagePost {
+  content: String
+  contentPreview: String
+  contentType: String
+  createdAt: DateTime
+  creator: User
+  description: String
+  generatedTitleSlug: String
+  id: String
+  interest: Interest
+  messages: [Message]
+  title: String
+  updatedAt: DateTime
+}
+
 type Message {
   content: String
   createdAt: DateTime
@@ -118,7 +133,7 @@ type Query {
   authenticate: String
   getCategories: [Category]
   getDashboardData: Dashboard
-  getDashboardPosts: [Post]
+  getDashboardPosts: [ManagePost]
   getPostByPostTitle(postTitle: String!): PublicPost
   getPostImpressions(postTitle: String!): [Message]!
   getPostURLs: [String]

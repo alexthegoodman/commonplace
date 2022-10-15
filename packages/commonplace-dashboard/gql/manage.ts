@@ -16,11 +16,22 @@ export const getDashboardPostsQuery = gql`
       }
       creator {
         name
+        email
         generatedUsername
         chosenUsername
         profileImage
         coverImage
         language
+      }
+      messages {
+        id
+        type
+        content
+        user {
+          chosenUsername
+        }
+        updatedAt
+        createdAt
       }
       updatedAt
       createdAt

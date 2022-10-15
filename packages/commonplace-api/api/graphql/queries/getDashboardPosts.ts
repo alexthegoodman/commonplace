@@ -5,7 +5,7 @@ export const DashboardPostsQuery = extendType({
   type: "Query",
   definition(t) {
     t.list.field("getDashboardPosts", {
-      type: "Post",
+      type: "ManagePost",
       args: {},
       resolve: async (_, {}, { prisma }: Context) => {
         const posts = await prisma.post.findMany({

@@ -71,6 +71,17 @@ export interface NexusGenObjects {
     label?: string | null; // String
     value?: string | null; // String
   }
+  ManagePost: { // root type
+    content?: string | null; // String
+    contentPreview?: string | null; // String
+    contentType?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    generatedTitleSlug?: string | null; // String
+    id?: string | null; // String
+    title?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Message: { // root type
     content?: string | null; // String
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -185,6 +196,20 @@ export interface NexusGenFieldTypes {
     label: string | null; // String
     value: string | null; // String
   }
+  ManagePost: { // field return type
+    content: string | null; // String
+    contentPreview: string | null; // String
+    contentType: string | null; // String
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    creator: NexusGenRootTypes['User'] | null; // User
+    description: string | null; // String
+    generatedTitleSlug: string | null; // String
+    id: string | null; // String
+    interest: NexusGenRootTypes['Interest'] | null; // Interest
+    messages: Array<NexusGenRootTypes['Message'] | null> | null; // [Message]
+    title: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Message: { // field return type
     content: string | null; // String
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -249,7 +274,7 @@ export interface NexusGenFieldTypes {
     authenticate: string | null; // String
     getCategories: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
     getDashboardData: NexusGenRootTypes['Dashboard'] | null; // Dashboard
-    getDashboardPosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    getDashboardPosts: Array<NexusGenRootTypes['ManagePost'] | null> | null; // [ManagePost]
     getPostByPostTitle: NexusGenRootTypes['PublicPost'] | null; // PublicPost
     getPostImpressions: Array<NexusGenRootTypes['Message'] | null>; // [Message]!
     getPostURLs: Array<string | null> | null; // [String]
@@ -324,6 +349,20 @@ export interface NexusGenFieldTypeNames {
     label: 'String'
     value: 'String'
   }
+  ManagePost: { // field return type name
+    content: 'String'
+    contentPreview: 'String'
+    contentType: 'String'
+    createdAt: 'DateTime'
+    creator: 'User'
+    description: 'String'
+    generatedTitleSlug: 'String'
+    id: 'String'
+    interest: 'Interest'
+    messages: 'Message'
+    title: 'String'
+    updatedAt: 'DateTime'
+  }
   Message: { // field return type name
     content: 'String'
     createdAt: 'DateTime'
@@ -388,7 +427,7 @@ export interface NexusGenFieldTypeNames {
     authenticate: 'String'
     getCategories: 'Category'
     getDashboardData: 'Dashboard'
-    getDashboardPosts: 'Post'
+    getDashboardPosts: 'ManagePost'
     getPostByPostTitle: 'PublicPost'
     getPostImpressions: 'Message'
     getPostURLs: 'String'

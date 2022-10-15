@@ -48,10 +48,25 @@ const Manage: NextPage = () => {
                   <p>{post.content}</p>
                   <p>{post.interest.name}</p>
                 </div>
+                <div className="messages">
+                  {post.messages.map((message) => {
+                    return (
+                      <div className="message">
+                        <p>{message.content}</p>
+                        <span>
+                          {message.type} {message.createdAt}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
                 <div className="creator">
                   <span>
                     <strong>Username: {post.creator.chosenUsername}</strong>
                   </span>
+                  <a href={`mailto:${post.creator.email}`} target="_blank">
+                    Email: {post.creator.email}
+                  </a>
                   <span>Language: {post.creator.language}</span>
                 </div>
                 <div className="footerInfo">
