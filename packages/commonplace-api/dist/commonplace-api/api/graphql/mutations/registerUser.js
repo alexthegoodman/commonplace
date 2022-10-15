@@ -44,6 +44,9 @@ var nexus_1 = require("nexus");
 var commonplace_utilities_1 = __importDefault(require("../../../../commonplace-utilities"));
 var bcryptjs_1 = __importDefault(require("bcryptjs"));
 var Helpers_1 = __importDefault(require("../../../lib/Helpers"));
+// const mailchimp = require("mailchimp-node")(process.env.MAILCHIMP_KEY);
+var mailchimp_node_1 = __importDefault(require("mailchimp-node"));
+var mailchimp = (0, mailchimp_node_1.default)(process.env.MAILCHIMP_KEY);
 exports.RegisterUserMutation = (0, nexus_1.extendType)({
     type: "Mutation",
     definition: function (t) {
@@ -54,7 +57,7 @@ exports.RegisterUserMutation = (0, nexus_1.extendType)({
             resolve: function (_, _a, _b) {
                 var prisma = _b.prisma, mixpanel = _b.mixpanel, req = _b.req;
                 return __awaiter(_this, void 0, void 0, function () {
-                    var utilities, helpers, credentials, email, password, user, data, token;
+                    var utilities, helpers, credentials, email, password, user, mailchimpData, data, token;
                     var _this = this;
                     return __generator(this, function (_c) {
                         switch (_c.label) {
@@ -113,6 +116,10 @@ exports.RegisterUserMutation = (0, nexus_1.extendType)({
                                     }); })];
                             case 1:
                                 user = _c.sent();
+                                return [4 /*yield*/, helpers.subscribeMailchimp(email)];
+                            case 2:
+                                mailchimpData = _c.sent();
+                                // console.info("mailchimpData", mailchimpData);
                                 utilities.logs.write(["Register user", user]);
                                 // TODO: encrypt with JWT
                                 // TODO: set secure cookie tied to origin

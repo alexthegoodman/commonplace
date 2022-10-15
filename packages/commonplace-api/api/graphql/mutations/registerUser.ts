@@ -5,6 +5,11 @@ import { Context } from "../../context";
 import bcrypt from "bcryptjs";
 import Helpers from "../../../lib/Helpers";
 
+// const mailchimp = require("mailchimp-node")(process.env.MAILCHIMP_KEY);
+import mailchimpPackage from "mailchimp-node";
+import axios from "axios";
+const mailchimp = mailchimpPackage(process.env.MAILCHIMP_KEY);
+
 export const RegisterUserMutation = extendType({
   type: "Mutation",
   definition(t) {
@@ -54,6 +59,10 @@ export const RegisterUserMutation = extendType({
             }
           });
         });
+
+        const mailchimpData = await helpers.subscribeMailchimp(email);
+
+        // console.info("mailchimpData", mailchimpData);
 
         utilities.logs.write(["Register user", user]);
 

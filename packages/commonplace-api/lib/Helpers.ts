@@ -1,5 +1,12 @@
 import jwt from "jsonwebtoken";
 
+const client = require("mailchimp-marketing");
+
+client.setConfig({
+  apiKey: process.env.MAILCHIMP_KEY,
+  server: "us13",
+});
+
 export default class Helpers {
   constructor() {}
 
@@ -16,5 +23,18 @@ export default class Helpers {
     const token = jwt.sign(jwtData, jwtSecretKey, jwtOptions);
 
     return token;
+  }
+
+  async subscribeMailchimp(email) {
+    // use this to get the correct id for the audience / list
+    // const response1 = await client.lists.getAllLists();
+    // console.log(response1);
+    const response = await client.lists.addListMember("b9c7f37268", {
+      email_address: email,
+      status: "subscribed",
+    });
+    // console.info(response);
+
+    return response;
   }
 }
