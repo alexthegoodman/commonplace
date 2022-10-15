@@ -35,6 +35,14 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
   const controlsDragMove = (e: React.TouchEvent<HTMLAnchorElement>) => {
     console.info("controlsDragMove", e.changedTouches[0]);
     const touch = e.changedTouches[0];
+    dragMove(touch);
+  };
+
+  const controlsMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    dragMove(e);
+  };
+
+  const dragMove = (touch) => {
     if (dragEngaged) {
       if (initialPageY > 0) {
         const heightDelta = touch.pageY - initialPageY;
@@ -48,10 +56,13 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
   return (
     <section className="imageViewer">
       <div className="imageViewerInner">
-        <div className="panContainer" style={{ height: containerHeight }}>
+        <div
+          className="panContainer"
+          style={{ height: initialPageY ? containerHeight : "auto" }}
+        >
           <div className="panContainerInner">
             <img
-              style={{ height: containerHeight }}
+              style={{ height: initialPageY ? containerHeight : "auto" }}
               alt={alt}
               title={alt}
               src={imageUrl}
@@ -64,9 +75,9 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
           onTouchStart={controlsDragDown}
           onTouchEnd={controlsDragUp}
           onTouchMove={controlsDragMove}
-          // onMouseDown={controlsDragDown}
-          // onMouseUp={controlsDragUp}
-          // onMouseMove={controlsDragMove}
+          onMouseDown={controlsDragDown}
+          onMouseUp={controlsDragUp}
+          onMouseMove={controlsMouseMove}
         >
           <span className="controlsInner">
             <i className="typcn typcn-arrow-unsorted"></i>
