@@ -10,23 +10,35 @@
     }
     .impressionList {
       margin-top: 25px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
 
       .impression {
-        width: 100%;
+        width: fit-content;
         display: block;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        border-radius: 50px;
+        padding: 10px 25px;
+        margin-right: 5px;
 
         span {
           display: block;
 
           &.content {
             font-size: 16px;
-            margin-bottom: 10px;
-            color: #444444;
+            margin-bottom: 7px;
+            color: #fff;
+            font-weight: 600;
           }
           &.attribution {
-            font-size: 14px;
-            color: darkgray;
+            font-size: 13px;
+            color: #fff;
+
+            max-width: 100px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
           }
         }
       }
