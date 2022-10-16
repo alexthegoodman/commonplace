@@ -239,11 +239,7 @@ const UploadContent = () => {
                             aria-label="Pick Interest"
                           >
                             {selectedInterest?.name ? (
-                              <>
-                                {t(
-                                  `interests:dictionary.${selectedInterest?.name}`
-                                )}
-                              </>
+                              <>{selectedInterest?.name}</>
                             ) : (
                               <>{t("common:pickInterest")}</>
                             )}
