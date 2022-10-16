@@ -6,6 +6,40 @@ import { useImageUrl } from "../../../hooks/useImageUrl";
 // TODO: set ESLint ignore for `next build` type check
 import { ImageViewerProps } from "./ImageViewer.d";
 
+const setImageSize = (setImageDimensions, imageUrl) => {
+  const img = new Image();
+  img.src = imageUrl;
+  img.onload = () => {
+    setImageDimensions({
+      height: img.height,
+      width: img.width,
+    });
+  };
+};
+
+function disableScroll() {
+  // Get the current page scroll position
+  // var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  // var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+  // // if any scroll is attempted, set this to the previous value
+  // window.onscroll = function () {
+  //   window.scrollTo(scrollLeft, scrollTop);
+  // };
+
+  document
+    .getElementsByClassName("scrollContainer")[0]
+    .classList.add("noScroll");
+}
+
+function enableScroll() {
+  // window.onscroll = function () {};
+
+  document
+    .getElementsByClassName("scrollContainer")[0]
+    .classList.remove("noScroll");
+}
+
 const ImageViewer: React.FC<ImageViewerProps> = ({
   ref = null,
   className = "",
@@ -14,8 +48,15 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
   sourceUrl = null,
 }) => {
   const { imageUrl } = useImageUrl(sourceUrl as string, { width: 800 });
+  const [imageDimensions, setImageDimensions] = React.useState<any>(null);
 
-  const initialContainerHeight = 250;
+  console.info("imageDimensions", imageDimensions);
+
+  React.useEffect(() => {
+    setImageSize(setImageDimensions, imageUrl);
+  }, []);
+
+  const initialContainerHeight = imageDimensions?.height;
   const [containerHeight, setContainerHeight] = React.useState(
     initialContainerHeight
   );
@@ -25,14 +66,20 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
   const controlsDragDown = () => {
     console.info("controlsDragDown");
     setDragEngaged(true);
+    disableScroll();
   };
 
   const controlsDragUp = () => {
     console.info("controlsDragUp");
     setDragEngaged(false);
+    enableScroll();
+
+    setImageDimensions({ height: containerHeight });
   };
 
   const controlsDragMove = (e: React.TouchEvent<HTMLAnchorElement>) => {
+    // e.preventDefault();
+    // e.stopPropagation();
     console.info("controlsDragMove", e.changedTouches[0]);
     const touch = e.changedTouches[0];
     dragMove(touch);
@@ -46,7 +93,13 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
     if (dragEngaged) {
       if (initialPageY > 0) {
         const heightDelta = touch.pageY - initialPageY;
-        setContainerHeight(initialContainerHeight + heightDelta);
+        console.info("height", containerHeight, heightDelta);
+        const height =
+          typeof containerHeight !== "undefined"
+            ? containerHeight
+            : initialContainerHeight;
+        const newHeight = initialContainerHeight + heightDelta;
+        setContainerHeight(newHeight);
       } else {
         setInitialPageY(touch.pageY);
       }

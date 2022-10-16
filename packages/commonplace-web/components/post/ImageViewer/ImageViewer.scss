@@ -1,11 +1,18 @@
+.noScroll {
+  height: 100%;
+  overflow: hidden;
+}
+
 .imageViewer {
   .imageViewerInner {
     position: relative;
+    min-height: 200px;
 
     .panContainer {
       .panContainerInner {
         img {
           max-width: none;
+          min-height: 200px;
         }
       }
     }
