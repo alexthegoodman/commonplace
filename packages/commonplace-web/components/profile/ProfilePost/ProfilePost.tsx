@@ -82,7 +82,7 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
                       href="#!"
                       onClick={() => setDisplayOptionsMenu(!displayOptionsMenu)}
                     >
-                      <i className="mu mu-opts-v"></i>
+                      <i className="typcn typcn-th-menu"></i>
                     </a>
                   </div>
                   <div
