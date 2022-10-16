@@ -44,4 +44,19 @@
       }
     }
   }
+
+  &.miniViewer {
+    .imageViewerInner {
+      min-height: auto;
+
+      .panContainer {
+        .panContainerInner {
+          img {
+            max-width: 100%;
+            min-height: auto;
+          }
+        }
+      }
+    }
+  }
 }

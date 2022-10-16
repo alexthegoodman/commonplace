@@ -60,6 +60,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
             type={message?.post?.contentType}
             preview={message?.post?.contentPreview}
             content={message?.post?.content}
+            mini={true}
           />
         </div>
       ) : (
