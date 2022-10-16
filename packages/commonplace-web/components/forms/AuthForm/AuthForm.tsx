@@ -35,6 +35,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
   const [cookies, setCookie, removeCookie] = useCookies(["coUserToken"]);
   const [formErrorMessage, setFormErrorMessage] = React.useState("");
+  const [submitLoading, setSubmitLoading] = React.useState(false);
 
   console.info("cookies", cookies);
 
@@ -46,6 +47,8 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
   const onSubmit = async (data) => {
     console.log("onSubmit", data);
+
+    setSubmitLoading(true);
 
     try {
       var userIdData, token;
@@ -127,15 +130,18 @@ const AuthForm: React.FC<AuthFormProps> = ({
       console.error(error);
       const errorMessage = error?.response?.errors[0].message;
       setFormErrorMessage(errorMessage);
+      setSubmitLoading(false);
     }
   };
 
   const onError = (error) => console.error(error);
 
-  const submitButtonText =
+  let submitButtonText =
     type === "sign-in"
       ? t("auth:signIn", { defaultLng })
       : t("auth:signUp", { defaultLng });
+
+  if (submitLoading) submitButtonText = t("common:loading", { defaultLng });
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit, onError)}>
@@ -163,7 +169,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
         }}
       />
 
-      <input className="circleButton" type="submit" value={submitButtonText} />
+      <button className="circleButton" type="submit" disabled={submitLoading}>
+        {submitButtonText}
+      </button>
     </form>
   );
 };

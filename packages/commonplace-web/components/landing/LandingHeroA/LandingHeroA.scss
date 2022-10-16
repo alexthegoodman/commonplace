@@ -128,6 +128,11 @@
         float: left;
         -webkit-appearance: none;
         margin-top: 10px;
+        color: rgb(42, 42, 42);
+        width: fit-content;
+        margin: 0;
+        align-self: flex-start;
+        font-size: 16px;
 
         span {
           font-family: "Playfair Display", Georgia, "Times New Roman", serif;
@@ -136,6 +141,15 @@
           font-weight: bold;
           line-height: inherit;
           letter-spacing: 0.01em;
+        }
+
+        &:active,
+        &:focus {
+          box-shadow: rgb(42, 42, 42) 4px 4px 1px 0px;
+        }
+        &:disabled {
+          box-shadow: rgb(42, 42, 42) 4px 4px 1px 0px;
+          background: $inputGrey;
         }
       }
     }

@@ -90,4 +90,7 @@ $inputGrey: #ececec;
   &:focus {
     border: 2px $midBlue solid;
   }
+  &:disabled {
+    background: $cancelGrey;
+  }
 }
