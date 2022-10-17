@@ -56,8 +56,10 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 
   React.useEffect(() => {
     setImageSize((height) => {
-      setImageHeight(height);
-      setContainerHeight(height);
+      const viewableArea = window.innerHeight - 300;
+      const initialHeight = height > viewableArea ? viewableArea : height;
+      setImageHeight(initialHeight);
+      setContainerHeight(initialHeight);
     }, imageUrl);
   }, []);
 
@@ -106,38 +108,44 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
   return (
     <section className={`imageViewer ${mini ? "miniViewer" : "largeViewer"}`}>
       <div className="imageViewerInner">
-        <div
-          className="panContainer"
-          style={{
-            height: !mini && containerHeight ? containerHeight : "auto",
-          }}
-        >
-          <div className="panContainerInner">
-            <img
+        {mini || (!mini && containerHeight) ? (
+          <>
+            <div
+              className="panContainer"
               style={{
                 height: !mini && containerHeight ? containerHeight : "auto",
               }}
-              alt={alt}
-              title={alt}
-              src={imageUrl}
-            />
-          </div>
-        </div>
-        {!mini ? (
-          <div
-            className="controls"
-            onTouchStart={controlsDragDown}
-            onTouchEnd={controlsDragUp}
-            onTouchMove={controlsDragMove}
-            // disabled resizing on desktop
-            // onMouseDown={controlsDragDown}
-            // onMouseUp={controlsDragUp}
-            // onMouseMove={controlsMouseMove}
-          >
-            <span className="controlsInner">
-              <i className="typcn typcn-arrow-unsorted"></i>
-            </span>
-          </div>
+            >
+              <div className="panContainerInner">
+                <img
+                  style={{
+                    height: !mini && containerHeight ? containerHeight : "auto",
+                  }}
+                  alt={alt}
+                  title={alt}
+                  src={imageUrl}
+                />
+              </div>
+            </div>
+            {!mini ? (
+              <div
+                className="controls"
+                onTouchStart={controlsDragDown}
+                onTouchEnd={controlsDragUp}
+                onTouchMove={controlsDragMove}
+                // disabled resizing on desktop
+                // onMouseDown={controlsDragDown}
+                // onMouseUp={controlsDragUp}
+                // onMouseMove={controlsMouseMove}
+              >
+                <span className="controlsInner">
+                  <i className="typcn typcn-arrow-unsorted"></i>
+                </span>
+              </div>
+            ) : (
+              <></>
+            )}
+          </>
         ) : (
           <></>
         )}
