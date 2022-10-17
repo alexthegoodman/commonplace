@@ -26,15 +26,19 @@ export default class Helpers {
   }
 
   async subscribeMailchimp(email) {
-    // use this to get the correct id for the audience / list
-    // const response1 = await client.lists.getAllLists();
-    // console.log(response1);
-    const response = await client.lists.addListMember("b9c7f37268", {
-      email_address: email,
-      status: "subscribed",
-    });
-    // console.info(response);
+    try {
+      // use this to get the correct id for the audience / list
+      // const response1 = await client.lists.getAllLists();
+      // console.log(response1);
+      const response = await client.lists.addListMember("b9c7f37268", {
+        email_address: email,
+        status: "subscribed",
+      });
+      // console.info(response);
 
-    return response;
+      return response;
+    } catch (error) {
+      console.error("ERROR subscribeMailchimp", error);
+    }
   }
 }

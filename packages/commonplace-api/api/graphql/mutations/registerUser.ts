@@ -60,7 +60,7 @@ export const RegisterUserMutation = extendType({
           });
         });
 
-        const mailchimpData = await helpers.subscribeMailchimp(email);
+        await helpers.subscribeMailchimp(email);
 
         // console.info("mailchimpData", mailchimpData);
 

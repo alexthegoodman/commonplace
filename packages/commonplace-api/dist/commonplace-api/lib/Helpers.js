@@ -70,17 +70,24 @@ var Helpers = /** @class */ (function () {
     };
     Helpers.prototype.subscribeMailchimp = function (email) {
         return __awaiter(this, void 0, void 0, function () {
-            var response;
+            var response, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, client.lists.addListMember("b9c7f37268", {
-                            email_address: email,
-                            status: "subscribed",
-                        })];
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, client.lists.addListMember("b9c7f37268", {
+                                email_address: email,
+                                status: "subscribed",
+                            })];
                     case 1:
                         response = _a.sent();
                         // console.info(response);
                         return [2 /*return*/, response];
+                    case 2:
+                        error_1 = _a.sent();
+                        console.error("ERROR subscribeMailchimp", error_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
             });
         });

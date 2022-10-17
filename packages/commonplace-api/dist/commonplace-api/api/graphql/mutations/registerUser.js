@@ -57,7 +57,7 @@ exports.RegisterUserMutation = (0, nexus_1.extendType)({
             resolve: function (_, _a, _b) {
                 var prisma = _b.prisma, mixpanel = _b.mixpanel, req = _b.req;
                 return __awaiter(_this, void 0, void 0, function () {
-                    var utilities, helpers, credentials, email, password, user, mailchimpData, data, token;
+                    var utilities, helpers, credentials, email, password, user, data, token;
                     var _this = this;
                     return __generator(this, function (_c) {
                         switch (_c.label) {
@@ -118,7 +118,7 @@ exports.RegisterUserMutation = (0, nexus_1.extendType)({
                                 user = _c.sent();
                                 return [4 /*yield*/, helpers.subscribeMailchimp(email)];
                             case 2:
-                                mailchimpData = _c.sent();
+                                _c.sent();
                                 // console.info("mailchimpData", mailchimpData);
                                 utilities.logs.write(["Register user", user]);
                                 // TODO: encrypt with JWT
