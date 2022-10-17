@@ -99,6 +99,7 @@ const PostContent = ({ data }) => {
             type={currentPost?.contentType}
             preview={currentPost?.contentPreview}
             content={currentPost?.content}
+            mini={true}
           />
           <ContentInformation post={currentPost} />
           <PostImpressions impressions={currentPost?.impressions} />
