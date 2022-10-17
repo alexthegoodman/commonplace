@@ -6,14 +6,11 @@ import { useImageUrl } from "../../../hooks/useImageUrl";
 // TODO: set ESLint ignore for `next build` type check
 import { ImageViewerProps } from "./ImageViewer.d";
 
-const setImageSize = (setImageDimensions, imageUrl) => {
+const setImageSize = (setImageHeight, imageUrl) => {
   const img = new Image();
   img.src = imageUrl;
   img.onload = () => {
-    setImageDimensions({
-      height: img.height,
-      width: img.width,
-    });
+    setImageHeight(img.height);
   };
 };
 
@@ -49,18 +46,20 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
   mini = false,
 }) => {
   const { imageUrl } = useImageUrl(sourceUrl as string, { width: 800 });
-  const [imageDimensions, setImageDimensions] = React.useState<any>(null);
-
-  console.info("imageDimensions", imageDimensions);
-
-  React.useEffect(() => {
-    setImageSize(setImageDimensions, imageUrl);
-  }, []);
-
-  const initialContainerHeight = imageDimensions?.height;
+  const [imageHeight, setImageHeight] = React.useState<any>(null);
+  // const initialContainerHeight = imageDimensions?.height;
   const [containerHeight, setContainerHeight] = React.useState(0);
   const [dragEngaged, setDragEngaged] = React.useState(false);
-  const [initialPageY, setInitialPageY] = React.useState(0);
+  const [initialPageY, setInitialPageY] = React.useState<any>(null);
+
+  console.info("imageHeight", imageHeight);
+
+  React.useEffect(() => {
+    setImageSize((height) => {
+      setImageHeight(height);
+      setContainerHeight(height);
+    }, imageUrl);
+  }, []);
 
   const controlsDragDown = () => {
     console.info("controlsDragDown");
@@ -73,7 +72,8 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
     setDragEngaged(false);
     enableScroll();
 
-    setImageDimensions({ height: containerHeight });
+    setImageHeight(containerHeight);
+    setInitialPageY(0);
   };
 
   const controlsDragMove = (e: React.TouchEvent<HTMLDivElement>) => {
@@ -90,12 +90,12 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 
   const dragMove = (touch) => {
     if (dragEngaged) {
-      if (initialPageY > 0) {
+      if (initialPageY && initialPageY > 0) {
         const heightDelta = touch.pageY - initialPageY;
         console.info("height", containerHeight, heightDelta);
-        const height =
-          containerHeight !== 0 ? containerHeight : initialContainerHeight;
-        const newHeight = initialContainerHeight + heightDelta;
+        // const height =
+        //   containerHeight !== 0 ? containerHeight : initialContainerHeight;
+        const newHeight = imageHeight + heightDelta;
         setContainerHeight(newHeight);
       } else {
         setInitialPageY(touch.pageY);
@@ -108,12 +108,14 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
       <div className="imageViewerInner">
         <div
           className="panContainer"
-          style={{ height: !mini && initialPageY ? containerHeight : "auto" }}
+          style={{
+            height: !mini && containerHeight ? containerHeight : "auto",
+          }}
         >
           <div className="panContainerInner">
             <img
               style={{
-                height: !mini && initialPageY ? containerHeight : "auto",
+                height: !mini && containerHeight ? containerHeight : "auto",
               }}
               alt={alt}
               title={alt}
