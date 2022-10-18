@@ -29,6 +29,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../next-i18next.config.js";
 import { useTranslation } from "next-i18next";
 import LanguagePicker from "../components/queue/LanguagePicker/LanguagePicker";
+import ImpressionTicker from "../components/post/ImpressionTicker/ImpressionTicker";
 
 const getPostsAndUserData = async (token, interestId = null) => {
   const gqlClient = new GQLClient(token);
@@ -327,6 +328,7 @@ const QueueContent = ({ coUserLng }) => {
                     />
                   </motion.div>
                   <motion.div custom={1} animate={postAnimation}>
+                    <ImpressionTicker impressions={currentPost?.impressions} />
                     <ContentInformation post={currentPost} />
                   </motion.div>
                 </div>

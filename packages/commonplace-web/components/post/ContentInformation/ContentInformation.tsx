@@ -2,6 +2,7 @@ import Link from "next/link";
 import * as React from "react";
 import { useImageUrl } from "../../../hooks/useImageUrl";
 import ProfileAvatar from "../../profile/ProfileAvatar/ProfileAvatar";
+import ImpressionTicker from "../ImpressionTicker/ImpressionTicker";
 const { DateTime } = require("luxon");
 
 import { ContentInformationProps } from "./ContentInformation.d";

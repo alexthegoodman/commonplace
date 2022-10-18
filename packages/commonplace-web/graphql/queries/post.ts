@@ -21,6 +21,19 @@ export const queuePostsQuery = gql`
       interest {
         name
       }
+      impressions {
+        id
+        type
+        content
+
+        user {
+          name
+          chosenUsername
+        }
+
+        updatedAt
+        createdAt
+      }
 
       createdAt
       updatedAt
@@ -41,6 +54,20 @@ const PublicPostFieldsFragment = gql`
     interest {
       name
       generatedInterestSlug
+    }
+
+    impressions {
+      id
+      type
+      content
+
+      user {
+        name
+        chosenUsername
+      }
+
+      updatedAt
+      createdAt
     }
 
     createdAt

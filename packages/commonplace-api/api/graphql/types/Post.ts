@@ -27,7 +27,36 @@ export const PublicPostType = objectType({
     t.field("contentPreview", { type: "String" });
     t.field("content", { type: "String" });
 
-    t.field("interest", { type: "Interest" });
+    t.field("interest", {
+      type: "Interest",
+      resolve: async (post, __, context: Context) => {
+        return await context.prisma.interest.findFirst({
+          where: {
+            posts: {
+              some: {
+                id: post.id as string,
+              },
+            },
+          },
+        });
+      },
+    });
+
+    t.list.field("impressions", {
+      type: "Message",
+      resolve: async (post, __, context: Context) => {
+        return await context.prisma.message.findMany({
+          where: {
+            post: {
+              id: post.id as string,
+            },
+            type: {
+              equals: "impression",
+            },
+          },
+        });
+      },
+    });
 
     t.field("updatedAt", { type: "DateTime" });
     t.field("createdAt", { type: "DateTime" });
@@ -79,18 +108,21 @@ export const PostType = objectType({
       },
     });
 
-    // t.list.field("messages", {
-    //   type: "Message",
-    //   resolve: async (post, __, context: Context) => {
-    //     return await context.prisma.message.findMany({
-    //       where: {
-    //         post: {
-    //           id: post.id as string,
-    //         },
-    //       },
-    //     });
-    //   },
-    // });
+    t.list.field("impressions", {
+      type: "Message",
+      resolve: async (post, __, context: Context) => {
+        return await context.prisma.message.findMany({
+          where: {
+            post: {
+              id: post.id as string,
+            },
+            type: {
+              equals: "impression",
+            },
+          },
+        });
+      },
+    });
 
     t.field("updatedAt", {
       type: "DateTime",

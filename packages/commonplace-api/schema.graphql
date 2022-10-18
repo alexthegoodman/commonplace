@@ -102,6 +102,7 @@ type Post {
   description: String
   generatedTitleSlug: String
   id: String
+  impressions: [Message]
   interest: Interest
   title: String
   updatedAt: DateTime
@@ -115,6 +116,7 @@ type PublicPost {
   description: String
   generatedTitleSlug: String
   id: String
+  impressions: [Message]
   interest: Interest
   title: String
   updatedAt: DateTime

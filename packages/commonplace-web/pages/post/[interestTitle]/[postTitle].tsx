@@ -27,9 +27,9 @@ const getPostAndUserData = async (postTitle) => {
     postTitle,
   });
 
-  const impressionData = await request(cpGraphqlUrl, postImpressionsQuery, {
-    postTitle,
-  });
+  // const impressionData = await request(cpGraphqlUrl, postImpressionsQuery, {
+  //   postTitle,
+  // });
 
   const userData = await request(cpGraphqlUrl, userByPostTitleQuery, {
     postTitle,
@@ -38,7 +38,7 @@ const getPostAndUserData = async (postTitle) => {
   const returnData = {
     ...postData.getPostByPostTitle,
     creator: userData.getUserByPostTitle,
-    impressions: impressionData.getPostImpressions,
+    // impressions: impressionData.getPostImpressions,
   };
 
   return returnData;
