@@ -21,7 +21,10 @@ const ImpressionTicker: React.FC<ImpressionTickerProps> = ({
   console.info("impressions", showImpression, impressions);
 
   React.useEffect(() => {
-    if (typeof window["tickerStarted"] === "undefined") {
+    if (
+      typeof window["tickerStarted"] === "undefined" ||
+      !window["tickerStarted"]
+    ) {
       setAnimationStarted(true);
       window["tickerStarted"] = true;
       window["tickerCount"] = 0;
@@ -32,35 +35,45 @@ const ImpressionTicker: React.FC<ImpressionTickerProps> = ({
         // transition: { delay: i * 10 },
       }));
 
+      // TODO: clear timer when unmounting
       window["tickerTimer"] = setInterval(() => {
         tickerAnimation.start((i) => ({
           opacity: 1,
           y: 0,
           // transition: { delay: i * 10 },
         }));
-        setTimeout(() => {
+        window["tickerTimeout1"] = setTimeout(() => {
           tickerAnimation.start((i) => ({
             opacity: 0,
             y: -15,
             //   transition: { delay: i * 10 },
           }));
-        }, 2000);
-        setTimeout(() => {
+        }, 3000);
+        window["tickerTimeout2"] = setTimeout(() => {
           tickerAnimation.set((i) => ({
             opacity: 0,
             y: 15,
             // transition: { delay: i * 10 },
           }));
-        }, 4000);
-        setTimeout(() => {
+        }, 4500);
+        window["tickerTimeout3"] = setTimeout(() => {
           const show =
             impressions.length > window["tickerCount"] + 1
               ? window["tickerCount"] + 1
               : 0;
           window["tickerCount"] = show;
           setShowImpression(show);
-        }, 3500);
+        }, 4000);
       }, 5000);
+
+      return () => {
+        clearInterval(window["tickerTimer"]);
+        clearTimeout(window["tickerTimeout1"]);
+        clearTimeout(window["tickerTimeout2"]);
+        clearTimeout(window["tickerTimeout3"]);
+        window["tickerStarted"] = false;
+        window["tickerCount"] = 0;
+      };
     }
   }, [animationStarted]);
 

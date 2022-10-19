@@ -11,6 +11,7 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
   ref = null,
   className = "",
   onClick = (e) => console.info("Click ContentInformation"),
+  queue = false,
   post = null,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
@@ -32,7 +33,7 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
       <div className="contentInformationInner">
         <h2 className="contentTitle">{post?.title}</h2>
 
-        <ImpressionTicker impressions={post?.impressions} />
+        {queue ? <ImpressionTicker impressions={post?.impressions} /> : <></>}
 
         <div className="separator"></div>
 

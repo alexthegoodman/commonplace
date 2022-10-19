@@ -328,7 +328,7 @@ const QueueContent = ({ coUserLng }) => {
                     />
                   </motion.div>
                   <motion.div custom={1} animate={postAnimation}>
-                    <ContentInformation post={currentPost} />
+                    <ContentInformation queue={true} post={currentPost} />
                   </motion.div>
                 </div>
               ) : (
