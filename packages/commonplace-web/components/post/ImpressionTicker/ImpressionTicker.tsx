@@ -6,6 +6,8 @@ import { ImpressionTickerProps } from "./ImpressionTicker.d";
 import { motion, useAnimation } from "framer-motion";
 import { useImpressionData } from "../../../hooks/useImpressionData";
 
+const hexToRgb = require("hex-to-rgb");
+
 const ImpressionTicker: React.FC<ImpressionTickerProps> = ({
   ref = null,
   className = "",
@@ -69,10 +71,21 @@ const ImpressionTicker: React.FC<ImpressionTickerProps> = ({
           const impressionData = useImpressionData(impression);
 
           if (showImpression === i) {
+            const rgb = hexToRgb(impressionData.color).join(", ");
+            console.info(
+              "show impression",
+              i,
+              impressionData.color,
+              rgb,
+              `0px 1px 8px 2px rgba(${rgb}, 0.2);`
+            );
             return (
               <div
                 className="impressionTicker"
-                style={{ backgroundColor: impressionData.color }}
+                style={{
+                  backgroundColor: `rgb(${rgb})`,
+                  boxShadow: `0px 1px 8px 2px rgba(${rgb}, 0.2)`,
+                }}
               >
                 <div className="impressionTickerInner">
                   <motion.div
@@ -83,8 +96,10 @@ const ImpressionTicker: React.FC<ImpressionTickerProps> = ({
                       transform: "translateY(15px) translateZ(0px)",
                     }}
                   >
-                    <span>{impression.content}</span>
-                    <span></span>
+                    <span className="content">{impression.content}</span>
+                    <span className="attribution">
+                      from {impression?.user?.chosenUsername}
+                    </span>
                   </motion.div>
                 </div>
               </div>
