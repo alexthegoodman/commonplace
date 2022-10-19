@@ -32,6 +32,8 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
       <div className="contentInformationInner">
         <h2 className="contentTitle">{post?.title}</h2>
 
+        <ImpressionTicker impressions={post?.impressions} />
+
         <div className="separator"></div>
 
         {post?.creator !== null ? (
@@ -79,7 +81,11 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
         <div className="separator"></div>
 
         <div className="contentMetaData">
-          <p className="contentDescription">{post?.description}</p>
+          {post?.description ? (
+            <p className="contentDescription">{post?.description}</p>
+          ) : (
+            <></>
+          )}
           {/** # of Impressions */}
           {/** Clickable link to user profile? */}
           {/** Grid of other user posts? */}

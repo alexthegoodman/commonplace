@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import * as impressionsData from "../../../../commonplace-utilities/def/impressions";
+import { useImpressionData } from "../../../hooks/useImpressionData";
 
 import { PostImpressionsProps } from "./PostImpressions.d";
 
@@ -20,26 +20,7 @@ const PostImpressions: React.FC<PostImpressionsProps> = ({
         <div className="impressionList">
           {impressions?.length > 0 ? (
             impressions?.map((impression, i) => {
-              const categoryData = impressionsData.default.filter(
-                (category) =>
-                  category.list.filter(
-                    (item) => item.content === impression.content
-                  )[0]
-              )[0];
-
-              console.info("categoryData", categoryData);
-
-              let impressionData;
-              if (typeof categoryData !== "undefined") {
-                impressionData = categoryData.list.filter(
-                  (item) => item.content === impression.content
-                )[0];
-              } else {
-                impressionData = {
-                  content: impression.content,
-                  color: "#8446ff",
-                };
-              }
+              const impressionData = useImpressionData(impression);
 
               return (
                 <div

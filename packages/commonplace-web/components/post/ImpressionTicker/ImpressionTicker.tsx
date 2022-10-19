@@ -4,6 +4,7 @@ import * as React from "react";
 import { ImpressionTickerProps } from "./ImpressionTicker.d";
 
 import { motion, useAnimation } from "framer-motion";
+import { useImpressionData } from "../../../hooks/useImpressionData";
 
 const ImpressionTicker: React.FC<ImpressionTickerProps> = ({
   ref = null,
@@ -19,7 +20,6 @@ const ImpressionTicker: React.FC<ImpressionTickerProps> = ({
 
   React.useEffect(() => {
     if (typeof window["tickerStarted"] === "undefined") {
-      console.info("start");
       setAnimationStarted(true);
       window["tickerStarted"] = true;
       window["tickerCount"] = 0;
@@ -55,7 +55,6 @@ const ImpressionTicker: React.FC<ImpressionTickerProps> = ({
             impressions.length > window["tickerCount"] + 1
               ? window["tickerCount"] + 1
               : 0;
-          console.info("setshow", show);
           window["tickerCount"] = show;
           setShowImpression(show);
         }, 3500);
@@ -66,11 +65,16 @@ const ImpressionTicker: React.FC<ImpressionTickerProps> = ({
   return (
     <section className="tickerContainer">
       <div className="tickerContainerInner">
-        <div className="impressionTicker">
-          <div className="impressionTickerInner">
-            {impressions.map((impression, i) => {
-              if (showImpression === i) {
-                return (
+        {impressions.map((impression, i) => {
+          const impressionData = useImpressionData(impression);
+
+          if (showImpression === i) {
+            return (
+              <div
+                className="impressionTicker"
+                style={{ backgroundColor: impressionData.color }}
+              >
+                <div className="impressionTickerInner">
                   <motion.div
                     custom={i}
                     animate={tickerAnimation}
@@ -79,13 +83,14 @@ const ImpressionTicker: React.FC<ImpressionTickerProps> = ({
                       transform: "translateY(15px) translateZ(0px)",
                     }}
                   >
-                    {impression.content}
+                    <span>{impression.content}</span>
+                    <span></span>
                   </motion.div>
-                );
-              }
-            })}
-          </div>
-        </div>
+                </div>
+              </div>
+            );
+          }
+        })}
       </div>
     </section>
   );

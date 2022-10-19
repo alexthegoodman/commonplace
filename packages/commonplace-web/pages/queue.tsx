@@ -328,7 +328,6 @@ const QueueContent = ({ coUserLng }) => {
                     />
                   </motion.div>
                   <motion.div custom={1} animate={postAnimation}>
-                    <ImpressionTicker impressions={currentPost?.impressions} />
                     <ContentInformation post={currentPost} />
                   </motion.div>
                 </div>
