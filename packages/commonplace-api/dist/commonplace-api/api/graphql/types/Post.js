@@ -53,6 +53,7 @@ exports.publicPostFields = {
 exports.PublicPostType = (0, nexus_1.objectType)({
     name: "PublicPost",
     definition: function (t) {
+        var _this = this;
         t.field("id", { type: "String" });
         t.field("title", { type: "String" });
         t.field("description", { type: "String" });
@@ -60,7 +61,45 @@ exports.PublicPostType = (0, nexus_1.objectType)({
         t.field("contentType", { type: "String" });
         t.field("contentPreview", { type: "String" });
         t.field("content", { type: "String" });
-        t.field("interest", { type: "Interest" });
+        t.field("interest", {
+            type: "Interest",
+            resolve: function (post, __, context) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, context.prisma.interest.findFirst({
+                                where: {
+                                    posts: {
+                                        some: {
+                                            id: post.id,
+                                        },
+                                    },
+                                },
+                            })];
+                        case 1: return [2 /*return*/, _a.sent()];
+                    }
+                });
+            }); },
+        });
+        t.list.field("impressions", {
+            type: "Message",
+            resolve: function (post, __, context) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, context.prisma.message.findMany({
+                                where: {
+                                    post: {
+                                        id: post.id,
+                                    },
+                                    type: {
+                                        equals: "impression",
+                                    },
+                                },
+                            })];
+                        case 1: return [2 /*return*/, _a.sent()];
+                    }
+                });
+            }); },
+        });
         t.field("updatedAt", { type: "DateTime" });
         t.field("createdAt", { type: "DateTime" });
     },
@@ -116,18 +155,26 @@ exports.PostType = (0, nexus_1.objectType)({
                 });
             }); },
         });
-        // t.list.field("messages", {
-        //   type: "Message",
-        //   resolve: async (post, __, context: Context) => {
-        //     return await context.prisma.message.findMany({
-        //       where: {
-        //         post: {
-        //           id: post.id as string,
-        //         },
-        //       },
-        //     });
-        //   },
-        // });
+        t.list.field("impressions", {
+            type: "Message",
+            resolve: function (post, __, context) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, context.prisma.message.findMany({
+                                where: {
+                                    post: {
+                                        id: post.id,
+                                    },
+                                    type: {
+                                        equals: "impression",
+                                    },
+                                },
+                            })];
+                        case 1: return [2 /*return*/, _a.sent()];
+                    }
+                });
+            }); },
+        });
         t.field("updatedAt", {
             type: "DateTime",
         });
