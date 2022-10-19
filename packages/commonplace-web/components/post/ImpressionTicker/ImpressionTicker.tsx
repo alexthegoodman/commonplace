@@ -18,7 +18,7 @@ const ImpressionTicker: React.FC<ImpressionTickerProps> = ({
   const [showImpression, setShowImpression] = React.useState(0);
   const [animationStarted, setAnimationStarted] = React.useState(false);
 
-  console.info("impressions", showImpression, impressions);
+  //   console.info("impressions", showImpression, impressions);
 
   React.useEffect(() => {
     if (
@@ -85,13 +85,13 @@ const ImpressionTicker: React.FC<ImpressionTickerProps> = ({
 
           if (showImpression === i) {
             const rgb = hexToRgb(impressionData.color).join(", ");
-            console.info(
-              "show impression",
-              i,
-              impressionData.color,
-              rgb,
-              `0px 1px 8px 2px rgba(${rgb}, 0.2);`
-            );
+            // console.info(
+            //   "show impression",
+            //   i,
+            //   impressionData.color,
+            //   rgb,
+            //   `0px 1px 8px 2px rgba(${rgb}, 0.2);`
+            // );
             return (
               <div
                 className="impressionTicker"
