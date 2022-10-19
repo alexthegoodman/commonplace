@@ -37,7 +37,7 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
         <div className="separator"></div>
 
         {post?.creator !== null ? (
-          <Link href={`/co/${post?.creator?.chosenUsername}`}>
+          <Link href={`/co/${post?.creator?.generatedUsername}`}>
             <div className="contentAuthor">
               <div className="contentAuthorInner">
                 <div className="authorProfileImage">
