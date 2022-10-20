@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useEffect, useReducer, useState } from "react";
 import { useCookies } from "react-cookie";
-import useSWR, { SWRConfig } from "swr";
+import useSWR, { SWRConfig, useSWRConfig } from "swr";
 import { motion, useAnimation } from "framer-motion";
 import Utilities from "../../commonplace-utilities";
 import ContentInformation from "../components/post/ContentInformation/ContentInformation";
@@ -60,6 +60,7 @@ const getPostsAndUserData = async (token, interestId = null) => {
 
 const QueueContent = ({ coUserLng }) => {
   const { t } = useTranslation();
+  const { cache } = useSWRConfig();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
@@ -77,6 +78,12 @@ const QueueContent = ({ coUserLng }) => {
       // refreshInterval: 10000,
     }
   );
+
+  useEffect(() => {
+    // console.info("check queue", cache.get("queueKey"));
+    cache.clear();
+    mutate(() => getPostsAndUserData(token, selectedInterest?.id));
+  }, []);
 
   const firstId = data?.posts[0]?.id;
 
@@ -113,10 +120,11 @@ const QueueContent = ({ coUserLng }) => {
     }));
   }, []);
 
-  // useEffect(() => {
-  //   setQueuePostId(firstId);
-  //   setQueueFinished(firstId ? false : true);
-  // }, [firstId]);
+  useEffect(() => {
+    // NOTE: runs when returning to queue from other page
+    setQueuePostId(firstId);
+    setQueueFinished(firstId ? false : true);
+  }, [firstId]);
 
   // get currentPost via id
   const currentPost = data?.posts?.filter(

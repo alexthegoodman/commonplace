@@ -33,7 +33,11 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
       <div className="contentInformationInner">
         <h2 className="contentTitle">{post?.title}</h2>
 
-        {queue ? <ImpressionTicker impressions={post?.impressions} /> : <></>}
+        {queue && post?.impressions.length > 0 ? (
+          <ImpressionTicker impressions={post?.impressions} />
+        ) : (
+          <></>
+        )}
 
         <div className="separator"></div>
 
