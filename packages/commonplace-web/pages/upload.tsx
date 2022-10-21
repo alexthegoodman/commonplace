@@ -22,6 +22,7 @@ import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../next-i18next.config.js";
 import { useTranslation } from "next-i18next";
+import mixpanel from "mixpanel-browser";
 
 const getUserData = async (token) => {
   const gqlClient = new GQLClient(token);
@@ -64,30 +65,39 @@ const UploadContent = () => {
 
     setSubmitLoading(true);
 
-    const createdPost = await gqlClient.client.request(
-      createPostMutation,
-      {
-        // creatorId: userId,
-        interestId: selectedInterest?.id,
-        contentType,
-        ...formValues,
-      },
-      {
-        commonplace_jwt_header: token,
-      }
-    );
+    try {
+      const createdPost = await gqlClient.client.request(
+        createPostMutation,
+        {
+          // creatorId: userId,
+          interestId: selectedInterest?.id,
+          contentType,
+          ...formValues,
+        },
+        {
+          commonplace_jwt_header: token,
+        }
+      );
 
-    setSubmitLoading(false);
+      setSubmitLoading(false);
 
-    console.info(
-      "createdPost",
-      createdPost,
-      createdPost.createPost.generatedTitleSlug
-    );
+      console.info(
+        "createdPost",
+        createdPost,
+        createdPost.createPost.generatedTitleSlug
+      );
 
-    router.push(
-      `/post/${createdPost.createPost.interest?.generatedInterestSlug}/${createdPost.createPost.generatedTitleSlug}/?backPath=/profile/`
-    );
+      mixpanel.track("Post Created", createdPost);
+
+      router.push(
+        `/post/${createdPost.createPost.interest?.generatedInterestSlug}/${createdPost.createPost.generatedTitleSlug}/?backPath=/profile/`
+      );
+    } catch (error) {
+      console.error("error", error);
+      setSubmitLoading(false);
+      setFormErrorMessage(JSON.stringify(error));
+      mixpanel.track("Post Creation Error", error);
+    }
   };
 
   const onError = (error) => console.error(error);
