@@ -65,6 +65,8 @@ exports.PostsByUsernameQuery = (0, nexus_1.extendType)({
                                 })];
                             case 1:
                                 getUserId = _c.sent();
+                                if (!getUserId)
+                                    return [2 /*return*/, []];
                                 return [4 /*yield*/, prisma.post.findMany({
                                         where: {
                                             creator: {

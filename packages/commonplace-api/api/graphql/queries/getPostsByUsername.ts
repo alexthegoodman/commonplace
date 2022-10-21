@@ -20,7 +20,7 @@ export const PostsByUsernameQuery = extendType({
           },
         });
 
-        // console.info("getUserId", getUserId);
+        if (!getUserId) return [];
 
         const posts = await prisma.post.findMany({
           where: {
