@@ -12,6 +12,7 @@ import { cpGraphqlUrl } from "../../commonplace-utilities/def/urls";
 import { categoriesAndInterestsQuery } from "../graphql/queries/interest";
 import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
 import { useTranslation } from "next-i18next";
+import FormMessage from "../components/fields/FormMessage/FormMessage";
 
 const getCategoriesAndInterestData = async (token) => {
   const gqlClient = new GQLClient(token);
@@ -34,6 +35,7 @@ export const InterestsContent = ({
   const { data } = useSWR("interestsKey", () =>
     getCategoriesAndInterestData(token)
   );
+
   const router = useRouter();
 
   // console.info("data", data);
@@ -48,6 +50,7 @@ export const InterestsContent = ({
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedInterest, setSelectedInterest] = useState("");
+  const [formErrorMessage, setFormErrorMessage] = useState("");
 
   const defaultCategory = data?.getCategories[0].id;
 
@@ -67,7 +70,13 @@ export const InterestsContent = ({
     return interest.id === selectedInterest;
   })[0];
 
-  const onSelectorConfirm = () => onConfirm(displayCategory, displayInterest);
+  const onSelectorConfirm = () => {
+    if (displayCategory && displayInterest) {
+      onConfirm(displayCategory, displayInterest);
+    } else {
+      setFormErrorMessage(t("interests:ui.errors.mustSelectInterest"));
+    }
+  };
 
   return (
     <section className="interests">
@@ -95,6 +104,8 @@ export const InterestsContent = ({
             {/* <div className="pickerSearch">
               <SearchInput />
             </div> */}
+            <FormMessage type="error" message={formErrorMessage} />
+
             <div className="pickerSelector">
               <div className="pickerSelectorInner">
                 <div className="selectorLevel">

@@ -4,7 +4,10 @@
     "pickInterest": "Pick Interest",
     "noInterest": "No Interest Selected",
     "category": "Category",
-    "interest": "Interest"
+    "interest": "Interest",
+    "errors": {
+      "mustSelectInterest": "Must select an interest."
+    }
   },
   "categories": {
     "Food": "Food",

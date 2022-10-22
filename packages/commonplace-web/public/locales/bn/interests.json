@@ -1,6 +1,9 @@
 {
   "ui": {
-    "allInterests": "সমস্ত আগ্রহ"
+    "allInterests": "সমস্ত আগ্রহ",
+    "errors": {
+      "mustSelectInterest": "একটি আগ্রহ নির্বাচন করতে হবে."
+    }
   },
   "categories": {
     "Food": "খাদ্য",
