@@ -92,11 +92,12 @@ const UploadContent = () => {
       router.push(
         `/post/${createdPost.createPost.interest?.generatedInterestSlug}/${createdPost.createPost.generatedTitleSlug}/?backPath=/profile/`
       );
-    } catch (error) {
+    } catch (error: any) {
       console.error("error", error);
       setSubmitLoading(false);
-      setFormErrorMessage(JSON.stringify(error));
-      mixpanel.track("Post Creation Error", error);
+      const errorMessage = error?.response?.errors[0].message;
+      setFormErrorMessage(errorMessage);
+      mixpanel.track("Post Creation Error", { errorMessage, error });
     }
   };
 
