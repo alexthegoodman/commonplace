@@ -9,6 +9,10 @@ export const categoriesAndInterestsQuery = gql`
       interests {
         id
         name
+
+        posts {
+          title
+        }
       }
     }
   }

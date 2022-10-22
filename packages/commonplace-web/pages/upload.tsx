@@ -169,7 +169,7 @@ const UploadContent = () => {
   };
 
   const onConfirmInterest = (category, interest) => {
-    console.info("onConfirmInterest", category, interest);
+    // console.info("onConfirmInterest", category, interest, data);
     setSelectedInterest(interest);
     setStep(1);
     setShowInterestsModal(false);
@@ -188,11 +188,11 @@ const UploadContent = () => {
 
   const contentTypes = ["image", "video", "audio", "text"];
 
-  console.info(
-    "sel interest length",
-    selectedInterest,
-    selectedInterest?.posts?.length
-  );
+  // console.info(
+  //   "sel interest length",
+  //   selectedInterest,
+  //   selectedInterest?.posts?.length
+  // );
 
   const submitButtonLabel =
     selectedInterest?.posts?.length > 5
