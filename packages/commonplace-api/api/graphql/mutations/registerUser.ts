@@ -43,6 +43,7 @@ export const RegisterUserMutation = extendType({
                     generatedUsername,
                     chosenUsername: generatedUsername,
                     role: "USER",
+                    favoriteInterestId: null,
                   },
                 });
               } catch (error) {

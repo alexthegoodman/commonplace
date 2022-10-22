@@ -89,6 +89,7 @@ exports.RegisterUserMutation = (0, nexus_1.extendType)({
                                                                         generatedUsername: generatedUsername,
                                                                         chosenUsername: generatedUsername,
                                                                         role: "USER",
+                                                                        favoriteInterestId: null,
                                                                     },
                                                                 })];
                                                         case 2:

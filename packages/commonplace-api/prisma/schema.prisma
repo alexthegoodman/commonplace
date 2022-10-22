@@ -25,6 +25,8 @@ model User {
   coverImage   String @default("")
   role         String @default("")
   language     String @default("")
+  favoriteInterest     Interest? @relation(fields: [favoriteInterestId], references: [id])
+  favoriteInterestId   String? @default("")
 
   posts        Post[]
   threads      Thread[]
@@ -98,6 +100,7 @@ model Interest {
   
   contentType String
 
+  users       User[]
   posts       Post[]
   categories  Category[]
   modifiers   Modifier[]

@@ -48,6 +48,7 @@ export default async function seedUsers() {
       profileImage: profileImages[randomInt1],
       coverImage: coverImages[randomInt2],
       password: "$2a$12$QG3qjuizq4bb24Gl2hhhSegdv7XHpv0nJrc1Fw/920gOMNSzn80A.", // testing
+      favoriteInterestId: null,
     };
   };
 
