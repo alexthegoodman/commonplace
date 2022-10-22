@@ -13,6 +13,7 @@ import { categoriesAndInterestsQuery } from "../graphql/queries/interest";
 import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
 import { useTranslation } from "next-i18next";
 import FormMessage from "../components/fields/FormMessage/FormMessage";
+import { updateFavoriteInterestMutation } from "../graphql/mutations/user";
 
 const getCategoriesAndInterestData = async (token) => {
   const gqlClient = new GQLClient(token);
@@ -43,8 +44,10 @@ export const PopularInterests = ({
   onConfirm = () => console.info("confirm"),
 }) => {
   const { t } = useTranslation();
-  const [cookies] = useCookies(["coUserToken"]);
+  const [cookies, setCookie] = useCookies(["coUserToken", "coFavInt"]);
   const token = cookies.coUserToken;
+
+  const gqlClient = new GQLClient(token);
 
   const { data } = useSWR("interestsKey", () =>
     getCategoriesAndInterestData(token)
@@ -61,6 +64,16 @@ export const PopularInterests = ({
     } else {
       router.back();
     }
+  };
+
+  const selectInterest = async (interestId) => {
+    await gqlClient.client.request(updateFavoriteInterestMutation, {
+      interestId,
+    });
+
+    setCookie("coFavInt", interestId);
+
+    location.reload();
   };
 
   return (
@@ -94,7 +107,11 @@ export const PopularInterests = ({
                     )[0];
 
                     return (
-                      <a href="#!" className="listItem">
+                      <a
+                        href="#!"
+                        className="listItem"
+                        onClick={() => selectInterest(interestData.id)}
+                      >
                         <span>{interest}</span>
                       </a>
                     );
@@ -122,7 +139,11 @@ export const PopularInterests = ({
                         <div className="categorySection">
                           {category.interests.map((interest) => {
                             return (
-                              <a href="#!" className="listItem">
+                              <a
+                                href="#!"
+                                className="listItem"
+                                onClick={() => selectInterest(interest.id)}
+                              >
                                 <span>{interest.name}</span>
                               </a>
                             );

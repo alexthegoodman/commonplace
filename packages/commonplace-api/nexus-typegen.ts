@@ -226,6 +226,7 @@ export interface NexusGenFieldTypes {
     deletePost: string; // String!
     deletePostAdmin: string; // String!
     registerUser: string; // String!
+    updateFavoriteInterest: string; // String!
     updatePost: NexusGenRootTypes['Post']; // Post!
     updateProfile: string; // String!
     updateUserLanguage: string; // String!
@@ -381,6 +382,7 @@ export interface NexusGenFieldTypeNames {
     deletePost: 'String'
     deletePostAdmin: 'String'
     registerUser: 'String'
+    updateFavoriteInterest: 'String'
     updatePost: 'Post'
     updateProfile: 'String'
     updateUserLanguage: 'String'
@@ -509,6 +511,9 @@ export interface NexusGenArgTypes {
     }
     deletePostAdmin: { // args
       postId: string; // String!
+    }
+    updateFavoriteInterest: { // args
+      interestId: string; // String!
     }
     updatePost: { // args
       description: string; // String!

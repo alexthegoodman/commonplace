@@ -37,6 +37,7 @@ __exportStar(require("./mutations/registerUser"), exports);
 __exportStar(require("./mutations/updatePost"), exports);
 __exportStar(require("./mutations/updateProfile"), exports);
 __exportStar(require("./mutations/updateUserLanguage"), exports);
+__exportStar(require("./mutations/updateFavoriteInterest"), exports);
 __exportStar(require("./queries/authenticate"), exports);
 __exportStar(require("./queries/getCategories"), exports);
 __exportStar(require("./queries/getDashboardData"), exports);

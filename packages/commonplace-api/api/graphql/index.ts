@@ -23,6 +23,7 @@ export * from "./mutations/registerUser";
 export * from "./mutations/updatePost";
 export * from "./mutations/updateProfile";
 export * from "./mutations/updateUserLanguage";
+export * from "./mutations/updateFavoriteInterest";
 
 export * from "./queries/authenticate";
 export * from "./queries/getCategories";

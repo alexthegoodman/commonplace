@@ -37,3 +37,9 @@ export const updateUserLanguageMutation = gql`
     updateUserLanguage(language: $language)
   }
 `;
+
+export const updateFavoriteInterestMutation = gql`
+  mutation UpdateFavoriteInterest($interestId: String!) {
+    updateFavoriteInterest(interestId: $interestId)
+  }
+`;
