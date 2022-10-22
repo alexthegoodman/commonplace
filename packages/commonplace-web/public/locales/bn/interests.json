@@ -1,6 +1,7 @@
 {
   "ui": {
     "allInterests": "সমস্ত আগ্রহ",
+    "pickFavoriteInterest": "প্রিয় বাছাই করুন",
     "errors": {
       "mustSelectInterest": "একটি আগ্রহ নির্বাচন করতে হবে."
     }

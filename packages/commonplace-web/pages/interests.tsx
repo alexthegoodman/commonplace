@@ -24,6 +24,127 @@ const getCategoriesAndInterestData = async (token) => {
   return categoriesAndInterestsData;
 };
 
+const popularInterestList = [
+  "Coloring",
+  "Scrapbooking",
+  "Decorating",
+  "Craft",
+  "Photography",
+  "Painting",
+  "Drawing",
+  "Sketching",
+  "Creative Writing",
+  "Poetry",
+  "Music",
+];
+
+export const PopularInterests = ({
+  onBack,
+  onConfirm = () => console.info("confirm"),
+}) => {
+  const { t } = useTranslation();
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
+
+  const { data } = useSWR("interestsKey", () =>
+    getCategoriesAndInterestData(token)
+  );
+
+  const router = useRouter();
+  const [showAllInterests, setShowAllInterests] = useState(false);
+
+  console.info("interests data", data);
+
+  const goBack = () => {
+    if (typeof onBack !== "undefined") {
+      onBack();
+    } else {
+      router.back();
+    }
+  };
+
+  return (
+    <section className="popularInterests">
+      <div className="popularInterestsInner">
+        <PrimaryHeader
+          inline={true}
+          leftIcon={
+            <a href="#!" onClick={goBack} aria-label="Go Back">
+              <i className="typcn typcn-arrow-left"></i>
+            </a>
+          }
+          title={t("interests:ui.pickFavoriteInterest")}
+          rightIcon={<></>}
+        />
+        <section className="interestSelector">
+          <div className="interestSelectorInner">
+            <span className="title">Popular Interests</span>
+            <div className="interestList popularList">
+              <div className="categorySection">
+                {data ? (
+                  popularInterestList.map((interest) => {
+                    const categoryData = data.getCategories.filter(
+                      (category) =>
+                        category.interests.filter(
+                          (int) => int.name === interest
+                        )[0]
+                    )[0];
+                    const interestData = categoryData.interests.filter(
+                      (int) => int.name === interest
+                    )[0];
+
+                    return (
+                      <a href="#!" className="listItem">
+                        <span>{interest}</span>
+                      </a>
+                    );
+                  })
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
+            <a
+              className="actionLink"
+              href="#!"
+              onClick={() => setShowAllInterests(!showAllInterests)}
+            >
+              See All Interests
+            </a>
+            {showAllInterests ? (
+              <div className="interestList completeList">
+                <span className="title">All Interests</span>
+                {data ? (
+                  data.getCategories.map((category) => {
+                    return (
+                      <>
+                        <span className="subTitle">{category.name}</span>
+                        <div className="categorySection">
+                          {category.interests.map((interest) => {
+                            return (
+                              <a href="#!" className="listItem">
+                                <span>{interest.name}</span>
+                              </a>
+                            );
+                          })}
+                        </div>
+                      </>
+                    );
+                  })
+                ) : (
+                  <></>
+                )}
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
+        </section>
+      </div>
+    </section>
+  );
+};
+
 export const InterestsContent = ({
   onBack,
   onConfirm = (selectedCategory, selectedInterest) => console.info("confirm"),

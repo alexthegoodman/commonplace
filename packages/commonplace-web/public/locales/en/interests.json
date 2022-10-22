@@ -2,6 +2,7 @@
   "ui": {
     "allInterests": "All Interests",
     "pickInterest": "Pick Interest",
+    "pickFavoriteInterest": "Pick Favorite",
     "noInterest": "No Interest Selected",
     "category": "Category",
     "interest": "Interest",

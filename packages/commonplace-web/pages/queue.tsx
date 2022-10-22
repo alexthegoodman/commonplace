@@ -20,7 +20,7 @@ import { userQuery } from "../graphql/queries/user";
 import { useImageUrl } from "../hooks/useImageUrl";
 import { usePreloadImage } from "../hooks/usePreloadImage";
 import { useUnreadThreads } from "../hooks/useUnreadThreads";
-import { InterestsContent } from "./interests";
+import { InterestsContent, PopularInterests } from "./interests";
 import { NextSeo } from "next-seo";
 import BrandName from "../components/layout/BrandName/BrandName";
 import { userThreadsQuery } from "../graphql/queries/thread";
@@ -58,7 +58,7 @@ const getPostsAndUserData = async (token, interestId = null) => {
   return returnData;
 };
 
-const QueueContent = ({ coUserLng }) => {
+const QueueContent = ({ coUserLng, coFavInt }) => {
   const { t } = useTranslation();
   const { cache } = useSWRConfig();
   const [cookies] = useCookies(["coUserToken"]);
@@ -94,6 +94,9 @@ const QueueContent = ({ coUserLng }) => {
   const [showInterestsModal, setShowInterestsModal] = useState(false);
   const [showLanguageModal, setShowLanguageModal] = useState(
     !coUserLng ? true : false
+  );
+  const [showFavoriteInterestModal, setShowFavoriteInterestModal] = useState(
+    !coFavInt ? true : false
   );
   const [creditUi, setCreditUi] = useState(data?.currentUser?.credit);
   const [impressionsEnabled, setImpressionsEnabled] = useState(true);
@@ -299,7 +302,17 @@ const QueueContent = ({ coUserLng }) => {
       ) : (
         <></>
       )}
-      {!showLanguageModal && !showInterestsModal ? (
+      {showFavoriteInterestModal && !showLanguageModal ? (
+        <>
+          <NextSeo title={`Choose Favorite Interest | CommonPlace`} />
+          <PopularInterests />
+        </>
+      ) : (
+        <></>
+      )}
+      {!showLanguageModal &&
+      !showInterestsModal &&
+      !showFavoriteInterestModal ? (
         <section className="queue">
           <div className="queueInner">
             <NextSeo title={`Queue | CommonPlace`} />
@@ -377,10 +390,11 @@ const QueueContent = ({ coUserLng }) => {
   );
 };
 
-const Queue: NextPage<{ fallback: any; coUserLng: string }> = ({
-  fallback,
-  coUserLng,
-}) => {
+const Queue: NextPage<{
+  fallback: any;
+  coUserLng: string;
+  coFavInt: string;
+}> = ({ fallback, coUserLng, coFavInt }) => {
   const [state, dispatch] = useReducer(QueueContextReducer, QueueContextState);
 
   return (
@@ -388,7 +402,7 @@ const Queue: NextPage<{ fallback: any; coUserLng: string }> = ({
       <SWRConfig
         value={{ fallback, revalidateOnMount: true, refreshWhenHidden: true }}
       >
-        <QueueContent coUserLng={coUserLng} />
+        <QueueContent coUserLng={coUserLng} coFavInt={coFavInt} />
       </SWRConfig>
     </QueueContext.Provider>
   );
@@ -425,6 +439,8 @@ export async function getServerSideProps(context) {
         typeof cookieData.coUserLng !== "undefined"
           ? cookieData.coUserLng
           : null,
+      coFavInt:
+        typeof cookieData.coFavInt !== "undefined" ? cookieData.coFavInt : null,
       ...(await serverSideTranslations(
         locale,
         ["interests", "impressions", "settings", "common"],
