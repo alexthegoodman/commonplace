@@ -96,6 +96,7 @@ const QueueContent = ({ coUserLng }) => {
     !coUserLng ? true : false
   );
   const [creditUi, setCreditUi] = useState(data?.currentUser?.credit);
+  const [impressionsEnabled, setImpressionsEnabled] = useState(true);
 
   const postAnimation = useAnimation();
   const betweenPostAnimation = useAnimation();
@@ -191,6 +192,12 @@ const QueueContent = ({ coUserLng }) => {
     if (queueFinished) {
       return;
     }
+    if (!impressionsEnabled) {
+      alert(t("common:messages.pleaseView5Seconds"));
+      return;
+    }
+
+    setImpressionsEnabled(false);
 
     setCreditUi(creditUi + 1);
     setCurrentImpression(impression);
@@ -218,6 +225,11 @@ const QueueContent = ({ coUserLng }) => {
     // console.info("savedImpression", savedImpression);
 
     await openQueueItemAnimation();
+
+    // start impression delay timer
+    setTimeout(() => {
+      setImpressionsEnabled(true);
+    }, 5000);
   };
 
   const { unreadThreads, unreadThreadCount } = useUnreadThreads(

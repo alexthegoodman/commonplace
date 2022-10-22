@@ -3,6 +3,9 @@
     "queue": "Check out other interests or upload a post!",
     "updates": "Give Impressions. Upload Content. Gain Matches!"
   },
+  "messages": {
+    "pleaseView5Seconds": "Please view a post for at least 5 seconds before giving an impression!"
+  },
   "credits": "Credits",
   "upload": "Upload",
   "queue": "Queue",
