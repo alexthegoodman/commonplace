@@ -16,6 +16,7 @@ export class GQLClient {
       headers: {
         Authorization: "Bearer " + this.token,
       },
+      timeout: 10000, // 10s
     });
   }
 }
