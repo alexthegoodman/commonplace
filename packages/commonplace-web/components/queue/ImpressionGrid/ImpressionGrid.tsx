@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { adjectives } from "../../../../commonplace-utilities/def/adjectives";
 import impressions from "../../../../commonplace-utilities/def/impressions";
 import FormTextarea from "../../fields/FormTextarea/FormTextarea";
+import CreditCounter from "../CreditCounter/CreditCounter";
 
 import { ImpressionGridProps } from "./ImpressionGrid.d";
 
@@ -47,11 +48,7 @@ const ImpressionGrid: React.FC<ImpressionGridProps> = ({
       className="impressionGridWrapper darkMode"
       aria-label="Impression Board"
     >
-      <div className="creditCounter">
-        <span>
-          {creditCount} {t(`common:credits`)}
-        </span>
-      </div>
+      <CreditCounter creditCount={creditCount} />
       <div className="gridToolbar">
         <span className="gridLabel">{t("impressions:ui.board.prompt")}</span>
         <div className="gridCategories">

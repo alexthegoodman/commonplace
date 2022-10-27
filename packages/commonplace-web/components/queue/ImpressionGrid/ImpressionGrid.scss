@@ -27,21 +27,6 @@
 
   z-index: 5;
 
-  .creditCounter {
-    position: absolute;
-    top: -50px;
-    right: 15px;
-    text-align: right;
-    width: fit-content;
-    padding: 15px;
-    background: white;
-    border-radius: 50px;
-
-    span {
-      font-weight: 600;
-    }
-  }
-
   .gridToolbar {
     .gridLabel {
       display: block;

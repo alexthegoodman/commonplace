@@ -10,8 +10,12 @@ const BrandName: React.FC<BrandNameProps> = ({
   const clickHandler = (e: MouseEvent) => onClick(e);
   return (
     <div className="brandnameWrapper">
-      <span className="brandname mobileOnly">Co</span>
-      <span className="brandname desktopOnly">CommonPlace</span>
+      <span className="brandname mobileOnly">
+        <img src="/logoMini.png" alt="CommonPlace Mini Logo" />
+      </span>
+      <span className="brandname desktopOnly">
+        <img src="/wordmarkWhiteMini.png" alt="CommonPlace Logo" />
+      </span>
     </div>
   );
 };

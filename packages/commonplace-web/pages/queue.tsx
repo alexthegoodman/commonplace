@@ -30,6 +30,7 @@ import nextI18NextConfig from "../next-i18next.config.js";
 import { useTranslation } from "next-i18next";
 import LanguagePicker from "../components/queue/LanguagePicker/LanguagePicker";
 import ImpressionTicker from "../components/post/ImpressionTicker/ImpressionTicker";
+import PickerButton from "../components/queue/PickerButton/PickerButton";
 
 const getPostsAndUserData = async (token, interestId = null) => {
   const gqlClient = new GQLClient(token);
@@ -327,17 +328,10 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
                 </>
               }
               titleComponent={
-                <a
-                  className="pickerButton"
-                  href="#!"
-                  onClick={onSelectInterestClick}
-                  aria-label="Select Interest"
-                >
-                  <i className="typcn typcn-point-of-interest"></i>
-                  {selectedInterest === null
-                    ? t("interests:ui.allInterests")
-                    : selectedInterest?.name}
-                </a>
+                <PickerButton
+                  onSelectInterestClick={onSelectInterestClick}
+                  selectedInterest={selectedInterest}
+                />
               }
               rightIcon={
                 <PrimaryNavigation
