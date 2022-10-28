@@ -277,6 +277,7 @@ export interface NexusGenFieldTypes {
     getCategories: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
     getDashboardData: NexusGenRootTypes['Dashboard'] | null; // Dashboard
     getDashboardPosts: Array<NexusGenRootTypes['ManagePost'] | null> | null; // [ManagePost]
+    getExplorePosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     getPostByPostTitle: NexusGenRootTypes['PublicPost'] | null; // PublicPost
     getPostImpressions: Array<NexusGenRootTypes['Message'] | null>; // [Message]!
     getPostURLs: Array<string | null> | null; // [String]
@@ -433,6 +434,7 @@ export interface NexusGenFieldTypeNames {
     getCategories: 'Category'
     getDashboardData: 'Dashboard'
     getDashboardPosts: 'ManagePost'
+    getExplorePosts: 'Post'
     getPostByPostTitle: 'PublicPost'
     getPostImpressions: 'Message'
     getPostURLs: 'String'
@@ -536,6 +538,9 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    getExplorePosts: { // args
+      interestId?: string | null; // String
+    }
     getPostByPostTitle: { // args
       postTitle: string; // String!
     }

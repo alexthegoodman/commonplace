@@ -137,6 +137,7 @@ type Query {
   getCategories: [Category]
   getDashboardData: Dashboard
   getDashboardPosts: [ManagePost]
+  getExplorePosts(interestId: String): [Post]
   getPostByPostTitle(postTitle: String!): PublicPost
   getPostImpressions(postTitle: String!): [Message]!
   getPostURLs: [String]

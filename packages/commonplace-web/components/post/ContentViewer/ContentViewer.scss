@@ -24,6 +24,10 @@
       // position: absolute;
     }
   }
+
+  &.mini {
+    min-height: auto;
+  }
 }
 
 @media screen and (min-width: $desktopWidth) {

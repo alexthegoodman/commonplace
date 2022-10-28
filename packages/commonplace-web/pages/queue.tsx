@@ -15,7 +15,7 @@ import {
   QueueContextState,
 } from "../context/QueueContext/QueueContext";
 import { createMessageMutation } from "../graphql/mutations/message";
-import { queuePostsQuery } from "../graphql/queries/post";
+import { explorePostsQuery, queuePostsQuery } from "../graphql/queries/post";
 import { userQuery } from "../graphql/queries/user";
 import { useImageUrl } from "../hooks/useImageUrl";
 import { usePreloadImage } from "../hooks/usePreloadImage";
@@ -32,6 +32,8 @@ import LanguagePicker from "../components/queue/LanguagePicker/LanguagePicker";
 import ImpressionTicker from "../components/post/ImpressionTicker/ImpressionTicker";
 import PickerButton from "../components/queue/PickerButton/PickerButton";
 import ViewSwitcher from "../components/queue/ViewSwitcher/ViewSwitcher";
+import { useRouter } from "next/router";
+import Masonry from "react-responsive-masonry";
 
 const getPostsAndUserData = async (token, interestId = null) => {
   const gqlClient = new GQLClient(token);
@@ -39,6 +41,10 @@ const getPostsAndUserData = async (token, interestId = null) => {
   const userData = await gqlClient.client.request(userQuery);
 
   const postsData = await gqlClient.client.request(queuePostsQuery, {
+    interestId,
+  });
+
+  const explorePostsData = await gqlClient.client.request(explorePostsQuery, {
     interestId,
   });
 
@@ -52,6 +58,7 @@ const getPostsAndUserData = async (token, interestId = null) => {
   const returnData = {
     currentUser: userData.getUser,
     posts: postsData.getQueuePosts,
+    explorePosts: explorePostsData.getExplorePosts,
     threads,
   };
 
@@ -62,6 +69,7 @@ const getPostsAndUserData = async (token, interestId = null) => {
 
 const QueueContent = ({ coUserLng, coFavInt }) => {
   const { t } = useTranslation();
+  const router = useRouter();
   const { cache } = useSWRConfig();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
@@ -105,6 +113,8 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
 
   const postAnimation = useAnimation();
   const betweenPostAnimation = useAnimation();
+  const exploreAnimation = useAnimation();
+  const queueAnimation = useAnimation();
 
   useEffect(() => {
     // TODO: wrap up animations into hookss
@@ -124,6 +134,28 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
       y: 0,
       // transition: { delay: i * 1.5 - 1 },
     }));
+
+    if (router.query.view === "explore") {
+      exploreAnimation.start((i) => ({
+        opacity: 1,
+        y: 0,
+      }));
+
+      queueAnimation.start((i) => ({
+        opacity: 0,
+        y: 0,
+      }));
+    } else {
+      exploreAnimation.start((i) => ({
+        opacity: 0,
+        y: 0,
+      }));
+
+      queueAnimation.start((i) => ({
+        opacity: 1,
+        y: 0,
+      }));
+    }
   }, []);
 
   useEffect(() => {
@@ -342,35 +374,58 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
                 />
               }
             />
-            <main className="scrollContainer queueScrollContainer">
-              {!queueFinished ? (
-                <div className="displayPost currentPost">
-                  <motion.div
-                    custom={0}
-                    animate={postAnimation}
-                    // initial={{ opacity: 0 }}
-                  >
-                    <ContentViewer
-                      type={currentPost?.contentType}
-                      preview={currentPost?.contentPreview}
-                      content={currentPost?.content}
-                    />
-                  </motion.div>
-                  <motion.div custom={1} animate={postAnimation}>
-                    <ContentInformation queue={true} post={currentPost} />
-                  </motion.div>
-                </div>
-              ) : (
-                <div className="emptyMessage queueEmptyMessage">
-                  <span>{t("common:empty.queue")}</span>
-                </div>
-              )}
-            </main>
+            <motion.div
+              className="queueAnimationContainer"
+              animate={queueAnimation}
+              initial={{ opacity: 0 }}
+            >
+              <main className="scrollContainer queueScrollContainer">
+                {!queueFinished ? (
+                  <div className="displayPost currentPost">
+                    <motion.div
+                      custom={0}
+                      animate={postAnimation}
+                      // initial={{ opacity: 0 }}
+                    >
+                      <ContentViewer
+                        type={currentPost?.contentType}
+                        preview={currentPost?.contentPreview}
+                        content={currentPost?.content}
+                      />
+                    </motion.div>
+                    <motion.div custom={1} animate={postAnimation}>
+                      <ContentInformation queue={true} post={currentPost} />
+                    </motion.div>
+                  </div>
+                ) : (
+                  <div className="emptyMessage queueEmptyMessage">
+                    <span>{t("common:empty.queue")}</span>
+                  </div>
+                )}
+              </main>
 
-            <ImpressionGrid
-              creditCount={creditUi}
-              onClick={impressionClickHandler}
-            />
+              <ImpressionGrid
+                creditCount={creditUi}
+                onClick={impressionClickHandler}
+              />
+            </motion.div>
+            <motion.div
+              animate={exploreAnimation}
+              className="queueAnimationContainer"
+              initial={{ opacity: 0 }}
+            >
+              <Masonry columnsCount={3} gutter="2px">
+                {data?.explorePosts.map((post, i) => (
+                  <ContentViewer
+                    alt={""}
+                    type={post.contentType}
+                    preview={post.contentPreview}
+                    content={post.content}
+                    mini={true}
+                  />
+                ))}
+              </Masonry>
+            </motion.div>
             {/* <ImpressionWheel /> */}
           </div>
           <motion.div custom={1} animate={betweenPostAnimation}>

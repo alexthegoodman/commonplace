@@ -35,6 +35,7 @@ export * from "./queries/getPostsByUsername";
 export * from "./queries/getPostURLs";
 export * from "./queries/getProfileURLs";
 export * from "./queries/getQueuePosts";
+export * from "./queries/getExplorePosts";
 export * from "./queries/getThreadById";
 export * from "./queries/getUser";
 export * from "./queries/getUserByPostTitle";

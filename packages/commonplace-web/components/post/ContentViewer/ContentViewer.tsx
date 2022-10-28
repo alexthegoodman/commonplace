@@ -22,7 +22,7 @@ const ContentViewer: React.FC<ContentViewerProps> = ({
   console.info("contentviewer", preview, content);
 
   return (
-    <section className="contentViewer">
+    <section className={`contentViewer ${mini ? "mini" : "full"}`}>
       <div className="contentViewerInner">
         {type === "image" ? (
           <ImageViewer mini={mini} alt={alt} sourceUrl={content} />
