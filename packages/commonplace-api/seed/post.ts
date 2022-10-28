@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import faker from "@faker-js/faker";
 import slugify from "slugify";
+import { nanoid } from "nanoid";
 
 const prisma = new PrismaClient();
 
@@ -24,7 +25,7 @@ export default async function seedPosts(users, interests) {
           "As shifting forms become distorted through emergent and critical practice, the viewer is left with an epitaph for the outposts of our era.",
         contentType: "image",
         contentPreview: "",
-        generatedTitleSlug: slugify("The Willow House"),
+        generatedTitleSlug: slugify("The Willow House") + nanoid(),
         content: testImages[0],
         interestId: interests.filter(
           (interest) => interest.name === "Painting"
@@ -36,7 +37,7 @@ export default async function seedPosts(users, interests) {
         description: "It builds depth and complexity",
         contentType: "video",
         contentPreview: "",
-        generatedTitleSlug: slugify("Chinese Stir Fry"),
+        generatedTitleSlug: slugify("Chinese Stir Fry") + nanoid(),
         content: "2022/09/Chinese - 11700-h-faAYfQRj.mp4",
         interestId: interests.filter(
           (interest) => interest.name === "Chinese"
@@ -48,7 +49,7 @@ export default async function seedPosts(users, interests) {
         description: "",
         contentType: "image",
         contentPreview: "",
-        generatedTitleSlug: slugify("Like a Starry Night"),
+        generatedTitleSlug: slugify("Like a Starry Night") + nanoid(),
         content: testImages[1],
         interestId: interests.filter(
           (interest) => interest.name === "Painting"
@@ -61,7 +62,7 @@ export default async function seedPosts(users, interests) {
           "My work explores the relationship between Critical theory and UFO sightings.",
         contentType: "audio",
         contentPreview: "2022/09/music1-Hdz1r_1-QH.jpg",
-        generatedTitleSlug: slugify("Tuesday (GlitchSoftHip-hop)"),
+        generatedTitleSlug: slugify("Tuesday (GlitchSoftHip-hop)") + nanoid(),
         content:
           "2022/09/Tuesday-(GlitchSoftHip-hop)-amaksi-pixabay-HIlQb3bzGW.mp3",
         interestId: interests.filter(
@@ -75,7 +76,7 @@ export default async function seedPosts(users, interests) {
           "The Elements explores the relationship between earth, wind, and sea.",
         contentType: "image",
         contentPreview: "",
-        generatedTitleSlug: slugify("The Elements as One"),
+        generatedTitleSlug: slugify("The Elements as One") + nanoid(),
         content: testImages[2],
         interestId: interests.filter(
           (interest) => interest.name === "Drawing"
@@ -87,7 +88,7 @@ export default async function seedPosts(users, interests) {
         description: "Chopping some food. Hope you like",
         contentType: "video",
         contentPreview: "",
-        generatedTitleSlug: slugify("Chop Master!"),
+        generatedTitleSlug: slugify("Chop Master!") + nanoid(),
         content: "2022/09/Chop - 11638-f7vKlmN_8v.mp4",
         interestId: interests.filter(
           (interest) => interest.name === "Cooking"
@@ -99,7 +100,7 @@ export default async function seedPosts(users, interests) {
         description: "",
         contentType: "image",
         contentPreview: "",
-        generatedTitleSlug: slugify("Happy Flower"),
+        generatedTitleSlug: slugify("Happy Flower") + nanoid(),
         content: testImages[3],
         interestId: interests.filter(
           (interest) => interest.name === "Drawing"
@@ -112,7 +113,7 @@ export default async function seedPosts(users, interests) {
           "As momentary derivatives become clarified through emergent and repetitive practice, the viewer is left with a testament to the darkness of our existence.",
         contentType: "audio",
         contentPreview: "2022/09/music2-pyPLFtD0mN.jpg",
-        generatedTitleSlug: slugify("audio #2"),
+        generatedTitleSlug: slugify("audio #2") + nanoid(),
         content:
           "2022/09/Leonell-Cassio-TheBlackestBouquet-LeonellCassio-pixabay-7i7XmfbUVN.mp3",
         interestId: interests.filter(
@@ -125,7 +126,7 @@ export default async function seedPosts(users, interests) {
         description: "",
         contentType: "image",
         contentPreview: "",
-        generatedTitleSlug: slugify("Practice 03"),
+        generatedTitleSlug: slugify("Practice 03") + nanoid(),
         content: testImages[4],
         interestId: interests.filter(
           (interest) => interest.name === "Cricket"
@@ -137,7 +138,7 @@ export default async function seedPosts(users, interests) {
         description: "",
         contentType: "image",
         contentPreview: "",
-        generatedTitleSlug: slugify("Practice 04"),
+        generatedTitleSlug: slugify("Practice 04") + nanoid(),
         content: testImages[5],
         interestId: interests.filter(
           (interest) => interest.name === "Cricket"

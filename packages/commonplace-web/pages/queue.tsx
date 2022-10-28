@@ -143,12 +143,12 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
 
       queueAnimation.start((i) => ({
         opacity: 0,
-        y: 0,
+        y: -15,
       }));
     } else {
       exploreAnimation.start((i) => ({
         opacity: 0,
-        y: 0,
+        y: -15,
       }));
 
       queueAnimation.start((i) => ({
@@ -313,6 +313,36 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
     // need to refresh data with new interest
   };
 
+  const switchView = (selection) => {
+    if (selection) {
+      router.push(router.pathname, { query: { view: "queue" } });
+
+      // queue
+      exploreAnimation.start((i) => ({
+        opacity: 0,
+        y: -15,
+      }));
+
+      queueAnimation.start((i) => ({
+        opacity: 1,
+        y: 0,
+      }));
+    } else {
+      router.push(router.pathname, { query: { view: "explore" } });
+
+      // explore
+      exploreAnimation.start((i) => ({
+        opacity: 1,
+        y: 0,
+      }));
+
+      queueAnimation.start((i) => ({
+        opacity: 0,
+        y: -15,
+      }));
+    }
+  };
+
   // console.info("see object", t("common:empty", { returnObjects: true }));
 
   return (
@@ -354,7 +384,11 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
               leftIcon={
                 <div className="leftHeaderContainer">
                   <BrandName />
-                  <ViewSwitcher className="mobileOnly" />
+                  <ViewSwitcher
+                    initialView={router.query.view}
+                    onClick={switchView}
+                    className="mobileOnly"
+                  />
                   <PrimaryNavigation
                     className="desktopOnly"
                     threadCount={unreadThreadCount}

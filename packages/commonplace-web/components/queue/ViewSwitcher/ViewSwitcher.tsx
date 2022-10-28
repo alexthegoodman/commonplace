@@ -5,9 +5,17 @@ import { ViewSwitcherProps } from "./ViewSwitcher.d";
 const ViewSwitcher: React.FC<ViewSwitcherProps> = ({
   ref = null,
   className = "",
-  onClick = (e) => console.info("Click ViewSwitcher"),
+  onClick = (selection) => console.info("Click ViewSwitcher"),
+  initialView = "queue",
 }) => {
-  const [toggleSelection, setToggleSelection] = React.useState(true);
+  const [toggleSelection, setToggleSelection] = React.useState(
+    initialView === "queue" ? true : false
+  );
+
+  const onToggle = (e) => {
+    setToggleSelection(!toggleSelection);
+    onClick(!toggleSelection);
+  };
 
   return (
     <section className={`viewSwitcher ${className}`}>
@@ -19,14 +27,14 @@ const ViewSwitcher: React.FC<ViewSwitcherProps> = ({
         <a
           href="#!"
           className={`${toggleSelection ? "selected" : ""}`}
-          onClick={() => setToggleSelection(!toggleSelection)}
+          onClick={onToggle}
         >
           <i className="typcn typcn-th-menu"></i>
         </a>
         <a
           href="#!"
           className={`${!toggleSelection ? "selected" : ""}`}
-          onClick={() => setToggleSelection(!toggleSelection)}
+          onClick={onToggle}
         >
           <i className="typcn typcn-th-small"></i>
         </a>

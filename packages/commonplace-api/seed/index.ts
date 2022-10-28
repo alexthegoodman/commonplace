@@ -12,6 +12,11 @@ async function main() {
   const { users } = await seedUsers();
   const { categories, interests } = await seedInterests();
   const { posts } = await seedPosts(users, interests);
+  await seedPosts(users, interests);
+  await seedPosts(users, interests);
+  await seedPosts(users, interests);
+  await seedPosts(users, interests);
+  await seedPosts(users, interests);
   const { thread1, thread2 } = await seedThreads(users, posts);
 }
 
