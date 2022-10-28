@@ -1,0 +1,59 @@
+.viewSwitcher {
+  width: 40px;
+  height: 80px;
+  background-color: $headerWhite;
+  border-radius: 50px;
+  margin-top: 15px;
+  margin-left: 2.5px;
+
+  .viewSwitcherInner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &:before {
+      content: " ";
+      width: 35px;
+      height: 35px;
+      position: absolute;
+      background: $brandGradient;
+      border-radius: 50%;
+
+      left: 2.5px;
+      z-index: 1;
+      transition: all 0.2s;
+    }
+    &.queueSelected {
+      &:before {
+        top: 2.5px;
+        transition: all 0.2s;
+      }
+    }
+    &.exploreSelected {
+      &:before {
+        top: 42.5px;
+        transition: all 0.2s;
+      }
+    }
+    a {
+      text-decoration: none;
+      position: relative;
+      z-index: 3;
+      padding-top: 6px !important;
+      display: block;
+      height: 40px;
+      width: 40px;
+
+      i {
+        color: black;
+        font-size: 22px !important;
+      }
+
+      &.selected {
+        i {
+          color: white;
+        }
+      }
+    }
+  }
+}

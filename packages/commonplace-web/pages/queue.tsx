@@ -31,6 +31,7 @@ import { useTranslation } from "next-i18next";
 import LanguagePicker from "../components/queue/LanguagePicker/LanguagePicker";
 import ImpressionTicker from "../components/post/ImpressionTicker/ImpressionTicker";
 import PickerButton from "../components/queue/PickerButton/PickerButton";
+import ViewSwitcher from "../components/queue/ViewSwitcher/ViewSwitcher";
 
 const getPostsAndUserData = async (token, interestId = null) => {
   const gqlClient = new GQLClient(token);
@@ -319,13 +320,14 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
             <NextSeo title={`Queue | CommonPlace`} />
             <PrimaryHeader
               leftIcon={
-                <>
+                <div className="leftHeaderContainer">
                   <BrandName />
+                  <ViewSwitcher className="mobileOnly" />
                   <PrimaryNavigation
                     className="desktopOnly"
                     threadCount={unreadThreadCount}
                   />
-                </>
+                </div>
               }
               titleComponent={
                 <PickerButton
