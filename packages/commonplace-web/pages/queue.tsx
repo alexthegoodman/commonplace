@@ -222,7 +222,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
     (post, x) => post.id === currentPost?.id
   );
 
-  console.info("currentPost", currentPostIndex, queuePostId, currentPost);
+  // console.info("currentPost", currentPostIndex, queuePostId, currentPost);
 
   useEffect(() => {
     if (typeof currentPost?.id === "undefined") {

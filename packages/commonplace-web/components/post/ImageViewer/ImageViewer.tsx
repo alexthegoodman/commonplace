@@ -52,7 +52,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
   const [dragEngaged, setDragEngaged] = React.useState(false);
   const [initialPageY, setInitialPageY] = React.useState<any>(null);
 
-  console.info("imageHeight", imageHeight);
+  // console.info("imageHeight", imageHeight);
 
   React.useEffect(() => {
     setImageSize((height) => {
@@ -64,13 +64,13 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
   }, []);
 
   const controlsDragDown = () => {
-    console.info("controlsDragDown");
+    // console.info("controlsDragDown");
     setDragEngaged(true);
     disableScroll();
   };
 
   const controlsDragUp = () => {
-    console.info("controlsDragUp");
+    // console.info("controlsDragUp");
     setDragEngaged(false);
     enableScroll();
 
@@ -81,7 +81,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
   const controlsDragMove = (e: React.TouchEvent<HTMLDivElement>) => {
     // e.preventDefault();
     // e.stopPropagation();
-    console.info("controlsDragMove", e.changedTouches[0]);
+    // console.info("controlsDragMove", e.changedTouches[0]);
     const touch = e.changedTouches[0];
     dragMove(touch);
   };
@@ -94,7 +94,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
     if (dragEngaged) {
       if (initialPageY && initialPageY > 0) {
         const heightDelta = touch.pageY - initialPageY;
-        console.info("height", containerHeight, heightDelta);
+        // console.info("height", containerHeight, heightDelta);
         // const height =
         //   containerHeight !== 0 ? containerHeight : initialContainerHeight;
         const newHeight = imageHeight + heightDelta;

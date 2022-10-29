@@ -19,7 +19,7 @@ const ContentViewer: React.FC<ContentViewerProps> = ({
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
 
-  console.info("contentviewer", preview, content);
+  // console.info("contentviewer", preview, content);
 
   return (
     <section className={`contentViewer ${mini ? "mini" : "full"}`}>
