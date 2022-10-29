@@ -37,7 +37,7 @@ export const ExplorePostsQuery = extendType({
             createdAt: "desc",
           },
           take: 20,
-          skip: 20 * page - 1,
+          skip: 20 * (page - 1),
         });
 
         // console.info("getExplorePosts", posts);

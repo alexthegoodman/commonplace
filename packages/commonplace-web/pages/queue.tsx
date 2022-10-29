@@ -116,17 +116,46 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
   const [creditUi, setCreditUi] = useState(data?.currentUser?.credit);
   const [impressionsEnabled, setImpressionsEnabled] = useState(true);
 
+  // useEffect(() => {
+  //   // set initial explorePosts data
+  //   if (explorePostsData === null) {
+  //     setExplorePostsData(data?.explorePosts);
+  //   }
+  // }, [data?.explorePosts]);
+
   useEffect(() => {
-    // set initial explorePosts data
-    if (explorePostsData === null) {
-      setExplorePostsData(data?.explorePosts);
-    }
-  }, [data?.explorePosts]);
+    // set new interest filter
+    setExplorePostsData(data?.explorePosts);
+  }, [data]);
 
   const postAnimation = useAnimation();
   const betweenPostAnimation = useAnimation();
   const exploreAnimation = useAnimation();
   const queueAnimation = useAnimation();
+
+  const showInitialView = async () => {
+    if (router.query.view === "explore") {
+      await exploreAnimation.start((i) => ({
+        opacity: 1,
+        y: 0,
+      }));
+
+      await queueAnimation.start((i) => ({
+        opacity: 0,
+        y: -15,
+      }));
+    } else {
+      await exploreAnimation.start((i) => ({
+        opacity: 0,
+        y: -15,
+      }));
+
+      await queueAnimation.start((i) => ({
+        opacity: 1,
+        y: 0,
+      }));
+    }
+  };
 
   useEffect(() => {
     // TODO: wrap up animations into hookss
@@ -147,27 +176,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
       // transition: { delay: i * 1.5 - 1 },
     }));
 
-    if (router.query.view === "explore") {
-      exploreAnimation.start((i) => ({
-        opacity: 1,
-        y: 0,
-      }));
-
-      queueAnimation.start((i) => ({
-        opacity: 0,
-        y: -15,
-      }));
-    } else {
-      exploreAnimation.start((i) => ({
-        opacity: 0,
-        y: -15,
-      }));
-
-      queueAnimation.start((i) => ({
-        opacity: 1,
-        y: 0,
-      }));
-    }
+    showInitialView();
   }, []);
 
   useEffect(() => {
@@ -359,35 +368,52 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
   return (
     <>
       {showInterestsModal ? (
-        <>
+        <section
+          className="fullModal"
+          style={{
+            zIndex: 100,
+          }}
+        >
           <NextSeo title={`Select Interest | CommonPlace`} />
           <InterestsContent
             onBack={onCloseInterests}
             onConfirm={onConfirmInterest}
           />
-        </>
+        </section>
       ) : (
         <></>
       )}
       {showLanguageModal ? (
-        <>
+        <section
+          className="fullModal"
+          style={{
+            zIndex: 90,
+          }}
+        >
           <NextSeo title={`Choose Language | CommonPlace`} />
           <LanguagePicker />
-        </>
+        </section>
       ) : (
         <></>
       )}
       {showFavoriteInterestModal && !showLanguageModal ? (
-        <>
+        <section
+          className="fullModal"
+          style={{
+            zIndex: 80,
+          }}
+        >
           <NextSeo title={`Choose Favorite Interest | CommonPlace`} />
           <PopularInterests />
-        </>
+        </section>
       ) : (
         <></>
       )}
-      {!showLanguageModal &&
-      !showInterestsModal &&
-      !showFavoriteInterestModal ? (
+      {
+        // !showLanguageModal &&
+        // !showInterestsModal &&
+        // !showFavoriteInterestModal ?
+        //(
         <section className="queue">
           <div className="queueInner">
             <NextSeo title={`Queue | CommonPlace`} />
@@ -479,9 +505,10 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
             </div>
           </motion.div>
         </section>
-      ) : (
-        <></>
-      )}
+        // ) : (
+        //   <></>
+        // )
+      }
     </>
   );
 };
