@@ -474,7 +474,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
               }
             />
             <motion.div
-              className="queueAnimationContainer"
+              className="animationContainer queueAnimationContainer"
               animate={queueAnimation}
               initial={{ opacity: 0 }}
             >
@@ -510,7 +510,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
             </motion.div>
             <motion.div
               animate={exploreAnimation}
-              className="queueAnimationContainer"
+              className="animationContainer"
               initial={{ opacity: 0 }}
               ref={rootRef}
             >
