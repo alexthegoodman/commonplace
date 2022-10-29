@@ -14,10 +14,7 @@ import {
   QueueContextReducer,
   QueueContextState,
 } from "../context/QueueContext/QueueContext";
-import {
-  createImpressionMutation,
-  createMessageMutation,
-} from "../graphql/mutations/message";
+import { createImpressionMutation } from "../graphql/mutations/message";
 import { explorePostsQuery, queuePostsQuery } from "../graphql/queries/post";
 import { userQuery } from "../graphql/queries/user";
 import { useImageUrl } from "../hooks/useImageUrl";
@@ -103,6 +100,9 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
   const firstId = data?.posts[0]?.id;
 
   // const [queueIndex, setQueueIndex] = useState(0);
+  const [currentView, setCurrentView] = useState<string | null>(
+    router.query.view
+  );
   const [exploreHasMore, setExploreHasMore] = useState(true);
   const [explorePostsPage, setExplorePostsPage] = useState(1);
   const [explorePostsData, setExplorePostsData] = useState<any[]>([]);
@@ -186,6 +186,22 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
   };
 
   useEffect(() => {
+    const handleRouteChange = (url) => {
+      if (url === "/queue?view=explore") {
+        setCurrentView("explore");
+      } else {
+        setCurrentView("queue");
+      }
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, []);
+
+  useEffect(() => {
     // TODO: wrap up animations into hookss
     betweenPostAnimation.set((i) => ({
       opacity: 0,
@@ -251,13 +267,13 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
     await postAnimation.start((i) => ({
       opacity: 0,
       y: 5,
-      // transition: { delay: 1 + i * 0.15 },
+      transition: { duration: 0.5 },
     }));
 
     await betweenPostAnimation.start((i) => ({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }, // TODO: FLASHES at end
+      transition: { delay: 0.5, duration: 0.5 }, // TODO: FLASHES at end
     }));
   };
 
@@ -270,7 +286,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
     await postAnimation.start((i) => ({
       opacity: 1,
       y: 0,
-      // transition: { delay: i * 1.5 - 1 },
+      transition: { duration: 0.5 },
     }));
   };
 
@@ -291,30 +307,34 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
     await closeQueueItemAnimation();
 
     // setQueueIndex(queueIndex + 1);
+    setTimeout(async () => {
+      // setQueuePostId(nextPostId);
+      mutate(() => getPostsAndUserData(token, selectedInterest?.id)); // refresh swrr
+      // // TODO: send impression message
+      // // const authorUsername = data?.currentUser?.generatedUsername;
+      const postCreatorUsername = currentPost?.creator?.generatedUsername;
 
-    // setQueuePostId(nextPostId);
-    mutate(() => getPostsAndUserData(token, selectedInterest?.id)); // refresh swrr
-    // TODO: send impression message
-    // const authorUsername = data?.currentUser?.generatedUsername;
-    const postCreatorUsername = currentPost?.creator?.generatedUsername;
+      const savedImpression = await gqlClient.client.request(
+        createImpressionMutation,
+        {
+          content: impression,
+          postCreatorUsername,
+          postId: currentPost?.id,
+        }
+      );
 
-    const savedImpression = await gqlClient.client.request(
-      createImpressionMutation,
-      {
-        content: impression,
-        postCreatorUsername,
-        postId: currentPost?.id,
-      }
-    );
+      setTimeout(async () => {
+        // console.info("savedImpression", savedImpression);
 
-    // console.info("savedImpression", savedImpression);
+        await openQueueItemAnimation();
+        setCurrentImpression("");
 
-    await openQueueItemAnimation();
-
-    // start impression delay timer
-    setTimeout(() => {
-      setImpressionsEnabled(true);
-    }, 5000);
+        // start impression delay timer
+        setTimeout(() => {
+          setImpressionsEnabled(true);
+        }, 4000);
+      }, 1000);
+    }, 500);
   };
 
   const { unreadThreads, unreadThreadCount } = useUnreadThreads(
@@ -484,7 +504,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
                     <motion.div
                       custom={0}
                       animate={postAnimation}
-                      // initial={{ opacity: 0 }}
+                      initial={{ opacity: 0, y: -15 }}
                     >
                       <ContentViewer
                         type={currentPost?.contentType}
@@ -492,7 +512,11 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
                         content={currentPost?.content}
                       />
                     </motion.div>
-                    <motion.div custom={1} animate={postAnimation}>
+                    <motion.div
+                      custom={1}
+                      animate={postAnimation}
+                      initial={{ opacity: 0, y: -15 }}
+                    >
                       <ContentInformation queue={true} post={currentPost} />
                     </motion.div>
                   </div>
@@ -529,11 +553,19 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
             </motion.div>
             {/* <ImpressionWheel /> */}
           </div>
-          <motion.div custom={1} animate={betweenPostAnimation}>
-            <div className="fullscreenMessage">
-              <span>{currentImpression}</span>
-            </div>
-          </motion.div>
+          {currentView !== "explore" && currentImpression !== "" ? (
+            <motion.div
+              custom={1}
+              initial={{ opacity: 0, y: -5 }}
+              animate={betweenPostAnimation}
+            >
+              <div className="fullscreenMessage">
+                <span>{currentImpression}</span>
+              </div>
+            </motion.div>
+          ) : (
+            <></>
+          )}
         </section>
         // ) : (
         //   <></>
