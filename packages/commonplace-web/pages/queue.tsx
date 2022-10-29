@@ -49,6 +49,7 @@ const getPostsAndUserData = async (token, interestId = null) => {
 
   const explorePostsData = await gqlClient.client.request(explorePostsQuery, {
     interestId,
+    page: 1,
   });
 
   const userThreadData = await gqlClient.client.request(userThreadsQuery);
@@ -101,6 +102,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
   const firstId = data?.posts[0]?.id;
 
   // const [queueIndex, setQueueIndex] = useState(0);
+  const [explorePostsData, setExplorePostsData] = useState(null);
   const [queuePostId, setQueuePostId] = useState(firstId); // defaults to first post
   const [queueFinished, setQueueFinished] = useState(firstId ? false : true);
   const [currentImpression, setCurrentImpression] = useState("");
@@ -113,6 +115,13 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
   );
   const [creditUi, setCreditUi] = useState(data?.currentUser?.credit);
   const [impressionsEnabled, setImpressionsEnabled] = useState(true);
+
+  useEffect(() => {
+    // set initial explorePosts data
+    if (explorePostsData === null) {
+      setExplorePostsData(data?.explorePosts);
+    }
+  }, [data?.explorePosts]);
 
   const postAnimation = useAnimation();
   const betweenPostAnimation = useAnimation();
@@ -451,7 +460,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
               initial={{ opacity: 0 }}
             >
               <Masonry columnsCount={3} gutter="2px">
-                {data?.explorePosts.map((post, i) => (
+                {explorePostsData?.map((post, i) => (
                   <ContentViewer
                     alt={""}
                     type={post.contentType}

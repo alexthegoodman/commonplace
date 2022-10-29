@@ -9,8 +9,13 @@ export const ExplorePostsQuery = extendType({
       type: "Post",
       args: {
         interestId: nullable(stringArg()),
+        page: intArg(),
       },
-      resolve: async (_, { interestId }, { prisma, currentUser }: Context) => {
+      resolve: async (
+        _,
+        { interestId, page },
+        { prisma, currentUser }: Context
+      ) => {
         let addtPostFilter = {};
 
         if (interestId) {
@@ -31,6 +36,8 @@ export const ExplorePostsQuery = extendType({
           orderBy: {
             createdAt: "desc",
           },
+          take: 20,
+          skip: 20 * page - 1,
         });
 
         // console.info("getExplorePosts", posts);
