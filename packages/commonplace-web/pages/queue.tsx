@@ -14,7 +14,10 @@ import {
   QueueContextReducer,
   QueueContextState,
 } from "../context/QueueContext/QueueContext";
-import { createMessageMutation } from "../graphql/mutations/message";
+import {
+  createImpressionMutation,
+  createMessageMutation,
+} from "../graphql/mutations/message";
 import { explorePostsQuery, queuePostsQuery } from "../graphql/queries/post";
 import { userQuery } from "../graphql/queries/user";
 import { useImageUrl } from "../hooks/useImageUrl";
@@ -249,11 +252,9 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
     const postCreatorUsername = currentPost?.creator?.generatedUsername;
 
     const savedImpression = await gqlClient.client.request(
-      createMessageMutation,
+      createImpressionMutation,
       {
-        type: "impression",
         content: impression,
-        // authorUsername,
         postCreatorUsername,
         postId: currentPost?.id,
       }

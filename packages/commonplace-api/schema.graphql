@@ -74,7 +74,8 @@ type Message {
 }
 
 type Mutation {
-  createMessage(content: String!, postCreatorUsername: String, postId: String, threadId: String, type: String!): Message!
+  createImpression(content: String!, postCreatorUsername: String, postId: String): Message!
+  createMessage(content: String!, threadId: String): Message!
   createPageView(url: String!): PageView!
   createPost(contentType: String!, description: String!, file1Data: String, file1Name: String, file1Size: Int, file1Type: String, file2Data: String, file2Name: String, file2Size: Int, file2Type: String, interestId: String!, text: String, title: String!): Post!
   createReadRecord(threadId: String!, username: String!): Record!

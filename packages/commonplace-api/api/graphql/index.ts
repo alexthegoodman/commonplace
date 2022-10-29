@@ -13,7 +13,8 @@ export * from "./types/dashboard/LabelValuePair";
 export * from "./types/Query";
 export * from "./types/Mutation";
 
-export * from "./mutations/createMessage";
+export * from "./mutations/createReply";
+export * from "./mutations/createImpression";
 export * from "./mutations/createPost";
 export * from "./mutations/createReadRecord";
 export * from "./mutations/createPageView";

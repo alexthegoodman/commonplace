@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { cpGraphqlUrl } from "../../../../commonplace-utilities/def/urls";
 import { GQLClient } from "../../../../commonplace-utilities/lib/GQLClient";
-import { createMessageMutation } from "../../../graphql/mutations/message";
+import { createReplyMutation } from "../../../graphql/mutations/message";
 import FormInput from "../../fields/FormInput/FormInput";
 import FormTextarea from "../../fields/FormTextarea/FormTextarea";
 
@@ -37,8 +37,7 @@ const MessageDictator: React.FC<MessageDictatorProps> = ({
   const onSubmit = async (data) => {
     console.log("MessageDictator onSubmit", data, threadId);
 
-    const message = await gqlClient.client.request(createMessageMutation, {
-      type: "reply",
+    const message = await gqlClient.client.request(createReplyMutation, {
       content: data?.message,
       threadId: threadId,
     });

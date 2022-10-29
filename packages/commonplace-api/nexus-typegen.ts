@@ -221,6 +221,7 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['PublicUser'] | null; // PublicUser
   }
   Mutation: { // field return type
+    createImpression: NexusGenRootTypes['Message']; // Message!
     createMessage: NexusGenRootTypes['Message']; // Message!
     createPageView: NexusGenRootTypes['PageView']; // PageView!
     createPost: NexusGenRootTypes['Post']; // Post!
@@ -383,6 +384,7 @@ export interface NexusGenFieldTypeNames {
     user: 'PublicUser'
   }
   Mutation: { // field return type name
+    createImpression: 'Message'
     createMessage: 'Message'
     createPageView: 'PageView'
     createPost: 'Post'
@@ -491,12 +493,14 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
-    createMessage: { // args
+    createImpression: { // args
       content: string; // String!
       postCreatorUsername?: string | null; // String
       postId?: string | null; // String
+    }
+    createMessage: { // args
+      content: string; // String!
       threadId?: string | null; // String
-      type: string; // String!
     }
     createPageView: { // args
       url: string; // String!
