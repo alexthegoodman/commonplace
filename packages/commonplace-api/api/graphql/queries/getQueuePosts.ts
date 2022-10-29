@@ -47,6 +47,7 @@ export const QueuePostsQuery = extendType({
           orderBy: {
             createdAt: "desc",
           },
+          take: 1,
         });
 
         // console.info("getQueuePosts", posts);

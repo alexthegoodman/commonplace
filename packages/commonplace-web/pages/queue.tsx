@@ -176,7 +176,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
     (post, x) => post.id === currentPost?.id
   );
 
-  // console.info("currentPost", queuePostId, currentPost);
+  console.info("currentPost", currentPostIndex, queuePostId, currentPost);
 
   useEffect(() => {
     if (typeof currentPost?.id === "undefined") {
@@ -187,16 +187,16 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
     }
   }, [currentPostIndex]);
 
-  const nextPost = data?.posts[currentPostIndex + 1];
-  const nextPostId = nextPost?.id;
+  // const nextPost = data?.posts[currentPostIndex + 1];
+  // const nextPostId = nextPost?.id;
 
   // preload image
-  const { imageUrl } = useImageUrl(nextPost?.content, {
-    width: 800,
-  });
+  // const { imageUrl } = useImageUrl(nextPost?.content, {
+  //   width: 800,
+  // });
 
   // TODO: verify preload image
-  usePreloadImage(imageUrl);
+  // usePreloadImage(imageUrl);
 
   // TODO: preload video
   // TODO: preload audio
@@ -246,7 +246,8 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
 
     // setQueueIndex(queueIndex + 1);
 
-    setQueuePostId(nextPostId);
+    // setQueuePostId(nextPostId);
+    mutate(() => getPostsAndUserData(token, selectedInterest?.id)); // refresh swrr
     // TODO: send impression message
     // const authorUsername = data?.currentUser?.generatedUsername;
     const postCreatorUsername = currentPost?.creator?.generatedUsername;
