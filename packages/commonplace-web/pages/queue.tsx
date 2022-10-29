@@ -103,6 +103,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
   const firstId = data?.posts[0]?.id;
 
   // const [queueIndex, setQueueIndex] = useState(0);
+  const [exploreHasMore, setExploreHasMore] = useState(true);
   const [explorePostsPage, setExplorePostsPage] = useState(1);
   const [explorePostsData, setExplorePostsData] = useState<any[]>([]);
   const [queuePostId, setQueuePostId] = useState(firstId); // defaults to first post
@@ -121,10 +122,13 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
   const loadMoreExploreItems = async () => {
     const newPage = explorePostsPage + 1;
     const addtPostsData = await gqlClient.client.request(explorePostsQuery, {
-      interest: selectedInterest?.id,
+      interestId: selectedInterest?.id,
       page: newPage,
     });
 
+    setExploreHasMore(
+      addtPostsData.getExplorePosts.length === 20 ? true : false
+    );
     setExplorePostsPage(newPage);
     setExplorePostsData([
       ...explorePostsData,
@@ -134,7 +138,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
 
   const [sentryRef, { rootRef }] = useInfiniteScroll({
     loading: false,
-    hasNextPage: true,
+    hasNextPage: exploreHasMore,
     onLoadMore: loadMoreExploreItems,
     // disabled: !!error,
     rootMargin: "0px 0px 100px 0px",

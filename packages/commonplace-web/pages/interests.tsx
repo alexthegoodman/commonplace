@@ -91,7 +91,7 @@ export const PopularInterests = ({
         />
         <section className="interestSelector">
           <div className="interestSelectorInner">
-            <span className="title">Popular Interests</span>
+            {/* <span className="title">Popular Interests</span> */}
             <div className="interestList popularList">
               <div className="categorySection">
                 {data ? (
