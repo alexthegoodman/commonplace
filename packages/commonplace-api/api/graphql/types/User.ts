@@ -60,5 +60,17 @@ export const UserType = objectType({
     t.field("email", { type: "String" });
     t.field("credit", { type: "Int" });
     // t.model.threads({ ordering: true, filtering: true });
+    t.list.field("pageViews", {
+      type: "PageView",
+      resolve: async (user, __, context: Context) => {
+        return await context.prisma.pageView.findMany({
+          where: {
+            user: {
+              generatedUsername: user.generatedUsername as string,
+            },
+          },
+        });
+      },
+    });
   },
 });

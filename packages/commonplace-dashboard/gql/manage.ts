@@ -39,8 +39,40 @@ export const getDashboardPostsQuery = gql`
   }
 `;
 
+export const getDashboardUsersQuery = gql`
+  query GetDashboardUsers {
+    getDashboardUsers {
+      name
+      email
+      generatedUsername
+      chosenUsername
+      profileImage
+      coverImage
+      language
+
+      posts {
+        title
+      }
+
+      pageViews {
+        url
+        createdAt
+      }
+
+      updatedAt
+      createdAt
+    }
+  }
+`;
+
 export const deletePostAdminMutation = gql`
   mutation DeletePostAdmin($postId: String!) {
     deletePostAdmin(postId: $postId)
+  }
+`;
+
+export const deleteUserAdminMutation = gql`
+  mutation DeleteUserAdmin($generatedUsername: String!) {
+    deleteUserAdmin(generatedUsername: $generatedUsername)
   }
 `;

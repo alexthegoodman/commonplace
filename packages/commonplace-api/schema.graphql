@@ -80,6 +80,7 @@ type Mutation {
   createReadRecord(threadId: String!, username: String!): Record!
   deletePost(postTitleSlug: String!): String!
   deletePostAdmin(postId: String!): String!
+  deleteUserAdmin(generatedUsername: String!): String!
   registerUser: String!
   updateFavoriteInterest(interestId: String!): String!
   updatePost(description: String!, postTitleSlug: String!, title: String!): Post!
@@ -89,8 +90,10 @@ type Mutation {
 
 type PageView {
   city: DateTime
+  createdAt: DateTime
   geoData: DateTime
   ipAddress: String
+  updatedAt: DateTime
   url: String
 }
 
@@ -137,6 +140,7 @@ type Query {
   getCategories: [Category]
   getDashboardData: Dashboard
   getDashboardPosts: [ManagePost]
+  getDashboardUsers: [User]
   getExplorePosts(interestId: String): [Post]
   getPostByPostTitle(postTitle: String!): PublicPost
   getPostImpressions(postTitle: String!): [Message]!
@@ -180,6 +184,7 @@ type User {
   generatedUsername: String
   language: String
   name: String
+  pageViews: [PageView]
   posts: [Post]
   profileImage: String
   updatedAt: DateTime

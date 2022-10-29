@@ -18,5 +18,8 @@ export const PageViewType = objectType({
     t.field("geoData", {
       type: "DateTime",
     });
+
+    t.field("updatedAt", { type: "DateTime" });
+    t.field("createdAt", { type: "DateTime" });
   },
 });

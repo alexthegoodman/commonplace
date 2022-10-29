@@ -92,8 +92,10 @@ export interface NexusGenObjects {
   Mutation: {};
   PageView: { // root type
     city?: NexusGenScalars['DateTime'] | null; // DateTime
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     geoData?: NexusGenScalars['DateTime'] | null; // DateTime
     ipAddress?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
     url?: string | null; // String
   }
   Post: { // root type
@@ -225,6 +227,7 @@ export interface NexusGenFieldTypes {
     createReadRecord: NexusGenRootTypes['Record']; // Record!
     deletePost: string; // String!
     deletePostAdmin: string; // String!
+    deleteUserAdmin: string; // String!
     registerUser: string; // String!
     updateFavoriteInterest: string; // String!
     updatePost: NexusGenRootTypes['Post']; // Post!
@@ -233,8 +236,10 @@ export interface NexusGenFieldTypes {
   }
   PageView: { // field return type
     city: NexusGenScalars['DateTime'] | null; // DateTime
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     geoData: NexusGenScalars['DateTime'] | null; // DateTime
     ipAddress: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
     url: string | null; // String
   }
   Post: { // field return type
@@ -277,6 +282,7 @@ export interface NexusGenFieldTypes {
     getCategories: Array<NexusGenRootTypes['Category'] | null> | null; // [Category]
     getDashboardData: NexusGenRootTypes['Dashboard'] | null; // Dashboard
     getDashboardPosts: Array<NexusGenRootTypes['ManagePost'] | null> | null; // [ManagePost]
+    getDashboardUsers: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     getExplorePosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     getPostByPostTitle: NexusGenRootTypes['PublicPost'] | null; // PublicPost
     getPostImpressions: Array<NexusGenRootTypes['Message'] | null>; // [Message]!
@@ -314,6 +320,7 @@ export interface NexusGenFieldTypes {
     generatedUsername: string | null; // String
     language: string | null; // String
     name: string | null; // String
+    pageViews: Array<NexusGenRootTypes['PageView'] | null> | null; // [PageView]
     posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     profileImage: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -382,6 +389,7 @@ export interface NexusGenFieldTypeNames {
     createReadRecord: 'Record'
     deletePost: 'String'
     deletePostAdmin: 'String'
+    deleteUserAdmin: 'String'
     registerUser: 'String'
     updateFavoriteInterest: 'String'
     updatePost: 'Post'
@@ -390,8 +398,10 @@ export interface NexusGenFieldTypeNames {
   }
   PageView: { // field return type name
     city: 'DateTime'
+    createdAt: 'DateTime'
     geoData: 'DateTime'
     ipAddress: 'String'
+    updatedAt: 'DateTime'
     url: 'String'
   }
   Post: { // field return type name
@@ -434,6 +444,7 @@ export interface NexusGenFieldTypeNames {
     getCategories: 'Category'
     getDashboardData: 'Dashboard'
     getDashboardPosts: 'ManagePost'
+    getDashboardUsers: 'User'
     getExplorePosts: 'Post'
     getPostByPostTitle: 'PublicPost'
     getPostImpressions: 'Message'
@@ -471,6 +482,7 @@ export interface NexusGenFieldTypeNames {
     generatedUsername: 'String'
     language: 'String'
     name: 'String'
+    pageViews: 'PageView'
     posts: 'Post'
     profileImage: 'String'
     updatedAt: 'DateTime'
@@ -513,6 +525,9 @@ export interface NexusGenArgTypes {
     }
     deletePostAdmin: { // args
       postId: string; // String!
+    }
+    deleteUserAdmin: { // args
+      generatedUsername: string; // String!
     }
     updateFavoriteInterest: { // args
       interestId: string; // String!

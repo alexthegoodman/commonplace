@@ -2,10 +2,11 @@ import { GQLClient } from "commonplace-utilities/lib/GQLClient";
 import type { NextPage } from "next";
 import { useCookies } from "react-cookie";
 import useSWR from "swr";
-import DeletePostModal from "../components/DeletePostModal/DeletePostModal";
-import ManagementNavigation from "../components/ManagementNavigation/ManagementNavigation";
-import { getDashboardPostsQuery } from "../gql/manage";
-import { useImageUrl } from "../hooks/useImageUrl";
+import DeletePostModal from "../../components/DeletePostModal/DeletePostModal";
+import ManagementNavigation from "../../components/ManagementNavigation/ManagementNavigation";
+import { getDashboardPostsQuery } from "../../gql/manage";
+import { useImageUrl } from "../../hooks/useImageUrl";
+import { DateTime } from "luxon";
 
 const getManageData = async (token: string) => {
   const gqlClient = new GQLClient(token);
@@ -70,8 +71,13 @@ const Manage: NextPage = () => {
                   <span>Language: {post.creator.language}</span>
                 </div>
                 <div className="footerInfo">
-                  <span>Updated At: {post.updatedAt}</span>
-                  <span>Created At: {post.createdAt}</span>
+                  {/* <span>Updated At: {post.updatedAt}</span> */}
+                  <span>
+                    Created At:{" "}
+                    {DateTime.fromISO(post.createdAt).toLocaleString(
+                      DateTime.DATETIME_MED
+                    )}
+                  </span>
                 </div>
                 <div className="controls">
                   <DeletePostModal onConfirm={() => mutate()} post={post} />

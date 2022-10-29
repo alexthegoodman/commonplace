@@ -10,6 +10,7 @@ import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
 // import LogRocket from "logrocket";
 import { appWithTranslation } from "next-i18next";
 import nextI18NextConfig from "../next-i18next.config.js";
+import { useCookies } from "react-cookie";
 
 const isDevelopment = process.env.NEXT_PUBLIC_APP_ENV === "development";
 mixpanel.init("0257a00f77cd9b500e88e34f96b2e991", { debug: isDevelopment });
@@ -27,7 +28,8 @@ var hotjarInitialized = false;
 var pixelInitialized = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const gqlClient = new GQLClient("");
+  const [cookies] = useCookies(["coUserToken"]);
+  const gqlClient = new GQLClient(cookies["coUserToken"]);
 
   const createPageView = async () => {
     await gqlClient.client.request(createPageViewMutation, {

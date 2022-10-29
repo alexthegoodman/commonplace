@@ -10,26 +10,50 @@ export const CreatePageViewMutation = extendType({
       args: {
         url: nonNull(stringArg()),
       },
-      resolve: async (_, { url }, { prisma, mixpanel, req }: Context) => {
-        console.info("Create Page View", req.ip, url, req.url, url);
+      resolve: async (
+        _,
+        { url },
+        { prisma, mixpanel, req, currentUser }: Context
+      ) => {
+        console.info(
+          "Create Page View",
+          req.ip,
+          req.headers["x-forwarded-for"],
+          req.socket.remoteAddress
+        );
         const ipAddress = req.ip;
 
-        const geoData = await axios.get(
-          `http://api.ipstack.com/${ipAddress}?access_key=${process.env.IPSTACK_KEY}`
-        );
+        // const geoData = await axios.get(
+        //   `http://api.ipstack.com/${ipAddress}?access_key=${process.env.IPSTACK_KEY}`
+        // );
 
-        console.info("geoData", geoData.data);
+        // console.info("geoData", geoData.data);
+
+        let addtData = {};
+
+        if (typeof currentUser !== "undefined") {
+          addtData = {
+            user: {
+              connect: {
+                id: currentUser.id,
+              },
+            },
+          };
+        }
 
         const pageview = prisma.pageView.create({
           data: {
             url,
             ipAddress: ipAddress ? ipAddress : "",
-            city: geoData.data.city ? geoData.data.city : "",
-            geoData: geoData.data ? JSON.stringify(geoData.data) : "",
+            city: "",
+            geoData: "",
+            ...addtData,
+            // city: geoData.data.city ? geoData.data.city : "",
+            // geoData: geoData.data ? JSON.stringify(geoData.data) : "",
           },
         });
 
-        mixpanel.track("Page View");
+        mixpanel.track("Page View", { url, ipAddress, currentUser });
 
         console.info("Created pageview", pageview);
 
