@@ -37,6 +37,7 @@ import PickerButton from "../components/queue/PickerButton/PickerButton";
 import ViewSwitcher from "../components/queue/ViewSwitcher/ViewSwitcher";
 import { useRouter } from "next/router";
 import Masonry from "react-responsive-masonry";
+import useInfiniteScroll from "react-infinite-scroll-hook";
 
 const getPostsAndUserData = async (token, interestId = null) => {
   const gqlClient = new GQLClient(token);
@@ -102,7 +103,8 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
   const firstId = data?.posts[0]?.id;
 
   // const [queueIndex, setQueueIndex] = useState(0);
-  const [explorePostsData, setExplorePostsData] = useState(null);
+  const [explorePostsPage, setExplorePostsPage] = useState(1);
+  const [explorePostsData, setExplorePostsData] = useState<any[]>([]);
   const [queuePostId, setQueuePostId] = useState(firstId); // defaults to first post
   const [queueFinished, setQueueFinished] = useState(firstId ? false : true);
   const [currentImpression, setCurrentImpression] = useState("");
@@ -115,6 +117,28 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
   );
   const [creditUi, setCreditUi] = useState(data?.currentUser?.credit);
   const [impressionsEnabled, setImpressionsEnabled] = useState(true);
+
+  const loadMoreExploreItems = async () => {
+    const newPage = explorePostsPage + 1;
+    const addtPostsData = await gqlClient.client.request(explorePostsQuery, {
+      interest: selectedInterest?.id,
+      page: newPage,
+    });
+
+    setExplorePostsPage(newPage);
+    setExplorePostsData([
+      ...explorePostsData,
+      ...addtPostsData.getExplorePosts,
+    ]);
+  };
+
+  const [sentryRef, { rootRef }] = useInfiniteScroll({
+    loading: false,
+    hasNextPage: true,
+    onLoadMore: loadMoreExploreItems,
+    // disabled: !!error,
+    rootMargin: "0px 0px 100px 0px",
+  });
 
   // useEffect(() => {
   //   // set initial explorePosts data
@@ -484,6 +508,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
               animate={exploreAnimation}
               className="queueAnimationContainer"
               initial={{ opacity: 0 }}
+              ref={rootRef}
             >
               <Masonry columnsCount={3} gutter="2px">
                 {explorePostsData?.map((post, i) => (
@@ -496,6 +521,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
                   />
                 ))}
               </Masonry>
+              <div className="sentry" ref={sentryRef}></div>
             </motion.div>
             {/* <ImpressionWheel /> */}
           </div>
