@@ -49,7 +49,7 @@ export const queuePostsQuery = gql`
 `;
 
 export const explorePostsQuery = gql`
-  query GetExplorePosts($interestId: String, $page: Int) {
+  query GetExplorePosts($interestId: String, $page: Int!) {
     getExplorePosts(interestId: $interestId, page: $page) {
       ...PostFieldsFragment
     }
