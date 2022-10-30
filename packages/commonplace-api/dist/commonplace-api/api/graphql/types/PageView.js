@@ -17,6 +17,8 @@ exports.PageViewType = (0, nexus_1.objectType)({
         t.field("geoData", {
             type: "DateTime",
         });
+        t.field("updatedAt", { type: "DateTime" });
+        t.field("createdAt", { type: "DateTime" });
     },
 });
 //# sourceMappingURL=PageView.js.map

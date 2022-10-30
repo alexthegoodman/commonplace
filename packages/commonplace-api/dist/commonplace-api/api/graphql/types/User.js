@@ -93,6 +93,23 @@ exports.UserType = (0, nexus_1.objectType)({
         t.field("email", { type: "String" });
         t.field("credit", { type: "Int" });
         // t.model.threads({ ordering: true, filtering: true });
+        t.list.field("pageViews", {
+            type: "PageView",
+            resolve: function (user, __, context) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, context.prisma.pageView.findMany({
+                                where: {
+                                    user: {
+                                        generatedUsername: user.generatedUsername,
+                                    },
+                                },
+                            })];
+                        case 1: return [2 /*return*/, _a.sent()];
+                    }
+                });
+            }); },
+        });
     },
 });
 //# sourceMappingURL=User.js.map

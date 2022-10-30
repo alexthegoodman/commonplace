@@ -60,8 +60,23 @@ function main() {
                     return [4 /*yield*/, (0, post_1.default)(users, interests)];
                 case 3:
                     posts = (_c.sent()).posts;
-                    return [4 /*yield*/, (0, thread_1.default)(users, posts)];
+                    return [4 /*yield*/, (0, post_1.default)(users, interests)];
                 case 4:
+                    _c.sent();
+                    return [4 /*yield*/, (0, post_1.default)(users, interests)];
+                case 5:
+                    _c.sent();
+                    return [4 /*yield*/, (0, post_1.default)(users, interests)];
+                case 6:
+                    _c.sent();
+                    return [4 /*yield*/, (0, post_1.default)(users, interests)];
+                case 7:
+                    _c.sent();
+                    return [4 /*yield*/, (0, post_1.default)(users, interests)];
+                case 8:
+                    _c.sent();
+                    return [4 /*yield*/, (0, thread_1.default)(users, posts)];
+                case 9:
                     _b = _c.sent(), thread1 = _b.thread1, thread2 = _b.thread2;
                     return [2 /*return*/];
             }

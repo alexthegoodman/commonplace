@@ -559,7 +559,7 @@ export interface NexusGenArgTypes {
   Query: {
     getExplorePosts: { // args
       interestId?: string | null; // String
-      page?: number | null; // Int
+      page: number; // Int!
     }
     getPostByPostTitle: { // args
       postTitle: string; // String!

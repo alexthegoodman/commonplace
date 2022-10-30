@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -47,63 +36,54 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueuePostsQuery = void 0;
+exports.DeleteUserAdminMutation = void 0;
 var nexus_1 = require("nexus");
-exports.QueuePostsQuery = (0, nexus_1.extendType)({
-    type: "Query",
+exports.DeleteUserAdminMutation = (0, nexus_1.extendType)({
+    type: "Mutation",
     definition: function (t) {
         var _this = this;
-        t.list.field("getQueuePosts", {
-            type: "Post",
+        t.nonNull.field("deleteUserAdmin", {
+            type: "String",
             args: {
-                interestId: (0, nexus_1.nullable)((0, nexus_1.stringArg)()),
+                generatedUsername: (0, nexus_1.nonNull)((0, nexus_1.stringArg)()),
             },
             resolve: function (_, _a, _b) {
-                var interestId = _a.interestId;
-                var prisma = _b.prisma, currentUser = _b.currentUser;
+                var generatedUsername = _a.generatedUsername;
+                var prisma = _b.prisma, mixpanel = _b.mixpanel, currentUser = _b.currentUser;
                 return __awaiter(_this, void 0, void 0, function () {
-                    var addtPostFilter, posts;
+                    var messages, posts, user;
                     return __generator(this, function (_c) {
                         switch (_c.label) {
                             case 0:
-                                addtPostFilter = {};
-                                if (interestId) {
-                                    addtPostFilter = {
-                                        interestId: {
-                                            equals: interestId,
+                                console.info("Delete User", generatedUsername);
+                                return [4 /*yield*/, prisma.message.deleteMany({
+                                        where: {
+                                            user: {
+                                                generatedUsername: generatedUsername,
+                                            },
                                         },
-                                    };
-                                }
-                                return [4 /*yield*/, prisma.post.findMany({
-                                        where: __assign({ 
-                                            // NOT currentUser's posts
-                                            creatorId: {
-                                                not: {
-                                                    equals: currentUser.id,
-                                                },
-                                            }, 
-                                            // NOT posts with impression from currentUser
-                                            messages: {
-                                                none: {
-                                                    user: {
-                                                        id: {
-                                                            equals: currentUser.id,
-                                                        },
-                                                    },
-                                                    type: {
-                                                        equals: "impression",
-                                                    },
-                                                },
-                                            } }, addtPostFilter),
-                                        orderBy: {
-                                            createdAt: "desc",
-                                        },
-                                        take: 1,
                                     })];
                             case 1:
+                                messages = _c.sent();
+                                return [4 /*yield*/, prisma.post.deleteMany({
+                                        where: {
+                                            creator: {
+                                                generatedUsername: generatedUsername,
+                                            },
+                                        },
+                                    })];
+                            case 2:
                                 posts = _c.sent();
-                                // console.info("getQueuePosts", posts);
-                                return [2 /*return*/, posts];
+                                return [4 /*yield*/, prisma.user.delete({
+                                        where: {
+                                            generatedUsername: generatedUsername,
+                                        },
+                                    })];
+                            case 3:
+                                user = _c.sent();
+                                mixpanel.track("User Deleted", { user: user });
+                                console.info("Deleted user", user);
+                                return [2 /*return*/, "deleted"];
                         }
                     });
                 });
@@ -111,4 +91,4 @@ exports.QueuePostsQuery = (0, nexus_1.extendType)({
         });
     },
 });
-//# sourceMappingURL=getQueuePosts.js.map
+//# sourceMappingURL=deleteUserAdmin.js.map

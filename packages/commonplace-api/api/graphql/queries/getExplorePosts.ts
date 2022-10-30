@@ -9,7 +9,7 @@ export const ExplorePostsQuery = extendType({
       type: "Post",
       args: {
         interestId: nullable(stringArg()),
-        page: intArg(),
+        page: nonNull(intArg()),
       },
       resolve: async (
         _,

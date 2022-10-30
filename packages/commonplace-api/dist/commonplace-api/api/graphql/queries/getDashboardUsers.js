@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -47,63 +36,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueuePostsQuery = void 0;
+exports.DashboardUsersQuery = void 0;
 var nexus_1 = require("nexus");
-exports.QueuePostsQuery = (0, nexus_1.extendType)({
+exports.DashboardUsersQuery = (0, nexus_1.extendType)({
     type: "Query",
     definition: function (t) {
         var _this = this;
-        t.list.field("getQueuePosts", {
-            type: "Post",
-            args: {
-                interestId: (0, nexus_1.nullable)((0, nexus_1.stringArg)()),
-            },
+        t.list.field("getDashboardUsers", {
+            type: "User",
+            args: {},
             resolve: function (_, _a, _b) {
-                var interestId = _a.interestId;
-                var prisma = _b.prisma, currentUser = _b.currentUser;
+                var prisma = _b.prisma;
                 return __awaiter(_this, void 0, void 0, function () {
-                    var addtPostFilter, posts;
+                    var users;
                     return __generator(this, function (_c) {
                         switch (_c.label) {
-                            case 0:
-                                addtPostFilter = {};
-                                if (interestId) {
-                                    addtPostFilter = {
-                                        interestId: {
-                                            equals: interestId,
+                            case 0: return [4 /*yield*/, prisma.user.findMany({
+                                    where: {
+                                        id: {
+                                            not: "",
                                         },
-                                    };
-                                }
-                                return [4 /*yield*/, prisma.post.findMany({
-                                        where: __assign({ 
-                                            // NOT currentUser's posts
-                                            creatorId: {
-                                                not: {
-                                                    equals: currentUser.id,
-                                                },
-                                            }, 
-                                            // NOT posts with impression from currentUser
-                                            messages: {
-                                                none: {
-                                                    user: {
-                                                        id: {
-                                                            equals: currentUser.id,
-                                                        },
-                                                    },
-                                                    type: {
-                                                        equals: "impression",
-                                                    },
-                                                },
-                                            } }, addtPostFilter),
-                                        orderBy: {
-                                            createdAt: "desc",
-                                        },
-                                        take: 1,
-                                    })];
+                                    },
+                                    orderBy: {
+                                        createdAt: "desc",
+                                    },
+                                })];
                             case 1:
-                                posts = _c.sent();
-                                // console.info("getQueuePosts", posts);
-                                return [2 /*return*/, posts];
+                                users = _c.sent();
+                                return [2 /*return*/, users];
                         }
                     });
                 });
@@ -111,4 +71,4 @@ exports.QueuePostsQuery = (0, nexus_1.extendType)({
         });
     },
 });
-//# sourceMappingURL=getQueuePosts.js.map
+//# sourceMappingURL=getDashboardUsers.js.map

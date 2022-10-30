@@ -142,7 +142,7 @@ type Query {
   getDashboardData: Dashboard
   getDashboardPosts: [ManagePost]
   getDashboardUsers: [User]
-  getExplorePosts(interestId: String, page: Int): [Post]
+  getExplorePosts(interestId: String, page: Int!): [Post]
   getPostByPostTitle(postTitle: String!): PublicPost
   getPostImpressions(postTitle: String!): [Message]!
   getPostURLs: [String]

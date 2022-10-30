@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,12 +46,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreatePageViewMutation = void 0;
-var axios_1 = __importDefault(require("axios"));
 var nexus_1 = require("nexus");
 exports.CreatePageViewMutation = (0, nexus_1.extendType)({
     type: "Mutation",
@@ -53,30 +60,28 @@ exports.CreatePageViewMutation = (0, nexus_1.extendType)({
             },
             resolve: function (_, _a, _b) {
                 var url = _a.url;
-                var prisma = _b.prisma, mixpanel = _b.mixpanel, req = _b.req;
+                var prisma = _b.prisma, mixpanel = _b.mixpanel, req = _b.req, currentUser = _b.currentUser;
                 return __awaiter(_this, void 0, void 0, function () {
-                    var ipAddress, geoData, pageview;
+                    var ipAddress, addtData, pageview;
                     return __generator(this, function (_c) {
-                        switch (_c.label) {
-                            case 0:
-                                console.info("Create Page View", req.ip, url, req.url, url);
-                                ipAddress = req.ip;
-                                return [4 /*yield*/, axios_1.default.get("http://api.ipstack.com/".concat(ipAddress, "?access_key=").concat(process.env.IPSTACK_KEY))];
-                            case 1:
-                                geoData = _c.sent();
-                                console.info("geoData", geoData.data);
-                                pageview = prisma.pageView.create({
-                                    data: {
-                                        url: url,
-                                        ipAddress: ipAddress ? ipAddress : "",
-                                        city: geoData.data.city ? geoData.data.city : "",
-                                        geoData: geoData.data ? JSON.stringify(geoData.data) : "",
+                        console.info("Create Page View", req.ip, req.headers["x-forwarded-for"], req.socket.remoteAddress);
+                        ipAddress = req.ip;
+                        addtData = {};
+                        if (typeof currentUser !== "undefined") {
+                            addtData = {
+                                user: {
+                                    connect: {
+                                        id: currentUser.id,
                                     },
-                                });
-                                mixpanel.track("Page View");
-                                console.info("Created pageview", pageview);
-                                return [2 /*return*/, pageview];
+                                },
+                            };
                         }
+                        pageview = prisma.pageView.create({
+                            data: __assign({ url: url, ipAddress: ipAddress ? ipAddress : "", city: "", geoData: "" }, addtData),
+                        });
+                        mixpanel.track("Page View", { url: url, ipAddress: ipAddress, currentUser: currentUser });
+                        console.info("Created pageview", pageview);
+                        return [2 /*return*/, pageview];
                     });
                 });
             },

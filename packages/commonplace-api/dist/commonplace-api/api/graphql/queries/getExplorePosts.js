@@ -47,19 +47,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueuePostsQuery = void 0;
+exports.ExplorePostsQuery = void 0;
 var nexus_1 = require("nexus");
-exports.QueuePostsQuery = (0, nexus_1.extendType)({
+exports.ExplorePostsQuery = (0, nexus_1.extendType)({
     type: "Query",
     definition: function (t) {
         var _this = this;
-        t.list.field("getQueuePosts", {
+        t.list.field("getExplorePosts", {
             type: "Post",
             args: {
                 interestId: (0, nexus_1.nullable)((0, nexus_1.stringArg)()),
+                page: (0, nexus_1.nonNull)((0, nexus_1.intArg)()),
             },
             resolve: function (_, _a, _b) {
-                var interestId = _a.interestId;
+                var interestId = _a.interestId, page = _a.page;
                 var prisma = _b.prisma, currentUser = _b.currentUser;
                 return __awaiter(_this, void 0, void 0, function () {
                     var addtPostFilter, posts;
@@ -75,34 +76,18 @@ exports.QueuePostsQuery = (0, nexus_1.extendType)({
                                     };
                                 }
                                 return [4 /*yield*/, prisma.post.findMany({
-                                        where: __assign({ 
-                                            // NOT currentUser's posts
-                                            creatorId: {
-                                                not: {
-                                                    equals: currentUser.id,
-                                                },
-                                            }, 
-                                            // NOT posts with impression from currentUser
-                                            messages: {
-                                                none: {
-                                                    user: {
-                                                        id: {
-                                                            equals: currentUser.id,
-                                                        },
-                                                    },
-                                                    type: {
-                                                        equals: "impression",
-                                                    },
-                                                },
+                                        where: __assign({ id: {
+                                                not: "",
                                             } }, addtPostFilter),
                                         orderBy: {
                                             createdAt: "desc",
                                         },
-                                        take: 1,
+                                        take: 20,
+                                        skip: 20 * (page - 1),
                                     })];
                             case 1:
                                 posts = _c.sent();
-                                // console.info("getQueuePosts", posts);
+                                // console.info("getExplorePosts", posts);
                                 return [2 /*return*/, posts];
                         }
                     });
@@ -111,4 +96,4 @@ exports.QueuePostsQuery = (0, nexus_1.extendType)({
         });
     },
 });
-//# sourceMappingURL=getQueuePosts.js.map
+//# sourceMappingURL=getExplorePosts.js.map
