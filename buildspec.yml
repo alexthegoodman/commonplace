@@ -25,6 +25,7 @@ phases:
       - npm install -g ts-node typescript prisma @types/node
       - npm install
       # migrate server database
+      - npx prisma migrate resolve --applied "20221023001228_add_favorite_interest"
       - npx prisma migrate deploy
       - prisma generate
       # - npm run db:seed
