@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const client = require("mailchimp-marketing");
+const client = require("@mailchimp/mailchimp_marketing");
 
 client.setConfig({
   apiKey: process.env.MAILCHIMP_KEY,
