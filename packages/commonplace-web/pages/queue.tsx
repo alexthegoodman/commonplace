@@ -35,6 +35,7 @@ import ViewSwitcher from "../components/queue/ViewSwitcher/ViewSwitcher";
 import { useRouter } from "next/router";
 import Masonry from "react-responsive-masonry";
 import useInfiniteScroll from "react-infinite-scroll-hook";
+import { categoriesAndInterestsQuery } from "../graphql/queries/interest";
 
 const getPostsAndUserData = async (token, interestId = null) => {
   const gqlClient = new GQLClient(token);
@@ -52,6 +53,10 @@ const getPostsAndUserData = async (token, interestId = null) => {
 
   const userThreadData = await gqlClient.client.request(userThreadsQuery);
 
+  const categoriesAndInterestsData = await gqlClient.client.request(
+    categoriesAndInterestsQuery
+  );
+
   let threads = [];
   if (typeof userThreadData?.getUserThreads !== "undefined") {
     threads = userThreadData?.getUserThreads;
@@ -62,6 +67,7 @@ const getPostsAndUserData = async (token, interestId = null) => {
     posts: postsData.getQueuePosts,
     explorePosts: explorePostsData.getExplorePosts,
     threads,
+    categoriesAndInterestsData,
   };
 
   // console.info("returnData", returnData);
@@ -69,7 +75,7 @@ const getPostsAndUserData = async (token, interestId = null) => {
   return returnData;
 };
 
-const QueueContent = ({ coUserLng, coFavInt }) => {
+const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
   const { t } = useTranslation();
   const router = useRouter();
   const { cache } = useSWRConfig();
@@ -78,7 +84,9 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
 
   const gqlClient = new GQLClient(token);
 
-  const [selectedInterest, setSelectedInterest] = useState<any>(null);
+  const [selectedInterest, setSelectedInterest] = useState<any>(
+    favoriteInterest ? favoriteInterest : null
+  );
 
   const { data, mutate } = useSWR(
     "queueKey",
@@ -90,6 +98,10 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
       // refreshInterval: 10000,
     }
   );
+
+  // useEffect(() => {
+
+  // }, []);
 
   useEffect(() => {
     // console.info("check queue", cache.get("queueKey"));
@@ -422,7 +434,7 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
             zIndex: 100,
           }}
         >
-          <NextSeo title={`Select Interest | CommonPlace`} />
+          {/* <NextSeo title={`Select Interest | CommonPlace`} /> */}
           <InterestsContent
             onBack={onCloseInterests}
             onConfirm={onConfirmInterest}
@@ -438,20 +450,20 @@ const QueueContent = ({ coUserLng, coFavInt }) => {
             zIndex: 90,
           }}
         >
-          <NextSeo title={`Choose Language | CommonPlace`} />
+          {/* <NextSeo title={`Choose Language | CommonPlace`} /> */}
           <LanguagePicker />
         </section>
       ) : (
         <></>
       )}
-      {showFavoriteInterestModal && !showLanguageModal ? (
+      {showFavoriteInterestModal ? (
         <section
           className="fullModal"
           style={{
             zIndex: 80,
           }}
         >
-          <NextSeo title={`Choose Favorite Interest | CommonPlace`} />
+          {/* <NextSeo title={`Choose Favorite Interest | CommonPlace`} /> */}
           <PopularInterests />
         </section>
       ) : (
@@ -579,7 +591,7 @@ const Queue: NextPage<{
   fallback: any;
   coUserLng: string;
   coFavInt: string;
-}> = ({ fallback, coUserLng, coFavInt }) => {
+}> = ({ fallback, coUserLng, coFavInt, favoriteInterest }) => {
   const [state, dispatch] = useReducer(QueueContextReducer, QueueContextState);
 
   return (
@@ -587,7 +599,11 @@ const Queue: NextPage<{
       <SWRConfig
         value={{ fallback, revalidateOnMount: true, refreshWhenHidden: true }}
       >
-        <QueueContent coUserLng={coUserLng} coFavInt={coFavInt} />
+        <QueueContent
+          coUserLng={coUserLng}
+          coFavInt={coFavInt}
+          favoriteInterest={favoriteInterest}
+        />
       </SWRConfig>
     </QueueContext.Provider>
   );
@@ -613,6 +629,19 @@ export async function getServerSideProps(context) {
 
   // console.info("getServerSideProps", context, returnData);
 
+  const category = returnData.categoriesAndInterestsData.getCategories.filter(
+    (category) =>
+      category.interests.filter(
+        (interest) => interest.id === cookieData.coFavInt
+      )[0]
+  )[0];
+  const interest =
+    typeof category !== "undefined"
+      ? category.interests.filter(
+          (interest) => interest.id === cookieData.coFavInt
+        )[0]
+      : null;
+
   const locale =
     typeof cookieData.coUserLng !== "undefined"
       ? cookieData.coUserLng
@@ -626,6 +655,7 @@ export async function getServerSideProps(context) {
           : null,
       coFavInt:
         typeof cookieData.coFavInt !== "undefined" ? cookieData.coFavInt : null,
+      favoriteInterest: interest,
       ...(await serverSideTranslations(
         locale,
         ["interests", "impressions", "settings", "common"],

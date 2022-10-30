@@ -73,6 +73,8 @@ export const PopularInterests = ({
 
     setCookie("coFavInt", interestId);
 
+    onConfirm();
+
     location.reload();
   };
 
