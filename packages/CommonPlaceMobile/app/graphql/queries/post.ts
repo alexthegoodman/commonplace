@@ -51,11 +51,6 @@ export const queuePostsQuery = gql`
         name
         chosenUsername
         profileImage
-        email
-
-        posts {
-          title
-        }
       }
       interest {
         name

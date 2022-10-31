@@ -16,14 +16,20 @@ import {userThreadsQuery} from '../../graphql/queries/thread';
 import {useImageUrl} from '../../hooks/useImageUrl';
 import {usePreloadImage} from '../../hooks/usePreloadImage';
 import SignOutButton from '../../components/SignOutButton/SignOutButton';
+import Helpers from '../../utilities/Helpers';
 
 const Queue = ({navigation}) => {
+  const helpers = new Helpers();
+
   const {
     loading: userLoading,
     error: userError,
     data: userData,
   } = useQuery(userQuery, {
     variables: {},
+    context: {
+      // headers: helpers.getAuthHeaders(),
+    },
   });
 
   const {
@@ -32,6 +38,9 @@ const Queue = ({navigation}) => {
     data: postsData,
   } = useQuery(queuePostsQuery, {
     variables: {interestId: null},
+    context: {
+      // headers: helpers.getAuthHeaders(),
+    },
   });
 
   const {
@@ -40,6 +49,9 @@ const Queue = ({navigation}) => {
     data: threadsData,
   } = useQuery(userThreadsQuery, {
     variables: {},
+    context: {
+      // headers: helpers.getAuthHeaders(),
+    },
   });
 
   const firstId = postsData?.getQueuePosts[0]?.id;
@@ -100,7 +112,7 @@ const Queue = ({navigation}) => {
       <>
         <Text>
           Error...
-          {/* {JSON.stringify(postsError)} */}
+          {JSON.stringify(postsError)}
           <SignOutButton navigation={navigation} />
         </Text>
       </>

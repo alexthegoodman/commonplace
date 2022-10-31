@@ -31,13 +31,15 @@ import Settings from './app/scenes/Settings/Settings';
 const httpLink = new HttpLink({uri: 'http://192.168.0.106:4000/graphql'});
 
 const authLink = new ApolloLink(async (operation, forward) => {
-  // const token = await EncryptedStorage.getItem('coUserToken');
+  const token = await EncryptedStorage.getItem('coUserToken');
 
-  // operation.setContext({
-  //   headers: {
-  //     Authorization: token ? `${token}` : '',
-  //   },
-  // });
+  if (token) {
+    operation.setContext({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 
   return forward(operation);
 });

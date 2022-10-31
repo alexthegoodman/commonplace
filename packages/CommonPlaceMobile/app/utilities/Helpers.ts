@@ -1,4 +1,5 @@
 const Buffer = require('buffer').Buffer;
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 export default class Helpers {
   constructor() {}
@@ -19,5 +20,11 @@ export default class Helpers {
   createAuthHeader(str) {
     const authPayload = Buffer.from(`${str}`, 'utf8').toString('base64');
     return `Basic ${authPayload}`;
+  }
+
+  async getAuthHeaders() {
+    const token = await EncryptedStorage.getItem('coUserToken');
+
+    return {Authorization: token};
   }
 }

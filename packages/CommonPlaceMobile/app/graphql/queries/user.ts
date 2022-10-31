@@ -16,7 +16,6 @@ export const userQuery = gql`
   query GetUser {
     getUser {
       name
-      email
 
       generatedUsername
       chosenUsername
