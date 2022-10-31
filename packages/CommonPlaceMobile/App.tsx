@@ -1,4 +1,5 @@
 import React, {
+  useContext,
   useEffect,
   useReducer,
   useState,
@@ -27,16 +28,16 @@ import {
 } from './app/context/AppContext';
 import Settings from './app/scenes/Settings/Settings';
 
-const httpLink = new HttpLink({uri: 'http://192.168.0.152:4000/graphql'});
+const httpLink = new HttpLink({uri: 'http://192.168.0.106:4000/graphql'});
 
 const authLink = new ApolloLink(async (operation, forward) => {
-  const token = await EncryptedStorage.getItem('coUserToken');
+  // const token = await EncryptedStorage.getItem('coUserToken');
 
-  operation.setContext({
-    headers: {
-      commonplace_jwt_header: token ? `${token}` : '',
-    },
-  });
+  // operation.setContext({
+  //   headers: {
+  //     Authorization: token ? `${token}` : '',
+  //   },
+  // });
 
   return forward(operation);
 });
@@ -49,12 +50,16 @@ const client = new ApolloClient({
 
 const Stack = createNativeStackNavigator();
 
-const App = () => {
+const AppInner = () => {
   const [state, dispatch] = useReducer(AppContextReducer, AppContextState);
+  // const {state, dispatch} = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(true);
-  const isSignedIn = state.token !== '';
+  const isSignedIn = state.token && state.token !== '';
+
+  console.info('App render', state);
 
   useEffect(() => {
+    console.info('App effect', isSignedIn);
     const checkStorage = async () => {
       const coUserToken = await EncryptedStorage.getItem('coUserToken');
       dispatch({type: 'token', payload: coUserToken});
@@ -70,27 +75,37 @@ const App = () => {
   }
 
   return (
+    <ApolloProvider client={client}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          {isSignedIn ? <Stack.Screen name="queue" component={Queue} /> : <></>}
+          <>
+            <Stack.Screen name="sign-in" component={SignIn} />
+            <Stack.Screen name="sign-up" component={SignUp} />
+          </>
+          {!isSignedIn ? (
+            <Stack.Screen name="queue" component={Queue} />
+          ) : (
+            <></>
+          )}
+          <Stack.Group navigationKey={isSignedIn ? 'user' : 'guest'}>
+            <Stack.Screen name="settings" component={Settings} />
+          </Stack.Group>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ApolloProvider>
+  );
+};
+
+const App = () => {
+  const [state, dispatch] = useReducer(AppContextReducer, AppContextState);
+
+  return (
     <AppContext.Provider value={{state, dispatch}}>
-      <ApolloProvider client={client}>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}>
-            {isSignedIn ? (
-              <Stack.Screen name="queue" component={Queue} />
-            ) : (
-              <>
-                <Stack.Screen name="sign-in" component={SignIn} />
-                <Stack.Screen name="sign-up" component={SignUp} />
-              </>
-            )}
-            <Stack.Group navigationKey={isSignedIn ? 'user' : 'guest'}>
-              <Stack.Screen name="settings" component={Settings} />
-            </Stack.Group>
-          </Stack.Navigator>
-        </NavigationContainer>
-      </ApolloProvider>
+      <AppInner />
     </AppContext.Provider>
   );
 };

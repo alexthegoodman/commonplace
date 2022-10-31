@@ -1,5 +1,5 @@
 import React, {useEffect, useState, type PropsWithChildren} from 'react';
-import {SafeAreaView, ScrollView, StatusBar} from 'react-native';
+import {SafeAreaView, ScrollView, StatusBar, Text} from 'react-native';
 import {useQuery} from '@apollo/client';
 
 import BrandLogo from '../../components/BrandLogo/BrandLogo';
@@ -15,6 +15,7 @@ import {queuePostsQuery} from '../../graphql/queries/post';
 import {userThreadsQuery} from '../../graphql/queries/thread';
 import {useImageUrl} from '../../hooks/useImageUrl';
 import {usePreloadImage} from '../../hooks/usePreloadImage';
+import SignOutButton from '../../components/SignOutButton/SignOutButton';
 
 const Queue = ({navigation}) => {
   const {
@@ -94,8 +95,25 @@ const Queue = ({navigation}) => {
 
   const impressionClickHandler = () => {};
 
+  if (userError || postsError) {
+    return (
+      <>
+        <Text>
+          Error...
+          {/* {JSON.stringify(postsError)} */}
+          <SignOutButton navigation={navigation} />
+        </Text>
+      </>
+    );
+  }
+
   if (userLoading || postsLoading) {
-    return <></>;
+    return (
+      <>
+        <Text>Loading...</Text>
+        <SignOutButton navigation={navigation} />
+      </>
+    );
   }
 
   return (
@@ -104,7 +122,7 @@ const Queue = ({navigation}) => {
       <InlineHeader
         leftComponent={<BrandLogo />}
         centerComponent={<InterestSelector />}
-        rightComponent={<PrimaryNavigation />}
+        rightComponent={<PrimaryNavigation navigation={navigation} />}
       />
       <ScrollView style={{position: 'absolute', width: '100%'}}>
         <ContentViewer

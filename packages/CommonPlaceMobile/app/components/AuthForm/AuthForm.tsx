@@ -58,6 +58,7 @@ const AuthForm = ({
         },
       });
 
+      console.info('userIdData', userIdData);
       console.info('token', userIdData.data.authenticate);
 
       await EncryptedStorage.setItem(
@@ -75,7 +76,7 @@ const AuthForm = ({
       setFormErrorMessage('');
       navigation.navigate('queue');
     } catch (error: any) {
-      // console.error('error', error);
+      console.error('error', JSON.stringify(error));
       const errorMessage = error?.graphQLErrors[0].message;
       setFormErrorMessage(errorMessage);
     }

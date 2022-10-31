@@ -16,6 +16,8 @@ export const AuthenticateQuery = extendType({
         const utilities = new Utilities();
         const helpers = new Helpers();
 
+        console.info("authenticate user", req.headers);
+
         const credentials = utilities.helpers.parseAuthHeader(
           req.headers.authorization
         );

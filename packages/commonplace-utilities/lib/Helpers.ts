@@ -33,6 +33,7 @@ export default class Helpers {
   }
 
   parseAuthHeader(str) {
+    console.info("parseAuthHeader", str);
     const credentials = Buffer.from(str.split("Basic ")[1], "base64").toString(
       "ascii"
     );

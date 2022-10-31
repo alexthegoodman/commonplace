@@ -8,7 +8,7 @@ import Plus from '../../../assets/svg/plus.svg';
 import Messages from '../../../assets/svg/messages.svg';
 import UserOutline from '../../../assets/svg/user-outline.svg';
 
-const PrimaryNavigation = ({}: PrimaryNavigationProps) => {
+const PrimaryNavigation = ({navigation}: PrimaryNavigationProps) => {
   return (
     <View>
       <TouchableHighlight style={styles.primaryNavOption}>
@@ -21,7 +21,9 @@ const PrimaryNavigation = ({}: PrimaryNavigationProps) => {
           <Messages width="25" height="25" style={{color: 'grey'}} />
         </Text>
       </TouchableHighlight>
-      <TouchableHighlight style={styles.navOption}>
+      <TouchableHighlight
+        style={styles.navOption}
+        onPress={() => navigation.navigate('settings')}>
         <Text style={styles.navOptionText}>
           <UserOutline width="25" height="25" style={{color: 'grey'}} />
         </Text>
