@@ -99,9 +99,7 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
     }
   );
 
-  // useEffect(() => {
-
-  // }, []);
+  // console.info("data", data);
 
   useEffect(() => {
     // console.info("check queue", cache.get("queueKey"));
@@ -174,7 +172,7 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
   const queueAnimation = useAnimation();
 
   const showInitialView = async () => {
-    if (router.query.view === "explore") {
+    if (currentView === "explore") {
       await exploreAnimation.start((i) => ({
         opacity: 1,
         y: 0,
@@ -225,7 +223,9 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
       y: 5,
       // transition: { delay: i * 1.5 - 1 },
     }));
+  }, []);
 
+  useEffect(() => {
     postAnimation.start((i) => ({
       opacity: 1,
       y: 0,
@@ -233,7 +233,7 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
     }));
 
     showInitialView();
-  }, []);
+  }, [currentView]);
 
   useEffect(() => {
     // NOTE: runs when returning to queue from other page
@@ -252,28 +252,16 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
 
   // console.info("currentPost", currentPostIndex, queuePostId, currentPost);
 
-  useEffect(() => {
-    if (typeof currentPost?.id === "undefined") {
-      // reached end of queue
-      setQueueFinished(true);
-    } else {
-      setQueueFinished(false);
-    }
-  }, [currentPostIndex]);
+  // useEffect(() => {
+  //   if (typeof currentPost?.id === "undefined") {
+  //     // reached end of queue
+  //     setQueueFinished(true);
+  //   } else {
+  //     setQueueFinished(false);
+  //   }
+  // }, [currentPostIndex]);
 
-  // const nextPost = data?.posts[currentPostIndex + 1];
-  // const nextPostId = nextPost?.id;
-
-  // preload image
-  // const { imageUrl } = useImageUrl(nextPost?.content, {
-  //   width: 800,
-  // });
-
-  // TODO: verify preload image
-  // usePreloadImage(imageUrl);
-
-  // TODO: preload video
-  // TODO: preload audio
+  // TODO: preload next media
 
   const closeQueueItemAnimation = async () => {
     await postAnimation.start((i) => ({
@@ -625,20 +613,25 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const returnData = await getPostsAndUserData(token);
+  const favoriteInterestId =
+    typeof cookieData.coFavInt !== "undefined" ? cookieData.coFavInt : null;
+
+  // TODO: mismatch if selecting new interest in modal
+  // assure that modal sets Current Interest cookie for queue only
+  const returnData = await getPostsAndUserData(token, favoriteInterestId);
 
   // console.info("getServerSideProps", context, returnData);
 
   const category = returnData.categoriesAndInterestsData.getCategories.filter(
     (category) =>
       category.interests.filter(
-        (interest) => interest.id === cookieData.coFavInt
+        (interest) => interest.id === favoriteInterestId
       )[0]
   )[0];
   const interest =
     typeof category !== "undefined"
       ? category.interests.filter(
-          (interest) => interest.id === cookieData.coFavInt
+          (interest) => interest.id === favoriteInterestId
         )[0]
       : null;
 
@@ -653,8 +646,7 @@ export async function getServerSideProps(context) {
         typeof cookieData.coUserLng !== "undefined"
           ? cookieData.coUserLng
           : null,
-      coFavInt:
-        typeof cookieData.coFavInt !== "undefined" ? cookieData.coFavInt : null,
+      coFavInt: favoriteInterestId,
       favoriteInterest: interest,
       ...(await serverSideTranslations(
         locale,
