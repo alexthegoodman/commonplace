@@ -223,9 +223,7 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
       y: 5,
       // transition: { delay: i * 1.5 - 1 },
     }));
-  }, []);
 
-  useEffect(() => {
     postAnimation.start((i) => ({
       opacity: 1,
       y: 0,
@@ -233,7 +231,11 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
     }));
 
     showInitialView();
-  }, [currentView]);
+  }, []);
+
+  // useEffect(() => {
+
+  // }, [currentView]);
 
   useEffect(() => {
     // NOTE: runs when returning to queue from other page
