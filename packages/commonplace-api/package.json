@@ -75,7 +75,8 @@
     "passport-local": "^1.0.0",
     "pretty-console-logs": "^0.3.0",
     "slugify": "^1.6.5",
-    "ts-dotenv": "^0.8.3"
+    "ts-dotenv": "^0.8.3",
+    "commonplace-utilities": "../commonplace-utilities"
   },
   "resolutions": {
     "graphql": "16.0.0"

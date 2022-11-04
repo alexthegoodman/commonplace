@@ -1,5 +1,5 @@
 import { extendType, nonNull, stringArg } from "nexus";
-import Utilities from "../../../../commonplace-utilities";
+import Utilities from "commonplace-utilities";
 
 import { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
