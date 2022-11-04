@@ -1,6 +1,6 @@
-import Helpers from "./lib/Helpers";
-import Logs from "./lib/Logs";
-import ERROR_CODES from "./lib/ERROR_CODES";
+import Helpers from "./src/Helpers";
+import Logs from "./src/Logs";
+import ERROR_CODES from "./src/ERROR_CODES";
 
 // const dotenv = require("dotenv");
 

@@ -15,7 +15,7 @@ import { cpGraphqlUrl } from "../../../commonplace-utilities/def/urls";
 import { useEffect } from "react";
 import { createRecordMutation } from "../../graphql/mutations/record";
 import { NextSeo } from "next-seo";
-import { GQLClient } from "../../../commonplace-utilities/lib/GQLClient";
+import { GQLClient } from "commonplace-utilities/src/GQLClient";
 import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../next-i18next.config.js";

@@ -1,5 +1,5 @@
 import { extendType, intArg, nonNull, nullable, stringArg } from "nexus";
-import AWS from "commonplace-utilities/lib/AWS";
+import AWS from "commonplace-utilities/src/AWS";
 import { Context } from "../../context";
 
 export const UpdateProfileMutation = extendType({

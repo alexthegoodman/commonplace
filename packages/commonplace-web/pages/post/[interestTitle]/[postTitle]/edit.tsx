@@ -20,7 +20,7 @@ import { updatePostMutation } from "../../../../graphql/mutations/post";
 import { postImpressionsQuery } from "../../../../graphql/queries/message";
 import { postByPostTitleQuery } from "../../../../graphql/queries/post";
 import { userByPostTitleQuery } from "../../../../graphql/queries/user";
-import { GQLClient } from "../../../../../commonplace-utilities/lib/GQLClient";
+import { GQLClient } from "commonplace-utilities/src/GQLClient";
 
 const getPostAndUserData = async (postTitle) => {
   const postData = await request(cpGraphqlUrl, postByPostTitleQuery, {

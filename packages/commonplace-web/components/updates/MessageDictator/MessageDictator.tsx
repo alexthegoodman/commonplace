@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { cpGraphqlUrl } from "../../../../commonplace-utilities/def/urls";
-import { GQLClient } from "../../../../commonplace-utilities/lib/GQLClient";
+import { GQLClient } from "commonplace-utilities/src/GQLClient";
 import { createReplyMutation } from "../../../graphql/mutations/message";
 import FormInput from "../../fields/FormInput/FormInput";
 import FormTextarea from "../../fields/FormTextarea/FormTextarea";

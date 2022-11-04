@@ -5,7 +5,7 @@ import Script from "next/script";
 import { useEffect } from "react";
 import mixpanel from "mixpanel-browser";
 import { createPageViewMutation } from "../graphql/mutations/pageview";
-import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
+import { GQLClient } from "commonplace-utilities/src/GQLClient";
 // import * as FullStory from "@fullstory/browser";
 // import LogRocket from "logrocket";
 import { appWithTranslation } from "next-i18next";

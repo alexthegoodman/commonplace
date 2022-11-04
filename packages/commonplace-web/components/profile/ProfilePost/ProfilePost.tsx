@@ -8,7 +8,7 @@ import {
   cpDomainwp,
   cpGraphqlUrl,
 } from "../../../../commonplace-utilities/def/urls";
-import { GQLClient } from "../../../../commonplace-utilities/lib/GQLClient";
+import { GQLClient } from "commonplace-utilities/src/GQLClient";
 import { deletePostMutation } from "../../../graphql/mutations/post";
 import ContentViewer from "../../post/ContentViewer/ContentViewer";
 import PopupModal from "../../utility/PopupModal/PopupModal";

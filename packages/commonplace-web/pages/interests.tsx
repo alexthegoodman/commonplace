@@ -10,7 +10,7 @@ import InterestPreview from "../components/interests/InterestPreview/InterestPre
 import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
 import { cpGraphqlUrl } from "../../commonplace-utilities/def/urls";
 import { categoriesAndInterestsQuery } from "../graphql/queries/interest";
-import { GQLClient } from "../../commonplace-utilities/lib/GQLClient";
+import { GQLClient } from "commonplace-utilities/src/GQLClient";
 import { useTranslation } from "next-i18next";
 import FormMessage from "../components/fields/FormMessage/FormMessage";
 import { updateFavoriteInterestMutation } from "../graphql/mutations/user";

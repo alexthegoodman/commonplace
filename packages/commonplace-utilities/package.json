@@ -11,13 +11,14 @@
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "lib/**/*"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alexthegoodman/commonplace.git"
   },
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {

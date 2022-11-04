@@ -15,7 +15,7 @@ import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 import { cpGraphqlUrl } from "../../../commonplace-utilities/def/urls";
 import { updateProfileMutation } from "../../graphql/mutations/user";
 import { userQuery } from "../../graphql/queries/user";
-import { GQLClient } from "../../../commonplace-utilities/lib/GQLClient";
+import { GQLClient } from "commonplace-utilities/src/GQLClient";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../next-i18next.config.js";
 import { useTranslation } from "next-i18next";
