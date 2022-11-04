@@ -3,6 +3,8 @@
     "target": "es5",
     "module": "commonjs",
     "declaration": true,
+    "baseUrl": "./lib",
+    "rootDir": "./src",
     "outDir": "./lib",
     "strict": true,
     "noImplicitAny": false

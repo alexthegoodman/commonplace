@@ -1,5 +1,5 @@
 import { GraphQLClient } from "graphql-request";
-import { cpGraphqlUrl } from "../def/urls";
+import { cpGraphqlUrl } from "./def/urls";
 
 export class GQLClient {
   client;

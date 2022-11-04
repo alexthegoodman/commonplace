@@ -1,5 +1,5 @@
 import { extendType, nonNull, nullable, stringArg } from "nexus";
-import Mandrill from "commonplace-utilities/src/Mandrill";
+import Mandrill from "commonplace-utilities/lib/Mandrill";
 import { Context } from "../../context";
 
 export const CreateImpressionMutation = extendType({

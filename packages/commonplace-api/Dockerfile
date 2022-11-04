@@ -7,6 +7,8 @@ WORKDIR /app
 
 COPY ["package.json", "package-lock.json*", "./"]
 
+COPY ["../commonplace-utilities", "../"]
+
 RUN npm install
 
 COPY . .

@@ -1,5 +1,4 @@
 import { nanoid } from "nanoid";
-import { cloudfrontUrl } from "../def/urls";
 export default class Helpers {
   constructor() {}
 
