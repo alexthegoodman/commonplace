@@ -5,12 +5,20 @@ ENV NODE_ENV=development
 
 WORKDIR /app
 
+RUN apt-get -qy update && \
+    apt-get install -y vim && \
+    apt-get -qy install openssl
+
 COPY ["package.json", "package-lock.json*", "./"]
 
-RUN npm install
+RUN npm install -g ts-node typescript prisma @types/node
+
+RUN npm ci --also=dev
 
 COPY . .
 
 RUN npm run build
+
+RUN npm run generate
 
 CMD [ "npm", "run", "start" ]
