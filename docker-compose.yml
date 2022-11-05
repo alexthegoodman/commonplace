@@ -13,7 +13,10 @@ services:
       # dockerfile: Dockerfile.dev
       dockerfile: Dockerfile
       context: ./packages/commonplace-api
+    extra_hosts:
+      - "localhost:192.168.0.106"
     ports:
+      - "3001:3001"
       - "4000:4000"
     volumes:
       - /app/node_modules
@@ -21,14 +24,15 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=4000
-  # frontend:
-  #   build:
-  #     dockerfile: Dockerfile.dev
-  #     context: ./frontend/web
-  #   volumes:
-  #     - /app/node_modules
-  #     - /app/src/styles
-  #     - ./frontend/web:/app
-  #   environment:
-  #     - NODE_ENV=development
-  #     - REACT_APP_DEVELOPMENT_API_ENDPOINT=/devURL
+  web:
+    build:
+      dockerfile: Dockerfile
+      context: ./packages/commonplace-web
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      # - /app/src/styles
+      - ./packages/commonplace-web:/app
+    environment:
+      - NODE_ENV=development

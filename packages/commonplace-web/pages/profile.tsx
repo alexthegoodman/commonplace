@@ -8,12 +8,12 @@ import PrimaryHeader from "../components/layout/PrimaryHeader/PrimaryHeader";
 import ProfileIntro from "../components/profile/ProfileIntro/ProfileIntro";
 import ProfilePosts from "../components/profile/ProfilePosts/ProfilePosts";
 import { userQuery } from "../graphql/queries/user";
-import Utilities from "../../commonplace-utilities";
-import { cpDomain, cpGraphqlUrl } from "../../commonplace-utilities/def/urls";
+import Utilities from "commonplace-utilities/lib";
+import { cpDomain } from "commonplace-utilities/lib/def/urls";
 import { NextSeo } from "next-seo";
 import { useImageUrl } from "../hooks/useImageUrl";
 import DesktopNavigation from "../components/layout/DesktopNavigation/DesktopNavigation";
-import { GQLClient } from "commonplace-utilities/src/GQLClient";
+import { GQLClient } from "commonplace-utilities/lib/GQLClient";
 import nextI18nextConfig from "../next-i18next.config";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 

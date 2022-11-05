@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { NextSeo } from "next-seo";
-import Utilities from "../../commonplace-utilities";
-import { cpDomain } from "../../commonplace-utilities/def/urls";
+import Utilities from "commonplace-utilities/lib";
+import { cpDomain } from "commonplace-utilities/lib/def/urls";
 import LandingBlockA from "../components/landing/LandingBlockA/LandingBlockA";
 import LandingFeaturesA from "../components/landing/LandingFeaturesA/LandingFeaturesA";
 import LandingHeroA from "../components/landing/LandingHeroA/LandingHeroA";

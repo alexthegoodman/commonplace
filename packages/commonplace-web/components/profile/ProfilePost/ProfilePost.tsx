@@ -3,12 +3,8 @@ import { DateTime } from "luxon";
 import Link from "next/link";
 import * as React from "react";
 import { useCookies } from "react-cookie";
-import {
-  cpDomain,
-  cpDomainwp,
-  cpGraphqlUrl,
-} from "../../../../commonplace-utilities/def/urls";
-import { GQLClient } from "commonplace-utilities/src/GQLClient";
+import { cpDomainwp } from "commonplace-utilities/lib/def/urls";
+import { GQLClient } from "commonplace-utilities/lib/GQLClient";
 import { deletePostMutation } from "../../../graphql/mutations/post";
 import ContentViewer from "../../post/ContentViewer/ContentViewer";
 import PopupModal from "../../utility/PopupModal/PopupModal";

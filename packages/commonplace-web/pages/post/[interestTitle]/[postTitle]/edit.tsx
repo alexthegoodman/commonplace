@@ -12,15 +12,12 @@ import FormInput from "../../../../components/fields/FormInput/FormInput";
 import FormMessage from "../../../../components/fields/FormMessage/FormMessage";
 import FormTextarea from "../../../../components/fields/FormTextarea/FormTextarea";
 import PrimaryHeader from "../../../../components/layout/PrimaryHeader/PrimaryHeader";
-import {
-  cpDomain,
-  cpGraphqlUrl,
-} from "../../../../../commonplace-utilities/def/urls";
+import { cpGraphqlUrl } from "commonplace-utilities/lib/def/urls";
 import { updatePostMutation } from "../../../../graphql/mutations/post";
 import { postImpressionsQuery } from "../../../../graphql/queries/message";
 import { postByPostTitleQuery } from "../../../../graphql/queries/post";
 import { userByPostTitleQuery } from "../../../../graphql/queries/user";
-import { GQLClient } from "commonplace-utilities/src/GQLClient";
+import { GQLClient } from "commonplace-utilities/lib/GQLClient";
 
 const getPostAndUserData = async (postTitle) => {
   const postData = await request(cpGraphqlUrl, postByPostTitleQuery, {

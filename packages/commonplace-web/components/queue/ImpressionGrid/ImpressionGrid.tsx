@@ -1,8 +1,7 @@
 import { useTranslation } from "next-i18next";
 import * as React from "react";
 import { useForm } from "react-hook-form";
-import { adjectives } from "../../../../commonplace-utilities/def/adjectives";
-import impressions from "../../../../commonplace-utilities/def/impressions";
+import impressions from "commonplace-utilities/lib/def/impressions";
 import FormTextarea from "../../fields/FormTextarea/FormTextarea";
 import CreditCounter from "../CreditCounter/CreditCounter";
 

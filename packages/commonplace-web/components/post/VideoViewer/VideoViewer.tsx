@@ -1,5 +1,4 @@
 import * as React from "react";
-import { cloudfrontUrl } from "../../../../commonplace-utilities/def/urls";
 import { useVideoUrl } from "../../../hooks/useVideoUrl";
 
 import { VideoViewerProps } from "./VideoViewer.d";

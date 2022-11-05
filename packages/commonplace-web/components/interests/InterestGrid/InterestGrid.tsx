@@ -1,6 +1,5 @@
 import { useTranslation } from "next-i18next";
 import * as React from "react";
-import { adjectives } from "../../../../commonplace-utilities/def/adjectives";
 
 import { InterestGridProps } from "./InterestGrid.d";
 

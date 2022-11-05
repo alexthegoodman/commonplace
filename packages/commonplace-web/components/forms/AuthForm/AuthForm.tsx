@@ -4,10 +4,7 @@ import * as React from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import mixpanel from "mixpanel-browser";
-import {
-  cpDomain,
-  cpGraphqlUrl,
-} from "../../../../commonplace-utilities/def/urls";
+import { cpDomain, cpGraphqlUrl } from "commonplace-utilities/lib/def/urls";
 const { DateTime } = require("luxon");
 // import LogRocket from "logrocket";
 
@@ -16,7 +13,7 @@ import FormInput from "../../fields/FormInput/FormInput";
 import FormMessage from "../../fields/FormMessage/FormMessage";
 
 import { AuthFormProps } from "./AuthForm.d";
-import Utilities from "../../../../commonplace-utilities";
+import Utilities from "commonplace-utilities/lib";
 import { registerMutation } from "../../../graphql/mutations/user";
 import { CookieSettings } from "../../../pages/settings";
 import { useTranslation } from "next-i18next";

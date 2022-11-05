@@ -3,7 +3,7 @@
 import { getServerSideSitemap } from "next-sitemap";
 import { GetServerSideProps } from "next";
 import request from "graphql-request";
-import { cpGraphqlUrl } from "../../../commonplace-utilities/def/urls";
+import { cpGraphqlUrl } from "commonplace-utilities/lib/def/urls";
 import { profileURLsQuery } from "../../graphql/queries/user";
 import { postURLsQuery } from "../../graphql/queries/post";
 

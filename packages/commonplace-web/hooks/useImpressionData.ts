@@ -1,4 +1,4 @@
-import * as impressionsData from "../../commonplace-utilities/def/impressions";
+import * as impressionsData from "commonplace-utilities/lib/def/impressions";
 
 export const useImpressionData = (impression) => {
   const categoryData = impressionsData.default.filter(

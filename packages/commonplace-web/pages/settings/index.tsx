@@ -6,8 +6,8 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
-import Utilities from "../../../commonplace-utilities";
-import { cpDomain } from "../../../commonplace-utilities/def/urls";
+import Utilities from "commonplace-utilities/lib";
+import { cpDomain } from "commonplace-utilities/lib/def/urls";
 import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
 
 import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";

@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import * as React from "react";
 import { useCookies } from "react-cookie";
-import { GQLClient } from "commonplace-utilities/src/GQLClient";
+import { GQLClient } from "commonplace-utilities/lib/GQLClient";
 import { updateUserLanguageMutation } from "../../../graphql/mutations/user";
 import PrimaryHeader from "../../layout/PrimaryHeader/PrimaryHeader";
 
