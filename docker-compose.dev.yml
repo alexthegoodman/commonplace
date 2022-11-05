@@ -3,7 +3,7 @@ version: "3.4"
 services:
   api:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./packages/commonplace-api
     extra_hosts:
       - "localhost:192.168.0.106"
@@ -14,11 +14,11 @@ services:
       - /app/node_modules
       - ./packages/commonplace-api:/app
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - PORT=4000
   web:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./packages/commonplace-web
     ports:
       - "3000:3000"
@@ -27,4 +27,4 @@ services:
       # - /app/src/styles
       - ./packages/commonplace-web:/app
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development

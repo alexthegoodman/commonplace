@@ -1,9 +1,13 @@
 # syntax=docker/dockerfile:1
 
 FROM node:14.20.0
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 
 WORKDIR /app
+
+RUN apt-get -qy update && \
+    apt-get install -y vim && \
+    apt-get -qy install openssl
 
 COPY ["package.json", "package-lock.json*", "./"]
 
@@ -13,6 +17,6 @@ RUN npm ci --also=dev
 
 COPY . .
 
-RUN npm run build
+RUN npm run generate
 
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "dev" ]
