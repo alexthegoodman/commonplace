@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
 import { extendType, intArg, nonNull, nullable, stringArg } from "nexus";
-import Utilities from "commonplace-utilities";
+import Utilities from "commonplace-utilities/lib";
 import { Context } from "../../context";
 import bcrypt from "bcryptjs";
 import Helpers from "../../../lib/Helpers";

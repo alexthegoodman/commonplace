@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import faker from "@faker-js/faker";
-import Utilities from "commonplace-utilities";
+import Utilities from "commonplace-utilities/lib";
 import { testImages } from "./post";
 import { nanoid } from "nanoid";
 

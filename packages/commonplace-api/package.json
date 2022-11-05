@@ -52,6 +52,7 @@
     "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
+    "commonplace-utilities": "0.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
@@ -75,8 +76,7 @@
     "passport-local": "^1.0.0",
     "pretty-console-logs": "^0.3.0",
     "slugify": "^1.6.5",
-    "ts-dotenv": "^0.8.3",
-    "commonplace-utilities": "../commonplace-utilities"
+    "ts-dotenv": "^0.8.3"
   },
   "resolutions": {
     "graphql": "16.0.0"

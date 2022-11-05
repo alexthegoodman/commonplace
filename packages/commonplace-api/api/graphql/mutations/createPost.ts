@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { extendType, intArg, nonNull, nullable, stringArg } from "nexus";
 import slugify from "slugify";
-import AWS from "commonplace-utilities/src/AWS";
+import AWS from "commonplace-utilities/lib/AWS";
 import { Context } from "../../context";
 
 export const CreatePostMutation = extendType({
