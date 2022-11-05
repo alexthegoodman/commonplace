@@ -24,7 +24,7 @@ import { InterestsContent, PopularInterests } from "./interests";
 import { NextSeo } from "next-seo";
 import BrandName from "../components/layout/BrandName/BrandName";
 import { userThreadsQuery } from "../graphql/queries/thread";
-import { GQLClient } from "commonplace-utilities/lib/GQLClient";
+// import { GQLClient } from "commonplace-utilities/lib/GQLClient";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../next-i18next.config.js";
 import { useTranslation } from "next-i18next";
@@ -36,6 +36,29 @@ import { useRouter } from "next/router";
 import Masonry from "react-responsive-masonry";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import { categoriesAndInterestsQuery } from "../graphql/queries/interest";
+
+import { GraphQLClient } from "graphql-request";
+// import { cpGraphqlUrl } from "./def/urls";
+
+export class GQLClient {
+  client;
+  token;
+
+  constructor(token) {
+    this.token = token;
+
+    this.setupClient();
+  }
+
+  setupClient() {
+    this.client = new GraphQLClient(`http://192.168.2.12:4000/graphql`, {
+      headers: {
+        Authorization: "Bearer " + this.token,
+      },
+      timeout: 10000, // 10s
+    });
+  }
+}
 
 const getPostsAndUserData = async (token, interestId = null) => {
   const gqlClient = new GQLClient(token);

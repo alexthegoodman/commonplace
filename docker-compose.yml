@@ -16,6 +16,8 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=4000
+    expose:
+      - 4000
   web:
     build:
       dockerfile: Dockerfile
