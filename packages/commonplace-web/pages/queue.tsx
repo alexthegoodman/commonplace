@@ -41,30 +41,12 @@ import { GraphQLClient } from "graphql-request";
 import graphClient from "../helpers/GQLClient";
 // import { cpGraphqlUrl } from "./def/urls";
 
-export class GQLClient {
-  client;
-  token;
-
-  constructor(token) {
-    this.token = token;
-
-    this.setupClient();
-  }
-
-  setupClient() {
-    this.client = new GraphQLClient(`http://192.168.2.12:4000/graphql`, {
-      headers: {
-        Authorization: "Bearer " + this.token,
-      },
-      timeout: 10000, // 10s
-    });
-  }
-}
-
 const getPostsAndUserData = async (token, interestId = null) => {
   graphClient.setupClient(token);
 
   const userData = await graphClient.client.request(userQuery);
+
+  console.info("getPostsAndUserData interestId", interestId);
 
   const postsData = await graphClient.client.request(queuePostsQuery, {
     interestId,
@@ -107,6 +89,8 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
   const token = cookies.coUserToken;
 
   const gqlClient = graphClient.setupClient(token);
+
+  console.info("favoriteInterest", favoriteInterest);
 
   const [selectedInterest, setSelectedInterest] = useState<any>(
     favoriteInterest ? favoriteInterest : null

@@ -3,7 +3,7 @@ import * as React from "react";
 import { useImageUrl } from "../../../hooks/useImageUrl";
 import ProfileAvatar from "../../profile/ProfileAvatar/ProfileAvatar";
 import ImpressionTicker from "../ImpressionTicker/ImpressionTicker";
-const { DateTime } = require("luxon");
+import { DateTime } from "luxon";
 
 import { ContentInformationProps } from "./ContentInformation.d";
 
@@ -15,7 +15,7 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
   post = null,
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
-  const displayDate = DateTime.fromISO(post?.createdAt).toFormat("DDD");
+  const displayDate = DateTime.fromISO(post?.createdAt).toUTC().toFormat("DDD");
   const prrofileSEOStatement =
     post?.creator?.chosenUsername + " on CommonPlace";
 
