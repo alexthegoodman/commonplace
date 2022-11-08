@@ -26,7 +26,13 @@ export const server = new ApolloServer({
           },
         });
 
-        console.info("Verified Token", verified, "currentUser", currentUser);
+        console.info(
+          "Verified Token",
+          req.path,
+          req.body?.operationName,
+          new Date().toLocaleTimeString(),
+          currentUser.generatedUsername
+        );
       } else {
         console.warn("Token Not Verified 1");
       }
