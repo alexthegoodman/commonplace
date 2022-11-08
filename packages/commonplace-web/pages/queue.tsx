@@ -38,6 +38,7 @@ import useInfiniteScroll from "react-infinite-scroll-hook";
 import { categoriesAndInterestsQuery } from "../graphql/queries/interest";
 
 import { GraphQLClient } from "graphql-request";
+import graphClient from "../helpers/GQLClient";
 // import { cpGraphqlUrl } from "./def/urls";
 
 export class GQLClient {
@@ -61,22 +62,22 @@ export class GQLClient {
 }
 
 const getPostsAndUserData = async (token, interestId = null) => {
-  const gqlClient = new GQLClient(token);
+  graphClient.setupClient(token);
 
-  const userData = await gqlClient.client.request(userQuery);
+  const userData = await graphClient.client.request(userQuery);
 
-  const postsData = await gqlClient.client.request(queuePostsQuery, {
+  const postsData = await graphClient.client.request(queuePostsQuery, {
     interestId,
   });
 
-  const explorePostsData = await gqlClient.client.request(explorePostsQuery, {
+  const explorePostsData = await graphClient.client.request(explorePostsQuery, {
     interestId,
     page: 1,
   });
 
-  const userThreadData = await gqlClient.client.request(userThreadsQuery);
+  const userThreadData = await graphClient.client.request(userThreadsQuery);
 
-  const categoriesAndInterestsData = await gqlClient.client.request(
+  const categoriesAndInterestsData = await graphClient.client.request(
     categoriesAndInterestsQuery
   );
 
@@ -105,7 +106,7 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
-  const gqlClient = new GQLClient(token);
+  const gqlClient = graphClient.setupClient(token);
 
   const [selectedInterest, setSelectedInterest] = useState<any>(
     favoriteInterest ? favoriteInterest : null
@@ -154,7 +155,7 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
 
   const loadMoreExploreItems = async () => {
     const newPage = explorePostsPage + 1;
-    const addtPostsData = await gqlClient.client.request(explorePostsQuery, {
+    const addtPostsData = await graphClient.client.request(explorePostsQuery, {
       interestId: selectedInterest?.id,
       page: newPage,
     });
@@ -339,7 +340,7 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
       // // const authorUsername = data?.currentUser?.generatedUsername;
       const postCreatorUsername = currentPost?.creator?.generatedUsername;
 
-      const savedImpression = await gqlClient.client.request(
+      const savedImpression = await graphClient.client.request(
         createImpressionMutation,
         {
           content: impression,

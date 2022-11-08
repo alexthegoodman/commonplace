@@ -19,13 +19,14 @@ import DesktopNavigation from "../../components/layout/DesktopNavigation/Desktop
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../next-i18next.config.js";
 import { useTranslation } from "next-i18next";
+import graphClient from "../../helpers/GQLClient";
 
 const getUserAndThreadData = async (token, threadId) => {
-  const gqlClient = new GQLClient(token);
+  const gqlClient = graphClient.setupClient(token);
 
-  const userData = await gqlClient.client.request(userQuery);
+  const userData = await graphClient.client.request(userQuery);
 
-  const threadData = await gqlClient.client.request(threadQuery, {
+  const threadData = await graphClient.client.request(threadQuery, {
     threadId,
   });
 
@@ -42,7 +43,7 @@ const ThreadContent = () => {
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
-  const gqlClient = new GQLClient(token);
+  const gqlClient = graphClient.setupClient(token);
 
   const router = useRouter();
   const { threadId } = router.query;
@@ -60,7 +61,7 @@ const ThreadContent = () => {
   )[0].user;
 
   const setReadBy = async () => {
-    const readAt = await gqlClient.client.request(createRecordMutation, {
+    const readAt = await graphClient.client.request(createRecordMutation, {
       username: data?.currentUser?.getUser?.generatedUsername,
       threadId,
     });

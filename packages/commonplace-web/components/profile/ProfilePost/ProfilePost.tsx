@@ -3,8 +3,8 @@ import { DateTime } from "luxon";
 import Link from "next/link";
 import * as React from "react";
 import { useCookies } from "react-cookie";
-import { cpDomainwp } from "commonplace-utilities/lib/def/urls";
-import { GQLClient } from "commonplace-utilities/lib/GQLClient";
+import { cpDomainwp } from "../../../def/urls";
+import graphClient from "../../../helpers/GQLClient";
 import { deletePostMutation } from "../../../graphql/mutations/post";
 import ContentViewer from "../../post/ContentViewer/ContentViewer";
 import PopupModal from "../../utility/PopupModal/PopupModal";
@@ -23,7 +23,7 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
-  const gqlClient = new GQLClient(token);
+  const gqlClient = graphClient.setupClient(token);
 
   const [displayOptionsMenu, setDisplayOptionsMenu] = React.useState(false);
   const [deletePostId, setDeletePostId] = React.useState(null);
@@ -39,7 +39,7 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
     post?.generatedTitleSlug;
 
   const deletePost = async () => {
-    await gqlClient.client.request(deletePostMutation, {
+    await graphClient.client.request(deletePostMutation, {
       postTitleSlug: post?.generatedTitleSlug,
     });
 

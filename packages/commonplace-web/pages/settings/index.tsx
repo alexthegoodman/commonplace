@@ -7,14 +7,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import Utilities from "commonplace-utilities/lib";
-import { cpDomain } from "commonplace-utilities/lib/def/urls";
+import { cookieDomain } from "../../def/urls";
 import DesktopNavigation from "../../components/layout/DesktopNavigation/DesktopNavigation";
 
 import PrimaryHeader from "../../components/layout/PrimaryHeader/PrimaryHeader";
 
 export const CookieSettings = {
   sameSite: "strict" as "strict",
-  domain: cpDomain,
+  domain: cookieDomain,
   secure: true, // only accessible via https
   path: "/",
 };

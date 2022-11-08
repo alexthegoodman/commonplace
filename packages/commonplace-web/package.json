@@ -24,7 +24,7 @@
     "@types/node": "17.0.33",
     "@typescript-eslint/parser": "^5.26.0",
     "aws-crt": "^1.14.1",
-    "commonplace-utilities": "0.0.5",
+    "commonplace-utilities": "0.0.8",
     "esbuild": "^0.14.47",
     "feather-webfont": "^4.22.3",
     "framer": "^2.1.2",

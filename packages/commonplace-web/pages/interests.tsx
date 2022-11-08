@@ -13,11 +13,12 @@ import { GQLClient } from "commonplace-utilities/lib/GQLClient";
 import { useTranslation } from "next-i18next";
 import FormMessage from "../components/fields/FormMessage/FormMessage";
 import { updateFavoriteInterestMutation } from "../graphql/mutations/user";
+import graphClient from "../helpers/GQLClient";
 
 const getCategoriesAndInterestData = async (token) => {
-  const gqlClient = new GQLClient(token);
+  const gqlClient = graphClient.setupClient(token);
 
-  const categoriesAndInterestsData = await gqlClient.client.request(
+  const categoriesAndInterestsData = await graphClient.client.request(
     categoriesAndInterestsQuery
   );
 
@@ -46,7 +47,7 @@ export const PopularInterests = ({
   const [cookies, setCookie] = useCookies(["coUserToken", "coFavInt"]);
   const token = cookies.coUserToken;
 
-  const gqlClient = new GQLClient(token);
+  const gqlClient = graphClient.setupClient(token);
 
   const { data } = useSWR("interestsKey", () =>
     getCategoriesAndInterestData(token)
@@ -66,7 +67,7 @@ export const PopularInterests = ({
   };
 
   const selectInterest = async (interestId) => {
-    await gqlClient.client.request(updateFavoriteInterestMutation, {
+    await graphClient.client.request(updateFavoriteInterestMutation, {
       interestId,
     });
 

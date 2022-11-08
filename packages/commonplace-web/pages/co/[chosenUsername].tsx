@@ -4,7 +4,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import useSWR, { SWRConfig } from "swr";
 import Utilities from "commonplace-utilities/lib";
-import { cpGraphqlUrl } from "commonplace-utilities/lib/def/urls";
+import { cpGraphqlUrl } from "../../def/urls";
 import { postsByUsernameQuery } from "../../graphql/queries/post";
 import { userByUsernameQuery } from "../../graphql/queries/user";
 import nextI18nextConfig from "../../next-i18next.config";

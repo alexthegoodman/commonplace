@@ -17,13 +17,14 @@ import { GQLClient } from "commonplace-utilities/lib/GQLClient";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../../next-i18next.config.js";
 import { useTranslation } from "next-i18next";
+import graphClient from "../../helpers/GQLClient";
 
 export const getUserThreadData = async (token) => {
-  const gqlClient = new GQLClient(token);
+  const gqlClient = graphClient.setupClient(token);
 
-  const userData = await gqlClient.client.request(userQuery);
+  const userData = await graphClient.client.request(userQuery);
 
-  const userThreadData = await gqlClient.client.request(userThreadsQuery);
+  const userThreadData = await graphClient.client.request(userThreadsQuery);
 
   return {
     user: userData?.getUser,

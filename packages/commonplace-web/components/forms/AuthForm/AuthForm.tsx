@@ -4,7 +4,7 @@ import * as React from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import mixpanel from "mixpanel-browser";
-import { cpDomain, cpGraphqlUrl } from "commonplace-utilities/lib/def/urls";
+import { cpDomain, cpGraphqlUrl } from "../../../def/urls";
 const { DateTime } = require("luxon");
 // import LogRocket from "logrocket";
 

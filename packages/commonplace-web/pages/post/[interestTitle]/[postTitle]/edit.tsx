@@ -12,12 +12,13 @@ import FormInput from "../../../../components/fields/FormInput/FormInput";
 import FormMessage from "../../../../components/fields/FormMessage/FormMessage";
 import FormTextarea from "../../../../components/fields/FormTextarea/FormTextarea";
 import PrimaryHeader from "../../../../components/layout/PrimaryHeader/PrimaryHeader";
-import { cpGraphqlUrl } from "commonplace-utilities/lib/def/urls";
+import { cpGraphqlUrl } from "../../../../def/urls";
 import { updatePostMutation } from "../../../../graphql/mutations/post";
 import { postImpressionsQuery } from "../../../../graphql/queries/message";
 import { postByPostTitleQuery } from "../../../../graphql/queries/post";
 import { userByPostTitleQuery } from "../../../../graphql/queries/user";
 import { GQLClient } from "commonplace-utilities/lib/GQLClient";
+import graphClient from "../../../../helpers/GQLClient";
 
 const getPostAndUserData = async (postTitle) => {
   const postData = await request(cpGraphqlUrl, postByPostTitleQuery, {
@@ -40,7 +41,7 @@ const EditPostContent = ({ data }) => {
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
-  const gqlClient = new GQLClient(token);
+  const gqlClient = graphClient.setupClient(token);
 
   const currentPost = data;
 
@@ -77,7 +78,7 @@ const EditPostContent = ({ data }) => {
   const onSubmit = async (formValues) => {
     console.info("onSubmit", formValues, data);
 
-    const updatedPost = await gqlClient.client.request(updatePostMutation, {
+    const updatedPost = await graphClient.client.request(updatePostMutation, {
       postTitleSlug: data?.generatedTitleSlug, //protected public fields
       ...formValues,
     });

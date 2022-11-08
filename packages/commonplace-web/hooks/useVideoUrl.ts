@@ -1,4 +1,4 @@
-import { s3Url } from "commonplace-utilities/lib/def/urls";
+import { s3Url } from "../def/urls";
 
 export const useVideoUrl = (sourceUrl = "") => {
   //   const [json, setJson] = useState(null);

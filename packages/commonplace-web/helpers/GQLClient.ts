@@ -1,3 +1,5 @@
+// import { GQLClient } from "commonplace-utilities/lib/GQLClient";
+import { cpGraphqlUrl } from "../def/urls";
 import { GraphQLClient } from "graphql-request";
 
 export class GQLClient {
@@ -22,3 +24,7 @@ export class GQLClient {
     return self;
   }
 }
+
+const graphClient = new GQLClient(cpGraphqlUrl);
+
+export default graphClient;

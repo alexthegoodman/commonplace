@@ -2,6 +2,7 @@ version: "3.4"
 
 services:
   api:
+    container_name: api
     build:
       dockerfile: Dockerfile.dev
       context: ./packages/commonplace-api
@@ -19,6 +20,7 @@ services:
     expose:
       - 4000
   web:
+    container_name: web
     build:
       dockerfile: Dockerfile.dev
       context: ./packages/commonplace-web
