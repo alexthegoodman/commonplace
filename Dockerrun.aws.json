@@ -2,14 +2,14 @@
   "AWSEBDockerrunVersion": 3,
   "containerDefinitions": [
     {
-      "name": "client",
+      "name": "api",
       "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APPLICATION_NAME}-api",
       "hostname": "api",
       "essential": false,
       "memory": 256
     },
     {
-      "name": "api",
+      "name": "web",
       "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APPLICATION_NAME}-web",
       "hostname": "web",
       "essential": false,
