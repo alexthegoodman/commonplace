@@ -24,4 +24,8 @@ phases:
       - docker-compose --file=docker-compose.yml push
 artifacts:
   files:
-    - "docker-compose.yml"
+    - "Dockerrun.aws.json"
+# artifacts:
+#   enable-symlinks: yes
+#   files:
+#     - "**/*"
