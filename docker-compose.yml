@@ -2,6 +2,7 @@ version: "3.4"
 
 services:
   api:
+    image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APPLICATION_NAME}-api
     build:
       dockerfile: Dockerfile
       context: ./packages/commonplace-api
@@ -19,6 +20,7 @@ services:
     expose:
       - 4000
   web:
+    image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APPLICATION_NAME}-web
     build:
       dockerfile: Dockerfile
       context: ./packages/commonplace-web

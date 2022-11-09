@@ -1,57 +1,27 @@
-# Migrate RDS Database
-# Seed Database (only on local and dev)
-# Install node_modules for server and client
-
-# Use Procfile to start server and client
-# API may be accessible via port, or may redesirect requests to Next.js
-
 version: 0.2
-
 phases:
   install:
     runtime-versions:
-      nodejs: 14
-    commands:
-      # upgrade AWS CLI
-      # - pip install --upgrade awscli
-
+      docker: 18
   pre_build:
     commands:
-      # install server dependencies
-      - cd ./packages/commonplace-utilities/
-      - npm install
-      - cd ../../
-      - cd ./packages/commonplace-api/
-      - npm install -g ts-node typescript prisma @types/node
-      - npm install
-      # migrate server database
-      # - npx prisma migrate resolve --applied "20221023001228_add_favorite_interest"
-      - npx prisma migrate deploy
-      - prisma generate
-      # - npm run db:seed
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
-      # install client dependencies and build static files
-      - cd ../../
-      - cd ./packages/commonplace-web/
-      - npm install -g typescript @types/node @types/react
-      - npm ci --also=dev
-      - npm run build
-      # install dashboard dependencies
-      # - cd ../../
-      # - cd ./packages/commonplace-dashboard/
-      # - npm install -g typescript @types/node @types/react
-      # - npm ci --also=dev
-      # - npm run build
+      # Test Build (Dockerfile.dev)
+      #- echo Build started on `date`
+      #- echo Building Docker test image...
+      #- docker build -t $IMAGE_REPO_NAME:$TEST_IMAGE_TAG -f Dockerfile.dev .
+      #- docker run -e CI=true $IMAGE_REPO_NAME:$TEST_IMAGE_TAG npm run test
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker-compose --file=docker-compose.yml build
   post_build:
     commands:
-      - cd ../../
-      # - zip -r --symlinks 'builds/build.zip' .
-      - ls -la packages/commonplace-api
-      - ls -la packages/commonplace-web
-      # - ls -la packages/commonplace-dashboard
-
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker-compose --file=docker-compose.yml push
 artifacts:
-  enable-symlinks: yes
   files:
-    - "**/*"
+    - "Dockerrun.aws.json"
