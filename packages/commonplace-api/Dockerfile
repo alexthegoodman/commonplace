@@ -11,6 +11,8 @@ RUN apt-get -qy update && \
 
 COPY ["package.json", "package-lock.json*", "./"]
 
+COPY ["prisma", "./"]
+
 RUN npm install -g ts-node typescript prisma @types/node
 
 RUN npm ci --also=dev
