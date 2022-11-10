@@ -15,7 +15,7 @@ COPY ["prisma", "./"]
 
 RUN npm install -g ts-node typescript prisma @types/node
 
-RUN npm ci --also=dev
+RUN npm ci
 
 COPY . .
 
