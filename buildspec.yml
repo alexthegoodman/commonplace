@@ -22,10 +22,10 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker-compose --file=docker-compose.yml push
-artifacts:
-  files:
-    - "Dockerrun.aws.json"
 # artifacts:
-#   enable-symlinks: yes
 #   files:
-#     - "**/*"
+#     - "Dockerrun.aws.json"
+artifacts:
+  enable-symlinks: yes
+  files:
+    - "**/*"
