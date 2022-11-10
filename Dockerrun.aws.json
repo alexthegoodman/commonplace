@@ -6,7 +6,7 @@
       "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APPLICATION_NAME}-api",
       "hostname": "api",
       "essential": false,
-      "memory": 512,
+      "memory": 1024,
       "portMappings": [
         {
           "hostPort": 4000,
@@ -23,7 +23,7 @@
       "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APPLICATION_NAME}-web",
       "hostname": "web",
       "essential": false,
-      "memory": 512,
+      "memory": 1024,
       "portMappings": [
         {
           "hostPort": 3000,
