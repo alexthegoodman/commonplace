@@ -35,13 +35,13 @@
     "url": "^0.11.0",
     "util": "^0.12.4",
     "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2"
+    "webpack-cli": "^4.9.2",
+    "@faker-js/faker": "^6.3.1"
   },
   "dependencies": {
     "typescript": "^4.6.4",
     "@aws-sdk/client-s3": "^3.100.0",
     "@aws-sdk/types": "^3.78.0",
-    "@faker-js/faker": "^6.3.1",
     "@mailchimp/mailchimp_marketing": "^3.0.78",
     "@prisma/client": "^3.14.0",
     "@types/axios": "^0.14.0",
