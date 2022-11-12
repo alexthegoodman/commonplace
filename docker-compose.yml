@@ -11,22 +11,46 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./packages/commonplace-api
+      args:
+        - NODE_ENV=${NODE_ENV}
+        - DATABASE_URL=${DATABASE_URL}
+        - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+        - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+        - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+        - TOKEN_HEADER_KEY=${TOKEN_HEADER_KEY}
+        - MANDRILL_KEY=${MANDRILL_KEY}
+        - MAILCHIMP_KEY=${MAILCHIMP_KEY}
+        - IPSTACK_KEY=${IPSTACK_KEY}
     extra_hosts:
       - "localhost:192.168.0.106"
     ports:
       - "3001:3001"
       - "4000:4000"
     environment:
-      - NODE_ENV=production
-      - PORT=4000
+      - NODE_ENV=${NODE_ENV}
+      - DATABASE_URL=${DATABASE_URL}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - TOKEN_HEADER_KEY=${TOKEN_HEADER_KEY}
+      - MANDRILL_KEY=${MANDRILL_KEY}
+      - MAILCHIMP_KEY=${MAILCHIMP_KEY}
+      - IPSTACK_KEY=${IPSTACK_KEY}
     expose:
       - 4000
+
   web:
     image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APPLICATION_NAME}-web
     build:
       dockerfile: Dockerfile
       context: ./packages/commonplace-web
+      args:
+        - NODE_ENV=${NODE_ENV}
+        - NEXT_PUBLIC_APP_ENV=${NEXT_PUBLIC_APP_ENV}
+        - NEXT_PUBLIC_DOCKER_HOST=${NEXT_PUBLIC_DOCKER_HOST}
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=${NODE_ENV}
+      - NEXT_PUBLIC_APP_ENV=${NEXT_PUBLIC_APP_ENV}
+      - NEXT_PUBLIC_DOCKER_HOST=${NEXT_PUBLIC_DOCKER_HOST}
