@@ -24,7 +24,8 @@ When("I enter random email into {string}", (inputName) => {
 });
 
 When("I click {string} button", (buttonText: string) => {
-  cy.get(`input[type="submit"][value="${buttonText}"]`).click();
+  // cy.get(`input[type="submit"][value="${buttonText}"]`).click();
+  cy.get(`button`).contains(buttonText).click();
 });
 
 Then("I should be on {string}", (route) => {

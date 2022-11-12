@@ -5,7 +5,7 @@ Feature: Auth - Sign In and Sign Up
         Then I should see an input named "password"
         When I enter "alexthegoodman@gmail.com" into "email"
         When I enter "testing" into "password"
-        When I click "GO" button
+        When I click "Sign In" button
         Then I should be on "/queue"
 
     Scenario: Sign In With Incorrect Email  
@@ -14,8 +14,9 @@ Feature: Auth - Sign In and Sign Up
         Then I should see an input named "password"
         When I enter "alexthegoodman-123@gmail.com" into "email"
         When I enter "testing" into "password"
-        When I click "GO" button
-        Then I should see an error containing "Cannot find user"
+        When I click "Sign In" button
+        # Then I should see an error containing "Cannot find user"
+        Then I should see an error containing "Not Authorized"
 
     Scenario: Sign In With Incorrect Password
         When I visit "/sign-in/"
@@ -23,8 +24,9 @@ Feature: Auth - Sign In and Sign Up
         Then I should see an input named "password"
         When I enter "alexthegoodman@gmail.com" into "email"
         When I enter "testing-123" into "password"
-        When I click "GO" button
-        Then I should see an error containing "Incorrect password"
+        When I click "Sign In" button
+        # Then I should see an error containing "Incorrect password"
+        Then I should see an error containing "Not Authorized"
 
     Scenario: Sign Up Correctly
         When I visit "/sign-up/"
@@ -32,7 +34,7 @@ Feature: Auth - Sign In and Sign Up
         Then I should see an input named "password"
         When I enter random email into "email"
         When I enter "testing" into "password"
-        When I click "GO" button
+        When I click "Sign Up" button
         Then I should be on "/queue"
 
     Scenario: Sign Up With In-Use Email  
@@ -41,5 +43,6 @@ Feature: Auth - Sign In and Sign Up
         Then I should see an input named "password"
         When I enter "alexthegoodman@gmail.com" into "email"
         When I enter "testing" into "password"
-        When I click "GO" button
-        Then I should see an error containing "A user with this email already exists"
+        When I click "Sign Up" button
+        # Then I should see an error containing "A user with this email already exists"
+        Then I should see an error containing "Not Authorized"
