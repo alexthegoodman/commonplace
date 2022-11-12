@@ -11,6 +11,7 @@ services:
     ports:
       - "3001:3001"
       - "4000:4000"
+    # ues volumes to copy over files during development
     volumes:
       - /app/node_modules
       - ./packages/commonplace-api:/app

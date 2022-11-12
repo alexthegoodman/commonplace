@@ -1,5 +1,10 @@
 version: "3.4"
 
+# no disk space error:
+# https://medium.com/@ibell/troubleshooting-elastic-beanstalk-memory-issues-cd60069bf8b8
+# https://bobcares.com/blog/docker-overlay2-cleanup/
+# Increase space on EB instance
+
 services:
   api:
     image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APPLICATION_NAME}-api
@@ -11,9 +16,6 @@ services:
     ports:
       - "3001:3001"
       - "4000:4000"
-    volumes:
-      - /app/node_modules
-      - ./packages/commonplace-api:/app
     environment:
       - NODE_ENV=production
       - PORT=4000
@@ -26,9 +28,5 @@ services:
       context: ./packages/commonplace-web
     ports:
       - "3000:3000"
-    volumes:
-      - /app/node_modules
-      # - /app/src/styles
-      - ./packages/commonplace-web:/app
     environment:
       - NODE_ENV=production
