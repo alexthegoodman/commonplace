@@ -20,7 +20,8 @@ When("I enter random email into {string}", (inputName) => {
 });
 
 When("I click {string} button", (buttonText: string) => {
-  cy.get(`input[type="submit"][value="${buttonText}"]`).click();
+  // cy.get(`input[type="submit"][value="${buttonText}"]`).click();
+  cy.get(`button`).contains(buttonText).click();
 });
 
 Then("I should be on {string}", (route) => {
@@ -65,6 +66,10 @@ Then("I should see new related information", () => {
 
 Then("I should see {string} in credit indicator", (counterValue) => {
   cy.get(".creditCounter span").should("have.text", counterValue);
+});
+
+Then("I should see an input named {string}", (inputName) => {
+  cy.get(`input[name="${inputName}"]`);
 });
 
 When("I select {string} Impression", (impressionName: string) => {

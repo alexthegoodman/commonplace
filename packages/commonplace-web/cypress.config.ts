@@ -24,6 +24,7 @@ export default defineConfig({
   e2e: {
     specPattern: "**/*.feature",
     supportFile: false,
+    video: false,
     setupNodeEvents,
   },
 });
