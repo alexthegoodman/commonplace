@@ -31,7 +31,7 @@ export const CreatePageViewMutation = extendType({
 
         let addtData = {};
 
-        if (typeof currentUser !== "undefined") {
+        if (typeof currentUser !== "undefined" && currentUser) {
           addtData = {
             user: {
               connect: {
