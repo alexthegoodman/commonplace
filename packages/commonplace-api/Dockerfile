@@ -23,4 +23,6 @@ RUN npm run build
 
 RUN npm run generate
 
+RUN npx prisma migrate deploy
+
 CMD [ "npm", "run", "start" ]

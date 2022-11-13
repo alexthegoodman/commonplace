@@ -32,6 +32,7 @@ model User {
   threads      Thread[]
   messages     Message[]  @relation("userMessages")
   // readMessages Message[]  @relation("userReadMessages")
+  favorites    Favorite[]
 
   pageViews   PageView[]
 
@@ -58,6 +59,7 @@ model Post {
   creatorId   String
   // threads     Thread[] 
   messages    Message[]
+  favorites   Favorite[]
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -155,6 +157,19 @@ model PageView {
   geoData   String
   user      User? @relation(fields: [userId], references: [id])
   userId    String?
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Favorite {
+  id       String   @id @default(uuid()) @unique
+
+  user     User @relation(fields: [userId], references: [id])
+  userId   String
+
+  post     Post @relation(fields: [postId], references: [id])
+  postId   String
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
