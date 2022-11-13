@@ -6,6 +6,8 @@ import ImpressionTicker from "../ImpressionTicker/ImpressionTicker";
 import { DateTime } from "luxon";
 
 import { ContentInformationProps } from "./ContentInformation.d";
+import ProfileLink from "../ProfileLink/ProfileLink";
+import PostInteraction from "../PostInteraction/PostInteraction";
 
 const ContentInformation: React.FC<ContentInformationProps> = ({
   ref = null,
@@ -16,8 +18,7 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
 }) => {
   const clickHandler = (e: MouseEvent) => onClick(e);
   const displayDate = DateTime.fromISO(post?.createdAt).toUTC().toFormat("DDD");
-  const prrofileSEOStatement =
-    post?.creator?.chosenUsername + " on CommonPlace";
+  const profileSEOStatement = post?.creator?.chosenUsername + " on CommonPlace";
 
   // const { imageUrl: profileImageUrl } = useImageUrl(
   //   post?.creator?.profileImage,
@@ -31,57 +32,22 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
   return (
     <section className="contentInformation">
       <div className="contentInformationInner">
-        <h2 className="contentTitle">{post?.title}</h2>
+        <div className="contentHeader">
+          <h2 className="contentTitle">{post?.title}</h2>
+          <PostInteraction />
+        </div>
 
         {queue && post?.impressions.length > 0 ? (
           <ImpressionTicker impressions={post?.impressions} />
         ) : (
-          <></>
+          <>
+            <div className="tickerSpacer"></div>
+          </>
         )}
 
         <div className="separator"></div>
 
-        {post?.creator !== null ? (
-          <Link href={`/co/${post?.creator?.chosenUsername}`}>
-            <div className="contentAuthor">
-              <div className="contentAuthorInner">
-                <div className="authorProfileImage">
-                  <ProfileAvatar
-                    alt={prrofileSEOStatement}
-                    title={prrofileSEOStatement}
-                    src={post?.creator?.profileImage}
-                    urlOptions={{
-                      fit: "cover",
-                      width: 100,
-                      height: 100,
-                    }}
-                  />
-                  {/* <img
-                    alt={prrofileSEOStatement}
-                    title={prrofileSEOStatement}
-                    src={profileImageUrl}
-                  /> */}
-                </div>
-                <div className="authorInformationWrapper">
-                  <div className="authorInformation">
-                    <span className="authorAttribution">
-                      {post?.creator?.chosenUsername}
-                    </span>
-                    {post?.creator?.posts?.length > 0 ? (
-                      <span className="authorCreationCount">
-                        {post?.creator?.posts?.length} Creations
-                      </span>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Link>
-        ) : (
-          <></>
-        )}
+        <ProfileLink post={post} profileSEOStatement={profileSEOStatement} />
 
         <div className="separator"></div>
 

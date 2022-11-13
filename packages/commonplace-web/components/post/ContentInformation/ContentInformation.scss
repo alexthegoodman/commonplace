@@ -12,6 +12,10 @@
     //   // margin: 15px 0;
     // }
 
+    .contentHeader {
+      display: flex;
+      flex-direction: row;
+    }
     .contentTitle {
       font-size: 24px;
       line-height: 28px;

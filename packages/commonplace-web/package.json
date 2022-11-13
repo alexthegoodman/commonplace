@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npx concurrently \"gulp\" \"next dev\"",
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",
@@ -25,6 +25,7 @@
     "@typescript-eslint/parser": "^5.26.0",
     "aws-crt": "^1.14.1",
     "commonplace-utilities": "0.0.8",
+    "concurrently": "^7.5.0",
     "esbuild": "^0.14.47",
     "feather-webfont": "^4.22.3",
     "framer": "^2.1.2",

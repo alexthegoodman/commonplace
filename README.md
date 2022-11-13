@@ -14,6 +14,25 @@ CommonPlace is a social media app where users can connect over their hobbies. Us
 - commonplace-web - User Web Application (React, Next.js)
 - CommonPlaceMobile - User Mobile Application (React Native)
 
+## Startup
+
+### Prerequisites
+
+- Install and initialize Docker, Postgres
+
+Local Postgres database lives outside Docker container just as it does on production.
+
+### Database Prepation
+
+- `cd packages/commonplace-api`
+- `npm i`
+- `npm run db:seed`
+
+### Initialize
+
+- `cd ../..`
+- `npm run dev` to start docker-compose
+
 ## Deployment
 
 See `buildspec.yml` for AWS CodeBuild configuration
