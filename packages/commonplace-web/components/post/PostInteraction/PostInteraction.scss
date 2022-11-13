@@ -1,10 +1,29 @@
 .postInteraction {
+  //   padding-top: 20px;
+  margin-left: 15px;
+
   .postInteractionInner {
+    display: flex;
+    flex-direction: row;
+
     .interaction {
       text-decoration: none;
+      margin-right: 10px;
+      background: #e5e5e5;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
 
       i {
         color: black;
+        font-size: 32px;
       }
     }
   }

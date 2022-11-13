@@ -12,10 +12,10 @@ const PostInteraction: React.FC<PostInteractionProps> = ({
     <div className="postInteraction">
       <div className="postInteractionInner">
         <a href="#!" className="interaction">
-          <i className="typcn typcn-heart"></i>
+          <i className="typcn typcn-heart-outline"></i>
         </a>
         <a href="#!" className="interaction">
-          <i className="typcn typcn-export"></i>
+          <i className="typcn typcn-export-outline"></i>
         </a>
       </div>
     </div>
