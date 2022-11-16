@@ -53,6 +53,7 @@
     "next-seo": "^5.4.0",
     "next-sitemap": "^3.0.5",
     "next-ssl-redirect-middleware": "^0.1.4",
+    "nextjs-google-analytics": "^2.2.0",
     "prop-types": "^15.8.1",
     "react": "18.1.0",
     "react-cookie": "^4.1.1",
