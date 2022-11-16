@@ -15,18 +15,23 @@ export const publicPostFields = {
 };
 
 const favoritedByCurrentUserResolver = async (post, __, context: Context) => {
-  const favorite = await context.prisma.favorite.findFirst({
-    where: {
-      post: {
-        id: post.id as string,
+  if (context.currentUser && typeof context.currentUser !== "undefined") {
+    const favorite = await context.prisma.favorite.findFirst({
+      where: {
+        post: {
+          id: post.id as string,
+        },
+        user: {
+          id: context.currentUser.id,
+        },
       },
-      user: {
-        id: context.currentUser.id,
-      },
-    },
-  });
-  const favorited = favorite && typeof favorite !== "undefined" ? true : false;
-  return favorited;
+    });
+    const favorited =
+      favorite && typeof favorite !== "undefined" ? true : false;
+    return favorited;
+  } else {
+    return false;
+  }
 };
 
 export const PublicPostType = objectType({

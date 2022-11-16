@@ -68,8 +68,6 @@ const PublicPostFieldsFragment = gql`
     contentPreview
     content
 
-    favoritedByCurrentUser
-
     interest {
       name
       generatedInterestSlug
@@ -113,6 +111,7 @@ export const postByPostTitleQuery = gql`
   query getPostByPostTitle($postTitle: String!) {
     getPostByPostTitle(postTitle: $postTitle) {
       ...PublicPostFieldsFragment
+      favoritedByCurrentUser
     }
   }
   ${PublicPostFieldsFragment}

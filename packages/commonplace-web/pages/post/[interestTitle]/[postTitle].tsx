@@ -18,9 +18,14 @@ import { useRouterBack } from "../../../hooks/useRouterBack";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18nextConfig from "../../../next-i18next.config";
 import Utilities from "commonplace-utilities/lib";
+import graphClient from "../../../helpers/GQLClient";
+import { useCookies } from "react-cookie";
 
-const getPostAndUserData = async (postTitle) => {
-  const postData = await request(cpGraphqlUrl, postByPostTitleQuery, {
+const getPostAndUserData = async (token, postTitle) => {
+  console.info("getPostAndUserData", token);
+  graphClient.setupClient(token);
+
+  const postData = await graphClient.client.request(postByPostTitleQuery, {
     postTitle,
   });
 
@@ -28,7 +33,7 @@ const getPostAndUserData = async (postTitle) => {
   //   postTitle,
   // });
 
-  const userData = await request(cpGraphqlUrl, userByPostTitleQuery, {
+  const userData = await graphClient.client.request(userByPostTitleQuery, {
     postTitle,
   });
 
@@ -110,8 +115,11 @@ const PostDataWrapper = () => {
   const router = useRouter();
   const { interestTitle, postTitle } = router.query;
 
+  const [cookies] = useCookies(["coUserToken"]);
+  const token = cookies.coUserToken;
+
   const { data } = useSWR("postKey" + postTitle, () =>
-    getPostAndUserData(postTitle)
+    getPostAndUserData(token, postTitle)
   );
 
   // console.info("PostDataWrapper", data);
@@ -132,9 +140,10 @@ const Post: NextPage<{ fallback: any }> = ({ fallback }) => {
 export async function getServerSideProps(context) {
   const utilities = new Utilities();
   const cookieData = utilities.helpers.parseCookie(context.req.headers.cookie);
+  const token = cookieData.coUserToken;
 
   const { interestTitle, postTitle } = context.query;
-  const postAndUserData = await getPostAndUserData(postTitle);
+  const postAndUserData = await getPostAndUserData(token, postTitle);
 
   // console.info("Post postAndUserData", query, postAndUserData);
 
