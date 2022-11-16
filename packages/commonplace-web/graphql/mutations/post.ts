@@ -64,3 +64,9 @@ export const deletePostMutation = gql`
     deletePost(postTitleSlug: $postTitleSlug)
   }
 `;
+
+export const toggleFavoriteMutation = gql`
+  mutation ToggleFavorite($postId: String!) {
+    toggleFavorite(postId: $postId)
+  }
+`;

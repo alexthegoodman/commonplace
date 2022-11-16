@@ -43,6 +43,7 @@ export const queuePostsQuery = gql`
   query GetQueuePosts($interestId: String) {
     getQueuePosts(interestId: $interestId) {
       ...PostFieldsFragment
+      favoritedByCurrentUser
     }
   }
   ${PostFieldsFragment}
@@ -66,6 +67,8 @@ const PublicPostFieldsFragment = gql`
     contentType
     contentPreview
     content
+
+    favoritedByCurrentUser
 
     interest {
       name

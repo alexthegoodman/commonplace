@@ -34,7 +34,7 @@ const ContentInformation: React.FC<ContentInformationProps> = ({
       <div className="contentInformationInner">
         <div className="contentHeader">
           <h2 className="contentTitle">{post?.title}</h2>
-          <PostInteraction />
+          <PostInteraction post={post} />
         </div>
 
         {queue && post?.impressions.length > 0 ? (

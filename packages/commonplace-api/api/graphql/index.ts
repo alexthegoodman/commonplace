@@ -22,6 +22,7 @@ export * from "./mutations/deletePost";
 export * from "./mutations/deletePostAdmin";
 export * from "./mutations/deleteUserAdmin";
 export * from "./mutations/registerUser";
+export * from "./mutations/toggleFavorite";
 export * from "./mutations/updatePost";
 export * from "./mutations/updateProfile";
 export * from "./mutations/updateUserLanguage";

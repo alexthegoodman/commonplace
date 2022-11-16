@@ -14,6 +14,21 @@ export const publicPostFields = {
   createdAt: true,
 };
 
+const favoritedByCurrentUserResolver = async (post, __, context: Context) => {
+  const favorite = await context.prisma.favorite.findFirst({
+    where: {
+      post: {
+        id: post.id as string,
+      },
+      user: {
+        id: context.currentUser.id,
+      },
+    },
+  });
+  const favorited = favorite && typeof favorite !== "undefined" ? true : false;
+  return favorited;
+};
+
 export const PublicPostType = objectType({
   name: "PublicPost",
   definition(t) {
@@ -56,6 +71,11 @@ export const PublicPostType = objectType({
           },
         });
       },
+    });
+
+    t.field("favoritedByCurrentUser", {
+      type: "Boolean",
+      resolve: favoritedByCurrentUserResolver,
     });
 
     t.field("updatedAt", { type: "DateTime" });
@@ -122,6 +142,11 @@ export const PostType = objectType({
           },
         });
       },
+    });
+
+    t.field("favoritedByCurrentUser", {
+      type: "Boolean",
+      resolve: favoritedByCurrentUserResolver,
     });
 
     t.field("updatedAt", {

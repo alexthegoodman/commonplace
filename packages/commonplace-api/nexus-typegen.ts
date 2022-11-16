@@ -230,6 +230,7 @@ export interface NexusGenFieldTypes {
     deletePostAdmin: string; // String!
     deleteUserAdmin: string; // String!
     registerUser: string; // String!
+    toggleFavorite: string; // String!
     updateFavoriteInterest: string; // String!
     updatePost: NexusGenRootTypes['Post']; // Post!
     updateProfile: string; // String!
@@ -250,6 +251,7 @@ export interface NexusGenFieldTypes {
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     creator: NexusGenRootTypes['PublicUser'] | null; // PublicUser
     description: string | null; // String
+    favoritedByCurrentUser: boolean | null; // Boolean
     generatedTitleSlug: string | null; // String
     id: string | null; // String
     impressions: Array<NexusGenRootTypes['Message'] | null> | null; // [Message]
@@ -263,6 +265,7 @@ export interface NexusGenFieldTypes {
     contentType: string | null; // String
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     description: string | null; // String
+    favoritedByCurrentUser: boolean | null; // Boolean
     generatedTitleSlug: string | null; // String
     id: string | null; // String
     impressions: Array<NexusGenRootTypes['Message'] | null> | null; // [Message]
@@ -393,6 +396,7 @@ export interface NexusGenFieldTypeNames {
     deletePostAdmin: 'String'
     deleteUserAdmin: 'String'
     registerUser: 'String'
+    toggleFavorite: 'String'
     updateFavoriteInterest: 'String'
     updatePost: 'Post'
     updateProfile: 'String'
@@ -413,6 +417,7 @@ export interface NexusGenFieldTypeNames {
     createdAt: 'DateTime'
     creator: 'PublicUser'
     description: 'String'
+    favoritedByCurrentUser: 'Boolean'
     generatedTitleSlug: 'String'
     id: 'String'
     impressions: 'Message'
@@ -426,6 +431,7 @@ export interface NexusGenFieldTypeNames {
     contentType: 'String'
     createdAt: 'DateTime'
     description: 'String'
+    favoritedByCurrentUser: 'Boolean'
     generatedTitleSlug: 'String'
     id: 'String'
     impressions: 'Message'
@@ -532,6 +538,9 @@ export interface NexusGenArgTypes {
     }
     deleteUserAdmin: { // args
       generatedUsername: string; // String!
+    }
+    toggleFavorite: { // args
+      postId: string; // String!
     }
     updateFavoriteInterest: { // args
       interestId: string; // String!
