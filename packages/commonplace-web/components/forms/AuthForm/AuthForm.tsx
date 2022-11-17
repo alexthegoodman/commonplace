@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
-import mixpanel from "mixpanel-browser";
 import { cpDomain, cpGraphqlUrl } from "../../../def/urls";
 const { DateTime } = require("luxon");
 // import LogRocket from "logrocket";
@@ -17,6 +16,7 @@ import Utilities from "commonplace-utilities/lib";
 import { registerMutation } from "../../../graphql/mutations/user";
 import { CookieSettings } from "../../../pages/settings";
 import { useTranslation } from "next-i18next";
+import MixpanelBrowser from "../../../helpers/MixpanelBrowser";
 
 const AuthForm: React.FC<AuthFormProps> = ({
   ref = null,
@@ -27,6 +27,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const utilities = new Utilities();
+  const mixpanel = new MixpanelBrowser();
 
   const router = useRouter();
 

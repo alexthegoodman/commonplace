@@ -21,8 +21,8 @@ import { GQLClient } from "commonplace-utilities/lib/GQLClient";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18NextConfig from "../next-i18next.config.js";
 import { useTranslation } from "next-i18next";
-import mixpanel from "mixpanel-browser";
 import graphClient from "../helpers/GQLClient";
+import MixpanelBrowser from "../helpers/MixpanelBrowser";
 
 const getUserData = async (token) => {
   const gqlClient = graphClient.setupClient(token);
@@ -36,6 +36,8 @@ const UploadContent = () => {
   const { t } = useTranslation();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
+
+  const mixpanel = new MixpanelBrowser();
 
   const gqlClient = graphClient.setupClient(token);
 

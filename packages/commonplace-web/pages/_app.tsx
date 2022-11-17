@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import Script from "next/script";
 import { useEffect } from "react";
-import mixpanel from "mixpanel-browser";
 import { createPageViewMutation } from "../graphql/mutations/pageview";
 import { GQLClient } from "commonplace-utilities/lib/GQLClient";
 // import * as FullStory from "@fullstory/browser";
@@ -14,16 +13,7 @@ import { useCookies } from "react-cookie";
 import graphClient from "../helpers/GQLClient";
 import { GoogleAnalytics, usePagesViews } from "nextjs-google-analytics";
 
-const isDevelopment = process.env.NEXT_PUBLIC_APP_ENV === "development";
-mixpanel.init("0257a00f77cd9b500e88e34f96b2e991", { debug: isDevelopment });
-
 // LogRocket.init("binhki/commonplace-dev");
-
-// if (isDevelopment) {
-//   mixpanel.opt_out_tracking();
-// } else {
-//   mixpanel.opt_in_tracking();
-// }
 
 var tracked = false;
 var hotjarInitialized = false;

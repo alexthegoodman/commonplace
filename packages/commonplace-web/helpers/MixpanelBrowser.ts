@@ -1,12 +1,12 @@
-const Mixpanel = require("mixpanel");
-export default class MixpanelClient {
+import mixpanel from "mixpanel-browser";
+
+export default class MixpanelBrowser {
   public isDevelopment;
-  public mixpanel;
 
   constructor() {
-    this.isDevelopment = process.env.NODE_ENV === "development";
+    this.isDevelopment = process.env.NEXT_PUBLIC_APP_ENV === "development";
 
-    this.mixpanel = Mixpanel.init("0257a00f77cd9b500e88e34f96b2e991", {
+    mixpanel.init("0257a00f77cd9b500e88e34f96b2e991", {
       debug: this.isDevelopment,
     });
 
@@ -18,10 +18,9 @@ export default class MixpanelClient {
   }
 
   track(name: string, data?: any) {
-    // TODO: or disable tracking in dev altogether
     const sendName = this.isDevelopment ? "DEV - " + name : name;
 
-    this.mixpanel.track(sendName, {
+    mixpanel.track(sendName, {
       ...data,
       isDevelopment: this.isDevelopment,
     });

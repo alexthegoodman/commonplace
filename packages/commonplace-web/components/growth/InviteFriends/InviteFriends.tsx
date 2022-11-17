@@ -1,9 +1,9 @@
 import Image from "next/image";
 import * as React from "react";
-import mixpanel from "mixpanel-browser";
 
 import { InviteFriendsProps } from "./InviteFriends.d";
 import { useTranslation } from "next-i18next";
+import MixpanelBrowser from "../../../helpers/MixpanelBrowser";
 
 const InviteFriends: React.FC<InviteFriendsProps> = ({
   ref = null,
@@ -11,6 +11,7 @@ const InviteFriends: React.FC<InviteFriendsProps> = ({
   onClick = (e) => console.info("Click InviteFriends"),
 }) => {
   const { t } = useTranslation();
+  const mixpanel = new MixpanelBrowser();
 
   const shareToFacebook = () => {
     mixpanel.track("Invite via Facebook");
