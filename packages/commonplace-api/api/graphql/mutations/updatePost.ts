@@ -39,7 +39,7 @@ export const UpdatePostMutation = extendType({
           },
         });
 
-        mixpanel.track("Post Updated");
+        mixpanel.track("Post Updated", { post });
 
         console.info("Updated post", post);
 

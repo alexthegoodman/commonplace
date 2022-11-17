@@ -59,7 +59,7 @@ export const AuthenticateQuery = extendType({
 
         // TODO: set secure cookie tied to origin
 
-        mixpanel.track("Sign In - Complete");
+        mixpanel.track("Sign In - Complete", { user });
 
         const data = {
           userId: user.id,

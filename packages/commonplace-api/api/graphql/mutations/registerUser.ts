@@ -70,7 +70,7 @@ export const RegisterUserMutation = extendType({
         // TODO: encrypt with JWT
         // TODO: set secure cookie tied to origin
 
-        mixpanel.track("Sign Up - Complete");
+        mixpanel.track("Sign Up - Complete", { user });
 
         const data = {
           userId: user.id,

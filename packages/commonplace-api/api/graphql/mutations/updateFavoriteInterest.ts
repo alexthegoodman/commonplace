@@ -21,7 +21,12 @@ export const UpdateFavoriteInterestMutation = extendType({
           data: {
             favoriteInterestId: interestId,
           },
+          include: {
+            favoriteInterest: true,
+          },
         });
+
+        mixpanel.track("Favorite Interest Updated", { updatedUser });
 
         return updatedUser?.id;
       },

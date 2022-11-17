@@ -54,7 +54,7 @@ export const ToggleFavoriteMutation = extendType({
           });
         }
 
-        console.info("Toggled favorite", currentFavorite);
+        console.info("Toggled Favorite", currentFavorite);
 
         mixpanel.track("Toggled Favorite", { currentFavorite });
 

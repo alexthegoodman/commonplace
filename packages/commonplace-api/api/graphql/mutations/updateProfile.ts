@@ -84,6 +84,8 @@ export const UpdateProfileMutation = extendType({
           },
         });
 
+        mixpanel.track("Profile Updated", { updatedUser });
+
         return updatedUser?.id;
       },
     });

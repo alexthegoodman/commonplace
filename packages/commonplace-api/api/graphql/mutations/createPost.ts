@@ -166,7 +166,7 @@ export const CreatePostMutation = extendType({
           interest?.posts?.length
         );
 
-        mixpanel.track("Post Created");
+        mixpanel.track("Post Created", { post });
 
         console.info("Created post", post);
 

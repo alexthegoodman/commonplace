@@ -33,7 +33,7 @@ export const DeletePostMutation = extendType({
           },
         });
 
-        mixpanel.track("Post Deleted");
+        mixpanel.track("Post Deleted", { post });
 
         console.info("Deleted post", post);
 

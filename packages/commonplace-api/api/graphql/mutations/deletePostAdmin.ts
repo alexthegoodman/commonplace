@@ -22,7 +22,7 @@ export const DeletePostAdminMutation = extendType({
           },
         });
 
-        mixpanel.track("Post Deleted");
+        mixpanel.track("Post Deleted by Admin", { post });
 
         console.info("Deleted post", post);
 

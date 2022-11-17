@@ -38,7 +38,7 @@ export const DeleteUserAdminMutation = extendType({
           },
         });
 
-        mixpanel.track("User Deleted", { user });
+        mixpanel.track("User Deleted by Admin", { user });
 
         console.info("Deleted user", user);
 

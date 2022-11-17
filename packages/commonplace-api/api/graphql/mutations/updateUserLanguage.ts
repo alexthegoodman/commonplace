@@ -23,6 +23,8 @@ export const UpdateUserLanguageMutation = extendType({
           },
         });
 
+        mixpanel.track("User Language Updated", { updatedUser });
+
         return updatedUser?.id;
       },
     });
