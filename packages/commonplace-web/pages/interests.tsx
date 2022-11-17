@@ -40,8 +40,13 @@ const popularInterestList = [
 ];
 
 export const PopularInterests = ({
+  title = "",
   onBack,
-  onConfirm = () => console.info("confirm"),
+  onConfirm = (cat, int) => console.info("confirm", cat, int),
+}: {
+  title: string;
+  onBack?: () => void;
+  onConfirm: (cat, int) => void;
 }) => {
   const { t } = useTranslation();
   const [cookies, setCookie] = useCookies(["coUserToken", "coFavInt"]);
@@ -67,15 +72,19 @@ export const PopularInterests = ({
   };
 
   const selectInterest = async (interestId) => {
-    await graphClient.client.request(updateFavoriteInterestMutation, {
-      interestId,
-    });
+    const displayCategory = data?.getCategories?.filter((category, i) => {
+      return category.interests.filter((interest, i) => {
+        return interest.id === interestId;
+      })[0];
+    })[0];
 
-    setCookie("coFavInt", interestId);
+    const displayInterests = displayCategory?.interests;
 
-    onConfirm();
+    const displayInterest = displayInterests?.filter((interest, i) => {
+      return interest.id === interestId;
+    })[0];
 
-    location.reload();
+    onConfirm(displayCategory, displayInterest);
   };
 
   return (
@@ -88,7 +97,7 @@ export const PopularInterests = ({
               <i className="typcn typcn-arrow-left"></i>
             </a>
           }
-          title={t("interests:ui.pickFavoriteInterest")}
+          title={title}
           rightIcon={<></>}
         />
         <section className="interestSelector">

@@ -17,11 +17,11 @@ const PostInteraction: React.FC<PostInteractionProps> = ({
 
   const [favorited, setFavorited] = React.useState(false);
 
-  console.info("PostInteraction", post.favoritedByCurrentUser);
+  console.info("PostInteraction", post?.favoritedByCurrentUser);
 
   React.useEffect(() => {
-    setFavorited(post.favoritedByCurrentUser);
-  }, [post.favoritedByCurrentUser]);
+    setFavorited(post?.favoritedByCurrentUser);
+  }, [post?.favoritedByCurrentUser]);
 
   const toggleFavorite = async () => {
     console.info("toggleFavorite", post.id);

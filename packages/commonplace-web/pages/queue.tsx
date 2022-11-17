@@ -39,6 +39,7 @@ import { categoriesAndInterestsQuery } from "../graphql/queries/interest";
 
 import { GraphQLClient } from "graphql-request";
 import graphClient from "../helpers/GQLClient";
+import { updateFavoriteInterestMutation } from "../graphql/mutations/user";
 // import { cpGraphqlUrl } from "./def/urls";
 
 const getPostsAndUserData = async (token, interestId = null) => {
@@ -85,7 +86,7 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
   const { t } = useTranslation();
   const router = useRouter();
   const { cache } = useSWRConfig();
-  const [cookies] = useCookies(["coUserToken"]);
+  const [cookies, setCookie] = useCookies(["coUserToken", "coFavInt"]);
   const token = cookies.coUserToken;
 
   const gqlClient = graphClient.setupClient(token);
@@ -379,13 +380,19 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
 
     setShowInterestsModal(false);
     setSelectedInterest(interest);
-    mutate(() => getPostsAndUserData(token, selectedInterest?.id)); // refresh swrr
 
-    // await postAnimation.start((i) => ({
-    //   opacity: 1,
-    //   y: 0,
-    //   transition: { duration: 0.5 },
-    // }));
+    await mutate(() => getPostsAndUserData(token, interest?.id)); // refresh swrr
+
+    await postAnimation.start((i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 },
+    }));
+
+    await queueAnimation.start((i) => ({
+      opacity: 1,
+      y: 0,
+    }));
 
     // TODO: set selectedInterest as cookie?
     // need to refresh data with new interest
@@ -433,7 +440,12 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
           }}
         >
           {/* <NextSeo title={`Select Interest | CommonPlace`} /> */}
-          <InterestsContent
+          {/* <InterestsContent
+            onBack={onCloseInterests}
+            onConfirm={onConfirmInterest}
+          /> */}
+          <PopularInterests
+            title="Pick Interest"
             onBack={onCloseInterests}
             onConfirm={onConfirmInterest}
           />
@@ -462,7 +474,18 @@ const QueueContent = ({ coUserLng, coFavInt, favoriteInterest }) => {
           }}
         >
           {/* <NextSeo title={`Choose Favorite Interest | CommonPlace`} /> */}
-          <PopularInterests />
+          <PopularInterests
+            title={t("interests:ui.pickFavoriteInterest")}
+            onConfirm={async (category, interest) => {
+              await graphClient.client.request(updateFavoriteInterestMutation, {
+                interestId: interest.id,
+              });
+
+              setCookie("coFavInt", interest.id);
+
+              location.reload();
+            }}
+          />
         </section>
       ) : (
         <></>
