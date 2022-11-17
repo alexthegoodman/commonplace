@@ -1,10 +1,9 @@
 import { PrismaClient, User } from "@prisma/client";
 import { Request } from "express";
-import { Mixpanel } from "mixpanel";
-import { setupMixpanel } from "../mixpanel";
+import Mixpanel from "../mixpanel";
 
 const prisma = new PrismaClient();
-const mixpanel = setupMixpanel();
+const mixpanel = new Mixpanel();
 
 export interface Context {
   prisma: PrismaClient;
