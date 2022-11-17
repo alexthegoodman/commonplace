@@ -6,6 +6,7 @@ import { RWebShare } from "react-web-share";
 
 import { PostInteractionProps } from "./PostInteraction.d";
 import Strings from "../../../helpers/Strings";
+import MixpanelBrowser from "../../../helpers/MixpanelBrowser";
 
 const PostInteraction: React.FC<PostInteractionProps> = ({
   ref = null,
@@ -13,6 +14,7 @@ const PostInteraction: React.FC<PostInteractionProps> = ({
   onClick = (e) => console.info("Click PostInteraction"),
   post = null,
 }) => {
+  const mixpanel = new MixpanelBrowser();
   const strings = new Strings();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
@@ -58,7 +60,7 @@ const PostInteraction: React.FC<PostInteractionProps> = ({
             url: postUrl,
             title: "Share " + post?.title,
           }}
-          onClick={() => console.log("shared successfully!")}
+          onClick={() => mixpanel.track("Post Shared", { post })}
         >
           <a href="#!" className="interaction">
             <i className="typcn typcn-export-outline"></i>
