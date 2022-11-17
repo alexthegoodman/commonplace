@@ -1,3 +1,4 @@
+import { cpDomainwp, protocol } from "../def/urls";
 export default class Strings {
   constructor() {}
 
@@ -7,7 +8,7 @@ export default class Strings {
     let slug2 = post?.generatedTitleSlug;
     // slug2 = typeof slug2 !== "undefined" ? slug2.toLowerCase() : slug2;
 
-    const postUrl = "/post/" + slug1 + "/" + slug2;
+    const postUrl = protocol + cpDomainwp + "/post/" + slug1 + "/" + slug2;
 
     return postUrl;
   }

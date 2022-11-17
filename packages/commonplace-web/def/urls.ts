@@ -1,5 +1,7 @@
 export const env = process.env.NEXT_PUBLIC_APP_ENV;
 
+export const protocol = env === "production" ? "https://" : "http://";
+
 export const cookieDomain =
   env === "production" ? "commonplace.social" : "localhost";
 
