@@ -19,6 +19,7 @@ const PostFieldsFragment = gql`
     }
     interest {
       name
+      generatedInterestSlug
     }
     impressions {
       id

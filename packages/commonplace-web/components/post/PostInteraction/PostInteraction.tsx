@@ -2,8 +2,10 @@ import * as React from "react";
 import { useCookies } from "react-cookie";
 import { toggleFavoriteMutation } from "../../../graphql/mutations/post";
 import graphClient from "../../../helpers/GQLClient";
+import { RWebShare } from "react-web-share";
 
 import { PostInteractionProps } from "./PostInteraction.d";
+import Strings from "../../../helpers/Strings";
 
 const PostInteraction: React.FC<PostInteractionProps> = ({
   ref = null,
@@ -11,6 +13,7 @@ const PostInteraction: React.FC<PostInteractionProps> = ({
   onClick = (e) => console.info("Click PostInteraction"),
   post = null,
 }) => {
+  const strings = new Strings();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
   const gqlClient = graphClient.setupClient(token);
@@ -37,6 +40,8 @@ const PostInteraction: React.FC<PostInteractionProps> = ({
     }
   };
 
+  const postUrl = strings.getPostUrl(post);
+
   return (
     <div className="postInteraction">
       <div className="postInteractionInner">
@@ -47,9 +52,18 @@ const PostInteraction: React.FC<PostInteractionProps> = ({
         >
           <i className="typcn typcn-heart-outline"></i>
         </a>
-        <a href="#!" className="interaction">
-          <i className="typcn typcn-export-outline"></i>
-        </a>
+        <RWebShare
+          data={{
+            text: `Check out ${post?.title} on CommonPlace!`,
+            url: postUrl,
+            title: "Share " + post?.title,
+          }}
+          onClick={() => console.log("shared successfully!")}
+        >
+          <a href="#!" className="interaction">
+            <i className="typcn typcn-export-outline"></i>
+          </a>
+        </RWebShare>
       </div>
     </div>
   );

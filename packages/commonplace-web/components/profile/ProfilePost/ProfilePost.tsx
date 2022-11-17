@@ -10,6 +10,7 @@ import ContentViewer from "../../post/ContentViewer/ContentViewer";
 import PopupModal from "../../utility/PopupModal/PopupModal";
 
 import { ProfilePostProps } from "./ProfilePost.d";
+import Strings from "../../../helpers/Strings";
 
 const ProfilePost: React.FC<ProfilePostProps> = ({
   ref = null,
@@ -20,6 +21,7 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
   usersOwnProfile = false,
   mutate = null,
 }) => {
+  const strings = new Strings();
   const [cookies] = useCookies(["coUserToken"]);
   const token = cookies.coUserToken;
 
@@ -30,13 +32,7 @@ const ProfilePost: React.FC<ProfilePostProps> = ({
 
   const displayDate = DateTime.fromISO(post?.createdAt).toFormat("D");
   const contentSEOStatement = `${post?.title} Post in ${post?.interest?.name} Interest - Created by ${creator.chosenUsername} - ${displayDate}`;
-  const postUrl =
-    "http://" +
-    cpDomainwp +
-    "/post/" +
-    post?.interest?.generatedInterestSlug +
-    "/" +
-    post?.generatedTitleSlug;
+  const postUrl = strings.getPostUrl(post);
 
   const deletePost = async () => {
     await graphClient.client.request(deletePostMutation, {
