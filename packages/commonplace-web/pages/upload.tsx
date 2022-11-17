@@ -89,7 +89,7 @@ const UploadContent = () => {
         createdPost.createPost.generatedTitleSlug
       );
 
-      mixpanel.track("Post Created", createdPost);
+      mixpanel.track("Post Created", { createdPost });
 
       router.push(
         `/post/${createdPost.createPost.interest?.generatedInterestSlug}/${createdPost.createPost.generatedTitleSlug}/?backPath=/profile/`

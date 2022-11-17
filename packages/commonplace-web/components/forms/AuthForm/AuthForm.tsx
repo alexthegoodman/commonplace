@@ -56,7 +56,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
       );
 
       if (type === "sign-in") {
-        mixpanel.track("Sign In - Attempt");
+        mixpanel.track("Sign In - Attempt", { email: data.email });
 
         userIdData = await request(
           cpGraphqlUrl,
@@ -69,7 +69,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
         token = userIdData.authenticate;
       } else if (type === "sign-up") {
-        mixpanel.track("Sign Up - Attempt");
+        mixpanel.track("Sign Up - Attempt", { email: data.email });
 
         userIdData = await request(
           cpGraphqlUrl,
