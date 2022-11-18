@@ -3,6 +3,8 @@
 FROM node:14.20.0
 ENV NODE_ENV=production
 
+ARG DATABASE_URL
+
 WORKDIR /app
 
 RUN apt-get -qy update && \
