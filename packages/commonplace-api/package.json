@@ -20,6 +20,7 @@
     "test": "echo \"Error: run tests from root\" && exit 1",
     "generate": "prisma generate",
     "migrate": "prisma migrate dev",
+    "prod:migrate": "prisma migrate deploy",
     "db:clean": "ts-node seed/clean",
     "db:seed": "ts-node seed"
   },
