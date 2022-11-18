@@ -11,7 +11,7 @@ import { appWithTranslation } from "next-i18next";
 import nextI18NextConfig from "../next-i18next.config.js";
 import { useCookies } from "react-cookie";
 import graphClient from "../helpers/GQLClient";
-import { GoogleAnalytics, usePagesViews } from "nextjs-google-analytics";
+import { GoogleAnalytics, usePageViews } from "nextjs-google-analytics";
 
 // LogRocket.init("binhki/commonplace-dev");
 
@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [cookies] = useCookies(["coUserToken"]);
   const gqlClient = graphClient.setupClient(cookies["coUserToken"]);
 
-  usePagesViews();
+  usePageViews();
 
   const createPageView = async () => {
     await graphClient.client.request(createPageViewMutation, {
